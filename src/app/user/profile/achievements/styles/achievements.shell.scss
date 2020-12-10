@@ -1,0 +1,25 @@
+app-image-shell.user-image {
+    --image-shell-border-radius: 50%;
+  }
+  
+  .user-name > app-text-shell {
+    --text-shell-line-height: 20px;
+    max-width: 50%;
+  
+    &.text-loaded {
+      max-width: unset;
+    }
+  }
+  
+  .user-title > app-text-shell {
+    --text-shell-line-height: 16px;
+    max-width: 70%;
+  
+    &.text-loaded {
+      max-width: unset;
+    }
+  }
+  
+  app-image-shell.achievement-icon{
+    --image-shell-border-radius: 50%;
+  }

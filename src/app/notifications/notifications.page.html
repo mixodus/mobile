@@ -1,0 +1,77 @@
+<ion-header class="notification-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Notifikasi
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="notification-content">
+    <div *ngIf="!notif?.isShell && countData > 0">
+        <div class="notification-container" *ngFor="let notification of notifToday"
+             (click)="goTo(notification.notif_type_id, notification.notif_detail_id, notification.notif_id)">
+            <div class="notification-container-1">
+                <div class="notification-container-1-1">
+                    <img class="image-notification" [src]="notification.image_icon" alt="">
+                </div>
+                <div class="notification-container-1-2">
+                    <div class="text-description">{{notification.description}}</div>
+
+                    <div *ngIf="notification.date_convert === false; else date">
+                        <div class="text-date">{{notification.date_past}}</div>
+                    </div>
+                    <ng-template #date>
+                        <div class="text-date">{{getDate(notification.date_past) | date: 'MMM d' }}</div>
+                    </ng-template>
+                </div>
+                <div class="notification-container-1-3" *ngIf="!notification.is_new">
+                    <div class="new"></div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngFor="let group of pastNotif">
+            <div class="text-group-date">{{group.key}}</div>
+
+            <div class="notification-container" *ngFor="let notification of group.value"
+                 (click)="goTo(notification.notif_type_id, notification.notif_detail_id, notification.notif_id)">
+                <div class="notification-container-1">
+                    <div class="notification-container-1-1">
+                        <img class="image-notification" [src]="notification.image_icon" alt="">
+                    </div>
+                    <div class="notification-container-1-2">
+                        <div class="text-description">{{notification.description}}</div>
+
+                        <div *ngIf="notification.date_convert === false; else date">
+                            <div class="text-date">{{notification.date_past}}</div>
+                        </div>
+                        <ng-template #date>
+                            <div class="text-date">{{getDate(notification.date_past) | date: 'MMM d' }}</div>
+                        </ng-template>
+                    </div>
+                    <div class="notification-container-1-3" *ngIf="notification.is_new === false">
+                        <div class="new"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ion-infinite-scroll threshold="10%" position="bottom" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content style="--color: #fff;" loadingSpinner="bubbles"
+                                         loadingText="Memuat lebih banyak data...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
+
+    <ng-container *ngIf="!notif?.isShell && countData == 0">
+        <div class="no-data">
+            <img src="../../assets/new-assets/ilustrasi_notif.png" class="bell">
+            <div>
+                <h3>Belum ada notifikasi</h3>
+            </div>
+        </div>
+    </ng-container>
+</ion-content>

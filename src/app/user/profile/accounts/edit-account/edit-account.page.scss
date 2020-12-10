@@ -1,0 +1,47 @@
+:host{
+    --page-margin : var(--app-narrow-margin);
+}
+.edit-account-form{
+    padding: 10px;
+
+    .subsection-title{
+        font-size: 14px;
+        letter-spacing: 1px;
+        line-height: 1.6;
+    }
+    .input-item{
+        --padding-end: 0px;
+        --border-radius: var(--ion-border-radius);
+        --background: #ffffff;
+        --min-height: 30px;
+        --border-width: 1px;
+        margin-bottom: var(--item-margin);
+    }
+    .select-item{
+        box-sizing: content-box;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        --padding-top: 5.5px;
+        --padding-bottom: 5.5px;
+        font-size: 14px;
+        line-height: 19px;
+        background-color: #ffffff;
+        border-radius: var(--ion-border-radius);
+        margin-bottom: var(--item-margin);
+        max-height: 30px;
+
+        .select-option{
+        }
+    }
+    .save-btn{
+        margin: 0px;
+        --background: #ffffff;
+        --border-radius: 50px;
+        --border-color: #f23934;
+        --border-width: 1px;
+        --border-style: solid;
+        --color: #000000;
+        padding-top:15px;
+        box-sizing: content-box;
+    }
+}

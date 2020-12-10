@@ -1,0 +1,62 @@
+<ion-content>
+    <div class="container">
+        <div class="container-1">
+            <img class="logo-one" src="../../assets/images/icon.png">
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="doLogin()" autocomplete="off"
+                  (keyup.enter)="doLogin()">
+                <ion-list class="inputs-list">
+                    <span class="subsection-title">Email</span>
+                    <ion-item class="input-item">
+                        <ion-input class="input-class" type="email" placeholder="Email Anda" formControlName="email"
+                                   clearInput
+                                   autocapitalize="off" inputmode="email"></ion-input>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.email">
+                            <div class="error-message"
+                                 *ngIf="loginForm.get('email').hasError(validation.type) && isSubmitted">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <span class="subsection-title">Password</span>
+                    <ion-item class="input-item">
+                        <app-show-hide-password>
+                            <ion-input type="password" placeholder="Password Anda" formControlName="password"
+                                       class="input-class ion-invalid ng-invalid"></ion-input>
+                        </app-show-hide-password>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.password">
+                            <div class="error-message"
+                                 *ngIf="loginForm.get('password').hasError(validation.type) && isSubmitted">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="remember-me-forgot-password-wrapper">
+                        <div class="remember-me">
+                            <ion-checkbox class="remember-checkbox"
+                                          [(ngModel)]="remember"
+                                          [ngModelOptions]="{standalone: true}">
+                            </ion-checkbox>
+                            <ion-label class="remember-label">Ingat Saya</ion-label>
+                        </div>
+                        <a class="forgot-anchor" [routerLink]="['/auth/forgot-password']">Lupa Password ?</a>
+                    </div>
+
+                    <ion-button class="login-btn" type="submit">MASUK</ion-button>
+
+                    <p class="signup-text ion-text-center">Belum punya akun? <a class="signup-anchor" [routerLink]="['/auth/signup']"> Daftar</a>
+                    </p>
+                </ion-list>
+            </form>
+        </div>
+    </div>
+</ion-content>

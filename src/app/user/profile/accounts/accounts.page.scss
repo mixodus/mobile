@@ -1,0 +1,22 @@
+:host{
+    --page-margin: var(--app-narrow-margin);
+
+    --page-border-radius: var(--app-fair-radius);
+    --page-segment-background: var(--app-background);
+    --page-segment-indicator-height: 2px;
+}
+*{
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+.accounts-item{
+    margin: var(--page-margin);
+    background-color: #ffffff;
+    // border-top-left-radius: var(--ion-border-radius);
+    // border-bottom-right-radius: var(--ion-border-radius);
+    padding: 10px 0 10px;
+
+    .accounts-content{
+        padding-right: 35px;
+    }
+}

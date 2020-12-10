@@ -1,0 +1,186 @@
+:host {
+    --page-margin: var(--app-narrow-margin);
+    --page-border-radius: var(--app-fair-radius);
+    --page-actions-padding: 5px;
+    --page-friends-gutter: calc(var(--page-margin) / 2);
+    --page-pictures-gutter: calc(var(--page-margin) / 2);
+}
+.achievement-list-content {
+    height: 300vh;
+    font-family: var(--nunito-family);
+
+    .background {
+        background-image: url("/assets/new-assets/BG - Profil.png");
+        height: 100%;
+        width: 100vw;
+        background-size: cover;
+        background-position-x: center;
+
+        padding-bottom: 30px;
+        .bg {
+            --background: transparent;
+            color: #fff;
+
+            ion-title {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 16px;
+                font-family: var(--nunito-family);
+            }
+            ion-icon {
+                color: #ffffff;
+            }
+        }
+
+        .grid-background {
+            text-align: center;
+            color: #ffffff;
+
+            .user-details-section {
+                background: #ffffff;
+                border-radius: 50%;
+                display: inline-block;
+                padding: 1%;
+                width: 35%;
+                height: 35%;
+            }
+
+            .user-name {
+                padding-top: 2%;
+                font-size: 14px;
+                letter-spacing: 0.5px;
+                font-weight: bold;
+            }
+
+            .user-title {
+                padding-top: 1%;
+                font-size: 12px;
+                font-weight: lighter;
+                padding-bottom: 5%;
+            }
+
+            .achievements-button {
+                background: #ffffff;
+                border-radius: 50px;
+                border: none;
+                color: var(--idstar-primary);
+                width: 70%;
+                display: inline-block;
+                box-shadow: 1px 1px rgba(0, 0, 0, 0.13);
+                p {
+                    // text-align: center;
+                    // display: inline-flex;
+                    position: relative;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .container {
+            padding: 5%;
+            // padding-bottom: var(--page-margin);
+
+            .item:first-of-type {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            .item:last-of-type {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border: none;
+            }
+            .item {
+                font-family: var(--nunito-family);
+                border-radius: 0;
+                margin-inline-end: 0;
+                margin-inline-start: 0;
+                margin: 0;
+                padding: 10px;
+                color: var(--ion-color-dark-shade);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+                --background: var(--idstar-light);
+                --ion-grid-column-padding: 1px;
+
+                .image {
+                    background: #ffffff;
+                    border-radius: 50%;
+                    display: flex;
+                    width: 35%;
+                    height: 35%;
+                    position: relative;
+                    margin: auto;
+                    .achievement-icon {
+                        border-radius: 50%;
+                        padding: 5%;
+                        border: 1px solid rgba(0, 0, 0, 0.13);
+                    }
+                }
+
+                .detail {
+                    padding: 3%;
+                    font-size: 12px;
+                    line-height: 1.5;
+                    font-weight: 500;
+                    color: #fff;
+
+                    p {
+                        margin: 0;
+                    }
+                    .title {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                    .item-detail {
+                        // white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        line-height: 1em;
+                        height: 2em;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                    }
+                    .date{
+                        color: var(--idstar-challenge-color);
+                    }
+                    .read-more-state {
+                        display: none;
+                    }
+                    .read-more-wrap {
+                        font-size: 10px;
+                    }
+                    .read-more-target {
+                        opacity: 0;
+                        max-height: 0;
+                        font-size: 0;
+                        transition: 0.25s ease;
+                    }
+                    .read-more-state ~ .read-more-wrap {
+                        text-overflow: ellipsis;
+                    }
+                    .read-more-state:checked ~ .read-more-wrap .read-more-target {
+                        opacity: 1;
+                        font-size: inherit;
+                        max-height: 999em;
+                    }
+                    .read-more-state ~ .read-more-trigger:before {
+                        content: "see more";
+                    }
+                    .read-more-state:checked ~ .read-more-trigger:before {
+                        content: "see less";
+                    }
+                    .read-more-trigger {
+                        cursor: pointer;
+                        display: inline-block;
+                        color: var(--idstar-extend);
+                        font-size: 10px;
+                        line-height: 2;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<ion-header class="certification-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Sertifikasi
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="certification-content">
+    <form [formGroup]="certificationForm" class="edit-certification-form">
+        <ion-label class="subsection-title">Gelar</ion-label>
+        <ion-input type="text" placeholder="Gelar" formControlName="title" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text">
+        </ion-input>
+        <ng-container *ngFor="let validation of validation_messages.title">
+          <span *ngIf="certificationForm.get('title').hasError(validation.type) && (certificationForm.get('title').dirty || certificationForm.get('title').touched)"
+                class="form-error-notice">{{ validation.message }}
+          </span>
+        </ng-container>
+
+        <div class="subsection-title">Tanggal Penerimaan</div>
+
+        <div class="date-container">
+            <div class="date-el-container">
+                <ion-datetime no-padding display-format="YYYY-MM-DD" formControlName="certification_date"
+                              class="date-el">
+                </ion-datetime>
+            </div>
+            <div class="icon-container-right">
+                <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+            </div>
+        </div>
+
+        <ng-container *ngFor="let validation of validation_messages.certification_date">
+            <span *ngIf="certificationForm.get('certification_date').hasError(validation.type) && (certificationForm.get('certification_date').dirty || certificationForm.get('certification_date').touched)"
+                  class="form-error-notice">{{ validation.message }}
+            </span>
+        </ng-container>
+
+        <div class="subsection-title">Deskripsi Sertifikasi</div>
+        <ion-textarea type="ion-no-padding textarea-style" placeholder="Deskripsi (min. 20 karakter)"
+                      formControlName="description"
+                      clearInput autocapitalize="off" class="ion-no-padding input-text" auto-grow=true></ion-textarea>
+        <ng-container *ngFor="let validation of validation_messages.description">
+            <span *ngIf="certificationForm.get('description').hasError(validation.type) && (certificationForm.get('description').dirty || certificationForm.get('description').touched)"
+                  class="form-error-notice">{{ validation.message }}
+            </span>
+        </ng-container>
+
+        <div class="upload-container">
+            <div class="upload-button-container">
+                <img (click)="chooseFile()" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
+<!--                <ion-button (click)="chooseFile()" class="upload-btn">Upload</ion-button>-->
+            </div>
+            <div *ngIf="!getfileName()" class="file-name-container">*Unggah sertifikat (dalam pdf)</div>
+            <div *ngIf="getfileName()" class="file-name-container">{{getfileName()}}</div>
+        </div>
+    </form>
+
+    <div class="certification-save-button-container">
+        <ion-button class="certification-save-button" expand="block" (click)="save()">
+            Simpan
+        </ion-button>
+    </div>
+</ion-content>

@@ -1,0 +1,283 @@
+<ion-header class="profile-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-content">
+    <div *ngIf="friendProfile.friendship_status !== 1">
+        <div class="profile-pic-container">
+            <app-image-shell (click)='zoomImage()' class="user-profile-pic" animation="spinner"
+                             *ngIf="friendProfile.profile_picture_url"
+                             [src]="friendProfile.profile_picture_url">
+            </app-image-shell>
+            <app-image-shell (click)='zoomImage()' class="user-profile-pic" animation="spinner"
+                             *ngIf="!friendProfile.profile_picture_url"
+                             [src]="profileImg">
+            </app-image-shell>
+        </div>
+
+        <app-text-shell [data]="friendProfile.fullname" class="text-full-name"></app-text-shell>
+
+        <div class="profile-info-container">
+            <div class="profile-info-container-1">
+                <div class="profile-info-container-1-1">
+                    <app-text-shell *ngIf="friendProfile.job_title"
+                                    [data]="friendProfile.job_title">
+                    </app-text-shell>
+                    <app-text-shell *ngIf="!friendProfile.job_title" [data]="' '"></app-text-shell>
+                </div>
+                <div class="profile-info-container-1-2">
+                    <app-text-shell animation="bouncing" *ngIf="friendProfile.province && friendProfile.country"
+                                    [data]="(friendProfile.province) + ', ' + (friendProfile.country)">
+                    </app-text-shell>
+                    <app-text-shell animation="bouncing" *ngIf="!friendProfile.province || !friendProfile.country"
+                                    [data]="' '">
+                    </app-text-shell>
+                </div>
+            </div>
+            <div class="profile-info-container-2">
+                <app-image-shell animation="spinner" [src]="friendProfile.level_icon_url" class="level-image">
+                </app-image-shell>
+            </div>
+        </div>
+
+        <div class="mutual-friend-container">
+            <div class="mutual-friend-text">{{friendProfile.mutual_friends.count}} teman yang sama</div>
+        </div>
+
+        <ion-button expand="block" class="add-friend-button" (click)="addFriend()">
+            Tambah Teman
+        </ion-button>
+        <!--<app-text-shell animation="bouncing" lines="4" *ngIf="friendProfile.summary"-->
+        <!--                [data]="friendProfile.summary">-->
+        <!--</app-text-shell>-->
+        <!--<app-text-shell animation="bouncing" lines="4" *ngIf="friendProfile.summary === undefined"-->
+        <!--                [data]="">-->
+        <!--</app-text-shell>-->
+    </div>
+
+    <div *ngIf="friendProfile.friendship_status === 1">
+        <div class="profile-pic-container">
+            <app-image-shell (click)='zoomImage()' class="user-profile-pic" animation="spinner"
+                             *ngIf="friendProfile.profile_picture_url"
+                             [src]="friendProfile.profile_picture_url">
+            </app-image-shell>
+            <app-image-shell (click)='zoomImage()' class="user-profile-pic" animation="spinner"
+                             *ngIf="!friendProfile.profile_picture_url"
+                             [src]="profileImg">
+            </app-image-shell>
+        </div>
+
+        <app-text-shell [data]="friendProfile.fullname" class="text-full-name"></app-text-shell>
+
+        <div class="profile-info-container">
+            <div class="profile-info-container-1">
+                <div class="profile-info-container-1-1">
+                    <app-text-shell *ngIf="friendProfile.job_title"
+                                    [data]="friendProfile.job_title">
+                    </app-text-shell>
+                    <app-text-shell *ngIf="!friendProfile.job_title" [data]="' '"></app-text-shell>
+                </div>
+                <div class="profile-info-container-1-2">
+                    <app-text-shell animation="bouncing" *ngIf="friendProfile.province && friendProfile.country"
+                                    [data]="(friendProfile.province) + ', ' + (friendProfile.country)">
+                    </app-text-shell>
+                    <app-text-shell animation="bouncing" *ngIf="!friendProfile.province || !friendProfile.country"
+                                    [data]="' '">
+                    </app-text-shell>
+                </div>
+            </div>
+            <div class="profile-info-container-2">
+                <app-image-shell animation="spinner" [src]="friendProfile.level_icon_url" class="level-image">
+                </app-image-shell>
+            </div>
+        </div>
+
+        <div class="mutual-friend-container">
+            <div class="mutual-friend-text">{{friendProfile.mutual_friends.count}} teman yang sama</div>
+        </div>
+
+        <div class="segment-container">
+            <ion-segment scrollable (ionChange)="segmentChanged($event)" class="segment-bar" mode="md">
+                <ion-segment-button checked value="experience" class="segment-button" mode="md">
+                    <div class="segment-button-label">Pengalaman</div>
+                </ion-segment-button>
+                <ion-segment-button value="education" class="segment-button" mode="md">
+                    <div class="segment-button-label">Edukasi</div>
+                </ion-segment-button>
+                <ion-segment-button value="project" class="segment-button" mode="md">
+                    <div class="segment-button-label">Proyek</div>
+                </ion-segment-button>
+            </ion-segment>
+
+            <div [hidden]="segmentValue !== 'experience'" class="experience-container">
+                <div *ngIf="!friendProfile.work_experience || friendProfile.work_experience.length === 0"
+                     class="experience-no-data">
+                    Belum ada data.
+                </div>
+
+                <div class="experience-exist" *ngFor="let experience of friendProfile.work_experience">
+                    <div class="experience-exist-1">
+                        <img class="experience-icon" src="../../../assets/icons/office-building-outline.svg" alt="">
+                        <div class="experience-exist-1-2">
+                            <app-text-shell class="experience-position"
+                                            [data]="experience.post"></app-text-shell>
+                            <app-text-shell class="experience-name" [data]="experience.company_name"></app-text-shell>
+                            <div class="experience-date">
+                                <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                              [value]="experience.start_period"
+                                              class="experience-date-1"
+                                              readonly="true"></ion-datetime>
+                                <ion-datetime *ngIf="experience.end_period.substr(0,4) !== '9999'"
+                                              displayFormat="MMM YYYY"
+                                              [value]="experience.end_period"
+                                              class="experience-date-2"
+                                              readonly="true">
+                                </ion-datetime>
+                                <ion-text class="experience-present-text" *ngIf="experience.end_period.substr(0,4) === '9999'">
+                                    Sekarang
+                                </ion-text>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="experience.description.length < 100">
+                        <p>
+                            {{experience.description | truncate}}
+                        </p>
+                    </div>
+                    <div *ngIf="experience.description.length >= 100">
+                        <p #moreText *ngIf="!specificChecked">
+                            {{experience.description | truncate}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton === experience.work_experience_id">
+                            {{experience.description}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton !== experience.work_experience_id">
+                            {{experience.description | truncate}}
+                        </p>
+                        <a (click)="showMoreOrLess(experience.work_experience_id)"
+                           class="more-detail-btn">{{this.checked && this.activeButton === experience.work_experience_id ? 'Sembunyikan' : 'Baca Selengkapnya'}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div [hidden]="segmentValue !== 'education'" class="experience-container">
+                <div *ngIf="!friendProfile.qualification || friendProfile.qualification.length === 0"
+                     class="experience-no-data">
+                    Belum ada data.
+                </div>
+
+                <div class="experience-exist" *ngFor="let education of friendProfile.qualification">
+                    <div class="experience-exist-1">
+                        <img class="experience-icon" src="../../../assets/icons/school.svg" alt="">
+                        <div class="experience-exist-1-2">
+                            <app-text-shell class="experience-position"
+                                            [data]="education.name"></app-text-shell>
+                            <app-text-shell class="experience-name" [data]="(education.education_level_name) + ', ' + (education.field_of_study)"></app-text-shell>
+                            <div class="experience-date">
+                                <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                              [value]="education.start_period"
+                                              class="experience-date-1"
+                                              readonly="true"></ion-datetime>
+                                <ion-datetime *ngIf="education.end_period.substr(0,4) !== '9999'"
+                                              displayFormat="MMM YYYY"
+                                              [value]="education.end_period"
+                                              class="experience-date-2"
+                                              readonly="true">
+                                </ion-datetime>
+                                <ion-text class="experience-present-text" *ngIf="education.end_period.substr(0,4) === '9999'">
+                                    Sekarang
+                                </ion-text>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="education.description.length < 100">
+                        <p>
+                            {{education.description | truncate}}
+                        </p>
+                    </div>
+                    <div *ngIf="education.description.length >= 100">
+                        <p #moreText *ngIf="!specificChecked">
+                            {{education.description | truncate}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton === education.qualification_id">
+                            {{education.description}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton !== education.qualification_id">
+                            {{education.description | truncate}}
+                        </p>
+                        <a (click)="showMoreOrLess(education.qualification_id)"
+                           class="more-detail-btn">{{this.checked && this.activeButton === education.qualification_id ? 'Sembunyikan' : 'Baca Selengkapnya'}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div [hidden]="segmentValue !== 'project'" class="experience-container">
+                <div *ngIf="!friendProfile.project || friendProfile.project.length === 0"
+                     class="experience-no-data">
+                    Belum ada data.
+                </div>
+
+                <div class="experience-exist" *ngFor="let project of friendProfile.project">
+                    <div class="experience-exist-1">
+                        <img class="experience-icon" src="../../../assets/icons/briefcase.svg" alt="">
+                        <div class="experience-exist-1-2">
+                            <app-text-shell class="experience-position"
+                                            [data]="project.project_name"></app-text-shell>
+                            <app-text-shell class="experience-name" [data]="project.position"></app-text-shell>
+                            <div class="experience-date">
+                                <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                              [value]="project.start_period"
+                                              class="experience-date-1"
+                                              readonly="true"></ion-datetime>
+                                <ion-datetime *ngIf="project.end_period.substr(0,4) !== '9999'"
+                                              displayFormat="MMM YYYY"
+                                              [value]="project.end_period"
+                                              class="experience-date-2"
+                                              readonly="true">
+                                </ion-datetime>
+                                <ion-text class="experience-present-text" *ngIf="project.end_period.substr(0,4) === '9999'">
+                                    Sekarang
+                                </ion-text>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="project.jobdesc.length < 100">
+                        <p>
+                            {{project.jobdesc | truncate}}
+                        </p>
+                    </div>
+                    <div *ngIf="project.jobdesc.length >= 100">
+                        <p #moreText *ngIf="!specificChecked">
+                            {{project.jobdesc | truncate}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton === project.id">
+                            {{project.jobdesc}}
+                        </p>
+                        <p #moreText
+                           *ngIf="specificChecked && this.activeButton !== project.id">
+                            {{project.jobdesc | truncate}}
+                        </p>
+                        <a (click)="showMoreOrLess(project.id)"
+                           class="more-detail-btn">{{this.checked && this.activeButton === project.id ? 'Sembunyikan' : 'Baca Selengkapnya'}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ion-button expand="block" class="remove-friend-button" (click)="unFriend()">
+            Hapus Teman
+        </ion-button>
+    </div>
+</ion-content>

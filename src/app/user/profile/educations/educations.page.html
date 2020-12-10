@@ -1,0 +1,62 @@
+<ion-header class="education-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Pendidikan
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="education-content">
+    <div *ngIf="education.isShell" class="spinner-container">
+        <ion-spinner class="spinner">Loading</ion-spinner>
+        <div>Loading</div>
+    </div>
+
+    <div *ngIf="!education.data || education.data.length === 0" class="education-null">
+        <div>Tidak ada data.</div>
+        <div>Mohon menambahkan pendidikan.</div>
+    </div>
+
+    <div class="education-item" *ngFor="let education of education.data">
+        <div class="education-container-1">
+            <div class="education-name">{{education.name}}</div>
+            <div class="education-position">{{education.education_level_name + ', ' + education.field_of_study}}</div>
+            <div class="education-date">
+                <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                              [value]="education.start_period"
+                              class="education-date-1"
+                              readonly="true">
+                </ion-datetime>
+                <ion-datetime *ngIf="education.end_period.substr(0,4) !== '9999'"
+                              displayFormat="MMM YYYY"
+                              [value]="education.end_period"
+                              class="education-date-2"
+                              readonly="true">
+                </ion-datetime>
+                <ion-text class="education-text" *ngIf="education.end_period.substr(0,4) === '9999'">Sekarang
+                </ion-text>
+            </div>
+        </div>
+        <div class="education-container-2">
+            <div class="button-delete" (click)="deleteAlert(education.qualification_id)">
+                Hapus
+            </div>
+            <div class="button-edit" (click)="editEducationDetail(education.qualification_id)">
+                Edit
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer class="education-footer">
+    <ion-button class="education-add-button"
+                type="button"
+                expand="block"
+                [routerLink]="['/app/user/educations/edit-education']"
+    >
+        Tambah Pendidikan
+    </ion-button>
+</ion-footer>

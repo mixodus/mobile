@@ -1,0 +1,230 @@
+:host {
+  --page-margin: var(--app-narrow-margin);
+  --page-border-radius: var(--app-fair-radius);
+
+  --page-actions-padding: 5px;
+  --page-friends-gutter: calc(var(--page-margin) / 2);
+  --page-pictures-gutter: calc(var(--page-margin) / 2);
+  --item-margin: calc(var(--page-margin) / 2);
+}
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+.job-detail-header {
+  position: absolute;
+  --background: transparent;
+  --ion-color-base: transparent !important;
+
+  .back-button {
+    opacity: 1;
+
+    .back {
+      color: #fff;
+      font-size: 22px;
+    }
+  }
+}
+
+.upper {
+  position: relative;
+  padding-top: 25%;
+  background-image: url('assets/new-assets/Image 14.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+
+  .image {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+}
+
+
+
+
+.details-content {
+  --background: var(--idstar-darker);
+
+  font-family: var(--nunito-family);
+  overflow: scroll;
+  background-attachment: scroll;
+  .header-toolbar {
+    --background: linear-gradient(to right, var(--idstar-primary), var(--idstar-primary-2));
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &-text {
+      color: black;
+      margin: 0;
+      font: {
+        size: 16px;
+        family: var(--nunito-family);
+      }
+    }
+  }
+
+  .back {
+    color: #fff;
+    font-size: 22px;
+  }
+
+  .upper {
+    position: relative;
+    padding-top: 25%;
+    background: {
+      position: center;
+      size: cover;
+      repeat: no-repeat;
+      image: url('assets/new-assets/Image 14.png');
+    }
+
+    .image {
+      height: 80px;
+      width: 80px;
+      left: 15px;
+      position: absolute;
+      bottom: 0;
+      transform: translateY(50%);
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+      z-index: 2;
+    }
+  }
+
+  .lower {
+    position: relative;
+
+    .description-title {
+      background-color: var(--idstar-primary-shade);
+      padding: 60px 15px 15px;
+      margin-bottom: 10px;
+
+      .details-location {
+        color: var(--idstar-grey);
+      }
+
+      p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--idstar-dark-grey);
+      }
+
+      .job-detail-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .location-container, .job-type-detail-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 20px;
+        width: 50%;
+      }
+
+      .location-container {
+        padding-left: 10%;
+      }
+
+      .job-type-detail-container {
+        padding-right: 10%;
+      }
+
+      .icon-location, .icon-building {
+        color: var(--idstar-primary);
+        margin-right: 9px;
+      }
+
+      .job-location, .job-company {
+        color: var(--idstar-dark-grey);;
+        font-weight: 300;
+        font-size: 11px;
+        text-align: left;
+      }
+    }
+
+    .application-form {
+      width: 100vw;
+      padding: 5% 10%;
+      background: var(--idstar-primary-shade);
+      .form-name {
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--idstar-dark-grey);
+      }
+      .input-item {
+        --background: var(--idstar-primary-shade);
+        max-height: fit-content;
+        .section-title {
+          color: var(--idstar-grey);
+          padding-top: 10px;
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .input-text {
+          font-size: 12px;
+          --padding-start: 0;
+          color: var(--idstar-grey);
+        }
+      }
+    }
+  }
+}
+
+.ios .apply-btn-container{
+  margin-top: 5%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+@media all and (min-width: 1024px) {
+  .details-content{
+    .lower{
+
+      .application-form{
+        padding-bottom: 50vh;
+      }
+    }
+  }
+}
+
+.apply-btn-container {
+  padding: 24px 37px;
+
+  .apply-btn {
+    margin: 36px 0;
+    width: 90%;
+    --background: rgb(117, 194, 68);
+    --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    font-size: 12px;
+    color: var(--idstar-white);
+    font-family: var(--montserrat-family);
+    --box-shadow: 0 0 32px -7px #75C244;
+    text-align: center;
+    margin: 0 auto;
+  }
+}

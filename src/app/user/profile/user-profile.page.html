@@ -1,0 +1,269 @@
+<ion-header class="profile-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Profil
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngIf="profile.isShell" class="spinner-container">
+        <ion-spinner class="spinner">Loading</ion-spinner>
+        <div>Loading</div>
+    </div>
+
+
+    <div *ngIf="!profile.isShell" class="profile-detail-1">
+        <div *ngIf="profile.profile_picture_url" class="profile-image-container">
+            <img class="profile-image" [src]="profile.profile_picture_url" alt="">
+        </div>
+        <div *ngIf="!profile.profile_picture_url" class="profile-image-container">
+            <img class="profile-image" [src]="profileImg" alt="">
+        </div>
+        <div class="profile-info-container">
+            <div class="profile-info-container-1">
+                <div class="profile-info-name">
+                    <app-text-shell [data]="profile.fullname"></app-text-shell>
+                </div>
+                <div class="profile-info-title">
+                    <app-text-shell [data]="profile.job_title"></app-text-shell>
+                </div>
+            </div>
+
+            <ion-icon src="./assets/icons/pencil.svg" (click)="editProfile()"></ion-icon>
+        </div>
+    </div>
+
+    <div class="level-container" [routerLink]="['/app/user/level']">
+        <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
+                         [src]="levels.current_level.level_icon_url"
+                         class="star-image"
+        >
+        </app-image-shell>
+
+        <div class="level-container-2">
+            <div class="level-name">{{levels.current_level.level_name}}</div>
+            <div class="progress">
+                <div class="inner" [ngStyle]="{'width': currentProgress + '%'}"></div>
+            </div>
+            <div class="level-point-range">
+                <div>{{levels.current_level.level_min_point}}</div>
+                <div>{{levels.current_level.level_max_point}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-me-container">
+        <div class="about-me-container-title">Tentang Saya</div>
+        <div class="text-about-me">{{profile.summary}}</div>
+    </div>
+
+    <div class="event-history-container">
+        <div class="event-history-container-title">Histori Acara</div>
+        <div class="event-history-container-content">
+            <div class="content-container">
+                <div class="value-content">{{profile.history[0]?.bootcamp_done}}</div>
+                <div class="title-content">Bootcamp</div>
+            </div>
+            <div class="content-container">
+                <div class="value-content">{{profile.history[0]?.event_done}}</div>
+                <div class="title-content">Event</div>
+            </div>
+            <div class="content-container">
+                <div class="value-content">{{profile.history[0]?.challenge_done}}</div>
+                <div class="title-content">Tantangan</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="skill-container">
+        <div class="skill-header-container">
+            <div class="skill-container-title">Keahlian</div>
+            <div class="skill-container-edit" (click)="goToSkills()">
+                {{!skills || skills.length === 0 ? 'Tambahkan' : 'Edit/Lihat Semua'}}
+            </div>
+        </div>
+
+        <div class="skill-null"
+             *ngIf="!profile.isShell && (!skills || skills.length === 0); else existSkill">
+            <div>Belum ada keahlian yang ditambahkan.</div>
+        </div>
+
+        <ng-template #existSkill>
+            <ion-chip class="skill-chip" *ngFor="let skill of skills" outline color="primary">
+                <ion-label class="skill-label">{{skill}}</ion-label>
+            </ion-chip>
+        </ng-template>
+    </div>
+
+    <div class="experience-container">
+        <div class="experience-header-container">
+            <div class="experience-container-title">Pengalaman</div>
+            <div class="experience-container-edit" [routerLink]="['/app/user/work-experiences']">
+                {{!profile.work_experience || profile.work_experience.length === 0 ? 'Tambahkan' : 'Edit/Lihat Semua'}}
+            </div>
+        </div>
+
+        <div class="experience-null"
+             *ngIf="!profile.work_experience || profile.work_experience.length === 0; else existExperience">
+            <div>Belum ada pengalaman kerja yang ditambahkan.</div>
+        </div>
+
+        <ng-template #existExperience>
+            <div class="experience-exist" *ngFor="let experience of profile.work_experience | slice:-2;">
+                <img class="experience-icon" src="../../../assets/icons/office-building-outline.svg" alt="">
+                <div class="experience-exist-2">
+                    <div class="experience-position">{{experience.post}}</div>
+                    <div class="experience-name">{{experience.company_name}}</div>
+                    <div class="experience-date" style="display: flex;">
+                        <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                      [value]="experience.start_period"
+                                      class="experience-date-1"
+                                      readonly="true"></ion-datetime>
+                        <ion-datetime *ngIf="experience.end_period.substr(0,4) !== '9999'"
+                                      displayFormat="MMM YYYY"
+                                      [value]="experience.end_period"
+                                      class="experience-date-2"
+                                      readonly="true">
+                        </ion-datetime>
+                        <ion-text class="experience-present-text" *ngIf="experience.end_period.substr(0,4) === '9999'">
+                            Sekarang
+                        </ion-text>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="education-container">
+        <div class="education-header-container">
+            <div class="education-container-title">Pendidikan</div>
+            <div class="education-container-edit" [routerLink]="['/app/user/educations']">
+                {{!profile.qualification || profile.qualification.length === 0 ? 'Tambahkan' : 'Edit/Lihat Semua'}}
+            </div>
+        </div>
+
+        <div class="education-null"
+             *ngIf="!profile.qualification || profile.qualification.length === 0; else existEducation">
+            <div>Belum ada pendidikan yang ditambahkan.</div>
+        </div>
+
+        <ng-template #existEducation>
+            <div class="education-exist" *ngFor="let education of profile.qualification | slice:-2;">
+                <img class="education-icon" src="../../../assets/icons/school.svg" alt="">
+                <div class="education-exist-2">
+                    <div class="education-institution-name">{{education.name}}</div>
+                    <div class="education-title">{{(education.education_level_name) + ', ' + (education.field_of_study)}}</div>
+                    <div class="education-date" style="display: flex;">
+                        <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                      [value]="education.start_period"
+                                      class="education-date-1"
+                                      readonly="true"></ion-datetime>
+                        <ion-datetime *ngIf="education.end_period.substr(0,4) !== '9999'"
+                                      displayFormat="MMM YYYY"
+                                      [value]="education.end_period"
+                                      class="education-date-2"
+                                      readonly="true">
+                        </ion-datetime>
+                        <ion-text class="education-present-text" *ngIf="education.end_period.substr(0,4) === '9999'">
+                            Sekarang
+                        </ion-text>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="project-container">
+        <div class="project-header-container">
+            <div class="project-container-title">Proyek</div>
+            <div class="project-container-edit" (click)="gotoProject()">
+                {{!profile.project || profile.project.length === 0 ? 'Tambahkan' : 'Edit/Lihat Semua'}}
+            </div>
+        </div>
+
+        <div class="project-null"
+             *ngIf="!profile.project || profile.project.length === 0;else existProject">
+            <div>Belum ada proyek yang ditambahkan.</div>
+        </div>
+
+        <ng-template #existProject>
+            <div class="project-exist" *ngFor="let project of profile.project | slice:-2;">
+                <img class="project-icon" src="../../../assets/icons/briefcase.svg" alt="">
+                <div class="project-exist-2">
+                    <div class="project-position">{{project.position}}</div>
+                    <div class="project-desc">{{project.jobdesc}}</div>
+                    <div class="project-date" style="display: flex;">
+                        <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                                      [value]="project.start_period"
+                                      class="project-date-1"
+                                      readonly="true"></ion-datetime>
+                        <ion-datetime *ngIf="project.end_period.substr(0,4) !== '9999'"
+                                      displayFormat="MMM YYYY"
+                                      [value]="project.end_period"
+                                      class="project-date-2"
+                                      readonly="true">
+                        </ion-datetime>
+                        <ion-text class="project-present-text" *ngIf="project.end_period.substr(0,4) === '9999'">
+                            Sekarang
+                        </ion-text>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="certification-container">
+        <div class="certification-header-container">
+            <div class="certification-container-title">Sertifikasi</div>
+            <div class="certification-container-edit" (click)="gotoCertification()">
+                {{!profile.certification || profile.certification.length === 0 ? 'Tambahkan' : 'Edit/Lihat Semua'}}
+            </div>
+        </div>
+
+        <div class="certification-null"
+             *ngIf="!profile.certification || profile.certification.length === 0;else existCertification">
+            <div>Belum ada sertifikasi yang ditambahkan.</div>
+        </div>
+
+        <ng-template #existCertification>
+            <div class="certification-exist" *ngFor="let certification of profile.certification | slice:-2;">
+                <img class="certification-icon" src="../../../assets/icons/certificate-outline.svg" alt="">
+
+                <div class="certification-exist-2">
+                    <div class="certification-title">{{certification.title}}</div>
+                    <div class="certification-desc">{{certification.description}}</div>
+                    <div class="certification-date" style="display: flex;">
+                        <ion-datetime displayFormat="MMM YYYY&nbsp;"
+                                      [value]="certification.certification_date"
+                                      class="certification-date-1"
+                                      readonly="true">
+                        </ion-datetime>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="referral-container">
+        <div class="referral-title"><span>Rujukan</span></div>
+        <div class="referral-description">
+            Anda dapat mengundang teman atau kerabat Anda untuk bergabung dan bekerja di IDStar Group dan Anda akan
+            mendapatkan hingga Rp 1.500.000 untuk setiap referal.
+        </div>
+        <ion-button expand="block" class="referral-button" [routerLink]="['/app/user/referral']">
+            Halaman Rujukan
+        </ion-button>
+    </div>
+
+    <div class="button-container">
+        <ion-button class="logout-button" expand="block" (click)="signOut()">Keluar</ion-button>
+    </div>
+</ion-content>

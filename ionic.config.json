@@ -1,0 +1,8 @@
+{
+  "name": "IDstar",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

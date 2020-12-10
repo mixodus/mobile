@@ -1,0 +1,117 @@
+<ion-header class="bio-header" no-border>
+  <ion-toolbar>
+    <ion-title class="title">
+      Buat Profil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-wrapper">
+  <form [formGroup]="createProfileForm" (ngSubmit)="submit()" class="form">
+    <ion-row>
+      <ion-col size="10" style="margin: auto;margin-left: 0;">
+        <div class="subsection-title" style="padding: 0;">Apakah Anda baru lulus?</div>
+      </ion-col>
+      <ion-col size="2" style="margin: auto;text-align: right;">
+        <ion-toggle color="primary" (ionChange)="getEmployeeStatus($event.detail)" mode="md"></ion-toggle>
+      </ion-col>
+    </ion-row>
+
+    <div class="subsection-title">Sekarang Anda tinggal di</div>
+    <ion-select formControlName="country" multiple="false" interface="popover" placeholder="Pilih Negara"
+      class="select-item">
+      <ion-select-option *ngFor="let country of countriesArray" [value]="country.code">{{country.name}}
+      </ion-select-option>
+    </ion-select>
+
+    <ng-container *ngFor="let validation of validation_messages.country">
+      <div class="error-message"
+        *ngIf="createProfileForm.get('country').hasError(validation.type) && (createProfileForm.get('country').dirty || createProfileForm.get('country').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ validation.message }}</span>
+      </div>
+    </ng-container>
+
+    <ion-select formControlName="province" interface="popover" multiple="false" placeholder="Pilih Provinsi"
+      class="select-item">
+      <ion-select-option *ngFor="let province of provinceArray" [value]="province">{{province}}</ion-select-option>
+    </ion-select>
+
+    <ng-container *ngFor="let validation of validation_messages.province">
+      <div class="error-message"
+        *ngIf="createProfileForm.get('province').hasError(validation.type) && (createProfileForm.get('province').dirty || createProfileForm.get('province').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ validation.message }}</span>
+      </div>
+    </ng-container>
+
+    <div class="job-position-wrapper" *ngIf="value !== 'fresh'" [hidden]="isHidden">
+      <div class="subsection-title">Posisi Pekerjaan Sekarang</div>
+      <ion-input formControlName="job_title" type="text" placeholder="Posisi Pekerjaan" clearInput autocapitalize="off"
+        class="ion-no-padding input-text">
+      </ion-input>
+
+      <ng-container *ngFor="let validation of validation_messages.job_title">
+        <div class="error-message"
+          *ngIf="createProfileForm.get('job_title').hasError(validation.type) && (createProfileForm.get('job_title').dirty || createProfileForm.get('job_title').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>{{ validation.message }}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="subsection-title">Ekspektasi Gaji</div>
+    <ion-select formControlName="currency_salary" interface="popover" placeholder="Mata Uang" class="select-item">
+      <ion-select-option value="IDR">IDR</ion-select-option>
+    </ion-select>
+
+    <ion-input formControlName="expected_salary" type="text" type="number" inputmode="numeric" placeholder="ex. 10000000" clearInput
+      autocapitalize="off" class="ion-no-padding input-text" (ionBlur)="convertSalary($event.target.value)"
+      (ionFocus)="editSalaryValue($event.target.value)">
+    </ion-input>
+
+    <ng-container *ngFor="let validation of validation_messages.expected_salary">
+      <div class="error-message"
+        *ngIf="createProfileForm.get('expected_salary').hasError(validation.type) && (createProfileForm.get('expected_salary').dirty || createProfileForm.get('expected_salary').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ validation.message }}</span>
+      </div>
+    </ng-container>
+
+    <div class="job-position-wrapper" *ngIf="value !== 'fresh'" [hidden]="isHidden">
+      <div class="subsection-title">Bekerja Sejak</div>
+
+      <ion-row class="row-dob">
+        <ion-col class="col-dob" size="10">
+          <ion-datetime class="ion-no-padding input-year" display-format="YYYY" formControlName="start_work_year"
+            placeholder="Pilih Tahun"></ion-datetime>
+        </ion-col>
+        <div size=".5" class="col-icon">
+<!--          <ion-icon name="calendar" class="calendar-icon"></ion-icon>-->
+          <img class="calendar-icon" src="../../assets/icons/calendar-50px.png" alt="">
+        </div>
+      </ion-row>
+      <ng-container *ngFor="let validation of validation_messages.start_work_year">
+        <div class="error-message"
+          *ngIf="createProfileForm.get('start_work_year').hasError(validation.type) && (createProfileForm.get('start_work_year').dirty || createProfileForm.get('start_work_year').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>{{ validation.message }}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="subsection-title">Tentang Saya</div>
+    <ion-textarea formControlName="summary" rows="3" class="ion-no-padding textarea-style" placeholder="Tentang Saya"></ion-textarea>
+
+    <ng-container *ngFor="let validation of validation_messages.summary">
+      <div class="error-message"
+        *ngIf="createProfileForm.get('summary').hasError(validation.type) && (createProfileForm.get('summary').dirty || createProfileForm.get('summary').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ validation.message }}</span>
+      </div>
+    </ng-container>
+    <div class="button-finish-wrapper">
+      <ion-button class="finish" type="submit" [disabled]="!createProfileForm.valid" expand="block">Selesai</ion-button>
+    </div>
+  </form>
+</ion-content>

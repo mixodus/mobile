@@ -1,0 +1,21 @@
+<ion-content>
+    <div class="container">
+        <img class="man-object" src="/assets/images/man-0.png">
+        <img class="abstract-background" src="/assets/bg/abstract-background.png">
+        <div class="overlay-container">
+            <img class="logo-one" src="../../assets/images/icon.png">
+            <ion-text class="header">
+                Mari <span class="started-text">Mulai</span> !
+            </ion-text>
+
+            <ion-text class="description ion-text-center">
+                Temukan pekerjaan Anda, kembangkan keahlian Anda, kumpulkan poin!
+            </ion-text>
+
+            <ion-button class="signup-button" expand="block" [routerLink]="['/auth/signup']">Daftar</ion-button>
+            <ion-button color="primary" class="login-button" expand="block" (click)="navigateToLogin()" fill="outline">
+                Masuk
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

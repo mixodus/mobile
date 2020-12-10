@@ -1,0 +1,41 @@
+<ion-header class="skill-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Keahlian
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="skill-content">
+    <ion-searchbar #sb class="skill-search-bar"
+                   placeholder="Cari Keahlian" mode="ios" [debounce]="500"
+                   [(ngModel)]="searchValue" (ionChange)="searchList($event)" animated autocomplete>
+    </ion-searchbar>
+    <ion-list class="skill-autocomplete" [hidden]="hideSuggestion">
+        <ion-item class="search-skill-item" *ngFor="let item of searchResult" (click)="selectItem(item)">
+            <app-text-shell [data]="item"></app-text-shell>
+        </ion-item>
+    </ion-list>
+    <div class="skill-selected">
+        <div *ngIf="selectedSkills.length == 0">
+            Mohon tambahkan keahlian.
+        </div>
+        <ion-chip class="skill-chip" outline color="primary" *ngFor="let skill of selectedSkills" (click)="removeItem(skill)">
+          <ion-label class="skill-label">{{skill}}</ion-label>
+          <ion-icon name="remove-circle"></ion-icon>
+        </ion-chip>
+    </div>
+</ion-content>
+
+<ion-footer class="skill-footer">
+    <ion-button class="skill-add-button"
+                type="button"
+                expand="block"
+                (click)="saveSkills()"
+    >
+        Simpan
+    </ion-button>
+</ion-footer>

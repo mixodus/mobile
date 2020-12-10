@@ -1,0 +1,13 @@
+<ion-content class="modal-referral">
+    <div class="illustration-wrapper">
+        <img class="item-picture" src="../../../assets/images/Background.svg">
+    </div>
+      <div class="modal-title ion-padding">{{name}}</div>
+      <div class="modal-text ion-padding-horizontal">{{description}}</div>
+      <ion-row class="row-style ion-margin-left">
+        <ion-col size="6" class="modal-text-item ion-padding-horizontal">Harga Item</ion-col>
+        <ion-col size="6" class="modal-text-price ion-padding-horizontal">{{price}}</ion-col>
+      </ion-row>
+      <ion-button class="go-login-btn ion-align-items-center" (click)="close()" expand="block">Add this item</ion-button>
+      <ion-button class="go-login-btn ion-align-items-center" *ngIf="routingUrl === '/app/user/redeem-points/redeem-menu/redeem-detail'" [hidden]="isset" (click)="decreaseCart()" expand="block">Delete</ion-button>
+</ion-content>

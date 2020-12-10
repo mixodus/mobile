@@ -1,0 +1,65 @@
+.header-toolbar {
+  --background: linear-gradient(to right, var(--idstar-primary), var(--idstar-primary-2));
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  &-text {
+    color: #fff;
+    margin: 0;
+    font: {
+      size: 16px;
+      family: var(--nunito-family);
+    }
+  }
+}
+
+.back {
+  color: #fff;
+  font-size: 22px;
+}
+
+ion-tab-bar {
+  background: var(--idstar-primary-shade);
+}
+ion-tab-button {
+  position: relative;
+  --color: #fff;
+  // --background-focused: var(--idstar-primary);
+  --color-selected: var(--idstar-primary) !important;
+  font-family: var(--nunito-family);
+  background: var(--idstar-primary-shade);
+  
+  .highlight {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 60%;
+    transform: translateX(-50%);
+    opacity: 0;
+    // transition: 0.2s ease-in-out;
+  }
+}
+
+:host ::ng-deep {
+  ion-tab-button{
+    // --color-selected: var(--idstar-primary);
+    .tab-selected {
+      --color: var(--idstar-primary);
+      --border-bottom: 1px solid var(--idstar-primary);
+      .highlight {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// ion-tab-button:active {
+//   border-bottom: 1px solid var(--idstar-primary);
+//   color: var(--idstar-primary);
+// }

@@ -1,0 +1,107 @@
+.quiz-header {
+  color: var(--idstar-dark-grey);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.quiz-content {
+  .question-container {
+    margin: 30px;
+    padding: 28px 50px;
+    background: var(--idstar-light-grey);
+    border-style: solid;
+    border-radius: 12px;
+    border-width: 10px;
+    border-color: var(--idstar-primary);
+
+    .text-title-question {
+      font-size: 9px;
+      margin-bottom: 10px;
+    }
+
+    .text-question {
+      font-size: 9px;
+    }
+  }
+
+  .choice-container {
+    margin: 30px;
+
+    .item {
+      --border-radius: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      --color: var(--idstar-white);
+      --background: var(--idstar-primary);
+      --min-height: 35px;
+      --padding-end: 0;
+      padding: 5px;
+      text-align: center;
+      align-items: center;
+
+      app-text-shell {
+        width: 100%;
+
+        &.text-loaded {
+          width: unset;
+        }
+      }
+
+      ion-radio {
+        margin-left: 0;
+        --color: transparent;
+        --color-checked: transparent;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: -9px;
+        height: 100%;
+        padding-top: 3px;
+      }
+    }
+  }
+
+  .button-container {
+    margin: 30px;
+  }
+}
+
+.radio-button {
+  --border-radius: 50px;
+  --inner-border-radius: 50px;
+}
+
+.next-btn {
+  --background: var(--idstar-turquoise);
+  --border-radius: 5px;
+  margin: 10px 0;
+  color: var(--idstar-white);
+}
+
+.pause-btn {
+  --background: var(--idstar-orange);
+  --border-radius: 5px;
+  color: var(--idstar-white);
+}
+
+.item-label {
+  display: flex;
+  margin: auto;
+  width: 8em;
+}
+
+.active {
+  --background: var(--idstar-primary-3) !important;
+}

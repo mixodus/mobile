@@ -1,0 +1,12 @@
+{
+  "appId": "com.idstar.mobileidstar",
+  "appName": "IDstar",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

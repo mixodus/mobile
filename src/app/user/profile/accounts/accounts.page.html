@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Accounts
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/app/user/accounts/edit-account']">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="accounts-item">
+    <ion-card-content class="accounts-content">
+      <ion-label class="accounts-name">M. Rizqiko Harliano</ion-label><br>
+      <ion-label class="accounts-number">3102835918</ion-label><br>
+      <ion-label class="accounts-status">Primary Account</ion-label><br>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

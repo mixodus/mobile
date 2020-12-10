@@ -1,0 +1,86 @@
+<ion-header class="certification-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Sertifikasi
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="certification-content">
+    <div *ngIf="!certif.isShell && countData === 0" class="certification-null">
+        <div>Tidak ada data.</div>
+        <div>Mohon menambahkan sertifikasi.</div>
+    </div>
+
+    <div class="certification-item" *ngFor="let certif of certifData">
+        <div class="certification-container-1">
+            <div class="certification-company-name">{{certif.title}}</div>
+            <div class="certification-description">{{certif.description}}</div>
+            <div class="certification-date">
+                <ion-datetime displayFormat="DD MMM YYYY"
+                              [value]="certif.certification_date"
+                              class="certification-date-1"
+                              readonly="true">
+                </ion-datetime>
+            </div>
+        </div>
+        <div class="certification-container-2">
+            <div class="button-delete" (click)="deleteAlert(certif.certification_id)">
+                Hapus
+            </div>
+            <div class="button-edit" (click)="editcertifDetail(certif.certification_id)">
+                Edit
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<!--<ion-content>-->
+<!--  <ng-container *ngIf=" !certif.isShell && countData === 0">-->
+<!--    <div class="no-data">-->
+<!--      No data found-->
+<!--      <br>-->
+<!--      Please add new data-->
+<!--    </div>-->
+<!--  </ng-container>-->
+
+<!--  <ng-container *ngIf=" !certif.isShell && certifData.length !== 0">-->
+<!--    <ion-card class="certif-item" *ngFor="let certif of certifData">-->
+<!--      <ion-card-content class="ion-no-padding ion-padding-horizontal certif-content">-->
+<!--        <ion-label class="certif-date">-->
+<!--          <div style="display: flex;">-->
+<!--            <ion-datetime displayFormat="DD MMM YYYY" [value]="certif.certification_date"-->
+<!--              style="padding: 0; display: inline-block;font-family: var(&#45;&#45;nunito-family);" readonly="true">-->
+<!--            </ion-datetime>-->
+<!--          </div>-->
+<!--        </ion-label>-->
+<!--        <ion-label class="certif-name">-->
+<!--          <p>{{certif.title}}</p>-->
+<!--        </ion-label>-->
+<!--        <ion-label class="certif-text">-->
+<!--          <p>{{certif.description}}</p>-->
+<!--          &lt;!&ndash; <p>{{certif.certification_id}}</p> &ndash;&gt;-->
+<!--        </ion-label>-->
+<!--      </ion-card-content>-->
+<!--      <ion-button class="card-buttons delete-certif-button" (click)="deleteAlert(certif.certification_id)">-->
+<!--        <ion-icon slot="icon-only" src="./assets/sample-icons/edit-button/trash.svg"></ion-icon>-->
+<!--      </ion-button>-->
+<!--      <ion-button class="card-buttons edit-certif-button" (click)="editcertifDetail(certif.certification_id)">-->
+<!--        <ion-icon slot="icon-only" src="./assets/sample-icons/edit-button/edit.svg"></ion-icon>-->
+<!--      </ion-button>-->
+<!--    </ion-card>-->
+<!--  </ng-container>-->
+<!--</ion-content>-->
+
+<ion-footer class="certification-footer">
+    <ion-button class="certification-add-button"
+                type="button"
+                expand="block"
+                (click)="goAdd()"
+    >
+        Tambah Sertifikasi
+    </ion-button>
+</ion-footer>

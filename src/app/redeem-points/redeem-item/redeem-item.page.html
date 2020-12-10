@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="travel-details-content">
+  <ion-row class="image-row">
+    <ion-col size="12">
+      <app-aspect-ratio [ratio]="{w:35, h:20}">
+        <app-image-shell class="add-overlay details-image" src="../../../assets/images/Garena.PNG">
+        </app-image-shell>
+      </app-aspect-ratio>
+    </ion-col>
+  </ion-row>
+  <ion-row class="description-row">
+    <ion-col size="12">
+      <h3 class="details-name">
+        <!-- this is the name -->
+        <app-text-shell animation="bouncing" [data]="product?.name"></app-text-shell>
+      </h3>
+      <p class="details-short-description">
+        <!-- this is the price -->
+        <app-text-shell animation="bouncing" data="Rp. {{product?.price}}"></app-text-shell>
+      </p>
+      <p class="details-short-description">
+        <!-- this is the detail -->
+        <app-text-shell animation="bouncing" [data]="product?.description"></app-text-shell>
+      </p>
+    </ion-col>
+  </ion-row>
+  <div
+    style="
+      position: absolute;
+      bottom: 10vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    "
+  >
+    <div
+      style="
+        width: calc(100% - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      "
+    >
+      You currently have :
+      <app-text-shell animation="bouncing" [data]="currentPoint"></app-text-shell>
+    </div>
+    <div
+      style="width: calc(100% - 40px); display: flex; align-items: center; justify-content: center;"
+    >
+      <ion-icon name="flag" style="--color: black;"></ion-icon>
+      <ion-label class="ion-padding">Report this item as unappropriate</ion-label>
+    </div>
+
+    <ion-button class="apply-btn" (click)="addToCart()" expand="block">Add this item</ion-button>
+  </div>
+</ion-content>

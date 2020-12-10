@@ -1,0 +1,75 @@
+<ion-content class="achievement-list-content">
+  <div class="background">
+    <ion-header no-border class="header">
+      <ion-toolbar class="bg">
+        <ion-buttons slot="start">
+          <ion-button href="/app/user" expand="block" fill="clear" shape="round">
+            <ion-icon slot="start" name="ios-arrow-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Achievement</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="grid-background">
+      <div class="user-details-section">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <app-image-shell *ngIf="currentUser.profile_picture_url" class="user-image" animation="spinner"
+            [src]="currentUser.profile_picture_url"></app-image-shell>
+          <app-image-shell *ngIf="!currentUser.profile_picture_url" class="user-image" [src]="profileImg">
+          </app-image-shell>
+        </app-aspect-ratio>
+      </div>
+      <div class="user-name">
+        <app-text-shell [data]="currentUser.fullname"></app-text-shell>
+      </div>
+      <div class="user-title">
+        <app-text-shell [data]="currentUser.job_title"></app-text-shell>
+        <!-- <app-text-shell [data]="currentUser.job_title"></app-text-shell> -->
+      </div>
+
+      <div class="achievements-button" expand="block">
+        <p>{{currentUser.total_achievement}} ACHIEVEMENTS</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <ion-card class="item" *ngFor="let data of data">
+        <ion-row>
+          <ion-col class="image">
+            <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+              <app-image-shell class="achievement-icon" animation="spinner" [src]="getImage(data.award_photo)">
+              </app-image-shell>
+            </app-aspect-ratio>
+          </ion-col>
+          <ion-col size="9.5" class="detail">
+            <app-text-shell [data]="data.award_name" class="title">
+            </app-text-shell>
+            <!-- <p class="title">Best Employee of The Year</p> -->
+            <!-- <div>
+              <input type="checkbox" class="read-more-state" id="post-1" />
+
+              <p class="read-more-wrap">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam laborum sed,
+                beatae delectus quia
+                <span class="read-more-target">exercitationem. Magnam non optio libero veniam, impedit illum vel eum
+                  nobis harum iusto ab deleniti itaque?</span>
+
+              </p>
+
+              <label for="post-1" class="read-more-trigger"></label>
+            </div> -->
+            <p class="item-detail">{{data.description}}</p>
+            <p class="company">{{data.company_name}}</p>
+            <p class="date">{{getDate(data.award_month_year)}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,54 @@
+{
+  "status": true,
+  "message": "Challenge List",
+  "data": [
+    {
+      "challenge_id": "4",
+      "challenge_title": "Ajak 5 temen kamu Gabung IDStar Mobile dapatkan 100 point",
+      "challenge_type_id": "1",
+      "challenge_point": "200",
+      "challenge_expired_date": "2019-10-21",
+      "challenge_description": "Description",
+      "challenge_photo": "",
+      "challenge_total_task": "10",
+      "created_at": "2019-08-26 11:09:06",
+      "modified_at": "2019-08-26 11:09:06"
+    },
+    {
+      "challenge_id": "3",
+      "challenge_title": "Ajak 5 temen kamu Gabung IDStar Mobile dapatkan 100 point",
+      "challenge_type_id": "1",
+      "challenge_point": "10",
+      "challenge_expired_date": "2019-10-23",
+      "challenge_description": "Description",
+      "challenge_photo": "",
+      "challenge_total_task": "25",
+      "created_at": "2019-08-26 11:09:06",
+      "modified_at": "2019-08-26 11:09:06"
+    },
+    {
+      "challenge_id": "2",
+      "challenge_title": "Ajak 5 temen kamu Gabung IDStar Mobile dapatkan 100 point",
+      "challenge_type_id": "1",
+      "challenge_point": "10",
+      "challenge_expired_date": "2019-10-27",
+      "challenge_description": "Description",
+      "challenge_photo": "",
+      "challenge_total_task": "100",
+      "created_at": "2019-08-26 11:09:06",
+      "modified_at": "2019-08-26 11:09:06"
+    },
+    {
+      "challenge_id": "1",
+      "challenge_title": "Submit 10 CV Teman Anda Dapatkan point 100",
+      "challenge_type_id": "1",
+      "challenge_point": "100",
+      "challenge_expired_date": "2019-11-10",
+      "challenge_description": "Dapatkan 100 Point dengan cara mensubmit CV teman anda ke <br>",
+      "challenge_photo": "",
+      "challenge_total_task": "10",
+      "created_at": "2019-08-26 06:31:21",
+      "modified_at": "2019-08-26 06:31:21"
+    }
+  ]
+}

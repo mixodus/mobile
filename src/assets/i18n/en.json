@@ -1,0 +1,23 @@
+{
+  "FOLLOW": "Follow",
+  "MESSAGE": "Message",
+  "LIKES": "Likes",
+  "FOLLOWERS": "Followers",
+  "FOLLOWING": "Following",
+  "ABOUT": "About",
+  "FRIENDS": "People You May Know",
+  "PHOTOS": "Photos",
+  "PROJECTS": "Projects",
+  "SKILLS": "Skills",
+  "EDUCATIONS": "Educations",
+  "WORK_EXPERIENCES": "Work Experiences",
+  "VIEW_ALL_ACHIEVEMENTS": "View All Achievements",
+  "SEE_ALL": "See all",
+  "OK": "OK",
+  "CANCEL": "Cancel",
+  "SELECT_LANGUAGE": "Select your language",
+  "RECENT_JOBS": "Recent Jobs",
+  "LATEST_NEWS": "Latest News",
+  "EVENTS": "Events",
+  "NEWS": "News"
+}

@@ -1,0 +1,63 @@
+<ion-header class="education-header" no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class="title">
+      Proyek
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="project-content">
+  <div *ngIf="project.isShell" class="spinner-container">
+    <ion-spinner class="spinner">Loading</ion-spinner>
+    <div>Loading</div>
+  </div>
+
+  <div *ngIf="!project.data || project.data.length === 0" class="project-null">
+    <div>Tidak ada data.</div>
+    <div>Mohon menambahkan proyek.</div>
+  </div>
+
+  <div class="project-item" *ngFor="let project of project.data">
+    <div class="project-container-1">
+      <div class="project-company-name">{{project.project_name}}</div>
+      <div class="project-position">{{project.position}}</div>
+      <div class="project-description">{{project.jobdesc}}</div>
+      <div class="project-date">
+        <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                      [value]="project.start_period"
+                      class="project-date-1"
+                      readonly="true">
+        </ion-datetime>
+        <ion-datetime *ngIf="project.end_period.substr(0,4) !== '9999'"
+                      displayFormat="MMM YYYY"
+                      [value]="project.end_period"
+                      class="project-date-2"
+                      readonly="true">
+        </ion-datetime>
+        <ion-text class="project-text" *ngIf="project.end_period.substr(0,4) === '9999'">Sekarang
+        </ion-text>
+      </div>
+    </div>
+    <div class="project-container-2">
+      <div class="button-delete" (click)="deleteAlert(project.id)">
+        Hapus
+      </div>
+      <div class="button-edit" (click)="editProjectDetail(project.id)">
+        Edit
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="project-footer">
+  <ion-button class="project-add-button"
+              type="button"
+              expand="block"
+              (click)="editProjectDetailWithoutId()"
+  >
+    Tambah Proyek
+  </ion-button>
+</ion-footer>

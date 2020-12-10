@@ -1,0 +1,83 @@
+<ion-header class="level-header" no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title class="title">
+      Level
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="level-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="row">
+    <ion-row class="ion-justify-content-center ion-text-center box">
+      <ion-col size="2.5">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <app-image-shell [src]="levels.current_level.level_icon_url" [alt]="" animation="spinner"></app-image-shell>
+        </app-aspect-ratio>
+      </ion-col>
+      <ion-col size="12" class="star-name">
+        <app-text-shell [data]="levels.current_level.level_name"></app-text-shell>
+      </ion-col>
+      <ion-col size="12" class="user-point">
+        <app-text-shell [data]="'Poin : ' + levels.user.points"></app-text-shell>
+      </ion-col>
+      <ion-col size="12" class="bar">
+        <div class="progress">
+          <div class="inner" [ngStyle]="{'width': currentProgress + '%'}">
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="2" class="point">
+        <app-text-shell [data]="levels.current_level.level_min_point"></app-text-shell>
+      </ion-col>
+      <ion-col size="8" class="point">
+        <app-text-shell [data]="toNextLevel + ' Poin Tersisa'">
+        </app-text-shell>
+      </ion-col>
+      <ion-col size="2" class="point">
+        <app-text-shell style="color: var(--idstar-grey);" [data]="levels.current_level.level_max_point"></app-text-shell>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="text-level">Level Anda</div>
+  
+  <div class="level-wrapper">
+    <ion-row class="level-content" *ngFor="let level of levels.data" [ngClass]="{'unavailable': (!level.is_passed)}">
+
+      <ion-col class="level-logo-wrapper" size="2.5" [ngClass]="{'unavailable': (!level.is_passed)}">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <app-image-shell *ngIf="level.is_passed" [src]="level.level_icon_url" [alt]="'deals logo'" class="level-logo"
+            animation="spinner">
+          </app-image-shell>
+          <app-image-shell *ngIf="!level.is_passed" [src]="level.level_icon_url" [alt]="'deals logo'" class="level-logo"
+            animation="spinner">
+          </app-image-shell>
+        </app-aspect-ratio>
+      </ion-col>
+
+      <ion-col class="level-info-wrapper" size="5.5">
+        <h4 class="level-title" [ngClass]="{'unavailable': (!level.is_passed)}">
+          <app-text-shell [data]="level.level_name"></app-text-shell>
+        </h4>
+        <p class="level-description" [ngClass]="{'unavailable': (!level.is_passed)}">
+          <app-text-shell [data]="(level.level_min_point) + ' - ' + (level.level_max_point) + ' Poin'">
+          </app-text-shell>
+        </p>
+      </ion-col>
+
+      <ion-col size="3.5" class="level-accomplished">
+        <p *ngIf="level.is_accomplished">
+          ACCOMPLISHED
+        </p>
+      </ion-col>
+
+    </ion-row>
+  </div>
+</ion-content>

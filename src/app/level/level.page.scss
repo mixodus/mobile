@@ -1,0 +1,173 @@
+@import "../../theme/mixins/ion-color";
+
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-broad-margin);
+  --page-background: #f8f8f8;
+
+  --page-swiper-pagination-space: 30px;
+  --page-swiper-pagination-height: 18px;
+  --page-pagination-bullet-size: 10px;
+
+  --page-countdown-fill-shadow-color: rgba(var(--ion-color-darkest-rgb), 0.2);
+
+  --page-expired-color: var(--ion-color-medium-tint);
+  --page-ends-soon-color: #ffab6b;
+  --page-distant-end-color: #70df70;
+
+  --page-deal-color: var(--ion-color-medium);
+
+  --page-color: #70df70;
+
+  // Add custom colors to use with [color] property
+  @include ion-color("claim") {
+    --ion-color-claim: #70df70;
+    --ion-color-claim-rgb: 112, 223, 112;
+    --ion-color-claim-contrast: #ffffff;
+    --ion-color-claim-contrast-rgb: 255, 255, 255;
+    --ion-color-claim-shade: #63c463;
+    --ion-color-claim-tint: #7ee27e;
+  }
+}
+
+.level-header {
+  color: var(--idstar-dark-grey);
+  --background: var(--idstar-white);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+ion-content{
+  --background: var(--idstar-darker);
+  color: #fff;
+}
+
+.row {
+  padding: 30px;
+  .box {
+    background-color: var(--idstar-primary-shade);
+    font-family: var(--nunito-family);
+    border-radius: 10px;
+    color: var(--idstar-dark-grey);
+    .star-name {
+      color: var(--idstar-dark-grey);
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 15px;
+    }
+    .user-point {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--idstar-grey);
+    }
+    .point {
+      font-size: 10px;
+      color: var(--idstar-grey);
+    }
+    .bar {
+      padding: 2% 5%;
+      .progress {
+        border-radius: 5px;
+        height: 18px;
+        background-color: var(--idstar-light-grey);
+        .inner {
+          border-radius: 50px;
+          height: 16px;
+          background-color: var(--idstar-primary);
+        }
+      }
+    }
+  }
+}
+
+.text-level{
+  padding: 0 30px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--idstar-dark-grey);
+}
+
+
+.level-wrapper {
+  padding: 30px;
+
+  .level-content {
+    --ion-grid-column-padding: 0px;
+
+    border-radius: var(--app-broad-radius);
+    background-color: var(--idstar-primary-shade);
+    color: var(--idstar-dark-grey);
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+
+    &.unavailable {
+      background-color: var(--idstar-primary-shade);
+    }
+
+    .level-logo-wrapper {
+      padding: 5%;
+      // border-right: 2px dashed rgba(var(--ion-color-dark-rgb), .1);
+      &.unavailable {
+        opacity: 0.3;
+      }
+    }
+
+    .level-info-wrapper {
+      padding: 5% 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .level-title {
+        margin: 0px;
+        margin-bottom: 5px;
+        color: var(--idstar-dark-grey);
+        font-weight: bolder;
+        font-size: 14px;
+        &.unavailable {
+          opacity: 0.3;
+        }
+      }
+
+      .level-description {
+        margin: 0px;
+        color: var(--idstar-dark-grey);
+        font-size: 12px;
+        &.unavailable {
+          opacity: 0.3;
+        }
+      }
+    }
+    .level-accomplished {
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      p{
+        padding: 2%;
+        text-align: center;
+        background: var(--idstar-primary);
+        color: var(--idstar-white);
+        border-radius: 5px;
+        font-size: 9px;
+      }
+    }
+  }
+}
+.reach-next-level {
+  display: inline-block;
+}

@@ -1,0 +1,70 @@
+<ion-header class="news-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Berita
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="news-list-container">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+
+    <div *ngIf="bannerList?.isShell">
+        <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+            <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+        </app-aspect-ratio>
+    </div>
+
+    <div class="banner-container" *ngIf="!bannerList?.isShell">
+        <ion-slides pager="true" [options]="bannerConfig">
+            <ion-slide *ngFor="let banner of bannerList?.data?.banner">
+                <a
+                        class="banner-image"
+                        [style.background-image]="'url(' +  banner.banners_photo_url +  ')'"
+                        [routerLink]="['/', 'app' ,'news', 'news-detail', banner.news_detail_id]"
+                >
+                </a>
+            </ion-slide>
+        </ion-slides>
+    </div>
+
+    <div class="news-list-section">
+        <div class="section-title">Berita Terbaru</div>
+
+        <div class="news-list" *ngIf="!newsList?.isShell">
+            <div class="news"
+                 *ngFor="let news of newsList?.data"
+                 [routerLink]="['/', 'app' ,'news', 'news-detail', news.news_id]"
+            >
+                <div class="news-image"
+                     [style.background-image]="'url(' + news.news_photo_url + ')'"
+                >
+                </div>
+                <div class="news-content">
+                    <div class="news-metadata">
+                            <span class="category" [style.background-color]="news.news_colour"
+                            >{{ news.news_type }}</span
+                            >
+                    </div>
+
+                    <div class="news-title">
+                        {{ news.news_title }}
+                    </div>
+                    <span class="date">{{ getDate(news.created_at) | date: 'MMM d, yyyy' }}</span>
+                </div>
+            </div>
+
+            <div *ngIf="!newsList?.isShell && newsList?.data.length == 0">
+                <div class="empty-news">
+                    Saat ini belum ada berita.
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

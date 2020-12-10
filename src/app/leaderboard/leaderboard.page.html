@@ -1,0 +1,49 @@
+<!-- <ion-header>
+  <ion-toolbar color="light">
+    <ion-title>
+      Leaderboard
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="notifications-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h4 style="font-size: 16px; text-align: center;">Top 10 Users This Month</h4>
+  <!-- <ion-list class="" style="background: linear-gradient(to bottom, #f23934 -10%, #ffffff 100%)"></ion-list> -->
+  <ion-item class="notification-item" lines="none" *ngFor="let rank of rankings.data; let i = index" color="none">
+    <ion-row class="notification-item-wrapper" (click)="gotoProfile(rank.employee_id)">
+      <ion-col size="1" *ngIf="i === 0" class="rank-medal">
+        <img src="../../assets/images/medal-1.png">
+      </ion-col>
+      <ion-col size="1" *ngIf="i === 1" class="rank-medal">
+        <img src="../../assets/images/medal-2.png">
+      </ion-col>
+      <ion-col size="1" *ngIf="i === 2" class="rank-medal">
+        <img src="../../assets/images/medal-3.png">
+      </ion-col>
+      <ion-col size="1" *ngIf="i > 2" class="notification-date ion-padding-right">
+        <!-- <p class="notification-date">{{i+1}}</p> -->
+        {{i+1}}
+      </ion-col>
+      <ion-col size="2">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <!-- <img src="../../assets/images/crown-gold.png" style="position: absolute;top:-30px;padding:auto;margin: auto;"> -->
+          <app-image-shell *ngIf="rank.profile_picture_url" class="notification-image" [src]="rank.profile_picture_url" [alt]="'user image'">
+          </app-image-shell>
+          <app-image-shell *ngIf="!rank.profile_picture_url" class="notification-image" [src]="defaultImg" [alt]="'user image'">
+          </app-image-shell>
+        </app-aspect-ratio>
+      </ion-col>
+      <ion-col class="details-wrapper">
+        <app-text-shell class="details-name" *ngIf="rank.fullname" [data] ="rank.fullname"></app-text-shell>
+        <app-text-shell class="details-name" *ngIf="!rank.fullname" [data] ="userName"></app-text-shell>
+      </ion-col>
+      <ion-col size="2" class="details-wrapper">
+          <app-text-shell class="details-description" [data]="rank.total_point"></app-text-shell>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  <!-- </ion-list> -->
+</ion-content>

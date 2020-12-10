@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="events-list" *ngIf="countData > 0; else empty">
+    <div class="event" *ngFor="let event of data" (click)="goToChallengeDetail(event.challenge_id)">
+      <div class="event-image" [style.background-image]="'url(' + getEventImage(event.challenge_photo) + ')'"></div>
+      <div class="event-content">
+        <div class="event-metadata">
+          <span class="date">{{getEventDate(event.challenge_expired_date) | date: 'MMM d, yyyy' }}</span>
+          <span class="status status--done">Done</span>
+        </div>
+
+        <p class="event-title">
+          {{event.challenge_title}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty-event">
+      <img [src]="emptyImage" />
+      <p class="title">Nothing's here!</p>
+      <p class="subtitle">You haven't joined any challenge yet!</p>
+    </div>
+  </ng-template>
+  </ion-content>

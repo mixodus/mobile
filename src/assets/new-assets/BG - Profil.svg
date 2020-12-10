@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360" height="1840" viewBox="0 0 360 1840">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.808" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#9dd44f"/>
+      <stop offset="1" stop-color="#75c244"/>
+    </linearGradient>
+    <clipPath id="clip-Profile">
+      <rect width="360" height="1840"/>
+    </clipPath>
+  </defs>
+  <g id="Profile" clip-path="url(#clip-Profile)">
+    <rect width="360" height="1840" fill="#252525"/>
+    <circle id="Ellipse_45" data-name="Ellipse 45" cx="652" cy="652" r="652" transform="translate(-472 -1054)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

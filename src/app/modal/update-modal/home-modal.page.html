@@ -1,0 +1,12 @@
+  <ion-content class="modal-referral">
+    <div class="illustration-wrapper">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <app-image-shell [src]="'./assets/images/update.png'" [alt]="'update'"></app-image-shell>
+        </app-aspect-ratio>
+      </div>
+      
+      <div class="modal-title">{{title}}</div>
+      <div class="modal-text">{{message}}</div>
+      <ion-button class="go-login-btn" (click)="closeModal()" expand="block" fill="outline">UPDATE NOW</ion-button>
+
+  </ion-content>

@@ -1,0 +1,15 @@
+.experience-name > app-text-shell{
+    max-width: 80%;
+
+    &.text-loaded {
+        max-width: unset;
+    }
+}
+
+.experience-text > app-text-shell{
+    max-width: 50%;
+
+    &.text-loaded {
+        max-width: unset;
+    }
+}

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>friend-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!friendList.data || friendList.data.length === 0" class="no-data">
+    No data found
+    <br>
+    Please add new data
+  </div>
+  <!-- <ion-card class="profile" *ngFor="let friend of friendList.data">
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="3">
+          <app-aspect-ratio [ratio]="{w: 1, h: 1}" (click)='zoomImage(friend.pic)'>
+          <app-image-shell *ngIf="friend.pic" class="friend-picture" [src]="friend.pic">
+          </app-image-shell>
+          <app-image-shell *ngIf="!friend.pic" class="friend-picture" [src]="profileImg">
+            </app-image-shell>
+          </app-aspect-ratio>
+          
+        </ion-col>
+        <ion-col size="9">
+          <div style="margin-top: 10%;">
+            <ion-label class="name" style="font-size: 12px;">
+              <app-text-shell [data]="friend.fullname"></app-text-shell>
+            </ion-label>
+
+          </div>
+          
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-virtual-scroll [items]="friendList.data" approxItemHeight="150px" [headerFn]="separator">
+    <ion-item-divider *virtualHeader = "let header">
+      <ion-label>{{ header }}</ion-label>
+    </ion-item-divider>
+    <ion-item *virtualItem="let item" (click)="onClick(item.user_id)">
+      <ion-avatar style="margin-right: 10px;height: 60px; width: 60px;">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}" (click)='zoomImage(friend.pic)'>
+          <app-image-shell *ngIf="item.pic"  animation="spinner" class="friend-picture" [src]="item.pic">
+          </app-image-shell>
+          <app-image-shell *ngIf="!item.pic"  animation="spinner" class="friend-picture" [src]="profileImg">
+            </app-image-shell>
+          </app-aspect-ratio>
+      </ion-avatar>
+      <div>
+<h6>{{item.fullname}}</h6>
+<!-- <p>you have {{item.mutual_friends.count}} mutual friend</p> -->
+      </div>
+      <!-- <p>
+        {{item.fullname}}
+        <br>
+        {{item.mutual_friends.count}}
+      </p> -->
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>

@@ -1,0 +1,37 @@
+.subsection-title{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.input-item{
+    font-size: 14px;
+    --padding-end: 0px;
+    --border-radius: var(--ion-border-radius);
+    --background: #ffffff;
+    --min-height: 40px;
+    margin-top: var(--item-margin);
+    margin: 10px;
+}
+.select-item{
+    --padding-start: 16px;
+    --padding-end: 16px;
+    // --padding-top: 5.5px;
+    // --padding-bottom: 5.5px;
+    --min-height: 30px;
+    font-size: 14px;
+    line-height: 19px;
+    background-color: #ffffff;
+    border-radius: var(--ion-border-radius);
+    margin-bottom: var(--item-margin);
+    margin: 10px;
+    --max-width: 100% !important;
+}
+.apply-btn {
+    width:100%;
+    --background:#f23934;
+    font-size:16px;
+    color:white;
+    --border-radius:50px;
+    letter-spacing: 0.9px;
+    text-align: center;
+    margin-top: 20px;
+}

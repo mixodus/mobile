@@ -1,0 +1,185 @@
+<ion-header class="profile-edit-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="presentAlertConfirm()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Edit Profil
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="profile-edit-content">
+    <form [formGroup]="editProfileForm" class="edit-profile-form">
+        <div class="profile-image-wrapper">
+            <app-image-shell class="user-image" animation="spinner" *ngIf="profile.profile_picture_url"
+                             [src]="this.editProfileForm.value['profile_picture_url']"
+                             (click)="openCam()"></app-image-shell>
+            <app-image-shell class="user-image" animation="spinner" *ngIf="!profile.profile_picture_url"
+                             [src]="profileImg"
+                             (click)="openCam()"></app-image-shell>
+            <img src="../../../../assets/icons/pencil-outline.png" class="icon" alt="">
+        </div>
+
+        <div class="section-title">Nama Lengkap</div>
+        <ion-input type="text" placeholder="Nama Lengkap" formControlName="fullname" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text">
+        </ion-input>
+
+        <div class="section-title">Sebutan</div>
+        <ion-input type="text" placeholder="Sebutan" formControlName="job_title" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text">
+        </ion-input>
+
+        <div class="section-title">Tanggal lahir</div>
+        <div class="date-container">
+            <div class="date-el-container ion-no-padding">
+                <ion-datetime no-padding display-format="YYYY-MM-DD" class="date-el" formControlName="date_of_birth">
+                </ion-datetime>
+            </div>
+            <div class="icon-container">
+                <img class="calendar-icon" src="../../../../assets/icons/calendar-50px.png" alt="">
+            </div>
+        </div>
+
+        <div class="section-title">Jenis Kelamin</div>
+        <ion-radio-group formControlName="gender">
+            <ion-row>
+                <ion-col size="6">
+                    <ion-row>
+                        <ion-radio value="Male" class="ion-no-padding input-radio" value="Male" mode="md"></ion-radio>
+                        <ion-label class="input-radio-text">Laki-Laki</ion-label>
+                    </ion-row>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-row>
+                        <ion-radio value="Female" class="ion-no-padding input-radio" value="Female"
+                                   mode="md"></ion-radio>
+                        <ion-label class="input-radio-text">Perempuan</ion-label>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-radio-group>
+
+        <div class="section-title">Kota</div>
+        <ion-select interface="popover" multiple="false" placeholder="Country" formControlName="country"
+                    class="select-item">
+            <ion-select-option *ngFor="let country of countries"
+                               [value]="country.code">{{country.name}}</ion-select-option>
+        </ion-select>
+        <ion-select interface="popover" multiple="false" placeholder="Province" formControlName="province"
+                    class="select-item">
+            <ion-select-option *ngFor="let provice of provices">{{provice}}</ion-select-option>
+        </ion-select>
+
+        <div class="section-title">Alamat</div>
+        <ion-textarea placeholder="Alamat" class="ion-no-padding textarea" formControlName="address"
+                      auto-grow=true rows="1"></ion-textarea>
+
+        <div class="section-title">Kode Pos</div>
+        <ion-input type="number" placeholder="Kode Pos" formControlName="zip_code" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text">
+        </ion-input>
+
+        <div class="section-title">Status</div>
+        <ion-select interface="popover" multiple="false" placeholder="Marital Status" class="select-item"
+                    formControlName="marital_status"
+        >
+            <ion-select-option value="Sing">Belum Menikah</ion-select-option>
+            <ion-select-option value="Married">Menikah</ion-select-option>
+            <ion-select-option value="Widowed">Orang Tua Tunggal</ion-select-option>
+            <ion-select-option value="Divorced">Bercerai</ion-select-option>
+        </ion-select>
+
+        <div class="section-title">Tentang Saya</div>
+        <ion-textarea placeholder="Tentang Saya" formControlName="summary" class="ion-no-padding textarea"
+                      auto-grow=true></ion-textarea>
+    </form>
+
+    <!--      <form [formGroup]="editProfileForm" class="edit-profile-form">-->
+    <!--        <div class="profile-image-wrapper">-->
+    <!--          <app-aspect-ratio [ratio]="{w: 1, h: 1}">-->
+    <!--              <app-image-shell class="user-image" animation="spinner" *ngIf="profile.profile_picture_url" [src]="this.editProfileForm.value['profile_picture_url']" (click)="openCam()"></app-image-shell>-->
+    <!--              <app-image-shell  class="user-image" animation="spinner" *ngIf="!profile.profile_picture_url" [src]="profileImg" (click)="openCam()"></app-image-shell>-->
+    <!--              <ion-icon slot="icon-only" name="md-create" size="large" class="icon" (click)="openCam()"></ion-icon>-->
+    <!--          </app-aspect-ratio>-->
+    <!--        </div>-->
+
+    <!--        <p class="section-title">Full name</p>-->
+    <!--          <ion-input type="text" placeholder="Fullname" formControlName="fullname" clearInput autocapitalize="off"-->
+    <!--            class="ion-no-padding input-text">-->
+    <!--          </ion-input>-->
+
+    <!--        <p class="section-title">Title</p>-->
+    <!--          <ion-input type="text" placeholder="Title" formControlName="job_title" clearInput autocapitalize="off"-->
+    <!--            class="ion-no-padding input-text" >-->
+    <!--          </ion-input>-->
+
+    <!--        <p class="section-title">Date of Birth</p>-->
+    <!--          <ion-row class="row-dob">-->
+    <!--            <ion-col size="11.5" class="col-dob">-->
+    <!--              <ion-datetime display-format="YYYY-MM-DD" class="ion-no-padding" formControlName="date_of_birth">-->
+    <!--              </ion-datetime>-->
+    <!--            </ion-col>-->
+    <!--            <ion-col size=".5" class="col-icon">-->
+    <!--              <ion-icon name="calendar" class="calendar-icon"></ion-icon>-->
+    <!--            </ion-col>-->
+    <!--          </ion-row>-->
+
+    <!--        <p class="section-title">Gender</p>-->
+    <!--        <ion-radio-group formControlName="gender">-->
+    <!--          <ion-row class="row">-->
+    <!--            <ion-col size="6" class="col">-->
+    <!--                <ion-radio value="Female" class="input-radio" value="Female" mode="md"></ion-radio>-->
+    <!--                <ion-label class="input-radio-text">Female</ion-label>-->
+    <!--            </ion-col>-->
+    <!--            <ion-col size="6" class="col">-->
+    <!--                <ion-radio value="Male" class="input-radio" value="Male" mode="md"></ion-radio>-->
+    <!--                <ion-label class="input-radio-text">Male</ion-label>-->
+    <!--            </ion-col>-->
+    <!--          </ion-row>-->
+    <!--        </ion-radio-group>-->
+
+    <!--        -->
+    <!--        <p class="section-title">City</p>-->
+    <!--        <ion-select interface="popover" multiple="false" placeholder="Country" formControlName="country" class="select-item">-->
+    <!--          	<ion-select-option *ngFor="let country of countries" [value]="country.code">{{country.name}}</ion-select-option>-->
+    <!--          </ion-select>-->
+    <!--          <ion-select interface="popover" multiple="false" placeholder="Province" formControlName="province" class="select-item">-->
+    <!--            <ion-select-option *ngFor="let provice of provices">{{provice}}</ion-select-option>-->
+    <!--          </ion-select>-->
+    <!--          -->
+    <!--          <p class="section-title">Address</p>-->
+    <!--          <ion-textarea placeholder="Your address" formControlName="address" class="ion-no-padding textarea-style" auto-grow=true rows="1"></ion-textarea>-->
+    <!--          -->
+    <!--          <p class="section-title">Zip Code</p>-->
+    <!--            <ion-input type="number" placeholder="Zip Code" formControlName="zip_code" clearInput autocapitalize="off"-->
+    <!--            class="ion-no-padding input-text">-->
+    <!--          </ion-input>-->
+
+    <!--          <p class="section-title">Marital Status</p>-->
+    <!--        <ion-select interface="popover" multiple="false" placeholder="Marital Status" class="select-item" formControlName="marital_status">-->
+    <!--          <ion-select-option value="Sing">Single</ion-select-option>-->
+    <!--          <ion-select-option value="Married">Married</ion-select-option>-->
+    <!--          <ion-select-option value="Widowed">Widowed</ion-select-option>-->
+    <!--          <ion-select-option value="Divorced">Divorced or Separated</ion-select-option>-->
+    <!--        </ion-select>-->
+
+    <!--        <p class="section-title">About Me</p>-->
+    <!--        <ion-textarea placeholder="Describe yourself" formControlName="summary" class="ion-no-padding textarea-style" auto-grow=true></ion-textarea>-->
+    <!--        -->
+    <!--        <ion-button class="save-btn" (click)="saveProfile()" expand="block" >SAVE</ion-button>-->
+    <!--      </form>-->
+
+    <div class="button-container">
+        <ion-button class="save-button"
+                    type="button"
+                    expand="block"
+                    (click)="saveProfile()"
+        >
+            Simpan
+        </ion-button>
+    </div>
+
+</ion-content>

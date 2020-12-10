@@ -1,0 +1,63 @@
+<ion-header class="work-experience-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Pengalaman Kerja
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="work-experience-content">
+    <div *ngIf="workExperience.isShell" class="spinner-container">
+        <ion-spinner class="spinner">Loading</ion-spinner>
+        <div>Loading</div>
+    </div>
+
+    <div *ngIf="!workExperience.data || workExperience.data.length === 0" class="work-experience-null">
+        <div>Tidak ada data.</div>
+        <div>Mohon menambahkan pengalaman.</div>
+    </div>
+
+    <div class="work-experience-item" *ngFor="let experience of workExperience.data">
+        <div class="work-experience-container-1">
+            <div class="work-experience-company-name">{{experience.company_name}}</div>
+            <div class="work-experience-position">{{experience.post}}</div>
+            <div class="work-experience-description">{{experience.description}}</div>
+            <div class="work-experience-date">
+                <ion-datetime displayFormat="MMM YYYY&nbsp;-&nbsp;"
+                              [value]="experience.start_period"
+                              class="work-experience-date-1"
+                              readonly="true">
+                </ion-datetime>
+                <ion-datetime *ngIf="experience.end_period.substr(0,4) !== '9999'"
+                              displayFormat="MMM YYYY"
+                              [value]="experience.end_period"
+                              class="work-experience-date-2"
+                              readonly="true">
+                </ion-datetime>
+                <ion-text class="work-experience-text" *ngIf="experience.end_period.substr(0,4) === '9999'">Sekarang
+                </ion-text>
+            </div>
+        </div>
+        <div class="work-experience-container-2">
+            <div class="button-delete" (click)="deleteAlert(experience.work_experience_id)">
+                Hapus
+            </div>
+            <div class="button-edit" (click)="editWorkExperienceDetail(experience.work_experience_id)">
+                Edit
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer class="work-experience-footer">
+    <ion-button class="work-experience-add-button"
+                type="button"
+                expand="block"
+                [routerLink]="['/app/user/work-experiences/edit-work-experience']"
+    >
+        Tambah Pengalaman Kerja
+    </ion-button>
+</ion-footer>

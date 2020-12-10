@@ -1,0 +1,156 @@
+<ion-header class="news-detail-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Detail Tantangan
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="challenge-detail-content"
+             [ngClass]="{
+             'ended': ((details.data?.challenge_expired_date | appTimeDifference) < 0),
+             'imminent-end': ((details.data?.challenge_expired_date | appTimeDifference) > 0 &&
+             (details.data?.challenge_expired_date | appTimeDifference) <= 172800),
+             'ends-soon': ((details.data?.challenge_expired_date | appTimeDifference) > 0 &&
+              (details.data?.challenge_expired_date | appTimeDifference) > 172800 &&
+              (details.data?.challenge_expired_date | appTimeDifference) < 864000),
+              'distant-end': ((details.data?.challenge_expired_date | appTimeDifference) >= 864000)}"
+>
+    <ion-row class="expiration-countdown"
+             *ngIf="((details.data?.challenge_expired_date | appTimeDifference) > 0 && (details.data?.challenge_expired_date | appTimeDifference) <= 172800)">
+        <span class="expiration-lead">Tantangan berakhir dalam:</span>
+        <app-countdown-timer class="item-countdown" fill="countdown" [end]="details.data?.challenge_expired_date"
+                             [units]="{from: 'hour', to: 'second'}">
+        </app-countdown-timer>
+    </ion-row>
+
+    <div class="challenge-container-1">
+        <div class="challenge-container-1-1">
+            <app-text-shell class="challenge-title" [data]="details.data?.challenge_title"></app-text-shell>
+            <app-image-shell *ngIf="details.data?.challenge_photo" [src]="details.data?.challenge_photo"
+                             [alt]="'deals details'" class="challenge-thumbnail"
+                             animation="spinner"></app-image-shell>
+            <app-image-shell *ngIf="!details.data?.challenge_photo" [src]="challengePhoto"
+                             [alt]="'deals details'"
+                             class="challenge-thumbnail" animation="spinner"></app-image-shell>
+        </div>
+        <div class="challenge-container-1-2">
+            <app-text-shell class="challenge-description" lines="3"
+                            [data]="details.data?.challenge_description"></app-text-shell>
+        </div>
+    </div>
+
+    <div class="challenge-container-2">
+        <div class="challenge-container-2-1">
+            <div class="image-container">
+                <img class="award-image" src="../../../assets/icons/award.png" alt="">
+            </div>
+
+            <div class="award-text-title">Poin Dicapai</div>
+            <div class="award-text-detail"
+                 [ngClass]="{'expired': ((details.data?.challenge_expired_date | appTimeDifference) < 0)}">
+                <app-text-shell *ngIf="details.data?.me !== null"
+                                [data]="(details.data?.me.total_current_point)+'/'+(details.data?.challenge_point)"></app-text-shell>
+                <app-text-shell *ngIf="details.data?.me === null" [data]="'0/'+(details.data?.challenge_point)">
+                </app-text-shell>
+            </div>
+        </div>
+
+        <div class="challenge-container-2-2">
+            <div class="image-container">
+                <img class="card-checklist-image" src="../../../assets/icons/card-checklist.png" alt="">
+            </div>
+
+            <div class="task-title">Total Tugas</div>
+            <div class="task-detail">
+                <app-text-shell *ngIf="details.data?.me !== null"
+                                [data]="(details.data?.me.total_current_task) + '/' + (details.data?.challenge_total_task)">
+                </app-text-shell>
+                <app-text-shell *ngIf="details.data?.me === null"
+                                [data]="'0/' + (details.data?.challenge_total_task)">
+                </app-text-shell>
+            </div>
+        </div>
+
+        <div class="challenge-container-2-3">
+            <div class="image-container">
+                <img class="hour-glass-image" src="../../../assets/icons/hourglass-split.png" alt="">
+            </div>
+
+            <div class="task-title">
+                {{ ((details.data?.challenge_expired_date | appTimeDifference) < 0) ? 'Kadaluwarsa' : 'Batas Waktu' }}
+            </div>
+            <span class="task-detail">
+                <app-text-shell [data]="details.data?.challenge_expired_date | date:'mediumDate'"></app-text-shell>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="details.data?.me !== null" class="challenge-container-3">
+        <div class="progress">
+            <div class="inner" [ngStyle]="{'width': progress + '%'}"></div>
+        </div>
+        <app-text-shell class="progress-task"
+                        [data]="(details.data?.me.total_current_task) + ' / ' + (details.data?.me.total_task)">
+        </app-text-shell>
+    </div>
+
+    <div class="challenge-container-4">
+        <div #htmlDiv class="challenge-long-description"></div>
+    </div>
+
+    <div class="challenge-container-5" *ngIf="details.data?.me !== null">
+        <div class="text-title">Peringkat</div>
+
+        <div *ngFor="let participant of details.data?.top_participant; let i = index">
+            <div class="leader-board-container" (click)="gotoProfile(participant.employee_id)">
+                <div class="medal-container">
+                    <img class="medal-image" *ngIf="i === 0" src="../../../assets/icons/gold-medal.png">
+                    <img class="medal-image" *ngIf="i === 1" src="../../../assets/icons/silver-medal.png">
+                    <img class="medal-image" *ngIf="i === 2" src="../../../assets/icons/bronze-medal.png">
+                    <div class="rank-text" *ngIf="i > 2"> {{i + 1}}</div>
+                </div>
+                <div class="avatar-container">
+                    <app-image-shell *ngIf="participant.profile_picture_url" class="avatar-image"
+                                     [src]="participant.profile_picture_url" [alt]="'user image'">
+                    </app-image-shell>
+                    <app-image-shell *ngIf="!participant.profile_picture_url" class="avatar-image"
+                                     [src]="defaultImg"
+                                     [alt]="'user image'">
+                    </app-image-shell>
+                </div>
+                <div class="name-container">
+                    <app-text-shell class="name" [data]="participant.fullname"></app-text-shell>
+                </div>
+                <div class="point-container">
+                    <app-text-shell class="point"
+                                    [data]="participant.total_current_point"></app-text-shell>
+                    <app-text-shell class="point"
+                                    [data]="('Poin')">
+                    </app-text-shell>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="details.data?.me !== null" class="button-container">
+        <ion-button *ngIf="details.data?.me.total_current_task !== details.data?.me.total_task"
+                    expand="block"
+                    [routerLink]="['/app/events/challenges/challenge-detail/quiz',details.data?.challenge_id]"
+                    class="continue-button"
+        >
+            Lanjutkan
+        </ion-button>
+    </div>
+
+    <div *ngIf="details.data?.me === null" class="button-container">
+        <ion-button class="join-button"
+                    expand= "block"
+                    (click)="joinChallenge()">
+            Ikuti Tantangan
+        </ion-button>
+    </div>
+</ion-content>

@@ -1,0 +1,140 @@
+<ion-header class="project-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Proyek
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="project-content">
+    <form [formGroup]="editProjectForm" (ngSubmit)="saveProject()" class="edit-project-form">
+        <div class="subsection-title">Nama Proyek</div>
+        <ion-input type="text" placeholder="Nama Proyek" formControlName="project_name" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text"></ion-input>
+        <div class="error-message" *ngIf="editProjectForm.get('project_name').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Nama Proyek dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title">Perusahaan</div>
+        <ion-select no-padding interface="popover" multiple="false" placeholder="Perusahaan" class="select-item"
+                    formControlName="work_experience_id">
+            <ion-select-option *ngFor="let experience of workExperience" value="{{experience.work_experience_id}}">
+                {{experience.company_name}}</ion-select-option>
+        </ion-select>
+        <div class="error-message"
+             *ngIf="editProjectForm.get('work_experience_id').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Perusahaan dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title">Jabatan</div>
+        <ion-input type="text" placeholder="Jabatan" formControlName="position" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text"></ion-input>
+        <div class="error-message" *ngIf="editProjectForm.get('position').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Jabatan dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title-container" no-padding>
+            <div class="subsection-title-container-1">
+                <div class="subsection-title">Bulan Mulai</div>
+            </div>
+            <div class="subsection-title-container-2">
+                <div class="subsection-title">Tahun Mulai</div>
+            </div>
+        </div>
+
+        <div class="date-container">
+            <div class="date-container-1">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="MMM"
+                                  formControlName="start_period_month"></ion-datetime>
+                </div>
+                <div class="icon-container-left">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+
+            <div class="date-container-2">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="YYYY" formControlName="start_period_year">
+                    </ion-datetime>
+                </div>
+                <div class="icon-container-right">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="error-message"
+             *ngIf="(editProjectForm.get('start_period_month').hasError('required') || editProjectForm.get('start_period_year').hasError('required')) && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Bulan Mulai dan Tahun Mulai dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title-container" no-padding>
+            <div class="subsection-title-container-1">
+                <div class="subsection-title">Bulan Selesai</div>
+            </div>
+            <div class="subsection-title-container-2">
+                <div class="subsection-title">Tahun Selesai</div>
+            </div>
+        </div>
+
+        <div class="date-container">
+            <div class="date-container-1">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="MMM"
+                                  formControlName="end_period_month"></ion-datetime>
+                </div>
+                <div class="icon-container-left">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+
+            <div class="date-container-2">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="YYYY" formControlName="end_period_year">
+                    </ion-datetime>
+                </div>
+                <div class="icon-container-right">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="error-message"
+             *ngIf="(editProjectForm.get('end_period_month').hasError('required') || editProjectForm.get('end_period_year').hasError('required')) && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Bulan Selesai dan Tahun Selesai dibutuhkan.</span>
+        </div>
+        <div class="error-message" *ngIf="validDate() && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Waktu mulai harus lebih kecil daripada waktu selesai.</span>
+        </div>
+
+        <div class="subsection-title">Alat</div>
+        <ion-textarea class="ion-no-padding textarea-style" placeholder="Alat" formControlName="tools" auto-grow=true></ion-textarea>
+
+        <div class="subsection-title">Deskripsi Proyek</div>
+        <ion-textarea class="ion-no-padding textarea-style" rows="3" placeholder="Deskripsi (min. 20 karakter)"
+                      formControlName="jobdesc" auto-grow=true>
+        </ion-textarea>
+        <ng-container *ngFor="let validation of validation_messages.description">
+            <div class="error-message" *ngIf="editProjectForm.get('jobdesc').hasError(validation.type) && isSubmitted">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{validation.message}}</span>
+            </div>
+        </ng-container>
+
+        <div class="project-save-button-container">
+            <ion-button class="project-save-button" expand="block" fill="outline" type="submit">
+                Simpan
+            </ion-button>
+        </div>
+    </form>
+</ion-content>

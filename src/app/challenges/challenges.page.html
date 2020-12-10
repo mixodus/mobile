@@ -1,0 +1,52 @@
+<ion-header class="challenge-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Tantangan
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="challenge-content">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ng-container *ngIf="listing?.data">
+        <div *ngIf="listing.data.length <= 0" class="no-listing-item">Belum ada tantanngan saat ini<br> Mohon periksa lagi nanti.
+        </div>
+
+        <div class="listing-item" *ngFor="let item of listing.data">
+            <div class="row-1">
+                <a class="item-name" (click)="goToDetail(item.challenge_id)">
+                    <app-text-shell animation="bouncing" [data]="item.challenge_title"></app-text-shell>
+                </a>
+
+              <div class="row-1-2">
+                <div class="item-code">
+                  <div class=" ">Poin</div>
+                  <app-text-shell [data]="item.challenge_point"></app-text-shell>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-2">
+                <div class="row-2-1">
+                    <div class="expired-date-title-text">Batas Waktu</div>
+                    <ng-container
+                            *ngIf="((item.challenge_expired_date | appTimeDifference) < 0 || (item.challenge_expired_date | appTimeDifference) > 172800)">
+                            <span class="expired-date-title-content">
+                              <app-text-shell [data]="item.challenge_expired_date"></app-text-shell>
+                            </span>
+                    </ng-container>
+                </div>
+
+              <div class="row-2-2" (click)="goToDetail(item.challenge_id)">
+                Detail
+              </div>
+            </div>
+        </div>
+    </ng-container>
+</ion-content>

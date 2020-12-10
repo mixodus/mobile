@@ -1,0 +1,56 @@
+<ion-header class="quiz-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="pause()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Quiz
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="quiz-content">
+    <div class="question-container">
+        <div class="text-title-question">Pertanyaan:</div>
+        <app-text-shell [data]="questions.data[i].question" class="text-question"></app-text-shell>
+    </div>
+
+    <ion-list [formGroup]="quizForm" class="choice-container">
+        <ion-radio-group formControlName="quiz_answer">
+            <ion-item lines="none" class="item ion-padding-horizontal"
+                      [ngClass]="{'active': (this.quizForm.controls['quiz_answer'].value === 'a')}">
+                <app-text-shell [data]="questions.data[i].a" class="item-label"
+                                animation="bouncing"></app-text-shell>
+                <ion-radio class="radio-button" slot="start" value="a" checked="false" md="ios"></ion-radio>
+            </ion-item>
+
+            <ion-item lines="none" class="item ion-padding-horizontal"
+                      [ngClass]="{'active': (this.quizForm.controls['quiz_answer'].value === 'b')}">
+                <app-text-shell [data]="questions.data[i].b" class="item-label"
+                                animation="bouncing"></app-text-shell>
+                <ion-radio class="radio-button" slot="start" value="b" checked="true" md="ios"></ion-radio>
+            </ion-item>
+
+            <ion-item lines="none" class="item ion-padding-horizontal"
+                      [ngClass]="{'active': (this.quizForm.controls['quiz_answer'].value === 'c')}">
+                <app-text-shell [data]="questions.data[i].c" class="item-label"
+                                animation="bouncing"></app-text-shell>
+                <ion-radio class="radio-button" slot="start" value="c" checked="false" md="ios"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+    </ion-list>
+
+    <div class="button-container">
+        <ion-button *ngIf="i < questions.data.length-1 && quizForm.valid" class="next-btn" (click)="next()"
+                    expand="block">
+            Selanjutnya
+        </ion-button>
+        <ion-button *ngIf="i === questions.data.length-1 && quizForm.valid" class="next-btn" (click)="finish()"
+                    expand="block">
+            Selesai
+        </ion-button>
+        <ion-button class="pause-btn" (click)="pause()" expand="block">
+            Jeda
+        </ion-button>
+    </div>
+</ion-content>

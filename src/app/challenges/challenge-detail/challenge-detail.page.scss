@@ -1,0 +1,735 @@
+.news-detail-header {
+  color: var(--idstar-dark-grey);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.challenge-detail-content {
+  .expiration-countdown {
+    color: var(--ion-color-lightest);
+    background-color: var(--ion-color-danger);
+    padding: 10px 20px;
+
+    position: sticky;
+    top: 0;
+    z-index: 8;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    .expiration-lead {
+      padding: 0px 5px 5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    app-countdown-timer.item-countdown {
+      --countdown-margin: 0px;
+      --countdown-padding: 0px 3px;
+      --countdown-time-margin: 0px 2px;
+      --countdown-time-padding: 0px 2px;
+      --countdown-inner-time-margin: 0px 2px 0px 0px;
+      --countdown-inner-time-padding: 5px 0px;
+      --countdown-fill-border: none;
+      --countdown-fill-border-radius: var(--app-narrow-radius);
+      --countdown-fill-background: var(--ion-color-lightest);
+      --countdown-fill-shadow: 0px 0px 5px 0px var(--page-countdown-fill-shadow-color);
+      --countdown-value-color: var(--ion-color-darkest);
+      --countdown-unit-color: var(--ion-color-medium-shade);
+
+      padding: 0px calc(var(--page-margin) / 4);
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .challenge-container-1 {
+    margin: 30px;
+
+    .challenge-container-1-1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .challenge-title {
+        width: 60%;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--idstar-dark-grey)
+      }
+
+      .challenge-thumbnail {
+        width: 93px;
+        height: 93px;
+        border-radius: 5px;
+      }
+    }
+
+    .challenge-container-1-2 {
+      margin: 10px 0;
+
+      .challenge-description {
+        font-size: 9px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .challenge-container-2 {
+    margin: 30px;
+    background: var(--idstar-light-grey);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 17px 22px;
+
+    .challenge-container-2-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 33.33%;
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+
+        .award-image {
+          height: 22.5px;
+        }
+      }
+
+      .award-text-title {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--idstar-grey);
+      }
+
+      .award-text-detail {
+        font-size: 9px;
+        font-weight: 400;
+      }
+    }
+
+    .challenge-container-2-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 33.33%;
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+
+        .card-checklist-image {
+          width: 22.5px;
+        }
+      }
+
+      .task-title {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--idstar-grey);
+      }
+
+      .task-detail {
+        font-size: 9px;
+        font-weight: 400;
+      }
+    }
+
+    .challenge-container-2-3 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 33.33%;
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+
+        .hour-glass-image {
+          height: 22.5px;
+        }
+      }
+
+      .task-title {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--idstar-grey);
+      }
+
+      .task-detail {
+        font-size: 9px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .challenge-container-3 {
+    margin: 30px;
+
+    .progress {
+      border-radius: 50px;
+      height: 10px;
+      background-color: var(--idstar-grey);
+
+      .inner {
+        border-radius: 50px;
+        height: 10px;
+        background: linear-gradient(270deg, #87EB47 0%, #6DBA3C 100%);
+      }
+    }
+
+    .progress-task {
+      font-size: 10px;
+      font-weight: 400;
+      margin-top: 9px;
+    }
+  }
+
+  .challenge-container-4 {
+    margin: 30px;
+
+    .challenge-long-description {
+      font-size: 9px;
+      font-weight: 400;
+    }
+  }
+
+  .challenge-container-5 {
+    margin: 30px;
+
+    .text-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .leader-board-container {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: row;
+
+      .medal-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 15%;
+
+        .medal-image {
+          width: 25px;
+        }
+
+        .rank-text {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--idstar-dark-grey);
+        }
+      }
+
+      .avatar-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 15%;
+
+        .avatar-image {
+          border-radius: 50%;
+          height: 39px;
+          width: 39px;
+        }
+      }
+
+      .name-container {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        width: 55%;
+
+        .name {
+          font-weight: 700;
+          font-size: 12px;
+          color: var(--idstar-dark-grey);
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .point-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border: 0.5px solid #38BDA5;
+        box-sizing: border-box;
+        border-radius: 10px;
+        flex-direction: column;
+        width: 15%;
+
+        .point {
+          font-weight: 700;
+          font-size: 9px;
+        }
+      }
+    }
+  }
+
+  .button-container {
+    padding: 20px 30px;
+
+    .continue-button, .join-button {
+      --background: rgb(117, 194, 68);
+      --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+      font-size: 12px;
+      color: var(--idstar-white);
+      font-family: var(--montserrat-family);
+      --box-shadow: 0 0 32px -7px #75C244;
+      height: 34px;
+    }
+  }
+}
+
+
+@import "../../../theme/mixins/ion-color";
+
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: 5px 0 5px;
+  --page-background: var(--app-background-shade);
+
+  --page-swiper-pagination-space: 30px;
+  --page-swiper-pagination-height: 18px;
+  --page-pagination-bullet-size: 10px;
+
+  --page-countdown-fill-shadow-color: rgba(var(--ion-color-darkest-rgb), 0.2);
+
+  --page-expired-color: var(--ion-color-medium-tint);
+  --page-ends-soon-color: #ffab6b;
+  --page-distant-end-color: #70df70;
+
+  --page-deal-color: var(--ion-color-medium);
+
+  --page-color: #70df70;
+
+  // Add custom colors to use with [color] property
+  @include ion-color("claim") {
+    --ion-color-claim: #70df70;
+    --ion-color-claim-rgb: 112, 223, 112;
+    --ion-color-claim-contrast: #ffffff;
+    --ion-color-claim-contrast-rgb: 255, 255, 255;
+    --ion-color-claim-shade: #63c463;
+    --ion-color-claim-tint: #7ee27e;
+  }
+}
+
+.header-toolbar {
+  --background: var(--idstar-primary);
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  &-text {
+    color: #fff;
+    margin: 0;
+    font: {
+      size: 16px;
+      family: var(--nunito-family);
+    }
+  }
+}
+
+.back {
+  color: #fff;
+  font-size: 22px;
+}
+
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+.deals-details-content {
+  // --background: var(--page-background);
+  font-family: var(--nunito-family);
+
+  &.ended {
+    --page-deal-color: var(--page-expired-color);
+  }
+
+  &.imminent-end {
+    --page-deal-color: var(--page-distant-end-color);
+  }
+
+  &.ends-soon {
+    --page-deal-color: var(--page-ends-soon-color);
+  }
+
+  &.distant-end {
+    --page-deal-color: var(--page-distant-end-color);
+  }
+
+
+
+  ion-button {
+    font-family: var(--nunito-family);
+  }
+
+  h4 {
+    font-family: var(--nunito-family);
+  }
+
+  .details-wrapper {
+    margin: 10px;
+    border-radius: var(--app-broad-radius);
+    background-color: var(--ion-color-lightest);
+
+    .slider-row {
+      .details-slides {
+        --bullet-background: var(--ion-color-primary);
+        --bullet-background-active: var(--ion-color-primary);
+
+        height: 100%;
+        width: 100%;
+        border-radius: var(--app-broad-radius) var(--app-broad-radius) 0px 0px;
+
+        .slide-inner-row {
+          height: 100%;
+          width: 100%;
+          padding: 0px;
+          // .swiper-pagination space
+          padding-bottom: var(--page-swiper-pagination-space);
+          // As we set ViewEncapsulation.ShadowDom, box-sizing get's resetted to content-box if I don't add this
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    .description-row {
+      --ion-grid-column-padding: 0px;
+
+      padding: 10px 20px 10px;
+      // border-bottom: 2px dashed rgba(var(--ion-color-dark-rgb), .1);
+      align-items: center;
+
+      .logo-col {
+        padding-bottom: calc(var(--page-margin) / 2);
+      }
+
+      .info-col {
+        padding-right: 10px;
+
+        .details-name {
+          margin: 10px 0;
+          // margin-bottom: calc(var(--page-margin) / 2);
+          color: var(--ion-color-dark-tint);
+          font-size: 16px;
+        }
+
+        .details-description {
+          margin: 0px;
+          color: var(--ion-color-medium-tint);
+          font-size: 12px;
+        }
+      }
+
+      .preview-image-col {
+        text-align: center;
+      }
+    }
+
+    .promo-row {
+      --ion-grid-column-padding: 0px;
+
+      padding: var(--page-margin);
+      text-align: center;
+      justify-content: center;
+
+      .promo-title {
+        font-size: 22px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--ion-color-dark-tint);
+        margin: 0px;
+
+        &::before,
+        &::after {
+          content: "·";
+          color: var(--ion-color-dark-tint);
+        }
+      }
+
+      .promo-description {
+        margin: var(--page-margin) 0px;
+        color: var(--ion-color-medium-tint);
+        font-size: 14px;
+      }
+
+      .promo-code-btn {
+        margin: 0px;
+      }
+
+      .promo-code {
+        display: block;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .promo-instructions {
+        margin: var(--page-margin) 0px 0px;
+        color: var(--ion-color-medium-tint);
+        font-size: 12px;
+        line-height: 1.4;
+
+        .instructions-anchor {
+          color: var(--page-color);
+          text-decoration: none;
+        }
+      }
+    }
+
+    .expiration-notice {
+      background-color: var(--page-deal-color);
+      padding: 10px 20px;
+      color: var(--ion-color-lightest);
+      border-radius: 0px 0px var(--app-broad-radius) var(--app-broad-radius);
+      display: flex;
+      justify-content: space-evenly;
+
+      .notice-message {
+        display: block;
+        font-size: 14px;
+        margin-right: 5px;
+        text-transform: capitalize;
+      }
+
+      .expiration-value {
+        display: block;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .challenge-long-desc {
+    margin: 0 var(--page-margin) calc(var(--page-margin) / 2);
+    // border-radius: 10px;
+    padding: 10px;
+    background-color: var(--ion-color-lightest);
+    font-size: 14px;
+  }
+
+  .challenge-detail-row {
+    background: white;
+    margin: var(--page-margin);
+    // border-radius: 10px;
+    font-size: 12px;
+
+    ion-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div {
+        text-align: center;
+
+        .challenge-detail-text {
+          font-size: 11px;
+          color: var(--ion-color-medium);
+        }
+
+        .challenge-detail-text-detail {
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        .icon {
+          font-size: 24px;
+
+          &.point {
+            color: goldenrod;
+          }
+
+          &.task {
+            color: green;
+          }
+
+          &.expire {
+            color: blue;
+          }
+        }
+      }
+    }
+  }
+
+  .challenge-progress {
+    margin: 20px 10px 20px;
+
+    .challenge-progress-bar {
+      --progress-background: #32ff6a;
+    }
+  }
+
+  .join-challenge-btn {
+    --background: orange;
+    // --box-shadow: none;
+  }
+
+  .related-deals-wrapper {
+    margin: calc(var(--page-margin) * 3) var(--page-margin) calc(var(--page-margin) * 2);
+
+    .related-deals-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: var(--ion-color-dark-shade);
+      margin: 0px 0px var(--page-margin);
+    }
+
+    .related-deal {
+      --ion-grid-column-padding: 0px;
+
+      border-radius: var(--app-broad-radius);
+      background-color: var(--ion-color-lightest);
+
+      &:not(:last-child) {
+        margin-bottom: calc(var(--page-margin) / 2);
+      }
+
+      .deal-logo-wrapper {
+        padding: calc(var(--page-margin) / 4) var(--page-margin) calc(var(--page-margin) / 4) calc(var(--page-margin) / 2);
+        border-right: 2px dashed rgba(var(--ion-color-dark-rgb), 0.1);
+      }
+
+      .deal-info-wrapper {
+        padding-left: var(--page-margin);
+        padding-right: calc(var(--page-margin) / 2);
+        padding-top: calc(var(--page-margin) / 4);
+        padding-bottom: calc(var(--page-margin) / 4);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .related-deal-title {
+          margin: 0px;
+          margin-bottom: 5px;
+          color: var(--ion-color-dark-tint);
+          font-size: 20px;
+        }
+
+        .related-deal-description {
+          margin: 0px;
+          color: var(--ion-color-medium-tint);
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .leaderboard-item {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    --background: white;
+    --min-height: 35px;
+    background: white;
+    font-family: var(--nunito-family);
+
+    padding: var(--page-margin);
+    color: var(--ion-color-medium);
+    box-shadow: inset 0 8px 2px -9px var(--ion-color-darkest);
+
+    .top-participant-wrapper {
+      --ion-grid-column-padding: 0px;
+
+      .image-wrapper {
+        margin: 5px;
+
+        app-image-shell.participant-image {
+          border-radius: 100%;
+        }
+      }
+
+      width: 100%;
+      align-items: center;
+    }
+
+    .participant-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .participant-name {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+        color: var(--ion-color-secondary);
+        margin-left: 10px;
+      }
+
+      .participant-points {
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        margin: 0px;
+        text-align: center;
+      }
+    }
+
+    .participant-rank {
+      margin: 0px;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}
+
+// ISSUE: .swiper-paggination gets rendered dynamically. That prevents styling the elements when using the default Angular ViewEncapsulation.None
+//        (Angular doesn't add an '_ngcontent' attribute to the .swiper-paggination because it's dynamically rendered)
+// FIX:   See: https://stackoverflow.com/a/36265072/1116959
+:host ::ng-deep {
+  .details-slides {
+    .swiper-pagination {
+      height: var(--page-swiper-pagination-height);
+      line-height: 1;
+      // .swiper-pagination is 18px height, .slide-inner-row has 40px of padding-bottom => bottom = (40px - 18px)/2 = 11px
+      bottom: calc((var(--page-swiper-pagination-space) - var(--page-swiper-pagination-height)) / 2);
+
+      .swiper-pagination-bullet {
+        width: var(--page-pagination-bullet-size);
+        height: var(--page-pagination-bullet-size);
+      }
+    }
+  }
+
+  app-countdown-timer.item-countdown {
+    .time-unit {
+      // text-transform: lowercase;
+      font-size: 0.8em;
+    }
+  }
+}

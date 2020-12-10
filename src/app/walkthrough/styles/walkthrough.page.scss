@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-content: center !important;
+  align-items: center !important;
+  overflow: hidden;
+}
+
+.abstract-background {
+  width: 100vw;
+  height: 40vh;
+}
+
+.man-object {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  height: 40vh;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.logo-one {
+  width: 112px;
+  margin: 30px;
+}
+
+.overlay-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-content: center !important;
+  align-items: center !important;
+  bottom: 10%;
+  padding: 15px;
+  z-index: 3;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--idstar-dark-grey);
+}
+
+.started-text {
+  color: var(--idstar-primary);
+}
+
+.description {
+  margin-top: 11px;
+  color: var(--idstar-grey)
+}
+
+.signup-button {
+  margin-top: 34px;
+  margin-bottom: 14px;
+  --background: rgb(117, 194, 68);
+  --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+  font-size: 12px;
+  color: var(--idstar-white);
+  font-family: var(--montserrat-family);
+  --box-shadow: 0 0 32px -7px #75C244;
+  width: 50%;
+}
+
+.login-button {
+  width: 50%;
+  color: var(--idstar-primary);
+  outline-color: var(--idstar-primary);
+}
+

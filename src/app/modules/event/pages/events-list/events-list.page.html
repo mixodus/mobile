@@ -1,0 +1,120 @@
+<ion-header class="event-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Acara
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="all">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+      <section class="banner-section" *ngIf="banners?.isShell">
+        <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+          <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+        </app-aspect-ratio>
+      </section>
+
+      <section class="banner-container" *ngIf="!banners?.isShell">
+        <ion-slides pager="true" [options]="updatedBannerConfig">
+          <ion-slide *ngFor="let b of banners?.data?.banner">
+            <a
+              class="banner-image"
+              (click)="goToEventDetail(b.banners_detail_id, b.banners_type_id)"
+              [style.background-image]="'url(' +  b.banners_photo_url +  ')'"
+            >
+            </a>
+          </ion-slide>
+        </ion-slides>
+      </section>
+
+    <div class="category-section">
+        <div class="section-title">Kategori Acara</div>
+
+        <ion-grid>
+            <ion-row>
+                <ng-container *ngIf="events?.isShell">
+                    <ion-col size="4" *ngFor="let item of [0,1,2]">
+                        <app-image-shell class="event-category" animation="gradient"></app-image-shell>
+                    </ion-col>
+                </ng-container>
+
+                <div class="event-category-container" *ngIf="!events?.isShell">
+                    <div class="event-category-sub-container" no-padding size="4" (click)="goToBootcamps()">
+                        <div class="event-category" [style.background-image]="'url(' + bootcampBG + ')'"></div>
+                        <p class="event-category-name">Bootcamp</p>
+                    </div>
+                    <div class="event-category-sub-container" no-padding size="4" (click)="goToEvents()">
+                        <div class="event-category" [style.background-image]="'url(' + eventBG + ')'"></div>
+                        <p class="event-category-name">Acara</p>
+                    </div>
+                    <div class="event-category-sub-container" no-padding size="4" (click)="goToChallenge()">
+                        <div class="event-category" [style.background-image]="'url(' + challengeBG + ')'"></div>
+                        <p class="event-category-name">Tantangan</p>
+                    </div>
+                </div>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <div class="event-list-section">
+        <div class="events-list">
+            <ng-container *ngIf="events?.isShell">
+                <div class="event" *ngFor="let e of [0,1]">
+                    <app-image-shell class="event-image" animation="gradient" style="height: auto;">
+                    </app-image-shell>
+                    <div class="event-content">
+                        <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                        </app-image-shell>
+
+                        <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                        </app-image-shell>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="!events?.isShell">
+                <div class="event"
+                     *ngFor="let event of events?.data.ongoing_event"
+                     (click)="goToEventDetail(event.event_id, event.event_type_id)"
+                >
+                    <div class="event-image"
+                         [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'"
+                    ></div>
+                    <div class="event-content">
+                        <div class="event-metadata">
+                            <span [class]="getEventTypeCssClass(event.event_type_id)">{{ getEventTypeString(event.event_type_id) }}
+                            </span>
+                        </div>
+
+                        <div class="event-title">{{event.event_title}}</div>
+                        <span class="date">{{ getEventDate(event.event_date) | date: 'MMM d, yyyy' }}</span>
+                    </div>
+                </div>
+
+                <div class="event"
+                     *ngFor="let event of events?.data.ongoing_challenge"
+                     (click)="goToChallengeDetail(event.challenge_id)"
+                >
+                    <div class="event-image"
+                         [style.background-image]="'url(' + event.challenge_photo + ')'"
+                    ></div>
+                    <div class="event-content">
+                        <div class="event-metadata">
+                            <span class="category category--challenge"> {{ event.event_category }}</span>
+                        </div>
+                        <div class="event-title">
+                            {{event.challenge_title}}
+                        </div>
+                        <span class="date">{{ getEventDate(event.challenge_expired_date) | date: 'MMM d, yyyy' }}</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ion-content>

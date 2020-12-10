@@ -1,0 +1,226 @@
+// http://ionicframework.com/docs/theming/
+// @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+// EXTRA GLOBAL STYLES
+// Add custom Ionic Colors
+@import './theme/custom-ion-colors.scss';
+// Add base app styles
+@import './theme/app-defaults.scss';
+// Add base shell styles
+@import './theme/shell-defaults.scss';
+
+:root {
+  --nunito-family: 'Nunito', sans-serif;
+  --bebas-family: 'Bebas Neue', sans-serif;
+  --montserrat-family: 'Montserrat', sans-serif;
+  //--idstar-grey: #D1D1D1;
+  //--idstar-light-grey: #f8f8f8;
+  --idstar-primary: #75C244;
+  --idstar-secondary: #64E512;
+  --idstar-primary-2: #9DD44F;
+  --idstar-primary-3: #437622;
+  --idstar-light-green: #CCFFAC;
+  --idstar-white: #FFFFFF;
+  --idstar-dark-grey: #383838;
+  --idstar-moderate-grey: #E3E3E3;
+  --idstar-light-grey: #F5F5F5;
+  --idstar-grey: #808080;
+  --idstar-yellow: #D6C533;
+  --idstar-turquoise: #38BDA5;
+  --idstar-light-orange: #D6742C;
+  --idstar-orange: #D6742C;
+  --idstar-red: #C51414;
+
+
+
+  //--idstar-primary-shade: #303030;
+  //--idstar-light: #505050;
+  //--idstar-dark: #FFFFFF;
+  //--idstar-darker: #252525;
+
+  --idstar-bootcamp-color: #75C244;
+  --idstar-event-color: #EAC131;
+  --idstar-challenge-color: #38BDA5;
+
+  --idstar-success: #00b47d;
+  --idstar-danger: #ea242a;
+  --idstar-warning: #FF9800;
+
+  --idstar-extend: #F4D918;
+  --idstar-blue: #4FC1F8;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.my-custom-modal-css {
+  --height: 80%;
+  --width: 90%;
+}
+
+.ion-no-color {
+  --background: none;
+}
+
+.option-full-width {
+  --min-width: 88vw !important;
+  --width: 88vw !important;
+  --max-width: 100% !important;
+  --height: 10vh !important;
+  --box-shadow: transparent;
+}
+
+.option-full-width-province {
+  --min-width: 88vw !important;
+  --width: 88vw !important;
+  --max-width: 100% !important;
+}
+
+.option-full-width-edit-profile-province {
+  --min-width: 100px !important;
+  --width: 93% !important;
+  --max-width: 400px !important;
+}
+
+.option-full-width-edit-profile {
+  --min-width: 100px !important;
+  --width: 93% !important;
+  --max-width: 400px !important;
+  --height: 8.7vh !important;
+  // --box-shadow: transparent;
+}
+
+.option-full-width-edit-account {
+  --min-width: 100px !important;
+  --width: 93% !important;
+  --max-width: 400px !important;
+  --padding-start: 20px;
+}
+
+ion-searchbar {
+  .searchbar-input-container {
+    box-shadow: none;
+    .searchbar-input {
+      border-radius: 5px;
+      font-size: 12px;
+      box-shadow: none;
+    }
+  }
+}
+
+.idstar-custom-alert {
+  --max-width: 300px;
+
+
+  .alert-wrapper {
+    --background: var(--idstar-white);
+    border-radius: 5px;
+    margin-bottom: 200px;
+  }
+
+  .alert-head {
+    background: var(--idstar-dark);
+    padding-bottom: 0;
+  }
+
+  .alert-message {
+    background: var(--idstar-dark);
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    padding-bottom: 0;
+  }
+
+  .alert-button-group {
+    background: var(--idstar-dark);
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+
+  .idstar-custom-alert-action {
+    background-color: rgb(117, 194, 68);
+    background-color: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    color: var(--idstar-white);
+    letter-spacing: 1.5px;
+    margin: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-inline-start: 45px;
+    padding-inline-end: 45px;
+    --box-shadow: 0 0 32px -7px #75C244;
+  }
+
+  .message-body {
+    background: var(--idstar-dark);
+    text-align: center;
+
+    .image {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    .title,
+    .content {
+      margin-bottom: 5px;
+      margin-top: 0;
+    }
+
+    .title {
+      color: var(--idstar-dark-grey);
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    .content {
+      color: var(--idstar-grey);
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+}
+
+.form-error-notice {
+  display: block;
+  margin: 5px 0;
+  color: var(--idstar-danger);
+  font-family: var(--nunito-family);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+.ios .idstar-custom-alert {
+  .idstar-custom-alert-action {
+    flex: 0 0 auto !important;
+    height: auto;
+  }
+}
+
+ion-searchbar ion-icon {
+  right: 16px !important;
+  left: auto !important;
+  color: var(--idstar-primary) !important;
+}
+
+.notification-item-wrapper {
+  border: none;
+  outline: none;
+}

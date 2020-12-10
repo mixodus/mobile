@@ -1,0 +1,194 @@
+.container {
+  height: 100vh;
+  font-family: var(--montserrat-family);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-form {
+    color: var(--idstar-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .login-existing-text {
+      margin: 0 0 20px;
+      color: var(--idstar-primary);
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .input-item {
+      --padding-start: 0px;
+      --padding-end: 0px;
+      --background: var(--idstar-primary-shade);
+      color: #ffffff;
+      --min-height: 20px;
+      margin-top: var(--item-margin);
+      border-bottom: 1px solid #ffffff;
+
+      .input-class {
+        --padding-top: 0;
+        --padding-bottom: 0;
+        font-size: 13px;
+        color: var(--idstar-grey);
+      }
+
+      .input-class .ng-invalid {
+        width: 97%;
+        left: 5px;
+        border-bottom-color: transparent;
+      }
+
+      .input-class .ion-invalid {
+        width: 97%;
+        left: 5px;
+        border-bottom-color: transparent;
+      }
+
+      ion-item ion-invalid ng-invalid {
+        left: 5px;
+        width: 97%;
+      }
+
+      .item-highlight {
+        display: none;
+      }
+
+      .input-item-icon {
+        margin: 0;
+        margin-right: 10px;
+        font-size: 13px;
+      }
+    }
+
+    .error-container {
+      .error-message {
+        margin: calc(var(--page-margin) / 2) 0px;
+        display: flex;
+        align-items: center;
+        color: var(--ion-color-danger);
+        font-size: 12px;
+
+        ion-icon {
+          padding-inline-end: calc(var(--page-margin) / 2);
+        }
+      }
+    }
+  }
+
+  .remember-me-forgot-password-wrapper {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding-block-start: 41px;
+
+    .remember-me {
+      align-items: center;
+      display: flex;
+      margin: 5px;
+    }
+
+    .forgot-anchor {
+      display: inline-block;
+      color: var(--idstar-primary);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  }
+
+  .social-auth-options {
+    .options-divider {
+      color: var(--ion-color-medium);
+      margin: var(--page-margin) 0px;
+      text-align: center;
+    }
+
+    .social-auth-btn {
+      margin: 0px;
+
+      &:not(:first-child) {
+        margin-top: var(--page-margin);
+      }
+    }
+  }
+}
+
+.container-1 {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo-one {
+  max-width: 113px;
+  margin-bottom: 20px;
+}
+
+.inputs-list {
+  text-align: center;
+  width: 80vw;
+}
+
+.subsection-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--idstar-dark-grey);
+  font-weight: bold;
+  padding-top: 25px;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.login-btn {
+  margin: 36px 0;
+  width: 50%;
+  --background: rgb(117,194,68);
+  --background: linear-gradient(90deg, rgba(117,194,68,1) 0%, rgba(100,229,18,1) 50%);
+  font-size: 12px;
+  color: var(--idstar-white);
+  font-family: var(--montserrat-family);
+  --box-shadow: 0 0 32px -7px #75C244;
+}
+
+.remember-checkbox {
+  --size: 12px;
+  --background: var(--idstar-grey);
+  --border-color: var(--idstar-grey);
+  --background-checked: var(--idstar-primary);
+  --border-color-checked: var(--idstar-primary);
+  --checkmark-color: white;
+}
+
+.remember-label {
+  font-size: 10px;
+  margin-left: 5px;
+  color: var(--ion-color-medium);
+}
+
+.signup-text {
+  margin: 10px 0;
+  text-align: left;
+  font-size: 12px;
+  color: var(--idstar-grey);
+}
+
+.signup-anchor {
+  text-align: left;
+  font-size: 12px;
+  color: var(--idstar-primary);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+

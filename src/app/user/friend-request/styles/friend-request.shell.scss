@@ -1,0 +1,18 @@
+.name > app-text-shell{
+  max-width: 80%;
+  &.text-loaded{
+      max-width: unset;
+  }
+}
+
+.text > app-text-shell{
+  max-width: 80%;
+
+  &.text-loaded{
+      max-width: unset;
+  }
+}
+
+app-image-shell.friend-picture {
+  --image-shell-border-radius: 100%;
+}

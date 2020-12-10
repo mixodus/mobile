@@ -1,0 +1,172 @@
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-fair-margin);
+  --page-background: #ffffff;
+  --page-margin-wide: 100px;
+  --page-tags-vertical-gutter: 2px;
+  --page-tags-horizontal-gutter: 4px;
+  --page-places-gutter: 5px;
+  --page-color: #00AFFF;
+}
+
+.travel-details-content {
+  height: 100vh;
+  font-family: var(--nunito-family);
+
+  .background-page{
+    background:url('/assets/new-assets/bg-detail.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position-x: center;
+  }
+  .header-toolbar {
+    --background: transparent;
+    .title {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &-text {
+            color: #fff;
+            margin: 0;
+            font: {
+                size: 16px;
+                family: var(--nunito-family);
+            }
+        }
+    }
+    .back {
+        color: #fff;
+        font-size: 22px;
+    }
+}
+
+
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+
+  .image-row {
+    --ion-grid-column-padding: 0px;
+    padding: 5%;
+    padding-top: 0;
+    padding-bottom: 0;
+    .image{
+      border-radius: 5%;
+    }
+  }
+
+  .time-and-type{
+    padding-left: 5%;
+    padding-right: 5%;
+    max-height: fit-content;
+    .time{
+      max-height: fit-content;
+      p{
+        margin: 0;
+        font-size: 12px;
+        padding: 4px;
+        color: #A1A1A1;
+      }
+    }
+    .type{
+      margin: auto;
+      max-height: fit-content;
+      p{
+        text-align: center;
+        margin: 0;
+        font-size: 12px;
+        background-color: var(--idstar-event-color);
+        color: white;
+        border-radius: 5px;
+        font-weight: lighter;
+      }
+    }
+  }
+
+  .description-row {
+    padding-left: 5%;
+    padding-right: 5%;
+    max-height: fit-content;
+    .details-name {
+      margin: 0px;
+      font-size: 14px;
+      color: #313131;
+      font-weight: bold;
+    }
+    
+    .details-description {
+      margin-top: 5px;
+      p{
+        font-size: 14px;
+        margin: 0;
+        font-weight: lighter;
+        padding-bottom: 5%;
+      }
+    }
+  }
+  
+  .grid{
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    .button-wrapper{
+    
+      .apply-btn{
+        margin: calc(var(--page-margin) / 2) 0px;
+        width:100%;
+        --background:var(--idstar-primary-shade);
+        font-size:12px;
+        color:white;
+        --border-radius:50px;
+        letter-spacing: 0.9px;
+        bottom: 0;
+        text-align: center;
+        margin-bottom: 10px;
+        margin:20px;
+        font-weight: lighter;
+        font-family: var(--nunito-family);
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  .box{
+    font-family: var(--nunito-family);
+    background: #ffffff;
+    margin: 5%;
+    margin-top: 2%;
+    border-radius: 5%;
+    padding: 3%;
+   
+    .detail-title {
+      font-size: 12px;
+      color: var(--idstar-primary);
+      font-weight: bold;
+      // margin: 0px 0px var(--page-margin);
+    }
+    .dot{
+      font-size: 12px;
+      color: var(--idstar-primary);
+      font-weight: bold;
+    }
+    .detail{
+      font-size: 12px;
+      color: #313131;
+    }
+    .status{
+      font-size: 12px;
+      color: #A1A1A1;
+      font-weight: bold;
+    }
+    .status2{
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--idstar-extend);
+    }
+  }
+}

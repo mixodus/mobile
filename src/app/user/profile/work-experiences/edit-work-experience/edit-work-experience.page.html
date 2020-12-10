@@ -1,0 +1,131 @@
+<ion-header class="work-experience-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Pengalaman Kerja
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="work-experience-content">
+    <form [formGroup]="editExperienceForm" (ngSubmit)="saveWorkExperience($event)" class="edit-work-experience-form">
+        <div class="subsection-title">Nama Perusahaan</div>
+        <ion-input type="text" placeholder="Nama Perusahaan" formControlName="company_name" clearInput
+                   autocapitalize="off" class="ion-no-padding input-text">
+        </ion-input>
+        <div class="error-message" *ngIf="editExperienceForm.get('company_name').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Nama Perusahaan dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title">Jabatan</div>
+        <ion-input type="text" placeholder="Jabatan" formControlName="post" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text"></ion-input>
+        <div class="error-message" *ngIf="editExperienceForm.get('post').hasError('required') && isSubmitted ">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Jabatan dibutuhkan.</span>
+        </div>
+
+        <div class="checkbox-container">
+            <ion-checkbox class="checkbox" slot="start" [(ngModel)]="currentlyWork"
+                          [ngModelOptions]="{standalone: true}"
+                          (ionChange)="onChangeCheckbox()"></ion-checkbox>
+            <div class="checkbox-text">Saya masih bekerja di jabatan ini.</div>
+        </div>
+
+        <div class="subsection-title-container" no-padding>
+            <div class="subsection-title-container-1">
+                <div class="subsection-title">Bulan Mulai</div>
+            </div>
+            <div class="subsection-title-container-2">
+                <div class="subsection-title">Tahun Mulai</div>
+            </div>
+        </div>
+
+        <div class="date-container">
+            <div class="date-container-1">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="MMM" formControlName="start_period_month"></ion-datetime>
+                </div>
+                <div class="icon-container-left">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+
+            <div class="date-container-2">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="YYYY" formControlName="start_period_year">
+                    </ion-datetime>
+                </div>
+                <div class="icon-container-right">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="error-message"
+             *ngIf="(editExperienceForm.get('start_period_month').hasError('required') || editExperienceForm.get('start_period_year').hasError('required')) && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Bulan Mulai dan Tahun Mulai dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title-container" no-padding *ngIf="!currentlyWork">
+            <div class="subsection-title-container-1">
+                <div class="subsection-title">Bulan Selesai</div>
+            </div>
+            <div class="subsection-title-container-2">
+                <div class="subsection-title">Tahun Selesai</div>
+            </div>
+        </div>
+
+        <div class="date-container" *ngIf="!currentlyWork">
+            <div class="date-container-1">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="MMM" formControlName="end_period_month"></ion-datetime>
+                </div>
+                <div class="icon-container-left">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+
+            <div class="date-container-2">
+                <div class="date-el-container">
+                    <ion-datetime class="date-el" no-padding display-format="YYYY" formControlName="end_period_year">
+                    </ion-datetime>
+                </div>
+                <div class="icon-container-right">
+                    <img class="calendar-icon" src="../../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="error-message"
+             *ngIf="(editExperienceForm.get('end_period_month').hasError('required') || editExperienceForm.get('end_period_year').hasError('required')) && isSubmitted && !currentlyWork">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Bulan Selesai dan Tahun Selesai dibutuhkan.</span>
+        </div>
+        <div class="error-message" *ngIf="validDate() && isSubmitted && !currentlyWork">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Waktu mulai harus lebih kecil daripada waktu selesai.</span>
+        </div>
+
+        <p class="subsection-title">Deskripsi Pekerjaan</p>
+        <ion-textarea class="ion-no-padding textarea-style" rows="3" placeholder="Deskripsi (min. 20 karakter)"
+                      formControlName="description" auto-grow=true></ion-textarea>
+        <ng-container *ngFor="let validation of validation_messages.description">
+            <div class="error-message"
+                 *ngIf="editExperienceForm.get('description').hasError(validation.type) && isSubmitted">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{validation.message}}</span>
+            </div>
+        </ng-container>
+
+        <div class="work-experience-save-button-container">
+            <ion-button class="work-experience-save-button" expand="block" type="submit">
+                Simpan
+            </ion-button>
+        </div>
+    </form>
+</ion-content>

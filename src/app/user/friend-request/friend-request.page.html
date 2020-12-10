@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+<ion-title>friend-request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!friendRequest.data || friendRequest.data.length === 0" class="no-data">
+    No data found
+    <br>
+    Please add new data
+    <br>
+  </div>
+  <!-- <ion-card class="profile" *ngFor="let friend of friendRequest.data">
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <app-aspect-ratio [ratio]="{w: 1, h: 1}" (click)='zoomImage(friend.pic)'>
+          <app-image-shell *ngIf="friend.pic"  animation="spinner" class="friend-picture" [src]="friend.pic">
+          </app-image-shell>
+          <app-image-shell *ngIf="!friend.pic"  animation="spinner" class="friend-picture" [src]="profileImg">
+            </app-image-shell>
+          </app-aspect-ratio>
+          
+        </ion-col>
+        <ion-col>
+          <div style="margin-top: 25%;">
+            <ion-label class="text" style="font-size: 12px;">
+              <app-text-shell [data]="friend.fullname"></app-text-shell>
+            </ion-label>
+          </div>         
+        </ion-col>
+        <ion-col>
+          <div  style="margin-top: 25%;">
+            <button class="add-friend" (click)="approve(friend.user_id)">add</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div style="margin-top: 25%;">
+            <button class="decline" (click)="reject(friend.user_id)">decline</button>
+          </div>     
+        </ion-col>
+        <ion-label class="name">
+          <app-text-shell [data]="friend.user_id"></app-text-shell>
+        </ion-label>
+          
+      </ion-row>
+
+
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-virtual-scroll [items]="friendRequest.data" approxItemHeight="200px" [headerFn]="separator">
+    <ion-item-divider *virtualHeader = "let header">
+      <ion-label>{{ header }}</ion-label>
+    </ion-item-divider>
+    <ion-item *virtualItem="let item" (click)="onClick(item.user_id)">
+      <ion-avatar style="margin-right: 10px;height: 60px; width: 60px;">
+        <app-aspect-ratio [ratio]="{w: 1, h: 1}" (click)='zoomImage(friend.pic)'>
+          <app-image-shell *ngIf="item.pic"  animation="spinner" class="friend-picture" [src]="item.pic">
+          </app-image-shell>
+          <app-image-shell *ngIf="!item.pic"  animation="spinner" class="friend-picture" [src]="profileImg">
+            </app-image-shell>
+          </app-aspect-ratio>
+      </ion-avatar>      
+      <div (click)="onClick(item.user_id)">
+        <h6>{{item.fullname}}</h6>
+        <p *ngIf="item.mutual_friends.count != 0" style="font-size: 10px;">{{item.mutual_friends.count}} mutual friend</p>
+      </div>
+        
+      <div style="margin-left: auto;">
+        <button class="add-friend" (click)="approve(friend.user_id)">add</button>
+      </div>
+      <div style="margin-left: 2.5%;">
+        <button class="decline" (click)="reject(friend.user_id)">decline</button>
+      </div> 
+    </ion-item>
+  </ion-virtual-scroll>
+
+</ion-content>

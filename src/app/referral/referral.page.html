@@ -1,0 +1,124 @@
+<ion-header class="referral-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            Rujukan
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false" class="referral-content">
+    <div class="button-toggle-referral">
+        <ion-button
+                [ngClass]="{'toggle-referral-fill': toggleState === 0, 'toggle-referral-outline':toggleState === 1 }"
+                expand="block" (click)="handleToggleReferral(0)">Halaman Rujukan
+        </ion-button>
+        <ion-button
+                [ngClass]="{'toggle-referral-fill': toggleState === 1, 'toggle-referral-outline':toggleState === 0 }"
+                expand="block" (click)="handleToggleReferral(1)">Status
+        </ion-button>
+    </div>
+
+    <section [hidden]="toggleState === 1" class="referral-container">
+        <div class="referral-title">
+            Formulir Rujukan
+        </div>
+        <div class="referral-description">
+            Undang temanmu untuk bergabung dan
+            dapatkan uang tunai mencapai Rp {{maxFeeReferral}}
+            dari setiap rujukan *
+        </div>
+
+        <form [formGroup]="referralForm" class="referral-form" (ngSubmit)="doreferFriends()">
+            <ion-list class="input-list" lines="full">
+
+                <ion-item class="input-item ion-no-padding">
+                    <ion-label class="section-title" position="stacked">Nama Lengkap Temanmu</ion-label>
+                    <ion-input type="text" formControlName="referral_name" placeholder="Nama Lengkap Temanmu" clearInput
+                               autocapitalize="off" inputmode="text" class="input-text"></ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.referral_name">
+                        <div class="error-message"
+                             *ngIf="referralForm.get('referral_name').hasError(validation.type) && (referralForm.get('referral_name').dirty || referralForm.get('referral_name').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="input-item ion-no-padding">
+                    <ion-label class="section-title" position="stacked">Email</ion-label>
+                    <ion-input type="text" formControlName="referral_email" placeholder="Email" clearInput
+                               autocapitalize="off" inputmode="text" class="input-text">
+                    </ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.referral_email">
+                        <div class="error-message"
+                             *ngIf="referralForm.get('referral_email').hasError(validation.type) && (referralForm.get('referral_email').dirty || referralForm.get('referral_email').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="input-item ion-no-padding">
+                    <ion-label class="section-title" position="stacked">Nomor Telepon</ion-label>
+                    <ion-input type="text" formControlName="referral_contact_no" placeholder="Nomor Telepon"
+                               clearInput autocapitalize="off" class="input-text" inputmode="numeric">
+                    </ion-input>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.referral_contact_no">
+                        <div class="error-message"
+                             *ngIf="referralForm.get('referral_contact_no').hasError(validation.type) && (referralForm.get('referral_contact_no').dirty || referralForm.get('referral_contact_no').touched)">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+                <br>
+                <div class="referral-description">
+                    * Setelah temanmu menyetujui untuk bergabung dengan IDStar Group
+                </div>
+            </ion-list>
+
+            <ion-button class="submit-btn" type="submit" [disabled]="!referralForm.valid" expand="block">Kirim
+            </ion-button>
+        </form>
+    </section>
+
+    <section [hidden]="toggleState === 0" class="status-container">
+        <div class="search ion-no-padding">
+            <ion-searchbar #sb showCancelButton="focus"
+                           class="ion-no-padding"
+                           placeholder="Cari rujukan"
+                           search-icon="search" animated mode="md" [debounce]="500" inputmode="search"
+                           (ionChange)="searchList($event)"
+                           [value]="selectedItem" (ionBlur)="onBlur($event)" autocomplete></ion-searchbar>
+        </div>
+
+        <div *ngIf="!searchData || searchData.length === 0" class="data-null">
+            Data teman rujukan tidak ditemukan.
+        </div>
+
+        <div *ngFor="let referral of searchData" class="referral-status-container">
+            <div class="referral-status-container-1">
+                <app-text-shell animation="bouncing" [data]="referral.referral_status"
+                                class="referral-status ion-text-right">
+                </app-text-shell>
+            </div>
+            <app-text-shell animation="bouncing" [data]="referral.referral_name" class="referral-name">
+            </app-text-shell>
+
+            <app-text-shell animation="bouncing" [data]="referral.referral_email"
+                            class="referral-email"></app-text-shell>
+            <app-text-shell animation="bouncing" [data]="referral.referral_contact_no"
+                            class="referral-number">
+            </app-text-shell>
+        </div>
+    </section>
+</ion-content>

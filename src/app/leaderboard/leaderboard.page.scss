@@ -1,0 +1,65 @@
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+    --page-margin: var(--app-narrow-margin);
+}
+
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+.notifications-content {
+  ion-item-divider {
+    --background: var(--ion-color-light);
+    --padding-start: var(--page-margin);
+  }
+
+  .notification-item {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    padding: var(--page-margin);
+    color: var(--ion-color-medium);
+    box-shadow: inset 0 8px 2px -9px var(--ion-color-darkest);
+
+    .notification-item-wrapper {
+      --ion-grid-column-padding: 0px;
+      background-color: var(--ion-color-newColor);
+
+      app-image-shell.notification-image{
+        border-radius: 100%;
+      }
+
+      width: 100%;
+      align-items: center;
+    }
+
+    .details-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-left: var(--page-margin);
+
+      .details-name {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+        color: var(--ion-color-secondary);
+        text-transform: capitalize;
+      }
+
+      .details-description {
+        font-size: 14px;
+        margin: 0px;
+        color: rebeccapurple;
+      }
+    }
+  }
+}
+.color{
+  z-index: 10;
+}
+.notification-date {
+  margin-right: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+.rank-medal{
+  margin-right: 10px;
+}

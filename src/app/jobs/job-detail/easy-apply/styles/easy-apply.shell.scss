@@ -1,0 +1,47 @@
+:host {
+    --shell-color: #F8F8F8;
+    --shell-color-rgb: 0,0,0;
+  }
+  
+  // You can also apply sheel styles to the entire page
+  :host(.is-shell) {
+    // ion-content {
+    //   opacity: 0.8;
+    // }
+  }
+  
+  app-image-shell.details-image {
+    --image-shell-loading-background: rgba(var(--shell-color-rgb), .10);
+    --image-shell-overlay-background: rgba(var(--ion-color-dark-rgb), .40);
+    --image-shell-spinner-color: rgba(var(--shell-color-rgb), .90);
+    --image-shell-border-radius: 50%;
+  }
+  
+  app-image-shell.details-icon {
+    --image-shell-loading-background: transparent;
+  }
+  
+  .details-name > app-text-shell {
+    --text-shell-line-color: rgba(var(--shell-color-rgb), .20);
+    --text-shell-line-height: 20px;
+  }
+  
+  .details-short-description > app-text-shell {
+    --text-shell-line-color: rgba(var(--shell-color-rgb), .10);
+    --text-shell-line-height: 14px;
+    max-width: 80%;
+  
+    &.text-loaded {
+      max-width: inherit;
+    }
+  }
+  
+  .score-value > app-text-shell {
+    --text-shell-line-color: rgba(var(--shell-color-rgb), .15);
+    --text-shell-line-height: 14px;
+    min-width: 30px;
+  
+    &.text-loaded {
+      min-width: 0px;
+    }
+  }

@@ -1,0 +1,103 @@
+.background-page{
+    --background:inherit;
+    margin: var(--page-margin);
+
+    .info-wrapper {
+        margin: var(--page-margin);
+
+        .illustration-wrapper{
+            padding-top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            display:block;
+            width: 50%; 
+
+            .image-wrapper{
+                width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                display:block;
+            }
+
+            .text-content-wrapper{
+                padding-top: 50px;
+                width: 90%;
+                max-width: 55em;
+                margin: 0 auto;
+                text-align: center;
+                white-space: pre-wrap;
+            }
+        }
+    }
+    .button-wrapper{
+        padding-top: 50px;
+        margin: var(--page-margin);
+
+        .go-update-btn {
+            margin: 0px;
+            --background: #f23934;
+            --border-radius: var(--ion-border-radius);
+            
+            .go-update-text{
+                color: white;
+                font-size: 16px;
+            }
+        }
+    }
+}
+    /*.info-title {
+      margin: 0px;
+      margin-bottom: var(--page-margin);
+      color: var(--ion-color-dark);
+    }
+
+    .info-paragraph {
+      color: var(--ion-color-medium-shade);
+      font-size: 14px;
+      margin: 0px 0px calc(var(--page-margin) / 2);
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+}
+  
+  // Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+  .not-found-content {
+    --padding-start: var(--page-margin);
+    --padding-end: var(--page-margin);
+    --padding-top: var(--page-margin);
+    --padding-bottom: var(--page-margin);
+  
+    .illustration-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+        display:block;
+        width:50%;
+    }
+    ion-img{
+        height:100px !important;
+        width: 100px !important;
+    }
+  
+    .modal-title {
+        margin: 0px;
+        margin-bottom: var(--page-margin);
+        color: var(--ion-color-dark);
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+    }
+  
+    .modal-text {
+        color: var(--ion-color-medium-shade);
+        font-size: 14px;
+        margin: 0px 0px calc(var(--page-margin) / 2);
+        &:last-child {
+            margin-bottom: 0px;
+        }
+        margin-bottom: 40px;
+        text-align: center;
+    }
+  }*/
+  

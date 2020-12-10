@@ -1,0 +1,144 @@
+<ion-content>
+    <div class="container">
+        <div class="container-1">
+            <img class="logo-one" src="../../assets/images/icon.png">
+
+            <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+                <ion-list class="input-list" lines="none">
+                    <p class="subsection-title">Nama Lengkap</p>
+                    <ion-item class="input-item">
+                        <ion-input type="text" class="input-box" required placeholder="Nama Lengkap Anda"
+                                   formControlName="fullname">
+                        </ion-input>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.fullname">
+                            <div class="error-message"
+                                 *ngIf="registerForm.get('fullname').hasError(validation.type) && notValid">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <p class="subsection-title">Email</p>
+                    <ion-item class="input-item">
+                        <ion-input type="email" class="input-box" placeholder="Email Anda"
+                                   formControlName="email"></ion-input>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.email">
+                            <div class="error-message"
+                                 *ngIf="registerForm.get('email').hasError(validation.type) && notValid">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <p class="subsection-title">Nomor Telepon</p>
+                    <ion-item class="input-item">
+                        <ion-input type="number" class="input-box" inputmode="numeric"
+                                   placeholder="Nomor Telepon Anda" formControlName="contact_no"></ion-input>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.contact_no">
+                            <div class="error-message"
+                                 *ngIf="registerForm.get('contact_no').hasError(validation.type) && notValid">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <p class="subsection-title">Password</p>
+                    <ion-item class="input-item">
+                        <!-- <img slot="start" class="input-icon" src="assets/icons/privacy.png" /> -->
+                        <app-show-hide-password>
+                            <ion-input type="password" class="input-box"
+                                       placeholder="Mengandung Alphanumeric (e.g. a-z, 0-9)"
+                                       formControlName="password">
+                            </ion-input>
+                        </app-show-hide-password>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.password">
+                            <div class="error-message"
+                                 *ngIf="registerForm.get('password').hasError(validation.type) && notValid">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                        <div class="error-message"
+                             *ngIf="registerForm.get('password').touched && !isPasswordAlphanumeric()">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>Password harus alphanumeric.</span>
+                        </div>
+                    </div>
+
+                    <p class="subsection-title">Konfirmasi Password</p>
+                    <ion-item class="input-item">
+                        <!-- <img slot="start" class="input-icon" src="assets/icons/privacy.png" /> -->
+                        <app-show-hide-password>
+                            <ion-input type="password" class="input-box" placeholder="Konfirmasi Password Anda"
+                                       formControlName="confirm_password"></ion-input>
+                        </app-show-hide-password>
+                    </ion-item>
+
+                    <div class="error-container">
+                        <ng-container *ngFor="let validation of validation_messages.confirm_password">
+                            <div class="error-message"
+                                 *ngIf="registerForm.get('confirm_password').hasError(validation.type) && notValid">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>{{ validation.message }}</span>
+                            </div>
+                        </ng-container>
+                        <div class="error-message"
+                             *ngIf="registerForm.get('confirm_password').touched && !isPasswordMatch()">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>Password tidak cocok.</span>
+                        </div>
+                    </div>
+                </ion-list>
+
+                <div>
+                    <div class="policy-terms-wrapper">
+                        <ion-checkbox class="policy-terms-checkbox"
+                                      [(ngModel)]="isPolicyTermsChecked"
+                                      [ngModelOptions]="{standalone: true}">
+                        </ion-checkbox>
+                        <span class="agree-notice">
+                            Saya setuju dengan
+                            <b class="policy-terms" (click)="showPrivacyPolicy()">Kebijakan Pribadi</b> dan
+                            <b class="policy-terms" (click)="showTermsOfUse()">Syarat Penggunaan</b>
+                        </span>
+                    </div>
+
+                    <div class="error-container"
+                         *ngIf="!isPolicyTermsValid"
+                    >
+                        <div class="error-message">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <div>Kebijakan Pribadi dan Syarat Penggunaan harus disetujui.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ion-text-center">
+                    <ion-button class="signup-btn" type="submit">
+                        DAFTAR
+                    </ion-button>
+                </div>
+
+                <p class="login-notice ion-text-center">
+                    Sudah mendaftar? <a [routerLink]="['/auth/login']"><b>Masuk</b></a>
+                </p>
+            </form>
+        </div>
+    </div>
+</ion-content>

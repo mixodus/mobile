@@ -1,0 +1,109 @@
+<ion-header class="event-category-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            {{ categoryName | titlecase }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="upcoming-event-content">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="upcoming-event-container">
+        <div class="section-title">{{ categoryName | titlecase }} Sedang Berjalan</div>
+
+        <ng-container *ngIf="events?.isShell">
+            <div *ngFor="let data of [0,1,2]" style="padding: 3%;">
+                <ion-row>
+                    <ion-col size="3">
+                        <div class="event-image">
+                            <app-image-shell animation="gradient" style="height: 50px;width: 50px;">
+                            </app-image-shell>
+                        </div>
+                    </ion-col>
+                    <ion-col size="9">
+                        <div class="event-content">
+                            <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                            </app-image-shell>
+                            <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                            </app-image-shell>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </ng-container>
+
+        <div *ngIf="!events?.isShell && countOnGoing >= 1">
+            <div class="event" *ngFor="let event of onGoing"
+                 (click)="goToEventDetail(event.event_id, event.event_type_id)">
+                <div class="event-image"
+                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'"></div>
+                <div class="event-content">
+                    <div class="event-metadata">
+                        <span class="category category--{{ categoryName | titlecase }}">{{ categoryName | titlecase }}</span>
+                    </div>
+                    <div class="event-title">
+                        {{event.event_title}}
+                    </div>
+                    <span class="date">{{ getEventDate(event.event_date) | date: 'MMM d, yyyy' }}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!events?.isShell && countOnGoing === 0">
+            <div class="empty">Tidak Ada {{ categoryName | titlecase }} Sedang Berjalan</div>
+        </div>
+    </div>
+
+    <div class="ongoing-event-container">
+        <div class="section-title">{{ categoryName | titlecase }} Mendatang</div>
+
+
+        <ng-container *ngIf="events?.isShell">
+            <div *ngFor="let data of [0,1,2]" style="padding: 3%;">
+                <ion-row>
+                    <ion-col size="3">
+                        <div class="event-image">
+                            <app-image-shell animation="gradient" style="height: 50px;width: 50px;">
+                            </app-image-shell>
+                        </div>
+                    </ion-col>
+                    <ion-col size="9">
+                        <div class="event-content">
+                            <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                            </app-image-shell>
+                            <app-image-shell animation="gradient" style="margin-bottom: 10px; height: 20px;">
+                            </app-image-shell>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </ng-container>
+
+
+        <div *ngIf="!events?.isShell && countUpComing >= 1">
+            <div class="event" *ngFor="let event of upComing"
+                 (click)="goToEventDetail(event.event_id, event.event_type_id)">
+                <div class="event-image"
+                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'"></div>
+                <div class="event-content">
+                    <div class="event-metadata">
+                        <span class="category category--{{ categoryName | titlecase }}">{{ categoryName | titlecase }}</span>
+                    </div>
+
+                    <div class="event-title">
+                        {{event.event_title}}
+                    </div>
+                    <span class="date">{{ getEventDate(event.event_date) | date: 'MMM d, yyyy' }}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!events?.isShell && countUpComing === 0">
+            <div class="empty">Tidak Ada {{ categoryName | titlecase }} Mendatang</div>
+        </div>
+    </div>
+</ion-content>

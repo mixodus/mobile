@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Withdraw</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form class="ion-padding" [formGroup]="withdrawReferralForm" (ngSubmit)="submit()">
+  <ion-label class="subsection-title">Account</ion-label>
+  <!-- <ion-item class="input-item">
+    <ion-input type="text" formControlName="account" clearInput autocapitalize="off">
+    </ion-input>
+  </ion-item> -->
+  <ion-select class="select-item" formControlName="account" interface="popover" [interfaceOptions]="customPopoverOptions" [compareWith]="compareAccount" multiple="false" lines="none" [value]="selectedItem">
+    <ion-select-option *ngFor="let account of accountName" selected="false" [value]="account">
+      {{account.name}}<br>
+      {{account.num}}<br>
+      {{account.bank}}
+    </ion-select-option>
+  </ion-select>
+  <ion-label class="subsection-title">Amount</ion-label>
+  <ion-item class="input-item">
+    <ion-input type="number" placeholder="Enter amount" formControlName="amount" clearInput autocapitalize="off" autocomplete="off" value="">
+    </ion-input>
+  </ion-item>
+  <ion-label class="subsection-title">Enter Password</ion-label>
+  <ion-item class="input-item">
+    <ion-input type="password" placeholder="Enter password" formControlName="password" clearInput autocapitalize="off" autocomplete="off" value="">
+    </ion-input>
+  </ion-item>
+  <ion-button class="apply-btn" type="submit" expand="block" [disabled]="!withdrawReferralForm.valid">Apply</ion-button>
+  </form>
+</ion-content>

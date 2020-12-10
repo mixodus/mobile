@@ -1,0 +1,109 @@
+<ion-header translucent="true" no-border class="job-detail-header">
+  <ion-toolbar>
+    <ion-buttons class="back-button" slot="start" defaulHref="app/jobs" (click)="goBack()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<div class="upper">
+  <div class="image">
+    <app-aspect-ratio [ratio]="{w:1, h:1}">
+      <app-image-shell
+              *ngIf="job?.company_logo_url"
+              class="add-border details-image"
+              [src]="job?.company_logo_url"
+      >
+      </app-image-shell>
+      <app-image-shell
+              *ngIf="!job?.company_logo_url"
+              class="add-border details-image"
+              [src]="companyImg"
+      >
+      </app-image-shell>
+    </app-aspect-ratio>
+  </div>
+</div>
+
+<ion-content class="details-content">
+  <div class="lower">
+<!--    <div class="description-title">-->
+<!--      <ion-row>-->
+<!--        <ion-col class="ion-text-center">-->
+<!--          <app-text-shell class="details-name" -->
+<!--                          animation="gradient" -->
+<!--                          [data]="job?.job_title"-->
+<!--          >-->
+<!--          </app-text-shell>-->
+<!--          <app-text-shell class="details-short-description" animation="gradient" [data]="job?.company_name">-->
+<!--          </app-text-shell>-->
+<!--          <p class="details-location">-->
+<!--            {{job?.province + ', ' + job?.country}}-->
+<!--          </p>-->
+<!--        </ion-col>-->
+<!--      </ion-row>-->
+<!--    </div>-->
+
+    <div class="description-title">
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <app-text-shell
+                  class="job-title"
+                  animation="gradient"
+                  [data]="job?.job_title"
+          >
+          </app-text-shell>
+          <app-text-shell animation="gradient" style="margin-top: 10px;" *ngIf="job.isShell">
+          </app-text-shell>
+
+          <ng-container>
+            <div class="job-detail-container">
+              <div class="location-container">
+                <ion-icon class="icon-location" src="./assets/icons/place-24px.svg"></ion-icon>
+                <div class="job-location">{{job?.province + ', ' + job?.country}}</div>
+              </div>
+              <div class="job-type-detail-container">
+                <ion-icon class="icon-building" src="./assets/icons/business-24px.svg"></ion-icon>
+                <div class="job-company">{{job?.company_name}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="application-form">
+      <ion-row>
+        <ion-col class="form-name" size="12">Fill the application form!</ion-col>
+      </ion-row>
+      <form [formGroup]="easyApplyForm" class="apply-form">
+        <ion-item class="input-item" mode="ios">
+          <ion-label class="section-title" position="stacked" mode="ios">Email</ion-label>
+          <ion-input type="text" placeholder="Enter your email" formControlName="email" clearInput autocapitalize="off"
+            class="ion-no-padding input-text">
+          </ion-input>
+        </ion-item>
+        <ion-item class="input-item" mode="ios">
+          <ion-label class="section-title" position="stacked" mode="ios">Phone Number</ion-label>
+          <ion-input type="text" placeholder="Enter your phone number" formControlName="contact_no" clearInput
+            autocapitalize="off" class="ion-no-padding input-text">
+          </ion-input>
+        </ion-item>
+      </form>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="apply-btn-container">
+  <ion-button
+          class="apply-btn"
+          type="button"
+          expand="block"
+          (click)="confirm()"
+          [disabled]="job?.is_applied"
+  >
+    <div *ngIf="!job?.is_applied">Lamar Sekarang</div>
+    <div *ngIf="job?.is_applied">Dilamar</div>
+  </ion-button>
+</ion-footer>

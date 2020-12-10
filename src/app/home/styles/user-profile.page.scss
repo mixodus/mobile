@@ -1,0 +1,940 @@
+@import "../../../theme/mixins/scrollbars";
+@import "../../../theme/mixins/inputs/select-alert";
+
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-narrow-margin);
+  --page-border-radius: var(--app-fair-radius);
+
+  --page-actions-padding: 5px;
+  --page-friends-gutter: calc(var(--page-margin) / 2);
+  --page-pictures-gutter: calc(var(--page-margin) / 2);
+}
+
+// .referal-banner {
+//   color: var(--ion-color-lightest);
+//   background-color: var(--ion-color-danger);
+//   padding: 0 10px;
+//   min-height: 35px;
+//   // top: 0;
+//   // z-index: 8;
+
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+
+//   .referal-lead {
+//     padding: 0px calc(var(--page-margin) / 2);
+//     text-transform: uppercase;
+//     margin: 0;
+//     font-weight: 400;
+//     font-size: 10px;
+//   }
+
+//   .user-referral {
+//     font-size: 12px;
+//     height: 23px;
+//     --background: #eb7070;
+//   }
+// }
+
+// .get-point-banner {
+//   color: var(--ion-color-lightest);
+//   background-color: #ec9b3b;
+//   padding: 0 10px;
+//   min-height: 35px;
+//   margin: 0 0 5px 0;
+
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+
+//   .get-point-lead {
+//     padding: 0px calc(var(--page-margin) / 2);
+//     text-transform: uppercase;
+//     margin: 0;
+//     font-weight: 400;
+//     font-size: 10px;
+//   }
+
+//   .user-get-point {
+//     font-size: 12px;
+//     height: 23px;
+//     --background: #ffdd67;
+//   }
+// }
+// Note:  All the CSS variables defined below are overrides of Ionic elements CSS Custom Properties
+// .user-details-section {
+//   --ion-grid-column-padding: 0px;
+
+//   margin: var(--page-margin);
+
+//   .user-image-wrapper {
+//     max-width: 26%;
+//   }
+
+//   .user-info-wrapper {
+//     padding-left: var(--page-margin);
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     flex-wrap: nowrap;
+
+//     .user-data-row {
+//       padding-top: var(--page-margin);
+//       flex-wrap: nowrap;
+//       justify-content: space-between;
+
+//       .user-name {
+//         margin: 0px 0px 5px;
+//         font-size: 14px;
+//         letter-spacing: 0.5px;
+//       }
+
+//       .user-title {
+//         margin: 0px;
+//         color: var(--ion-color-medium);
+//         font-size: 12px;
+//       }
+//       .user-state {
+//         margin: 0px;
+//         color: var(--ion-color-medium);
+//         font-size: 11px;
+//       }
+
+//       .membership-col {
+//         padding-left: var(--page-margin);
+//         flex-grow: 0;
+//       }
+
+//       .user-membership {
+//         display: block;
+//         background-color: var(--ion-color-secondary);
+//         color: var(--ion-color-lightest);
+//         border-radius: var(--app-narrow-radius);
+//         padding: 4px 8px;
+//         text-align: center;
+//         font-weight: 500;
+//         font-size: 14px;
+//       }
+//     }
+
+//     .actions-row {
+//       --ion-grid-columns: 10;
+//       --ion-grid-column-padding: var(--page-actions-padding);
+
+//       justify-content: space-between;
+//       flex-wrap: nowrap;
+//       margin-left: calc(var(--page-actions-padding) * -1);
+//       margin-right: calc(var(--page-actions-padding) * -1);
+
+//       .main-actions {
+//         flex-grow: 0;
+//         padding-top: 0px;
+//         padding-bottom: 0px;
+//         margin-left: calc(var(--page-actions-padding) * -1);
+//         margin-right: calc(var(--page-actions-padding) * -1);
+//         display: flex;
+
+//         .call-to-action-btn {
+//           padding: 0px var(--page-actions-padding);
+//           margin: 0px;
+//         }
+//       }
+
+//       .secondary-actions {
+//         flex-grow: 0;
+//         padding-top: 0px;
+//         padding-bottom: 0px;
+
+//         .more-btn {
+//           --padding-start: 4px;
+//           --padding-end: 4px;
+
+//           margin: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .user-stats-section {
+//   --ion-grid-column-padding: 0px;
+
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+//   padding-bottom: var(--page-margin);
+//   border-bottom: 1px solid var(--ion-color-light-shade);
+
+//   .user-stats-wrapper {
+//     text-align: center;
+
+//     .stat-value {
+//       display: block;
+//       padding-bottom: 5px;
+//       color: var(--ion-color-dark-shade);
+//       font-weight: 500;
+//       font-size: 18px;
+//     }
+
+//     .stat-name {
+//       font-size: 16px;
+//       color: var(--ion-color-medium);
+//     }
+//   }
+// }
+
+// .details-section-title {
+//   font-size: 18px;
+//   font-weight: 700;
+//   font-family: var(--nunito-family);
+//   color: var(--ion-color-dark-tint);
+//   margin: 0px 0px var(--page-margin);
+// }
+
+// .user-about-section {
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+//   padding-bottom: var(--page-margin);
+//   border-bottom: 1px solid var(--ion-color-light-shade);
+
+//   .user-description {
+//     color: var(--ion-color-dark-shade);
+//     text-align: justify;
+//     margin: var(--page-margin) 0px;
+//     font-size: 14px;
+//     line-height: 1.3;
+//   }
+// }
+
+// .user-friends-section {
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+//   // padding-bottom: var(--page-margin);
+//   // border-bottom: 1px solid var(--ion-color-light-shade);
+
+//   .heading-row {
+//     margin-bottom: var(--page-margin);
+//     justify-content: space-between;
+//     align-items: center;
+
+//     .details-section-title {
+//       margin: 0px;
+//     }
+
+//     .heading-call-to-action {
+//       padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+//       text-decoration: none;
+//       color: #f23934;
+//       font-weight: 400;
+//       line-height: 1.22;
+//       font-size: small;
+//     }
+//   }
+
+//   .friends-row {
+//     // background: #FFF;
+//     padding: calc(var(--page-margin) / 2) 0;
+
+//     --ion-grid-columns: 7; // We want to show three friends and a half. Each friend fills 2 cols => (3.5 * 2 = 7 cols)
+//     --ion-grid-column-padding: 0px;
+
+//     flex-wrap: nowrap;
+//     overflow-x: scroll;
+//     overflow-y: hidden;
+//     will-change: scroll-position;
+//     margin-left: calc(var(--page-margin) * -1);
+//     margin-right: calc(var(--page-margin) * -1);
+
+//     @include hide-scrollbars();
+
+//     &::before,
+//     &::after {
+//       content: '';
+//       // .friend-item has 8px of side padding, we need an extra 4px at the beginning and end to fill the 12px side margin of the view
+//       flex: 0 0 calc(var(--page-margin) - var(--page-friends-gutter));
+//     }
+
+//     .friend-item {
+//       padding: 0px var(--page-friends-gutter);
+
+//       app-aspect-ratio {
+//         vertical-align: middle;
+
+//         .friend-picture {
+//           border-radius: 100px;
+//           height: 90%;
+//           width: 90%;
+//           max-width: 95%;
+//           max-height: 95%;
+//           margin-left: 2px;
+//           margin-right: 0 auto;
+//           position: relative;
+//         }
+//       }
+//       .friend-name {
+//         display: block;
+//         text-align: center;
+//         font-size: 10px;
+//         width: 90%;
+//         position: relative;
+//         height: 100%;
+//         color: #f23934;
+//         font-weight: 400;
+//       }
+//     }
+//   }
+// }
+// .user-applied-jobs-section {
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+//   padding-bottom: var(--page-margin);
+
+//   .heading-row {
+//     margin-bottom: var(--page-margin);
+//     justify-content: space-between;
+//     align-items: center;
+
+//     .details-section-title {
+//       margin: 0px;
+//     }
+
+//     .heading-call-to-action {
+//       padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+//       text-decoration: none;
+//       color: #f23934;
+//       font-weight: 400;
+//       line-height: 1.22;
+//       font-size: small;
+//     }
+//   }
+
+//   .user-applied-jobs-card {
+//     overflow: hidden;
+//     margin-top: 0px;
+//     // border-top-left-radius: var(--ion-border-radius);
+//     // border-bottom-right-radius: var(--ion-border-radius);
+//     background-color: #ffffff !important;
+//     width: 100%;
+//     margin-bottom: 2vh;
+//     position: relative;
+//     margin-left: 0;
+//     margin-right: 0;
+//     border-radius: var(--ion-small-border-radius);
+
+//     .user-applied-jobs-content {
+//       glyph-orientation-horizontal: inherit;
+
+//       .applied-jobs-grid {
+//         justify-content: space-between;
+
+//         .applied-jobs-row {
+//           vertical-align: middle;
+
+//           .job-picture-container {
+//             font-size: 0px;
+
+//             .job-picture {
+//               padding-top: var(--app-narrow-margin);
+//               bottom: var(--app-narrow-margin);
+//               align-content: center;
+//             }
+//           }
+//           .job-details {
+//             padding: 1.2vw;
+//             margin-left: 10px !important;
+
+//             .job-name {
+//               color: #000000;
+//               font-weight: 500;
+//               line-height: 1.33;
+//               text-align: left;
+//               font-size: 14px;
+//               // white-space: nowrap;
+//             }
+//             .job-company {
+//               color: #000000;
+//               font-weight: 400;
+//               line-height: 1.33;
+//               text-align: left;
+//               font-size: 12px;
+//               // white-space: nowrap;
+//             }
+//             .job-location {
+//               color: #000000;
+//               font-weight: 300;
+//               font-size: 11px;
+//               text-align: left;
+//               white-space: nowrap;
+//             }
+//             .job-status {
+//               color: #f23934;
+//               font-weight: 500;
+//               font-size: 10px;
+//               line-height: 1.36;
+//               white-space: nowrap;
+//               display: inline-block;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// .user-news-section {
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+
+//   .heading-row {
+//     margin-bottom: var(--page-margin);
+//     justify-content: space-between;
+//     align-items: center;
+
+//     .details-section-title {
+//       margin: 0px;
+//     }
+
+//     .heading-call-to-action {
+//       padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+//       text-decoration: none;
+//       color: #f23934;
+//       font-weight: 400;
+//       line-height: 1.22;
+//       font-size: small;
+//     }
+//   }
+
+//   .pictures-row {
+//     --ion-grid-columns: 4;
+//     --ion-grid-column-padding: 0px;
+
+//     margin: 0px calc(var(--page-pictures-gutter) * -1);
+
+//     .picture-item {
+//       padding: 0px var(--page-pictures-gutter) calc(var(--page-pictures-gutter) * 2);
+//     }
+//   }
+// }
+// Alerts and in general all overlays are attached to the body or ion-app directly
+// We need to use ::ng-deep to access it from here
+::ng-deep .language-alert {
+  @include select-alert();
+
+  // Variables should be in a deeper selector or after the mixin include to override default values
+  --select-alert-color: var(--ion-color-lightest);
+  --select-alert-background: var(--ion-color-primary);
+  --select-alert-margin: var(--app-fair-margin);
+
+  .alert-message {
+    display: none;
+  }
+}
+// .user-events-section {
+//   margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+//   // padding-bottom: calc(var(--page-margin) * 2);
+
+//   .heading-row {
+//     margin-bottom: var(--page-margin);
+//     justify-content: space-between;
+//     align-items: center;
+
+//     .details-section-title {
+//       margin: 0px;
+//     }
+
+//     .heading-call-to-action {
+//       padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+//       text-decoration: none;
+//       color: #f23934;
+//       font-weight: 400;
+//       line-height: 1.22;
+//       font-size: small;
+//     }
+//   }
+//   .container-events-card {
+//     display: flex;
+//     position: static;
+
+//     .user-events-card {
+//       background: #ffffff;
+//       border-radius: var(--ion-small-border-radius);
+//       margin-left: 5px;
+//       margin-right: 5px;
+//       width: 100%;
+//       height: 270px;
+//       max-height: 270px;
+//       min-height: 250px;
+
+//       .event-row {
+//         margin: 0;
+//         width: 100%;
+//         height: 80px;
+//         max-height: 80px !important;
+
+//         .event-picture-container {
+//           position: relative;
+//           height: 120px;
+//           width: 100%;
+//           max-height: 140px;
+
+//           .event-picture-ratio {
+//             tab-size: unset;
+//             width: 100%;
+//             height: 100%;
+
+//             .event-picture {
+//               position: absolute;
+//               padding: 10px 0 20px 0;
+//               margin-left: -5px;
+//               margin-right: -5px;
+//               margin: 0;
+//               height: 100%;
+//               width: 1500px;
+//               display: block;
+//             }
+//           }
+//         }
+//         .user-events-container {
+//           padding: 0 !important;
+//           width: 100%;
+//           position: relative;
+//           padding: 15px;
+//           padding-bottom: 0;
+//           height: 80px;
+//           max-height: 80px !important;
+//           min-height: 80px;
+
+//           .event-details-container {
+//             padding: 15px !important;
+//             display: flex;
+//             flex-direction: column;
+//             flex-wrap: wrap;
+//             align-items: flex-start;
+//             position: relative;
+
+//             .event-title-row {
+//               height: 0%;
+//               max-height: 50px;
+//               align-items: flex;
+//               flex-basis: 100px;
+//               padding: 0;
+//               flex-direction: column;
+
+//               .event-title {
+//                 color: #555555;
+//                 font-weight: bold;
+//                 font-size: 11px;
+//                 overflow: hidden;
+//                 text-overflow: ellipsis;
+//                 line-clamp: 3;
+//                 -webkit-line-clamp: 3;
+//                 line-break: normal;
+//               }
+//             }
+//             .event-address-row {
+//               height: 0%;
+//               align-items: flex;
+//               display: table-row;
+//               max-height: 50px;
+//               flex-basis: 100px;
+//               padding: 0;
+//               flex-direction: column;
+
+//               .event-address {
+//                 color: #555555;
+//                 font-weight: 200;
+//                 font-size: 0.75em;
+//                 overflow: hidden;
+//                 text-overflow: ellipsis;
+//                 line-clamp: 3;
+//                 -webkit-line-clamp: 3;
+//                 line-break: normal;
+//                 max-lines: 3;
+//               }
+//             }
+//             .event-date-row {
+//               display: table-row;
+//               align-items: flex-start;
+//               position: absolute;
+//               bottom: 0;
+
+//               .event-date-container {
+//                 font-kerning: auto;
+//                 display: flex;
+//                 width: 100%;
+
+//                 .event-icon {
+//                   display: inline-block;
+//                   justify-content: flex-start;
+//                   margin-right: 7px;
+//                 }
+//                 .event-date {
+//                   color: #f23934;
+//                   font-weight: 500;
+//                   font-size: 10px;
+//                   bottom: 0;
+//                   white-space: nowrap;
+//                   overflow: hidden;
+//                   text-overflow: ellipsis;
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//       .secondary-card-wrapper {
+//         position: absolute;
+//         height: 50px;
+//         width: 60px;
+//         float: right;
+//         bottom: 0;
+//         right: 0;
+
+//         .secondary-card {
+//           border-top-left-radius: 25px;
+//           border-bottom-right-radius: var(--ion-small-border-radius);
+//           background-color: #f23934 !important;
+//           height: 70px;
+//           width: 80px;
+//           padding: 0px;
+
+//           .secondary-card-content {
+//             font-size: 14px;
+
+//             .event-price {
+//               color: #ffffff;
+//               position: absolute;
+//               align-content: center;
+//               height: 100%;
+//               max-height: 100%;
+//               min-height: 100%;
+//               margin: auto;
+//               padding-top: 0.5vh;
+//               object-fit: contain;
+//               text-align: center;
+//               font-size: auto;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .background-content {
+//   padding: 0px;
+//   color: #ffffff;
+
+//   .listing-item {
+//     border-bottom: 2px solid var(--ion-color-medium-tint);
+//     margin-bottom: calc(var(--page-margin) * 2);
+//     padding-bottom: var(--page-margin);
+//     position: static;
+//     border-radius: var(--ion-small-border-radius);
+//     background-color: #ffffff;
+
+//     &:last-child {
+//       border-bottom: none;
+//       margin-bottom: 0px;
+//       border: 1px solid #eee;
+//     }
+
+//     .cover-wrapper {
+//       margin-bottom: var(--page-margin);
+//       --ion-background-color: #ffffff;
+
+//       .cover-anchor {
+//         display: block;
+
+//         app-aspect-ratio {
+//           background-color: #eeeeee;
+//         }
+//       }
+
+//       .cover-icon-wrapper {
+//         margin: 0px 20%;
+//         display: flex;
+//         height: 100%;
+//         justify-content: center;
+//         align-items: center;
+//       }
+//     }
+
+//     .info-row {
+//       --ion-grid-columns: 10;
+//       --ion-grid-column-padding: 0px;
+
+//       margin: 0px calc(var(--page-pictures-gutter) * -1);
+//       padding: 20px;
+
+//       // To compensate negative side margins of .pictures-row (sibling of .info-row)
+//       &::before,
+//       &::after {
+//         content: '';
+//         flex: 0 0 var(--page-pictures-gutter);
+//       }
+
+//       .description-col {
+//         .description-wrapper {
+//           height: 100%;
+//           justify-content: space-between;
+//           flex-direction: column;
+//         }
+
+//         .item-name {
+//           margin: 0px;
+//           color: var(--ion-color-dark-tint);
+
+//           .name-anchor {
+//             display: block;
+//             justify-content: flex-start;
+//             text-decoration: none;
+//             font-weight: 400;
+//             font-size: 14px;
+//             line-height: 1.3;
+//           }
+//         }
+
+//         .item-address {
+//           margin: 0px;
+//           margin-top: 5px;
+//           color: var(--ion-color-medium-tint);
+//           font-size: 12px;
+//         }
+
+//         .item-tags {
+//           margin-top: 5px;
+
+//           .tag-wrapper {
+//             padding-right: var(--page-tags-gutter);
+//             flex-grow: 0;
+//             min-width: fit-content;
+
+//             &:last-child {
+//               padding-right: 0px;
+//             }
+//           }
+
+//           .item-tag {
+//             display: block;
+//             border-radius: var(--app-narrow-radius);
+//             border: 1px solid var(--ion-color-light-shade);
+//             padding: calc(var(--page-tags-gutter) / 2) var(--page-tags-gutter);
+//             font-size: 10px;
+//             color: #f23934;
+//           }
+//         }
+//       }
+
+//       .stats-col {
+//         padding-left: calc(var(--page-margin) / 2);
+
+//         .item-rating {
+//           // Default background
+//           background-color: rgba(var(--page-color-rgb), 0.35);
+//           color: var(--ion-color-lightest);
+//           border-radius: var(--app-narrow-radius);
+//           padding-top: calc(var(--page-margin) / 3);
+//           padding-bottom: calc(var(--page-margin) / 3);
+//           padding-left: calc(var(--page-margin) / 2);
+//           padding-right: calc(var(--page-margin) / 2);
+//           font-size: 12px;
+//           font-weight: 600;
+//           width: 100%;
+//           display: block;
+//           text-align: center;
+
+//           &[ratingBase='1'] {
+//             background-color: var(--page-rating-1-color);
+//           }
+//           &[ratingBase='2'] {
+//             background-color: var(--page-rating-2-color);
+//           }
+//           &[ratingBase='3'] {
+//             background-color: var(--page-rating-3-color);
+//           }
+//           &[ratingBase='4'] {
+//             background-color: var(--page-rating-4-color);
+//           }
+//           &[ratingBase='5'] {
+//             background-color: var(--page-rating-5-color);
+//           }
+//         }
+
+//         .item-price-range {
+//           margin-top: 5px;
+//           font-size: 12px;
+//           letter-spacing: 1px;
+//           font-weight: 500;
+//           text-align: center;
+
+//           .price {
+//             color: var(--page-color);
+//           }
+
+//           .no-price {
+//             color: rgba(var(--ion-color-light-shade-rgb), 0.4);
+//           }
+//         }
+//       }
+//     }
+
+//     .pictures-row {
+//       --ion-grid-columns: 10;
+//       --ion-grid-column-padding: 0px;
+
+//       margin: 0px calc(var(--page-pictures-gutter) * -1);
+
+//       .picture-wrapper {
+//         padding: 0px var(--page-pictures-gutter);
+
+//         .has-more-pictures {
+//           position: absolute;
+//           top: 0px;
+//           bottom: 0px;
+//           left: 0px;
+//           right: 0px;
+//           // To compensate the .picture-wrapper padding
+//           margin: 0px var(--page-pictures-gutter);
+//           background-color: rgba(var(--page-color-rgb), 0.7);
+//           border-radius: var(--app-narrow-radius);
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           text-decoration: none;
+//           z-index: 2;
+
+//           .pictures-count {
+//             font-size: 22px;
+//             color: var(--ion-color-lightest);
+//             font-weight: 600;
+
+//             &::before {
+//               content: '+';
+//               font-size: 26px;
+//               color: var(--ion-color-lightest);
+//               font-weight: 600;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+.header-toolbar {
+  --background: linear-gradient(to right, var(--idstar-primary), var(--idstar-primary-2));
+}
+
+.input-icon {
+  transform: translate(20%, 0);
+  width: 15vw;
+}
+
+.user-profile-content{
+  --background: var(--idstar-darker);
+  padding-bottom: 500px;
+}
+
+.latest-news-container {
+  background-color: var(--idstar-primary-shade);
+  padding: 5%;
+  ion-grid {
+    padding: 0;
+    
+    ion-row.news-row {
+      ion-col{
+        margin: 2vw auto;
+        border-radius: 15px;
+        background-color: var(--idstar-dark);
+        padding: 0;
+      }
+    }
+  }
+
+  .details-section-title {
+    color: var(--idstar-primary);
+    font-size: 16px;
+    font-weight: normal;
+    font-family: var(--nunito-family);
+    margin: auto 5px;
+    > span {
+      font-family: var(--nunito-family);
+      font-weight: bold;
+    }
+  }
+
+  .heading-call-to-action {
+    font-family: var(--nunito-family);
+    padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+    color: var(--idstar-light-grey);
+    text-decoration: none;
+    line-height: 1.22;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
+.header-row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-image {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.news-metadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+
+  .news-date,
+  .news-tag {
+    font-family: var(--nunito-family);
+    font-size: 10px;
+  }
+
+  .news-date {
+    color: #fff;
+    font-size: 11px;
+    margin-left: 5px;
+  }
+  
+  .news-tag {
+    margin-right: 5px;
+    font-weight: 600;
+    color: var(--ion-color-primary-contrast);
+    display: inline-block;
+    padding: 2px 7px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: var(--idstar-dark);
+  }
+}
+
+.news-title {
+  font-family: var(--nunito-family);
+  font-size: 13px;
+  font-weight: bold;
+  color: #000000;
+  margin: 5px;
+  
+  overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
+.empty-message {
+  margin: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding: 10px;
+  background: var(--ion-color-primary-contrast);
+  border-radius: 10px;
+  font-family: var(--nunito-family);
+}
+

@@ -1,0 +1,36 @@
+*{
+    --page-margin : var(--app-narrow-margin);
+}
+
+.content-wrapper{
+    margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+}
+.label-date, .label-year, .label-item{
+    justify-content: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+.date-column, .item-column{
+    text-align: center;
+}
+.column-styling{
+    border-left: 1px solid black;
+    display: flex;
+    width: auto;
+    height: 50px;
+}
+.card-styling{
+    height: 100%;
+    max-height: 100px;
+    min-height: 80px;
+}
+.column-left-styling{
+    border-right: 1px solid black;
+}
+.button-style{
+    display: block;
+    width: 10px;
+    height: auto;
+    border-radius: 100%;
+    
+}

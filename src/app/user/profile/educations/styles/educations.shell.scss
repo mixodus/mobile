@@ -1,0 +1,15 @@
+.education-name > app-text-shell{
+    max-width: 80%;
+
+    &.text-loaded{
+        max-width: unset;
+    }
+}
+
+.education-text > app-text-shell{
+    max-width: 50%;
+
+    &.text-loaded{
+        max-width: unset;
+    }
+}

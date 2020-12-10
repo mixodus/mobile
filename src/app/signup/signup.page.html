@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Sign Up</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="signup-content">
+    <h2 class="auth-title">
+        Welcome to IDstar
+    </h2>
+    <form [formGroup]="signupForm" (ngSubmit)="doSignup()">
+        <ion-list class="inputs-list" lines="none">
+            <ion-item class="input-item">
+                <ion-icon slot="start" name="person" class="input-item-icon"></ion-icon>
+                <ion-input type="text" placeholder="Fullname" formControlName="fullname" clearInput autocapitalize="off"
+                           inputmode="text"></ion-input>
+            </ion-item>
+            <div class="error-container">
+                <ng-container *ngFor="let validation of validation_messages.fullname">
+                    <div class="error-message"
+                         *ngIf="signupForm.get('fullname').hasError(validation.type) && isSubmitted">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        <span>{{ validation.message }}</span>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ion-item class="input-item">
+                <ion-icon slot="start" name="mail" class="input-item-icon"></ion-icon>
+                <ion-input type="email" placeholder="Email" formControlName="email" clearInput autocapitalize="off"
+                           inputmode="email"></ion-input>
+            </ion-item>
+            <div class="error-container">
+                <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message"
+                         *ngIf="signupForm.get('email').hasError(validation.type) && isSubmitted">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        <span>{{ validation.message }}</span>
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item class="input-item">
+                <ion-icon slot="start" name="phone-portrait" class="input-item-icon"></ion-icon>
+                <div class="extension" style="padding: 5px 10px 5px 5px">
+                    +62
+                </div>
+                <ion-input type="Number" placeholder="Phone Number" formControlName="contact_no" clearInput
+                           autocapitalize="off"
+                           inputmode="numeric"></ion-input>
+            </ion-item>
+            <div class="error-container">
+                <ng-container *ngFor="let validation of validation_messages.contact_no">
+                    <div class="error-message"
+                         *ngIf="signupForm.get('contact_no').hasError(validation.type) && isSubmitted">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        <span>{{ validation.message }}</span>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div formGroupName="matching_passwords">
+                <ion-item class="input-item">
+                    <ion-icon slot="start" name="lock" class="input-item-icon"></ion-icon>
+                    <app-show-hide-password>
+                        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+                    </app-show-hide-password>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.password">
+                        <div class="error-message"
+                             *ngIf="signupForm.get('matching_passwords').get('password').hasError(validation.type) && isSubmitted">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <ion-item class="input-item">
+                    <ion-icon slot="start" name="lock" class="input-item-icon"></ion-icon>
+                    <app-show-hide-password>
+                        <ion-input type="password" placeholder="Confirm Password"
+                                   formControlName="confirm_password"></ion-input>
+                    </app-show-hide-password>
+                </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validation_messages.confirm_password">
+                        <div class="error-message"
+                             *ngIf="signupForm.get('matching_passwords').get('confirm_password').hasError(validation.type) && isSubmitted">
+                            <ion-icon name="information-circle-outline"></ion-icon>
+                            <span>{{ validation.message }}</span>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="error-container">
+                <ng-container *ngFor="let validation of validation_messages.matching_passwords">
+                    <div class="error-message"
+                         *ngIf="signupForm.get('matching_passwords').hasError(validation.type) && isSubmitted && !signupForm.get('matching_passwords').get('confirm_password').hasError('required')">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        <span>{{ validation.message }}</span>
+                    </div>
+                </ng-container>
+            </div>
+        </ion-list>
+        <!-- [disabled]="!signupForm.valid" -->
+        <div class="center" align="center">
+
+            <ion-button class="signup-btn" type="submit" expand="block" [disabled]="!signupForm.valid">Sign Up
+            </ion-button>
+            <ion-row class="other-auth-options-row">
+                <ion-button class="login-btn" fill="clear" [routerLink]="['/auth/login']">
+                    Already have an account?
+                </ion-button>
+            </ion-row>
+            <div class="legal-stuff">
+                By creating an account you agree to our <a class="legal-action" (click)="showPrivacyModal()">Privacy
+                Policy</a> and
+                <a class="legal-action" (click)="showTermsModal()">Terms of use</a>.
+            </div>
+        </div>
+    </form>
+</ion-content>

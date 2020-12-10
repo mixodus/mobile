@@ -1,0 +1,84 @@
+<ion-content class="content">
+  <div class="background-page">
+    <ion-header no-border>
+      <ion-toolbar class="header-toolbar">
+        <ion-buttons slot="start">
+          <ion-button href="/app/user">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="title">
+          <p class="title-text">Event Registration</p>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <div class="inside">
+      <img src="assets/new-assets/Image 6.png" alt="" class="pic">
+    </div>
+
+    <ion-card class="box">
+      <h3 class="title">Event</h3>
+      <p class="desc">DigiMarCon West 2020 – Digital Marketing Stategy Conference & Exhibition</p>
+      <h3 class="title">Due date</h3>
+      <p class="desc">June 12, 2020</p>
+    </ion-card>
+    <ion-card class="box-form">
+      <p class="title">Registration Form</p>
+      <form action="">
+        <p class="section-title">Full name</p>
+        <ion-input type="text" placeholder="Fullname" clearInput autocapitalize="off" class="ion-no-padding input-text">
+        </ion-input>
+
+        <p class="section-title">Email</p>
+        <ion-input type="text" placeholder="Email" clearInput autocapitalize="off" class="ion-no-padding input-text">
+        </ion-input>
+
+        <p class="section-title">Date of Birth</p>
+        <ion-row class="row-dob">
+          <ion-col size="11.5" class="col-dob">
+            <ion-datetime display-format="YYYY-MM-DD" class="ion-no-padding">
+            </ion-datetime>
+          </ion-col>
+          <ion-col size=".5" class="col-icon">
+            <ion-icon name="calendar" class="calendar-icon"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <p class="section-title">Gender</p>
+        <ion-radio-group>
+          <ion-row class="row">
+            <ion-col size="6" class="col">
+              <ion-radio value="Female" class="input-radio" value="Female" mode="md"></ion-radio>
+              <ion-label class="input-radio-text">Female</ion-label>
+            </ion-col>
+            <ion-col size="6" class="col">
+              <ion-radio value="Male" class="input-radio" value="Male" mode="md"></ion-radio>
+              <ion-label class="input-radio-text">Male</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+
+
+        <!-- <p class="section-title">City</p>
+        <ion-select interface="popover" multiple="false" placeholder="Country" class="select-item">
+          <ion-select-option *ngFor="let country of countries" [value]="country.code">{{country.name}}
+          </ion-select-option>
+        </ion-select>
+        <ion-select interface="popover" multiple="false" placeholder="Province" class="select-item">
+          <ion-select-option *ngFor="let provice of provices">{{provice}}</ion-select-option>
+        </ion-select> -->
+
+        <p class="section-title">Address</p>
+        <ion-textarea placeholder="Your address" class="ion-no-padding textarea-style" auto-grow=true></ion-textarea>
+
+      </form>
+
+      <div>
+        <ion-button class="cancel-button" href="/app/home/event-detail">CANCEL</ion-button>
+        <ion-button class="register-button">REGISTER</ion-button>
+      </div>
+
+    </ion-card>
+
+  </div>
+</ion-content>

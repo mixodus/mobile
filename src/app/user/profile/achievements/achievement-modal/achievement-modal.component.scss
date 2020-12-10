@@ -1,0 +1,61 @@
+.center{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.congrats{
+    font-size: 20px;
+    text-align: center;
+}
+.achievement-name{
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.button{
+    --border-radius: var(--ion-border-radius);
+    --background: #f23934;
+    font-size: 16px;
+    margin: calc(25px / 2) 0px;
+    width:60%;
+    font-size:16px;
+    color:white;
+    letter-spacing: 0.9px;
+    position: relative;
+    left: 20%;
+}
+.content-wrapper{
+    height: 200px;
+}
+.icon-wrapper{
+    text-align: center;
+    display: block;
+    line-height: 0;
+    position: relative;
+}
+.shape-wrapper{
+    height: 100px;
+    width: 90px;
+    background-color: #ffffff;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border: 2px solid #f23934;
+    position: relative;
+    display: inline-block;
+    align-content: center;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.center-shape{
+    align-items: center;
+    margin-left: 35%;
+}
+.icon-badge{
+    font-size: 40px;
+    left: calc(4% + 2px);
+}

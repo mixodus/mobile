@@ -1,0 +1,144 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <div class="home-toolbar">
+            <img class="logo-one" src="../../assets/images/icon.png">
+            <div class="home-toolbar-container-2">
+                <div class="home-toolbar-container-2-1 ion-text-right">
+                    <div class="text-level">Level</div>
+                    <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
+                </div>
+                <div *ngIf="profile?.isShell">
+                    <ion-spinner class="ion-margin"></ion-spinner>
+                </div>
+                <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
+                                 [src]="profile?.data?.user.level_icon_url"
+                                 [alt]="profile?.data?.user.fullname" class="star-image">
+                </app-image-shell>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="proflie-container" [routerLink]="['/app/user/level']">
+        <div class="proflie-container-1">
+            <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
+                             [src]="profile?.data?.user.profile_picture_url"
+                             [alt]="profile?.data?.user.fullname" class="profile-image"
+            >
+            </app-image-shell>
+            <app-image-shell *ngIf="!profile?.data?.user.profile_picture_url" animation="spinner"
+                             [src]="profileImg"
+                             [alt]="profile?.data?.user.fullname" class="profile-image"
+            >
+            </app-image-shell>
+        </div>
+        <div class="proflie-container-2">
+            <div class="text-name">{{profile?.data?.user.fullname}}</div>
+            <div class="text-position">{{profile?.data?.user.job_title}}</div>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-container-1">
+            <div class="menu-bootcamp-container" [routerLink]="['/app/events/category/2']" >
+                <div class="menu-bootcamp">
+                    <img class="icon-bootcamp" src="../../assets/icons/flag.svg" alt="">
+                </div>
+                <div class="text-bootcamp">Bootcamp</div>
+            </div>
+
+            <div class="menu-academy-container" [routerLink]="['/academy']">
+                <div class="menu-academy">
+                    <img class="icon-academy" src="../../assets/icons/book.svg" alt="">
+                </div>
+                <div class="text-academy">Akademi</div>
+            </div>
+
+            <div class="menu-point-container" [routerLink]="['/app/user/level']">
+                <div class="menu-point">
+                    <img class="icon-point" src="../../assets/icons/flare.svg" alt="">
+                </div>
+                <div class="text-point">Poin</div>
+            </div>
+
+        </div>
+        <div class="menu-container-2">
+            <div class="menu-news-container" [routerLink]="['/app/news']">
+                <div class="menu-news">
+                    <img class="icon-news" src="../../assets/icons/newspaper.svg" alt="">
+                </div>
+                <div class="text-news">Berita</div>
+            </div>
+
+            <div class="menu-referral-container" [routerLink]="['/app/user/referral']">
+                <div class="menu-referral">
+                    <img class="icon-news" src="../../assets/icons/person-plus.svg" alt="">
+                </div>
+                <div class="text-referral">Rujukan</div>
+            </div>
+
+            <div class="menu-challenge-container" [routerLink]="['/app/events/challenges']">
+                <div class="menu-challenge">
+                    <img class="icon-challenge" src="../../assets/icons/puzzle.svg" alt="">
+                </div>
+                <div class="text-challenge">Tanntangan</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="padding-container">
+        <!--        <div class="upcoming-event-container">-->
+        <!--            <div class="upcoming-event-text">-->
+        <!--                Pekerjaan-->
+        <!--            </div>-->
+        <!--            <div class="see-more-text" [routerLink]="['/app/jobs']">-->
+        <!--                Lihat Semua-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <ion-card class="job-card">-->
+        <!--            <ion-card-content class="job-card-content">-->
+        <!--                <div class="applied-jobs-row">-->
+        <!--                    <div class="subcontainer-1">-->
+        <!--                        <img class="icon-job-company" src="{{jobsPreviewHome?.company_logo_url ? jobsPreviewHome.company_logo_url : './assets/icons/work_outline-100px-with-background.png'}}">-->
+        <!--                    </div>-->
+        <!--                    <div class="subcontainer-2">-->
+        <!--                        <div class="job-company">{{jobsPreviewHome?.company_name}}</div>-->
+        <!--                        <div class="job-name">{{jobsPreviewHome?.job_title}}</div>-->
+        <!--                        <div class="job-detail-container">-->
+        <!--                            <div class="location-container">-->
+        <!--                                <ion-icon class="icon-location" src="./assets/icons/place-24px.svg"></ion-icon>-->
+        <!--                                <div class="job-location">{{jobsPreviewHome?.province}}</div>-->
+        <!--                            </div>-->
+        <!--&lt;!&ndash;                            <div class="job-type-detail-container">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <ion-icon class="icon-time" src="./assets/icons/schedule-24px.svg"></ion-icon>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <div class="job-type-detail">Full Time</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </ion-card-content>-->
+        <!--        </ion-card>-->
+
+        <div class="upcoming-event-container">
+            <div class="upcoming-event-text">
+                Kabar Terbaru
+            </div>
+            <!--            <div class="see-more-text">-->
+            <!--                Lihat Semua-->
+            <!--            </div>-->
+        </div>
+
+        <section class="banner-container" *ngIf="profile != null && profile != undefined">
+            <ion-slides pager="true" [options]="mainBannerOpts">
+                <ion-slide *ngFor="let banner of profile?.data?.banner">
+                    <a class="banner-image" (click)="goToBannerDetail(banner.banners_type, banner.banners_detail_id)"
+                       [style.background-image]="'url(' +  banner.banners_photo_url +  ')'">
+                    </a>
+                </ion-slide>
+            </ion-slides>
+
+        </section>
+    </div>
+</ion-content>

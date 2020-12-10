@@ -1,0 +1,382 @@
+@import "../../theme/mixins/ion-color";
+
+.challenge-header {
+  color: var(--idstar-dark-grey);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.challenge-content {
+  --background: var(--idstar-light-grey);
+}
+
+
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+//:host {
+//  --page-margin: var(--app-broad-margin);
+//  --page-background: var(--app-background-shade);
+//
+//  --page-countdown-fill-shadow-color: rgba(var(--ion-color-darkest-rgb), 0.2);
+//  --page-item-shadow-color: rgba(var(--ion-color-dark-rgb), .1);
+//  --page-deal-code-height: 30px;
+//  --page-countdown-gutter: 3px;
+//
+//  --page-expired-color: var(--ion-color-medium-tint);
+//  --page-ends-soon-color: var(--idstar-primary);
+//  --page-distant-end-color: #FFAB6B;
+//
+//  --page-deal-color: var(--ion-color-medium);
+//  --page-deal-border-color: var(--ion-color-light-shade);
+//
+//  --page-color: var(--idstar-primary);
+//
+//  // Add custom colors to use with [color] property
+//  @include ion-color('claim') {
+//    --ion-color-claim: var(--idstar-primary);
+//    --ion-color-claim-rgb: 112, 223, 112;
+//    --ion-color-claim-contrast: #FFFFFF;
+//    --ion-color-claim-contrast-rgb: 255, 255, 255;
+//    --ion-color-claim-shade: var(--idstar-primary);
+//    --ion-color-claim-tint: var(--idstar-primary);
+//  }
+//}
+
+.deals-listing-content {
+  --background: var(--idstar-darker);
+}
+
+.no-listing-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.listing-item {
+  background-color: var(--idstar-white);
+  border-radius: 12px;
+  margin: 16px 30px;
+  padding: 12px;
+
+  .row-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+    .item-name {
+      width: 70%;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--idstar-dark-grey);
+    }
+
+    .row-1-2 {
+      width: 30%;
+      display: flex;
+      flex-direction: row-reverse;
+
+      .item-code {
+        width: 72px;
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+
+        border: 0.5px solid var(--idstar-turquoise);
+        border-radius: 10px;
+        color: var(--idstar-turquoise);
+        padding: 6px 21px;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+
+        &.expired {
+          border-color: var(--page-expired-color);
+          color: #fff;
+          opacity: 0.6;
+        }
+
+        app-text-shell {
+          width: 20px;
+
+          &.text-loaded {
+            width: unset;
+          }
+        }
+      }
+    }
+  }
+
+  .row-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .row-2-1 {
+      .expired-date-title-text {
+        font-size: 9px;
+        font-weight: bold;
+        color: var(--idstar-grey);
+      }
+
+      .expired-date-title-content {
+        font-size: 9px;
+        color: var(--idstar-grey);
+      }
+    }
+
+    .row-2-2 {
+      width: 72px;
+      height: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2px 22px;
+      background-color: var(--idstar-turquoise);
+      color: var(--idstar-white);
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 3px;
+    }
+  }
+
+  .top-row {
+    padding: 0 5%;
+    --ion-grid-column-padding: 0px;
+
+    border-bottom: 1px solid rgba(#fff, .3);
+    justify-content: space-between;
+    align-items: center;
+
+    .logo-col {
+      align-self: center;
+      padding-top: 2%;
+
+      .deal-logo {
+        width: 75%;
+        height: 75%;
+      }
+    }
+
+    .call-to-action-col {
+      flex-grow: 0;
+
+      .expired-cta {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+      }
+
+      .claim-button {
+        font-family: var(--nunito-family);
+        --box-shadow: none;
+        --border-radius: var(--app-fair-radius);
+        --padding-end: 10px;
+        --padding-start: 10px;
+        height: 30px;
+
+        margin: 0px;
+
+        &:focus {
+          outline: none;
+        }
+
+        .button-cta {
+          display: block;
+          //   line-height: 18px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .middle-row {
+    --ion-grid-column-padding: 0px;
+
+    padding: 5%;
+    padding-bottom: var(--page-margin);
+
+    .info-col {
+      padding-right: calc(var(--page-margin) / 2);
+    }
+
+    .item-description {
+      margin: 0px;
+      color: #A1A1A1;
+      font-size: 12px;
+    }
+
+    .bookmark-button {
+      --padding-start: 5px;
+      --padding-end: 5px;
+
+      margin: 0px;
+      font-size: 16px;
+    }
+  }
+
+  .bottom-row {
+    --ion-grid-column-padding: 0px;
+
+    padding: 5%;
+    padding-top: 0;
+    justify-content: space-between;
+
+    .code-wrapper {
+      max-width: fit-content;
+
+      .code-cta {
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 0;
+        display: block;
+        color: red;
+      }
+
+
+    }
+
+    .time-left-wrapper {
+      flex-shrink: 0;
+      max-width: fit-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // align-items: flex-end;
+
+      .expiration-cta {
+        color: #fff;
+        font-size: 11px;
+        font-weight: 500;
+        margin-bottom: 0;
+        display: block;
+        text-transform: uppercase;
+        text-align: end;
+      }
+
+      &:not(.countdown-active) {
+        .item-time-left {
+          color: #A1A1A1;
+          font-size: 12px;
+          font-weight: 500;
+          display: block;
+          text-align: end;
+        }
+      }
+
+      &.countdown-active {
+        display: block;
+        position: relative;
+
+        .countdown-wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          // Set position absolute so that the parent doen't count the height of this element.
+          position: absolute;
+          right: 0px;
+
+          app-countdown-timer.item-countdown {
+            --countdown-time-margin: 0px;
+            --countdown-time-padding: 0px;
+            --countdown-inner-time-margin: var(--page-countdown-gutter) var(--page-countdown-gutter) 0px;
+            --countdown-inner-time-padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+            --countdown-fill-border: none;
+            --countdown-fill-border-radius: var(--app-narrow-radius);
+            --countdown-fill-background: var(--ion-color-lightest);
+            --countdown-fill-shadow: 0px 0px 5px 0px var(--page-countdown-fill-shadow-color);
+            --countdown-value-color: var(--ion-color-darkest);
+            --countdown-unit-color: var(--ion-color-medium-shade);
+            --countdown-time-flex-direction: column;
+
+            font-weight: 500;
+            font-size: 14px;
+            margin-right: calc(var(--page-countdown-gutter) * -1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// .challenge-item{
+//     padding: 10px;
+//     border-radius: 10px;
+//     .top-row{
+//         justify-content: space-between;
+//         border-bottom: 2px solid #aaaaaa;
+//         .challenge-icon{
+//             text-align: left;
+//             // .icon-detail{
+//             //     font-size: 20px;
+//             // }
+//         }
+//         .challenge-detail{
+//             .challenge-detail-btn{
+//                 font-size: 16px;
+//                 max-height: 30px;
+//                 margin: 0;
+//             }
+//         }
+//     }
+
+//     .middle-row{
+//         .challenge-description{
+//             margin: 0 auto;
+//         }
+//     }
+//     .bottom-row{
+//         justify-content: space-between;
+//         text-align: center;
+//         .challenge-points{
+//             // text-align: center;
+//             color: red;
+//             display: flex;
+//             align-items: center;
+//             .challenge-point-value{
+//                 font-weight: 500;
+//             }
+//         }
+//         .challenge-expiration{
+//             .item-countdown{
+//                 --countdown-time-margin: 0px;
+//                 --countdown-time-padding: 0px;
+//                 --countdown-inner-time-margin: var(--page-countdown-gutter) var(--page-countdown-gutter) 0px;
+//                 --countdown-inner-time-padding: calc(var(--page-margin) / 2) calc(var(--page-margin) / 4);
+//                 --countdown-fill-border: none;
+//                 --countdown-fill-border-radius: var(--app-narrow-radius);
+//                 --countdown-fill-background: var(--ion-color-lightest);
+//                 --countdown-fill-shadow: 0px 0px 5px 0px var(--page-countdown-fill-shadow-color);
+//                 --countdown-value-color: var(--ion-color-darkest);
+//                 --countdown-unit-color: var(--ion-color-medium-shade);
+//                 --countdown-time-flex-direction: column;
+
+//                 font-weight: 500;
+//                 font-size: 14px;
+//                 margin-right: calc(var(--page-countdown-gutter) * -1);
+//             }
+
+//         }
+//     }
+// }

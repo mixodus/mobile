@@ -1,0 +1,195 @@
+{
+  "userImage": "./assets/sample-images/notifications/100x100Notification4.jpg",
+  "fullname": "Stefano Rey",
+  "membership": "PRO",
+  "job": "Product Manager",
+  "rating" : "5",
+  "location" : "Jakarta, Indonesia",
+  "likes": "1553",
+  "followers": "537K",
+  "following": "636",
+  "about": "I am a product manager based in Brazil. I guide new product strategy and launch initial prototype build-outs. I also work with strategic partners to establish and develop new market opportunities.",
+  "appliedJob": [
+    {
+      "name": ".NET Developer",
+      "location": "Jakarta Barat, Jakarta (ID)",
+      "status" : "Waiting for Interview"
+    },
+    {
+      "name": "Junior Java Developer",
+      "location": "Jakarta Barat, Jakarta (ID)",
+      "status" : "Waiting for Interview"
+    }
+  ],
+  "events": [
+    {
+      "title": "React + Angular Native Workshop",
+      "address": "Wisma Staco 7th floor, Jl. Kasablanka Kav. 18",
+      "date": "5 Aug 2019"
+    },
+    {
+      "title": "React + Angular Native Workshop",
+      "address": "Wisma Staco 7th floor, Jl. Kasablanka Kav. 18",
+      "date": "5 Aug 2019"
+    }
+  ],
+  "newsItem": [
+    {
+      "title": "Local resident marries pole", 
+      "newsSource": "detik.com", 
+      "image": "../assets/sample-images/notifications/100x100Notification1.jpg"
+    },
+    {
+      "title": "Indonesian guy diagnosed getting Ligma",
+      "newsSource": "detik.com",
+      "image": "../assets/sample-images/notifications/100x100Notification2.jpg"
+    }
+  ],
+  "friends": [
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification1.jpg",
+      "name": "Martin"
+    },
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification2.jpg",
+      "name": "Jessica"
+    },
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification3.jpg",
+      "name": "Judith"
+    },
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification5.jpg",
+      "name": "Kirsten"
+    },
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification6.jpg",
+      "name": "Phillip"
+    },
+    {
+      "image": "./assets/sample-images/notifications/100x100Notification7.jpg",
+      "name": "Diane"
+    }
+  ],
+  "photos": [
+    {
+      "image": "./assets/sample-images/travel/Travel2-64.47.png",
+      "slug" : "dsadsa",
+      "icon" : "321",
+      "title" : "Create and maintain mobile development projects",
+      "description" : "Create and maintain mobile development projects maintain mobile development projects",
+      "category" : "politik dsa"
+    },
+    {
+      "image": "./assets/sample-images/travel/Travel3-64.47.png",
+      "slug" : "dsadsa",
+      "icon" : "321",
+      "title" : "Create and maintain mobile development projects",
+      "description" : "Create and maintain mobile development projects maintain mobile development projects",
+      "category" : "politik dsa"
+    }
+   
+  ],
+  "skills":[
+    {
+      "name": "HTML5"
+    },
+    {
+      "name": "PHP"
+    },
+    {
+      "name": "Ionic Framework"
+    },
+    {
+      "name": "RDBMS"
+    }
+  ],
+  "projects": [
+    {
+      "name":"NightLite",
+      "date":"Jan 2017 - Jan 2018",
+      "description":"Creating user interfaces for mobile platform."
+    },
+    {
+      "name":"NightLite",
+      "date":"Jan 2017 - Jan 2018",
+      "description":"Creating user interfaces for mobile platform."
+    }
+  ],
+  "experiences": [
+    {
+      "name":"Tokopedia",
+      "date":"Jan 2017 - Jan 2019",
+      "position":"Mobile Developer",
+      "description":"Create and maintain mobile development projects"
+    },
+    {
+      "name":"Tokopedia",
+      "date":"Jan 2017 - Jan 2019",
+      "position":"Mobile Developer",
+      "description":"Create and maintain mobile development projects"
+    }
+  ],
+  "achievements":[
+    {
+      "image":"./assets/sample-icons/achievements/clipboard.svg",
+      "name":"“10 Friend CV”",
+      "point":100
+    },
+    {
+      "image":"./assets/sample-icons/achievements/image.svg",
+      "name":"“Completionist”",
+      "point":10
+    },
+    {
+      "image":"./assets/sample-icons/achievements/school.svg",
+      "name":"“Credible”",
+      "point":25
+    },
+    {
+      "image":"./assets/sample-icons/achievements/clipboard.svg",
+      "name":"“10 Friend CV”",
+      "point":100
+    },
+    {
+      "image":"./assets/sample-icons/achievements/image.svg",
+      "name":"“Completionist”",
+      "point":10
+    },
+    {
+      "image":"./assets/sample-icons/achievements/school.svg",
+      "name":"“Credible”",
+      "point":25
+    },
+    {
+      "image":"./assets/sample-icons/achievements/clipboard.svg",
+      "name":"“10 Friend CV”",
+      "point":100
+    },
+    {
+      "image":"./assets/sample-icons/achievements/image.svg",
+      "name":"“Completionist”",
+      "point":10
+    },
+    {
+      "image":"./assets/sample-icons/achievements/school.svg",
+      "name":"“Credible”",
+      "point":25
+    },
+    {
+      "image":"./assets/sample-icons/achievements/clipboard.svg",
+      "name":"“10 Friend CV”",
+      "point":100
+    },
+    {
+      "image":"./assets/sample-icons/achievements/image.svg",
+      "name":"“Completionist”",
+      "point":10
+    },
+    {
+      "image":"./assets/sample-icons/achievements/school.svg",
+      "name":"“Credible”",
+      "point":25
+    }
+  ]
+}

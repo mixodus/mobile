@@ -1,0 +1,130 @@
+.work-experience-header {
+  color: var(--idstar-dark-grey);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.work-experience-content {
+  --background: var(--idstar-light-grey);
+
+  .spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .spinner{
+      margin-bottom: 10px;
+    }
+  }
+
+  .work-experience-null {
+    margin: var(--page-margin);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: calc(100% - calc(var(--page-margin) * 2));
+  }
+
+  .work-experience-item {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 30px;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    background-color: var(--idstar-white);
+
+    .work-experience-container-1 {
+      width: 75%;
+      margin-right: 10px;
+
+      .work-experience-company-name, .work-experience-position {
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      .work-experience-description {
+        font-size: 11px;
+      }
+
+      .work-experience-date {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .work-experience-date-1, .work-experience-date-2 {
+          padding: 0;
+          display: inline-block;
+          font-size: 10px;
+        }
+
+        .work-experience-text {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .work-experience-container-2 {
+      width: 25%;
+      color: var(--idstar-white);
+      font-size: 9px;
+      font-weight: 700;
+
+      .button-delete {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 37px;
+        background: var(--idstar-red);
+        border-radius: 0 12px 0 0;
+        margin-bottom: 5px;
+      }
+
+      .button-edit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 37px;
+        background: var(--idstar-yellow);
+        border-radius: 0 0 12px 0;
+      }
+    }
+  }
+}
+
+.work-experience-footer {
+  padding: 24px 37px;
+
+  .work-experience-add-button {
+    margin: 36px 0;
+    --background: rgb(117, 194, 68);
+    --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    font-size: 12px;
+    --color: var(--idstar-white);
+    --box-shadow: 0 0 32px -7px #75C244;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+:host {
+  --page-margin: var(--app-narrow-margin);
+}
+
+

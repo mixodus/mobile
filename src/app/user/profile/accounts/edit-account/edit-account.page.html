@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="return_without_saving()">
+        <ion-icon slot="icon-only" name="arrow-back" platform="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="editAccountForm" (ngSubmit)="saveAccount()" class="edit-account-form">
+    <ion-label class="subsection-title">Account Name</ion-label>
+    <ion-item class="input-item">
+      <ion-input type="text" placeholder="Account Name" formControlName="acc_name" clearInput autocapitalize="off"></ion-input>
+    </ion-item>
+    <ion-label class="subsection-title">Account Number</ion-label>
+    <ion-item class="input-item">
+      <ion-input placeholder="Account Number" formControlName="acc_number" clearInput autocapitalize="off"></ion-input>
+    </ion-item>
+    <ion-label class="subsection-title">Bank Name</ion-label>
+      <ion-select interface="popover" lines="full" multiple="false" placeholder="Bank Name" [interfaceOptions]="customPopoverOption"class="select-item"
+        formControlName="bank_name">
+      <ion-select-option *ngFor="let bank of bankOptions" [value]="bank" class="select-option">{{bank}}</ion-select-option>
+    </ion-select>
+    <ion-button class="save-btn" expand="block" fill="outline" [disabled]="!editAccountForm.valid" type="submit">
+      Save
+    </ion-button>
+  </form>
+</ion-content>

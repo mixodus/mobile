@@ -1,0 +1,15 @@
+.project-name > app-text-shell{
+    max-width: 80%;
+
+    &.text-loaded {
+        max-width: unset;
+    }
+}
+
+.project-text > app-text-shell{
+    max-width: 50%;
+
+    &.text-loaded {
+        max-width: unset;
+    }
+}

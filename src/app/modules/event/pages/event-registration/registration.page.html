@@ -1,0 +1,144 @@
+<ion-header class="event-registration-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            <div *ngIf="!event?.isShell">
+                Detail {{ getEventType(event?.data[0]?.event_type_id) }}
+            </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="event-registration-content">
+    <div class="image-container" *ngIf="event?.isShell">
+        <app-image-shell animation="gradient" style="padding-top: 75%;"></app-image-shell>
+    </div>
+
+    <div class="image-container" *ngIf="!event?.isShell">
+        <img [src]="getImage()" [alt]="event?.data[0]?.event_title" class="image"/>
+    </div>
+
+    <div class="event-registration-container">
+        <div class="event-title">
+            {{ event?.data[0]?.event_title }}
+        </div>
+
+        <div class="fill fill--{{ getEventType(event?.data[0]?.event_type_id) }}">
+            {{ getEventType(event?.data[0]?.event_type_id) }}</div>
+
+        <div class="detail-title">Berakhir</div>
+        <div class="detail">{{ getDate(event?.data[0]?.event_date) | date: 'MMM d, yyyy' }}</div>
+
+        <div class="text-title-registration">Formulir Pendaftaran</div>
+
+        <form [formGroup]="registrationForm" class="registration-form">
+            <label class="section-title">Nama Lengkap</label>
+            <ion-input type="text" placeholder="Nama Lengkap" clearInput autocapitalize="off"
+                       class="ion-no-padding input-text" formControlName="fullname">
+            </ion-input>
+            <ng-container *ngFor="let validation of validation_messages.fullname">
+                <div class="error-message-container"
+                     *ngIf="registrationForm.get('fullname').hasError(validation.type) && (registrationForm.get('fullname').dirty || registrationForm.get('fullname').touched)"
+                >
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span class="form-error-notice">{{ validation.message }}</span>
+                </div>
+            </ng-container>
+
+
+            <div class="section-title">Email</div>
+            <ion-input type="text" placeholder="Email" clearInput autocapitalize="off"
+                       class="ion-no-padding input-text"
+                       formControlName="email">
+            </ion-input>
+            <ng-container *ngFor="let validation of validation_messages.email">
+                <div class="error-message-container"
+                     *ngIf="registrationForm.get('email').hasError(validation.type) && (registrationForm.get('email').dirty || registrationForm.get('email').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span class="form-error-notice">{{ validation.message }}</span>
+                </div>
+            </ng-container>
+
+
+            <div class="section-title">Tanggal Lahir</div>
+            <div class="date-container">
+                <div class="date-el-container ion-no-padding">
+                    <ion-datetime no-padding display-format="YYYY-MM-DD" class="date-el"
+                                  formControlName="date_of_birth">
+                    </ion-datetime>
+                </div>
+                <div class="icon-container">
+                    <img class="calendar-icon" src="../../../../assets/icons/calendar-50px.png" alt="">
+                </div>
+            </div>
+
+
+            <div class="section-title">Jenis Kelamin</div>
+            <ion-radio-group class="ion-no-padding" formControlName="gender">
+                <ion-row class="gender-container">
+                    <ion-col size="6">
+                        <ion-row>
+                            <ion-radio value="Male" class="input-radio" value="Male" mode="md"></ion-radio>
+                            <ion-label class="input-radio-text">Laki-Laki</ion-label>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-row>
+                            <ion-radio value="Female" class="input-radio" value="Female" mode="md"></ion-radio>
+                            <ion-label class="input-radio-text">Perempuan</ion-label>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-radio-group>
+
+            <label class="section-title">Negara</label>
+            <ion-select multiple="false" interface="popover" placeholder="Country" class="select-item"
+                        formControlName="country">
+                <ion-select-option *ngFor="let country of countries" [value]="country.code">{{country.name}}
+                </ion-select-option>
+            </ion-select>
+
+            <ng-container *ngFor="let validation of validation_messages.country">
+                    <span
+                            *ngIf="registrationForm.get('country').hasError(validation.type) && (registrationForm.get('country').dirty || registrationForm.get('country').touched)"
+                            class="form-error-notice">{{ validation.message }}</span>
+            </ng-container>
+
+            <label class="section-title">Kota</label>
+            <ion-input type="text" placeholder="Kota" clearInput autocapitalize="off"
+                       class="ion-no-padding input-text"
+                       formControlName="city">
+            </ion-input>
+            <ng-container *ngFor="let validation of validation_messages.city">
+                <div class="error-message-container"
+                     *ngIf="registrationForm.get('city').hasError(validation.type) && (registrationForm.get('city').dirty || registrationForm.get('city').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span class="form-error-notice">{{ validation.message }}</span>
+                </div>
+            </ng-container>
+
+            <div class="section-title">Alamat</div>
+            <ion-textarea placeholder="Alamat" class="ion-no-padding textarea" auto-grow="true"
+                          formControlName="address" rows="1"></ion-textarea>
+            <ng-container *ngFor="let validation of validation_messages.address">
+                <div class="error-message-container"
+                     *ngIf="registrationForm.get('address').hasError(validation.type) && (registrationForm.get('address').dirty || registrationForm.get('address').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span class="form-error-notice">{{ validation.message }}</span>
+                </div>
+            </ng-container>
+
+            <br/>
+
+            <ng-container *ngFor="let validation of validation_messages.event_id">
+                    <span *ngIf="registrationForm.get('event_id').hasError(validation.type) && (registrationForm.get('event_id').dirty || registrationForm.get('event_id').touched)"
+                          class="form-error-notice">{{ validation.message }}</span>
+            </ng-container>
+        </form>
+
+        <ion-button class="register-button" (click)="onRegister()" [disabled]="!registrationForm.valid">Daftar
+        </ion-button>
+    </div>
+</ion-content>

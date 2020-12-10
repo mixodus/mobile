@@ -1,0 +1,84 @@
+<ion-content class="login-content">
+  <div class="background">
+    <ion-header no-border>
+      <ion-toolbar style="--background: transparent">
+      </ion-toolbar>
+    </ion-header>
+    <!-- <h2 class="auth-title">
+      Halo !!
+    </h2>
+    <h5>Enter Your Email and Password</h5> -->
+    <ion-row class="logo-row" style="position: relative;">
+      <ion-col class="illustration-col" size="12">
+        <!-- <app-aspect-ratio [ratio]="{w:20, h:10}"> -->
+        <!-- <app-image-shell class="illustration-image" style="align-items: center" animation="spinner" [src]="'./assets/images/logo.png'" [alt]="'logo'"></app-image-shell> -->
+        <app-image-shell class="illustration-image" animation="spinner" src="assets/new-assets/logo.png" [alt]="'logo'">
+        </app-image-shell>
+        <!-- </app-aspect-ratio> -->
+      </ion-col>
+      <!-- <ion-col class="illustration-text" size="12">
+          <p class="welcome-back-text">Welcome Back!</p>
+        </ion-col> -->
+    </ion-row>
+    <div class="box">
+
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="doLogin()" autocomplete="off"
+        (keyup.enter)="doLogin()">
+        <ion-list class="inputs-list" lines="full">
+          <p class="login-existing-text">Log in to your existing account</p>
+          <ion-item class="input-item">
+            <ion-icon slot="start" src="assets/new-assets/mail.svg" class="input-item-icon"></ion-icon>
+            <ion-input class="input-class" type="email" placeholder="Email" formControlName="email" clearInput
+              autocapitalize="off" inputmode="email"></ion-input>
+          </ion-item>
+          <div class="error-container">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div class="error-message" *ngIf="loginForm.get('email').hasError(validation.type) && isSubmitted">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </ng-container>
+          </div>
+
+          <ion-item class="input-item">
+            <ion-icon slot="start" src="assets/new-assets/privacy.svg" class="input-item-icon"></ion-icon>
+            <app-show-hide-password>
+              <ion-input type="password" placeholder="Password" formControlName="password"
+                class="input-class ion-invalid ng-invalid"></ion-input>
+            </app-show-hide-password>
+          </ion-item>
+          <div class="error-container">
+            <ng-container *ngFor="let validation of validation_messages.password">
+              <div class="error-message" *ngIf="loginForm.get('password').hasError(validation.type) && isSubmitted">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ validation.message }}</span>
+              </div>
+            </ng-container>
+          </div>
+          <div class="remember-me-forgot-password-wrapper">
+            <div class="remember-me">
+              <ion-checkbox class="remember-checkbox" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}">
+              </ion-checkbox>
+              <ion-label class="remember-label">Remember Me</ion-label>
+            </div>
+            <a class="forgot-anchor" [routerLink]="['/auth/forgot-password']">Forgot Password</a>
+          </div>
+          <ion-button class="login-btn" type="submit" expand="block">LOG IN</ion-button>
+          <div style="text-align: end;">
+          </div>
+          <p class="signup-text">Don't have account? <a class="signup-anchor" [routerLink]="['/auth/signup']"> Sign
+              Up</a></p>
+        </ion-list>
+      </form>
+    </div>
+
+    <!-- <div style="position: relative;">
+  <div class="signup-text">
+      Haven't got account ?
+    </div>
+    <ion-button class="signup-btn" expand="block" fill="clear" [routerLink]="['/auth/signup']">
+      Sign Up
+    </ion-button>
+  </div> -->
+  </div>
+</ion-content>

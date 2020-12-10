@@ -1,0 +1,191 @@
+<ion-app>
+    <div class="main-container ion-page">
+        <ion-header class="jobs-header">
+            <ion-toolbar class="header-toolbar">
+                <ion-buttons slot="start" (click)="onBackClick()">
+                    <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+                </ion-buttons>
+                <ion-title class="title">
+                    Pekerjaan
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="content" fullscreen="true">
+            <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+            <div>
+                <div class="search">
+                    <ion-searchbar #sb showCancelButton="focus"
+                                   placeholder="Cari pekerjaan"
+                                   search-icon="search" animated mode="md" [debounce]="500" inputmode="search"
+                                   (ionChange)="searchList($event)"
+                                   [value]="selectedItem" (ionBlur)="onBlur($event)" autocomplete></ion-searchbar>
+                    <!--                    <ion-button class="filter-button">-->
+                    <!--                        <ion-icon class="filter-icon" src="./assets/icons/tune-24px.svg"></ion-icon>-->
+                    <!--                    </ion-button>-->
+                </div>
+
+                <!--                <div class="job-type-container">-->
+                <!--                    <ion-button class="job-type-button">Full Time</ion-button>-->
+                <!--                    <ion-button class="job-type-button">Part Time</ion-button>-->
+                <!--                    <ion-button class="job-type-button">Internship</ion-button>-->
+                <!--                </div>-->
+
+                <div class="button-toggle-job-container">
+                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 0, 'toggle-job-outline':toggleState === 1 }" expand="block" (click)="handleToggleJob(0)">Pekerjaan</ion-button>
+                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 1, 'toggle-job-outline':toggleState === 0 }" expand="block" (click)="handleToggleJob(1)">Status</ion-button>
+                </div>
+
+
+                <div *ngIf="jobs.isShell" class="spinner-container">
+                    <ion-spinner class="spinner">Loading</ion-spinner>
+                    <div>Loading</div>
+                </div>
+
+                <ng-template #jobTemplate let-job="job">
+                    <ion-card button class="job-detail-search">
+                        <ion-row class="job-details-section">
+                            <ion-col class="job-data-wrapper">
+                                <div class="job-info">
+                                    <h3 class="job-name">
+                                        <app-text-shell [data]="job.jobTitle"></app-text-shell>
+                                    </h3>
+                                    <h5 class="job-location">
+                                        <app-text-shell [data]="job.companyName"></app-text-shell>
+                                    </h5>
+                                    <h5 class="job-level">
+                                        <app-text-shell [data]="job.jobTypeName"></app-text-shell>
+                                    </h5>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+                </ng-template>
+
+                <section [hidden]="toggleState === 1" class="segmentJobs">
+                    <div class="header-container"></div>
+                    <div *ngIf="noSearch">
+                        <ion-card *ngIf="!jobs.data || jobs.data.length === 0" class="ion-text-center">
+                            <ion-card-content class="empty-job">
+                                Belum ada pekerjaan yang tersedia sekarang.
+                            </ion-card-content>
+                        </ion-card>
+                        <ion-card class="user-applied-jobs-card" *ngFor="let job of jobs.data"
+                                  (click)="getJobDetailDataSourceId(job.jobId)">
+                            <ion-card-content class="user-applied-jobs-content" *ngIf="!jobs.isShell">
+                                <ion-grid class="ion-no-padding applied-jobs-grid">
+                                    <ion-row class="applied-jobs-row">
+                                        <ion-col class="ion-no-padding job-details">
+                                            <div class="company-container">
+                                                <div class="icon-job-company-container">
+                                                    <img class="icon-job-company"
+                                                         src="./assets/icons/work_outline-24px-with-background.png">
+                                                </div>
+                                                <div class="job-company">{{ job.companyName }}</div>
+                                            </div>
+                                            <div class="job-name">{{ job.jobTitle }}</div>
+                                            <div class="job-detail-container">
+                                                <div class="location-container">
+                                                    <ion-icon class="icon-location"
+                                                              src="./assets/icons/place-24px.svg"></ion-icon>
+                                                    <div class="job-location">{{ getJobLocation(job.province, job.country) }}</div>
+                                                </div>
+                                                <!--                                                <div class="job-type-detail-container">-->
+                                                <!--                                                    <ion-icon class="icon-location" src="./assets/icons/schedule-24px.svg"></ion-icon>-->
+                                                <!--                                                    <div class="job-location">Full Time</div>-->
+                                                <!--                                                </div>-->
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+
+                    <div *ngIf="!noSearch">
+                        <div *ngIf="!searchedJobs.data || searchedJobs.data.length === 0" class="ion-text-center">
+                            <ion-card>
+                                <ion-card-content class="empty-job">
+                                    Tidak dapat menemukan pekerjaan yang cocok dengan kata kunci.
+                                </ion-card-content>
+                            </ion-card>
+                        </div>
+                        <ion-card *ngFor="let job of searchedJobs.data"
+                                  (click)="getJobDetailDataSourceId(job.jobId)" class="user-applied-jobs-card">
+                            <ion-card-content class="user-applied-jobs-content">
+                                <ion-grid class="ion-no-padding applied-jobs-grid">
+                                    <ion-row class="applied-jobs-row">
+                                        <ion-col class="ion-no-padding job-details">
+                                            <div class="job-name">{{ job.jobTitle }}</div>
+                                            <div class="job-company">{{ job.companyName }}</div>
+                                            <div class="job-location"> {{ getJobLocation(job.province, job.country) }}</div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                </section>
+
+                <section [hidden]="toggleState === 0" class="segmentJobs">
+                    <div class="header-container"></div>
+                    <div *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0"
+                         style="text-align: center;">
+                        <ion-card>
+                            <ion-card-content class="empty-job">
+                                Pekerjaan yang anda lamar akan ditampilkan di sini.
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+
+                    <ion-card class="user-applied-jobs-card" *ngFor="let job of jobApplicationList.data"
+                              (click)="getJobDetailDataSourceId(job.job_id)">
+                        <ion-card-content class="user-applied-jobs-content" *ngIf="!jobApplicationList.isShell">
+                            <ion-grid class="ion-no-padding applied-jobs-grid">
+                                <ion-row class="applied-jobs-row">
+                                    <ion-col class="ion-no-padding job-details">
+                                        <div class="company-container">
+                                            <div class="icon-job-company-container">
+                                                <img class="icon-job-company"
+                                                     src="./assets/icons/work_outline-24px-with-background.png">
+                                            </div>
+                                            <div class="job-company">{{ job.company_name }}</div>
+                                        </div>
+                                        <div class="job-name">{{job.job_title}}</div>
+                                        <div class="job-detail-container">
+                                            <div class="location-container">
+                                                <ion-icon class="icon-location"
+                                                          src="./assets/icons/place-24px.svg"></ion-icon>
+                                                <div class="job-location">{{ job.province + ', ' + job.country }}</div>
+                                            </div>
+                                            <!--                                                <div class="job-type-detail-container">-->
+                                            <!--                                                    <ion-icon class="icon-location" src="./assets/icons/schedule-24px.svg"></ion-icon>-->
+                                            <!--                                                    <div class="job-location">Full Time</div>-->
+                                            <!--                                                </div>-->
+                                        </div>
+                                    </ion-col>
+                                    <div class="status">
+                                        <div *ngIf="job.application_status == 'Rejected'">
+                                            <div class="job-status--rejected">
+                                                Ditolak
+                                            </div>
+                                        </div>
+                                        <div *ngIf="job.application_status == 'Applied'">
+                                            <div class="job-status--applied">
+                                                Dilamar
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-card-content>
+                    </ion-card>
+                </section>
+            </div>
+        </ion-content>
+    </div>
+</ion-app>
+
+

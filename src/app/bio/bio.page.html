@@ -65,7 +65,7 @@
       <ion-select-option value="IDR">IDR</ion-select-option>
     </ion-select>
 
-    <ion-input formControlName="expected_salary" type="text" type="number" inputmode="numeric" placeholder="ex. 10000000" clearInput
+    <ion-input formControlName="expected_salary" type="number" inputmode="numeric" placeholder="ex. 10000000" clearInput
       autocapitalize="off" class="ion-no-padding input-text" (ionBlur)="convertSalary($event.target.value)"
       (ionFocus)="editSalaryValue($event.target.value)">
     </ion-input>

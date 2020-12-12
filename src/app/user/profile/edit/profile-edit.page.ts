@@ -153,7 +153,7 @@ export class EditPage implements OnInit {
   async openCam() {
 
     const alert = await this.alertCtrl.create({
-      header: 'Change Picture',
+      header: 'Ganti Foto',
       buttons: [
         {
           text: 'Ambil foto',

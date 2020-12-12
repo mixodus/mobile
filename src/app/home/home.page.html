@@ -12,7 +12,9 @@
                 </div>
                 <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
                                  [src]="profile?.data?.user.level_icon_url"
-                                 [alt]="profile?.data?.user.fullname" class="star-image">
+                                 [alt]="profile?.data?.user.fullname" class="star-image"
+                                 [routerLink]="['/app/user/level']"
+                >
                 </app-image-shell>
             </div>
         </div>
@@ -20,7 +22,7 @@
 </ion-header>
 
 <ion-content>
-    <div class="proflie-container" [routerLink]="['/app/user/level']">
+    <div class="proflie-container" [routerLink]="['/app/user']">
         <div class="proflie-container-1">
             <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
                              [src]="profile?.data?.user.profile_picture_url"

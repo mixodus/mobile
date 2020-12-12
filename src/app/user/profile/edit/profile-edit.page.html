@@ -9,7 +9,6 @@
     </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="profile-edit-content">
     <form [formGroup]="editProfileForm" class="edit-profile-form">
         <div class="profile-image-wrapper">
@@ -20,6 +19,7 @@
                              [src]="profileImg"
                              (click)="openCam()"></app-image-shell>
             <img src="../../../../assets/icons/pencil-outline.png" class="icon" alt="">
+<!--            <ion-icon name="pencil-outline" class="icon"></ion-icon>-->
         </div>
 
         <div class="section-title">Nama Lengkap</div>

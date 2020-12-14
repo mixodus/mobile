@@ -54,8 +54,7 @@ export class RegisterPage implements OnInit, IPage {
     ],
     email: [
       { type: 'required', message: 'Email dibutuhkan.' },
-      // { type: 'email', message: 'Mohon masukkan Email dengan benar.' },
-      { type: 'pattern', message: 'Mohon masukkan Email dengan benar.' }
+      { type: 'email', message: 'Mohon masukkan Email dengan benar.' },
     ],
     password: [
       { type: 'pattern', message: 'Password harus alphanumeric.' },
@@ -68,14 +67,7 @@ export class RegisterPage implements OnInit, IPage {
   // main form
   registerForm = this._fb.group({
     fullname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-    email: ['',
-      Validators.compose(
-      [
-        Validators.required,
-        Validators.email,
-        Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
-      ])
-    ],
+    email: ['', Validators.compose([Validators.required, Validators.email])],
     contact_no: [
       '',
       Validators.compose([

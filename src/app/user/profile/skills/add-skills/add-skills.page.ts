@@ -20,6 +20,7 @@ export class AddSkillsPage implements OnInit {
   skillDataStore: DataStore<SkillModel>;
   searchValue: string;
   searchResult = [];
+  isSkillShell = false;
   selectedSkills: Array<string>;
 
   constructor(
@@ -70,20 +71,24 @@ export class AddSkillsPage implements OnInit {
     this.skillDataStore.load(skillDataSource);
     this.skillDataStore.state.subscribe(
       (state) => {
+        console.log('state: ', state);
         const result = [];
         let flag = false;
-        result.push(state.data[0].name);
-        for (let i = 0; i < state.data.length; i++) {
-          flag = false;
-          for (let j = 0; j < result.length; j++) {
-            if (state.data[i].name.toLowerCase() === result[j].toLowerCase()) {
-              flag = true;
+        if (state.data.length > 0) {
+          result.push(state.data[0].name);
+          for (let i = 0; i < state.data.length; i++) {
+            flag = false;
+            for (let j = 0; j < result.length; j++) {
+              if (state.data[i].name.toLowerCase() === result[j].toLowerCase()) {
+                flag = true;
+              }
+            }
+            if (flag === false) {
+              result.push(state.data[i].name);
             }
           }
-          if (flag === false) {
-            result.push(state.data[i].name);
-          }
         }
+        this.isSkillShell = state.isShell;
         this.searchResult = result;
       });
   }

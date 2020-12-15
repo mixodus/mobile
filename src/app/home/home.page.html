@@ -1,4 +1,4 @@
-<ion-header no-border>
+<ion-header no-border class="home-header">
     <ion-toolbar>
         <div class="home-toolbar">
             <img class="logo-one" src="../../assets/images/icon.png">
@@ -21,7 +21,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="home-content">
     <div class="proflie-container" [routerLink]="['/app/user']">
         <div class="proflie-container-1">
             <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"

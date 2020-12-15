@@ -19,6 +19,7 @@ import { ShellModel } from '../../../../../app/shell/data-store';
 import { EventsListPage } from '../events-list/events-list.page';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-event-details',
@@ -38,7 +39,8 @@ export class EventDetailPage implements OnInit {
     private toast: ToastController,
     private alertCtrl: AlertController,
     private auth: AuthenticationService,
-    private _zone: NgZone
+    private _zone: NgZone,
+    private location: Location
   ) {}
 
   destroySubscription = new Subject<any>();
@@ -201,6 +203,7 @@ export class EventDetailPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.navigateForward(['app/events']);
+    this.location.back();
+    // this.navCtrl.navigateForward(['app/events']);
   }
 }

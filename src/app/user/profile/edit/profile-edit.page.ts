@@ -15,7 +15,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { IOSFilePicker } from '@ionic-native/file-picker/ngx'
+import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { url } from 'inspector';
 
 @Component({
@@ -31,9 +31,9 @@ import { url } from 'inspector';
 export class EditPage implements OnInit {
   editProfileForm: FormGroup;
   profile: any;
-  profileImg: string = "../assets/sample-images/user/default-profile.svg";
-  provices: Array<string>
-  countries: Array<{ code: string, name: string }>
+  profileImg: string = '../assets/sample-images/user/default-profile.svg';
+  provices: Array<string>;
+  countries: Array<{ code: string, name: string }>;
   profilePictureChanged: boolean = false;
   base64s: any;
   fileURL: string;
@@ -54,12 +54,10 @@ export class EditPage implements OnInit {
     private toast: ToastController,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-
     private camera: Camera,
     private crop: Crop,
     private webView: WebView,
     private file: File,
-
     private platform: Platform,
     public fileChooser: FileChooser,
     public filePath: FilePath,
@@ -77,7 +75,7 @@ export class EditPage implements OnInit {
         this.profile = this.router.getCurrentNavigation().extras.state.data;
         this.getDataToForm();
       } else {
-        this.router.navigateByUrl('app/user')
+        this.router.navigateByUrl('app/user');
       }
     });
   }
@@ -100,7 +98,7 @@ export class EditPage implements OnInit {
       ])),
       contact_no: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern("^[0-9]*$"),
+        Validators.pattern('^[0-9]*$'),
       ])),
       marital_status: new FormControl('', Validators.compose([
         // Validators.required,
@@ -120,32 +118,32 @@ export class EditPage implements OnInit {
       summary: new FormControl('', Validators.compose([
         Validators.required,
       ])),
-    })
-    this.editProfileForm.controls['profile_picture'].setValue(this.profile.profile_picture)
-    this.editProfileForm.controls['profile_picture_url'].setValue(this.profile.profile_picture_url)
-    this.editProfileForm.controls['fullname'].setValue(this.profile.fullname)
-    this.editProfileForm.controls['job_title'].setValue(this.profile.job_title)
-    this.editProfileForm.controls['summary'].setValue(this.profile.summary)
+    });
+    this.editProfileForm.controls['profile_picture'].setValue(this.profile.profile_picture);
+    this.editProfileForm.controls['profile_picture_url'].setValue(this.profile.profile_picture_url);
+    this.editProfileForm.controls['fullname'].setValue(this.profile.fullname);
+    this.editProfileForm.controls['job_title'].setValue(this.profile.job_title);
+    this.editProfileForm.controls['summary'].setValue(this.profile.summary);
     if (this.profile.date_of_birth === '' || this.profile.date_of_birth === null) {
-      this.editProfileForm.controls['date_of_birth'].setValue(new Date().toISOString().slice(0, 10))
+      this.editProfileForm.controls['date_of_birth'].setValue(new Date().toISOString().slice(0, 10));
     } else {
-      this.editProfileForm.controls['date_of_birth'].setValue(this.profile.date_of_birth)
+      this.editProfileForm.controls['date_of_birth'].setValue(this.profile.date_of_birth);
     }
     if (this.profile.gender === '' || this.profile.gender === null) {
-      this.editProfileForm.controls['gender'].setValue("Male")
+      this.editProfileForm.controls['gender'].setValue('Male');
     } else {
-      this.editProfileForm.controls['gender'].setValue(this.profile.gender)
+      this.editProfileForm.controls['gender'].setValue(this.profile.gender);
     }
     if (this.profile.date_of_birth === '' || this.profile.date_of_birth === null) {
-      this.editProfileForm.controls['marital_status'].setValue("Sing")
+      this.editProfileForm.controls['marital_status'].setValue('Sing');
     } else {
-      this.editProfileForm.controls['marital_status'].setValue(this.profile.marital_status)
+      this.editProfileForm.controls['marital_status'].setValue(this.profile.marital_status);
     }
-    this.editProfileForm.controls['country'].setValue(this.profile.country)
-    this.editProfileForm.controls['province'].setValue(this.profile.province)
-    this.editProfileForm.controls['address'].setValue(this.profile.address)
-    this.editProfileForm.controls['zip_code'].setValue(this.profile.zip_code)
-    this.editProfileForm.controls['contact_no'].setValue(this.profile.contact_no)
+    this.editProfileForm.controls['country'].setValue(this.profile.country);
+    this.editProfileForm.controls['province'].setValue(this.profile.province);
+    this.editProfileForm.controls['address'].setValue(this.profile.address);
+    this.editProfileForm.controls['zip_code'].setValue(this.profile.zip_code);
+    this.editProfileForm.controls['contact_no'].setValue(this.profile.contact_no);
 
     console.log(this.editProfileForm.value);
   }
@@ -158,17 +156,18 @@ export class EditPage implements OnInit {
         {
           text: 'Ambil foto',
           handler: (blah) => {
-            this.obtainPicture(this.camera.PictureSourceType.CAMERA)
+            console.log('blah: ', blah);
+            this.obtainPicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
           text: 'Pilih dari Galeri',
           handler: () => {
-            this.obtainPicture(this.camera.PictureSourceType.PHOTOLIBRARY)
+            this.obtainPicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         }
       ]
-    })
+    });
 
     await alert.present();
   }
@@ -185,30 +184,28 @@ export class EditPage implements OnInit {
       sourceType: source,
       targetHeight: 700,
       targetWidth: 700,
-    }
+    };
 
     const cropOpt: CropOptions = {
       quality: 70
-    }
+    };
 
     this.camera.getPicture(camOpt).then((imageData) => {
       this.crop.crop(imageData, cropOpt).then((cropped) => {
-        this.showCroppedImage(cropped.split('?')[0])
+        this.showCroppedImage(cropped.split('?')[0]);
       }, (err) => {
         // Handle error
-        console.log("Error " + err);
-      })
+        console.log('Error ' + err);
+      });
     }, (err) => {
       // Handle error
-      console.log("Error " + err);
+      console.log('Error ' + err);
     });
 
   }
 
   async showCroppedImage(ImagePath) {
-    const loading = await this.loadingCtrl.create({
-
-    });
+    const loading = await this.loadingCtrl.create({});
     await loading.present();
     var copyPath = ImagePath;
     var splitPath = copyPath.split('/');
@@ -219,15 +216,16 @@ export class EditPage implements OnInit {
       this.editProfileForm.controls['profile_picture'].setValue(base64);
       this.editProfileForm.controls['profile_picture_url'].setValue(base64);
       this.profilePictureChanged = true;
-      loading.dismiss()
+      loading.dismiss();
     }, error => {
       alert('Error in showing image' + error);
-      loading.dismiss()
+      loading.dismiss();
     });
   }
 
   async presentLoading() {
   }
+
   // async PickFileAndGetBase64String(){
   //   let loading = await this.loadingCtrl.create();
   //   this.fileChooser.open().then((fileuri)=>{
@@ -281,7 +279,7 @@ export class EditPage implements OnInit {
   // }
 
   chooseFile() {
-  if (this.platform.is("ios")) {
+    if (this.platform.is('ios')) {
       this.filePicker.pickFile().then(uri =>
         this.filePath.resolveNativePath(uri).then((nativepath) => {
           this.fileTransfer = this.transfer.create();
@@ -290,17 +288,17 @@ export class EditPage implements OnInit {
             fileName: this.profile.fullname + '_cv.pdf',
             chunkedMode: false,
             mimeType: 'file/pdf'
-          }
+          };
           this.fileTransfer.upload(nativepath, this.globalService.getApiUrl() + '/upload.php', options).then((data) => {
-            alert("file uploaded");
+            alert('file uploaded');
           }, (err) => {
             alert(JSON.stringify(err));
-          })
+          });
         }, (err) => {
           alert(JSON.stringify(err));
-        }))
+        }));
     }
-    if (this.platform.is("android")) {
+    if (this.platform.is('android')) {
       this.fileChooser.open().then(uri => {
         // this.filePath.resolveNativePath(uri).then((nativepath) => {
         this.fileURL = uri;
@@ -310,20 +308,20 @@ export class EditPage implements OnInit {
           fileName: this.profile.fullname + '_cv.pdf',
           chunkedMode: false,
           mimeType: 'file/pdf'
-        }
+        };
         //native path bisa diganti sama this.fileURL
         this.fileTransfer.upload(this.fileURL, this.globalService.getApiUrl() + '/upload.php', options).then((data) => {
-          alert("file uploaded");
+          alert('file uploaded');
         }, (err) => {
           alert(JSON.stringify(err));
-        })
+        });
       }, (err) => {
         alert(JSON.stringify(err));
-      })
+      });
     }
 
   }
-  
+
   async saveProfile() {
     let loading = await this.loadingCtrl.create();
     await loading.present();
@@ -341,25 +339,27 @@ export class EditPage implements OnInit {
     this.http.put(url, formData).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
-      .subscribe(data => {    
+      .subscribe(data => {
         console.log(this.profile);
-        this.presentToast(data["message"]);
+        this.presentToast(data['message']);
         this.globalService.refreshFlag.home = true;
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
       }, err => {
         console.log('JS Call error: ', err);
 
-        let message = "";
-        if (err.error.message === undefined)
-          message = "Permasalahan jaringan, mohon coba lagi.";
-        else
+        let message = '';
+        if (err.error.message === undefined) {
+          message = 'Permasalahan jaringan, mohon coba lagi.';
+        } else {
           message = err.error.message;
+        }
 
         this.presentToast(message);
       });
 
   }
+
   async presentToast(message) {
     const toast = await this.toast.create({
       message: message,

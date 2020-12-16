@@ -142,6 +142,8 @@ export class HomePage implements OnInit {
     this.checkSession();
     this.fetchData();
     this.fetchProfile();
+    this.setUnreadNotification();
+
     // this.refreshAuto();
     // setTimeout(() => {
     //   this.refreshAuto();
@@ -195,6 +197,20 @@ export class HomePage implements OnInit {
 
   fetchProfile() {
 
+  }
+
+  setUnreadNotification() {
+    this.route.data.subscribe((resolvedState) => {
+      resolvedState.jobs.state.subscribe(
+        (data) => {
+          this.jobsPreviewHome = data.data[0];
+          this.filterData();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    });
   }
 
   filterData() {

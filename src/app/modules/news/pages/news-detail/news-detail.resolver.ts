@@ -8,6 +8,7 @@ export class NewsDetailResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot) {
     const news_id = route.params['news-id'];
+    console.log('this._newsService.getNewsDetailDateStore(news_id): ', this._newsService.getNewsDetailDateStore(news_id));
     return this._newsService.getNewsDetailDateStore(news_id);
   }
 }

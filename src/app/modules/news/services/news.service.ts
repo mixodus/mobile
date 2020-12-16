@@ -65,7 +65,6 @@ export class NewsService {
       this._globalService.getApiUrl() +
       'api/news/detail/' + newsDetailId +
       `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
-
     return this._http.get<NewsResponse>(newsDetailEndpoint);
   }
 
@@ -75,6 +74,7 @@ export class NewsService {
       this._newsDetailDataStore = new DataStore(shellModel);
       this._newsDetailDataStore.load(this.getNewsDetail(newsDetailId));
     }
+
     return this._newsDetailDataStore;
   }
 }

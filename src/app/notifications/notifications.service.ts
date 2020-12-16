@@ -14,7 +14,8 @@ export class NotificationsService {
     private _globalService: GlobalService,
     private _mapperService: MapperService,
     private _auth: AuthenticationService
-  ) { }
+  ) {
+  }
 
   private _NotifDataStore: DataStore<NotificationResponse>;
 
@@ -27,6 +28,7 @@ export class NotificationsService {
 
     return this._http.get<NotificationResponse>(url);
   }
+
   getDataStore(refresh: boolean = false) {
     // Use cache if available
     if (this._NotifDataStore == undefined || refresh) {
@@ -36,5 +38,16 @@ export class NotificationsService {
       this._NotifDataStore.load(this.getData());
     }
     return this._NotifDataStore;
+  }
+
+  getNewNotifications() {
+    const url =
+      this._globalService.apiUrl +
+      `api/notif/new_notif` +
+      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+
+    console.log('this._http.get(url): ', this._http.get(url));
+
+    return this._http.get(url);
   }
 }

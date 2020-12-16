@@ -11,6 +11,5 @@ export class NotificationsResolver implements Resolve<any> {
   resolve() {
     // Base Observable (where we get data from)
     return this._notificationsService.getDataStore(true);
-
   }
 }

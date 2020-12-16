@@ -18,6 +18,7 @@
             <div>
                 <div class="search">
                     <ion-searchbar #sb showCancelButton="focus"
+                                   [hidden]="toggleState === 1"
                                    placeholder="Cari pekerjaan"
                                    search-icon="search" animated mode="md" [debounce]="500" inputmode="search"
                                    (ionChange)="searchList($event)"

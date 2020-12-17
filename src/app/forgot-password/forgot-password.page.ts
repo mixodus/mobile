@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../services/global.service';
 import { finalize } from 'rxjs/operators';
 
@@ -20,8 +20,8 @@ export class ForgotPasswordPage implements OnInit {
 
   validation_messages = {
     'email': [
-      { type: 'required', message: 'Email is required.' },
-      { type: 'pattern', message: 'Enter a valid email.' }
+      { type: 'required', message: 'Email dibutuhkan.' },
+      { type: 'pattern', message: 'Masukkan Email dengan benar.' }
     ]
   };
 
@@ -64,8 +64,13 @@ export class ForgotPasswordPage implements OnInit {
 
     const formData = this.forgotPasswordForm.value;
 
-    const url = this.globalService.getApiUrl() + 'user/reset_password?X-Api-Key=' + this.globalService.getGlobalApiKey();
-    this.http.post(url, formData).pipe(
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey() });
+    const options = { headers: headers };
+
+    const url = this.globalService.getApiUrl() + 'user/reset_password';
+    this.http.post(url, formData, options).pipe(
       finalize(() => loading.dismiss())
     )
       .subscribe(data => {
@@ -75,7 +80,7 @@ export class ForgotPasswordPage implements OnInit {
 
         let message = '';
         if (err.error.message === undefined) {
-          message = 'Network problem, please try again !';
+          message = 'Permasalahan jaringan, mohon coba lagi.';
         } else {
           message = err.error.message;
         }

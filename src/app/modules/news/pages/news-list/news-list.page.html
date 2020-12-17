@@ -24,10 +24,9 @@
     <div class="banner-container" *ngIf="!bannerList?.isShell">
         <ion-slides pager="true" [options]="bannerConfig">
             <ion-slide *ngFor="let banner of bannerList?.data?.banner">
-                <a
-                        class="banner-image"
-                        [style.background-image]="'url(' +  banner.banners_photo_url +  ')'"
-                        [routerLink]="['/', 'app' ,'news', 'news-detail', banner.news_detail_id]"
+                <a class="banner-image"
+                   [style.background-image]="'url(' +  banner.banners_photo_url +  ')'"
+                   [routerLink]="['/', 'app' ,'news', 'news-detail', banner.news_detail_id]"
                 >
                 </a>
             </ion-slide>

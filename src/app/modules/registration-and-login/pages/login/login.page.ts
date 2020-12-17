@@ -116,7 +116,7 @@ export class LoginPage implements OnInit {
     const formData = this.loginForm.value;
     this.storage.set('prevNavigation', true);
     const loading = await this.loadingCtrl.create();
-    // const postdata = { username: formData.email, password: formData.password };
+    const postdata = { username: formData.email, password: formData.password };
 
     const body = new FormData();
     body.append('username', formData.email);
@@ -141,7 +141,7 @@ export class LoginPage implements OnInit {
       .post(
         this.globalService.getApiUrl() +
         'user/login',
-        body, options
+        postdata, options
       )
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(

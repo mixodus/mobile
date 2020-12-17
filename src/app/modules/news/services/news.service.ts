@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../services/global.service';
 import { API_ENDPOINTS } from '../../../core/constants/api-endpoints';
 import { DataStore } from '../../../shell/data-store';
@@ -19,13 +19,22 @@ export class NewsService {
   private _bannerDataStore: DataStore<NewsResponse>;
   private _newsDetailDataStore: DataStore<NewsResponse>;
 
+  // this._auth.token
   getNews() {
+    console.log('this._auth.token: ', this._auth.token)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
+
     const completeEndpoint =
       this._globalService.getApiUrl() +
       API_ENDPOINTS.News +
       `?X-Token=${this._auth.token}&X-Api-Key=${this._globalService.getGlobalApiKey()}`;
 
-    return this._http.get<NewsResponse>(completeEndpoint);
+    return this._http.get<NewsResponse>(completeEndpoint, options);
   }
 
   getNewsDataStore(refresh: boolean = false) {
@@ -43,7 +52,7 @@ export class NewsService {
   getBanner() {
     const url =
       this._globalService.apiUrl +
-      '/api/home_news' +
+      'api/home_news' +
       `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
 
     return this._http.get<NewsResponse>(url);

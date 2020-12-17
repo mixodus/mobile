@@ -267,7 +267,6 @@ export class EditPage implements OnInit {
 
   //   // diganti jadi url db nanti
   //   // let storage = urlDB nya
-  //   // let storage = firebase.storage();
   //   let storage = this.globalService.getApiUrl + '/upload.php';
 
   //   storage.ref('file/' + name).put(blob).then((d) => {

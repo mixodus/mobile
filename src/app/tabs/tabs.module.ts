@@ -6,6 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
+import { FriendProfileResolver } from '../user/friend-profile/profile.resolver';
+import { FriendProfileService } from '../user/friend-profile/profile.service';
+import { TruncatePipe } from '../pipes/truncate.pipe';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @NgModule({
   imports: [
@@ -14,6 +18,10 @@ import { TabsPage } from './tabs.page';
     FormsModule,
     TabsPageRoutingModule
   ],
-  declarations: [ TabsPage ]
+  declarations: [TabsPage],
+  providers: [
+    NotificationsService
+  ]
 })
-export class TabsPageModule {}
+export class TabsPageModule {
+}

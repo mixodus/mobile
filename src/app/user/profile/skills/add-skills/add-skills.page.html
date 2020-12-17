@@ -15,9 +15,18 @@
                    [(ngModel)]="searchValue" (ionChange)="searchList($event)" animated autocomplete>
     </ion-searchbar>
     <ion-list class="skill-autocomplete" [hidden]="hideSuggestion">
-        <ion-item class="search-skill-item" *ngFor="let item of searchResult" (click)="selectItem(item)">
-            <app-text-shell [data]="item"></app-text-shell>
-        </ion-item>
+        <div *ngIf="isSkillShell" class="spinner-container">
+            <ion-spinner class="spinner">Loading</ion-spinner>
+            <div>Loading</div>
+        </div>
+        <div *ngIf="!isSkillShell">
+            <ion-item class="search-skill-item" *ngFor="let item of searchResult" (click)="selectItem(item)">
+                <app-text-shell [data]="item"></app-text-shell>
+            </ion-item>
+        </div>
+        <div *ngIf="searchResult.length <= 0" class="not-Found-text">
+                Data tidak ditemukan.
+        </div>
     </ion-list>
     <div class="skill-selected">
         <div *ngIf="selectedSkills.length == 0">

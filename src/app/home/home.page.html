@@ -1,4 +1,4 @@
-<ion-header no-border>
+<ion-header no-border class="home-header">
     <ion-toolbar>
         <div class="home-toolbar">
             <img class="logo-one" src="../../assets/images/icon.png">
@@ -12,15 +12,17 @@
                 </div>
                 <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
                                  [src]="profile?.data?.user.level_icon_url"
-                                 [alt]="profile?.data?.user.fullname" class="star-image">
+                                 [alt]="profile?.data?.user.fullname" class="star-image"
+                                 [routerLink]="['/app/user/level']"
+                >
                 </app-image-shell>
             </div>
         </div>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <div class="proflie-container" [routerLink]="['/app/user/level']">
+<ion-content class="home-content">
+    <div class="proflie-container" [routerLink]="['/app/user']">
         <div class="proflie-container-1">
             <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
                              [src]="profile?.data?.user.profile_picture_url"

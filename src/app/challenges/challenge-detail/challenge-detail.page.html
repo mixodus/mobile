@@ -102,6 +102,24 @@
         <div #htmlDiv class="challenge-long-description"></div>
     </div>
 
+    <div *ngIf="details.data?.me !== null" class="button-container">
+        <ion-button *ngIf="details.data?.me.total_current_task !== details.data?.me.total_task"
+                    expand="block"
+                    [routerLink]="['/app/events/challenges/challenge-detail/quiz',details.data?.challenge_id]"
+                    class="continue-button"
+        >
+            Lanjutkan
+        </ion-button>
+    </div>
+
+    <div *ngIf="details.data?.me === null" class="button-container">
+        <ion-button class="join-button"
+                    expand= "block"
+                    (click)="joinChallenge()">
+            Ikuti Tantangan
+        </ion-button>
+    </div>
+
     <div class="challenge-container-5" *ngIf="details.data?.me !== null">
         <div class="text-title">Peringkat</div>
 
@@ -134,23 +152,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div *ngIf="details.data?.me !== null" class="button-container">
-        <ion-button *ngIf="details.data?.me.total_current_task !== details.data?.me.total_task"
-                    expand="block"
-                    [routerLink]="['/app/events/challenges/challenge-detail/quiz',details.data?.challenge_id]"
-                    class="continue-button"
-        >
-            Lanjutkan
-        </ion-button>
-    </div>
-
-    <div *ngIf="details.data?.me === null" class="button-container">
-        <ion-button class="join-button"
-                    expand= "block"
-                    (click)="joinChallenge()">
-            Ikuti Tantangan
-        </ion-button>
     </div>
 </ion-content>

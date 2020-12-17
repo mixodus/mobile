@@ -26,11 +26,28 @@
   .skill-autocomplete {
     padding: 0;
 
+    .spinner-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      .spinner {
+        margin-bottom: 10px;
+      }
+    }
+
     .search-skill-item {
       font-size: 14px;
       --min-height: 46px;
       --inner-padding-end: 0;
       --background: var(--idstar-white);
+    }
+
+    .not-Found-text {
+      text-align: center;
+      padding: 20px 0;
     }
   }
 

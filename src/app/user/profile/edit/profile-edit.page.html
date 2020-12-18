@@ -63,12 +63,12 @@
         </ion-radio-group>
 
         <div class="section-title">Kota</div>
-        <ion-select interface="popover" multiple="false" placeholder="Country" formControlName="country"
+        <ion-select interface="popover" multiple="false" placeholder="Negara" formControlName="country"
                     class="select-item">
             <ion-select-option *ngFor="let country of countries"
                                [value]="country.code">{{country.name}}</ion-select-option>
         </ion-select>
-        <ion-select interface="popover" multiple="false" placeholder="Province" formControlName="province"
+        <ion-select interface="popover" multiple="false" placeholder="Provinsi" formControlName="province"
                     class="select-item">
             <ion-select-option *ngFor="let provice of provices">{{provice}}</ion-select-option>
         </ion-select>

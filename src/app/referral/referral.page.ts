@@ -156,16 +156,18 @@ export class ReferralPage implements OnInit {
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         (data) => {
+          console.log('data referral: ', data);
           if (data['data'] !== undefined) {
             this.referralList.data.unshift(data['data']);
-            this.openModal('Congratulations !!!', data['message']);
+            // this.openModal('Selamat!', data['message']);
+            this.openModal('Selamat!', 'Anda berhasil mendaftarkan rujukan.');
             this.globalService.refreshFlag.referral = true;
           }
         },
         (err) => {
           let message = '';
           if (err.error.message === undefined) {
-            message = 'Network problem, please try again !';
+            message = 'Permasalahan jaringan, mohon coba lagi.';
           } else {
             message = err.error.message;
           }
@@ -190,7 +192,6 @@ export class ReferralPage implements OnInit {
   async openModal(title, message) {
     const modal = await this.modalController.create({
       component: ReferralModalPage,
-      cssClass: 'my-custom-modal-css',
       componentProps: {
         title: title,
         message: message,
@@ -234,7 +235,7 @@ export class ReferralPage implements OnInit {
   }
 
   filterSearch(word: String) {
-    console.log('word: ', word)
+    console.log('word: ', word);
     if (word != undefined && word != '') {
       return this.referralList.data.filter((e) => {
         return e.referral_name.toLowerCase().indexOf(word.toLowerCase()) > -1;

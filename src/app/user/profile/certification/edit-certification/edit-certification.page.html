@@ -15,11 +15,18 @@
         <ion-input type="text" placeholder="Gelar" formControlName="title" clearInput autocapitalize="off"
                    class="ion-no-padding input-text">
         </ion-input>
-        <ng-container *ngFor="let validation of validation_messages.title">
-          <span *ngIf="certificationForm.get('title').hasError(validation.type) && (certificationForm.get('title').dirty || certificationForm.get('title').touched)"
-                class="form-error-notice">{{ validation.message }}
-          </span>
-        </ng-container>
+<!--        <ng-container *ngFor="let validation of validation_messages.title">-->
+<!--            -->
+<!--          <span *ngIf="certificationForm.get('title').hasError(validation.type) && isSubmitted"-->
+<!--                class="form-error-notice">{{ validation.message }}-->
+<!--          </span>-->
+<!--        </ng-container>-->
+
+        <div class="error-message" *ngIf="certificationForm.get('title').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Nama Proyek dibutuhkan.</span>
+        </div>
+
 
         <div class="subsection-title">Tanggal Penerimaan</div>
 
@@ -34,21 +41,31 @@
             </div>
         </div>
 
-        <ng-container *ngFor="let validation of validation_messages.certification_date">
-            <span *ngIf="certificationForm.get('certification_date').hasError(validation.type) && (certificationForm.get('certification_date').dirty || certificationForm.get('certification_date').touched)"
-                  class="form-error-notice">{{ validation.message }}
-            </span>
-        </ng-container>
+<!--        <ng-container *ngFor="let validation of validation_messages.certification_date">-->
+<!--            <span *ngIf="certificationForm.get('certification_date').hasError(validation.type) && (certificationForm.get('certification_date').dirty || certificationForm.get('certification_date').touched)"-->
+<!--                  class="form-error-notice">{{ validation.message }}-->
+<!--            </span>-->
+<!--        </ng-container>-->
+
+        <div class="error-message" *ngIf="certificationForm.get('certification_date').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Tanggal penerimaan dibutuhkan.</span>
+        </div>
 
         <div class="subsection-title">Deskripsi Sertifikasi</div>
         <ion-textarea type="ion-no-padding textarea-style" placeholder="Deskripsi (min. 20 karakter)"
                       formControlName="description"
                       clearInput autocapitalize="off" class="ion-no-padding input-text" auto-grow=true></ion-textarea>
-        <ng-container *ngFor="let validation of validation_messages.description">
-            <span *ngIf="certificationForm.get('description').hasError(validation.type) && (certificationForm.get('description').dirty || certificationForm.get('description').touched)"
-                  class="form-error-notice">{{ validation.message }}
-            </span>
-        </ng-container>
+<!--        <ng-container *ngFor="let validation of validation_messages.description">-->
+<!--            <span *ngIf="certificationForm.get('description').hasError(validation.type) && (certificationForm.get('description').dirty || certificationForm.get('description').touched)"-->
+<!--                  class="form-error-notice">{{ validation.message }}-->
+<!--            </span>-->
+<!--        </ng-container>-->
+
+        <div class="error-message" *ngIf="certificationForm.get('description').hasError('required') && isSubmitted">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Deskripsi dibutuhkan.</span>
+        </div>
 
         <div class="upload-container">
             <div class="upload-button-container">

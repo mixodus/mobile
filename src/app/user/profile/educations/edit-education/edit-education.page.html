@@ -23,10 +23,11 @@
         <div class="subsection-title">Gelar</div>
         <ion-select no-padding interface="popover" multiple="false" placeholder="Gelar" class="select-item"
                     formControlName="education_level_id">
-            <ion-select-option value="1">Bachelor</ion-select-option>
-            <ion-select-option value="2">Diploma</ion-select-option>
-            <ion-select-option value="3">Master</ion-select-option>
-            <ion-select-option value="4">Doctor</ion-select-option>
+            <ion-select-option value=1>Bachelor</ion-select-option>
+            <ion-select-option value=2>Diploma</ion-select-option>
+            <ion-select-option value=3>Master</ion-select-option>
+            <ion-select-option value=4>Doctor</ion-select-option>
+            <ion-select-option>Doctor</ion-select-option>
         </ion-select>
         <div class="error-message"
              *ngIf="editEducationForm.get('education_level_id').hasError('required') && isSubmitted">

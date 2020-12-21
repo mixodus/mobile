@@ -129,15 +129,6 @@ export class WorkExperiencesPage implements OnInit {
       this.globalService.apiUrl +
       'api/work_experience';
 
-    // let url = this.globalService.getApiUrl() + 'api/work_experience?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=';
-
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //   }),
-    //   body: id
-    // };
-
     this.http.delete(workExperienceEndpoint, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )

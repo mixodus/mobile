@@ -1,6 +1,6 @@
 import { DataStore } from '../../../../app/shell/data-store';
 import { EducationModel } from './educations.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../app/services/global.service';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../../../app/services/auth/authentication.service';
@@ -16,10 +16,18 @@ export class EducationService {
     constructor(private http: HttpClient, private globalService: GlobalService, private storage: Storage, private auth: AuthenticationService) { }
 
     public getProjectDataSource() {
-        let token = this.auth.token;
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-Api-Key': this.globalService.getGlobalApiKey(),
+            'X-Token': `${this.auth.token}`
+        });
+        const options = { headers: headers };
 
-        let url = this.globalService.getApiUrl() + 'api/education?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-        return this.http.get<EducationModel>(url);
+        const educationEndpoint =
+          this.globalService.apiUrl +
+          'api/education';
+
+        return this.http.get<EducationModel>(educationEndpoint, options);
     }
 
     public getProjectStore(dataSource: Observable<EducationModel>): DataStore<EducationModel> {

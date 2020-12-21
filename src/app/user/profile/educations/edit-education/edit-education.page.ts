@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavController, ToastController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from '../../../../../app/services/auth/authentication.service';
 import { GlobalService } from '../../../../../app/services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
@@ -48,6 +48,7 @@ export class EditEducationPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.data;
+        console.log('this.data: ', this.data);
       }
     });
   }
@@ -135,11 +136,19 @@ export class EditEducationPage implements OnInit {
       return;
     }
 
-    let formData = this.editEducationForm.value;
+    const formData = this.editEducationForm.value;
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/education?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const educationEndpoint =
+      this.globalService.apiUrl +
+      'api/education';
+
     if (this.data == null) {
       let addData: any = {};
       addData = {
@@ -152,14 +161,14 @@ export class EditEducationPage implements OnInit {
         field_of_study: formData.field_of_study
       }
       if (this.isset === true) {
-        addData.end_period_month = 12
-        addData.end_period_year = 9999
+        addData.end_period_month = '12'
+        addData.end_period_year = '9999'
       } else {
         addData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' })
         addData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' })
       }
 
-      this.http.post(url, addData).pipe(
+      this.http.post(educationEndpoint, addData, options).pipe(
         finalize(() => this.loadingCtrl.dismiss())
       )
         .subscribe(data => {
@@ -189,18 +198,18 @@ export class EditEducationPage implements OnInit {
     formData.start_period_year = new Date(formData.start_period_year).toLocaleString('default', { year: 'numeric' })
     //convert end month
     if (this.isset) {
-      formData.end_period_month = 12;
+      formData.end_period_month = '12';
     } else {
       formData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' })
     }
     //convert end year
     if (this.isset) {
-      formData.end_period_year = 9999;
+      formData.end_period_year = '9999';
     } else {
       formData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' })
     }
 
-    this.http.put(url, formData).pipe(
+    this.http.put(educationEndpoint, formData, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

@@ -114,18 +114,31 @@ export class WorkExperiencesPage implements OnInit {
   async deleteExperience(id) {
     let loading = await this.loadingCtrl.create();
     await loading.present();
-    let token = this.auth.token;
 
-    let url = this.globalService.getApiUrl() + 'api/work_experience?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: id
-    };
+    const body = {id: id};
 
-    this.http.delete(url, options).pipe(
+    const options = { headers: headers, body: body };
+
+    const workExperienceEndpoint =
+      this.globalService.apiUrl +
+      'api/work_experience';
+
+    // let url = this.globalService.getApiUrl() + 'api/work_experience?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=';
+
+    // const options = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //   }),
+    //   body: id
+    // };
+
+    this.http.delete(workExperienceEndpoint, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

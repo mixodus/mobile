@@ -1,12 +1,11 @@
-  <ion-content class="modal-referral" style="height: 150px;">
-    <div class="illustration-wrapper">
-        <app-aspect-ratio [ratio]="{w: 1, h: 1}">
-          <app-image-shell [src]="'./assets/images/success.png'" [alt]="'notification'"></app-image-shell>
-        </app-aspect-ratio>
-      </div>
-      
-      <div class="modal-title">{{title}}</div>
-      <div class="modal-text">{{message}}</div>
-      <ion-button class="go-login-btn" (click)="closeModal()" expand="block" fill="outline">Close</ion-button>
-
-  </ion-content>
+<ion-content>
+    <div class="container">
+       <div class="container-1">
+           <div class="modal-title">{{title}}</div>
+           <div class="modal-text">{{message}}</div>
+           <div class="ion-text-center">
+               <ion-button class="go-login-btn" (click)="closeModal()" expand="block" fill="outline">Tutup</ion-button>
+           </div>
+       </div>
+    </div>
+</ion-content>

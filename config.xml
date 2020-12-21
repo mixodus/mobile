@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.onetalents.mobile" version="0.9.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ONE Talents</name>
+<widget id="com.onetalents.mobile" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>ONE Talent</name>
     <description>Recruitment Platform Marketplace</description>
     <author email="dev@idstar.co.id" href="http://idstar.co.id">Idstar Team</author>
     <content src="index.html" />

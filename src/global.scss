@@ -207,6 +207,18 @@ ion-searchbar {
   font-weight: bold;
 }
 
+.error-message {
+  margin: 0 0 calc(var(--page-margin) / 2);
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-danger);
+  font-size: 12px;
+
+  ion-icon {
+    padding-inline-end: calc(var(--page-margin) / 2);
+  }
+}
+
 
 .ios .idstar-custom-alert {
   .idstar-custom-alert-action {

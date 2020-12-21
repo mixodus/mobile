@@ -13,7 +13,7 @@ import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
 import { HomeModalPage } from '../modal/update-modal/home-modal.page';
 import { Storage } from '@ionic/storage';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ZoomImageModalComponent } from '../modal/zoom-image-modal/zoom-image-modal.component';
 import { Network } from '@ionic-native/network/ngx';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
@@ -115,17 +115,18 @@ export class HomePage implements OnInit {
   data: any;
 
   checkSession() {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': String(this.auth.token)
+    });
 
-    console.log(token);
+    const options = { headers: headers };
 
-    let url =
-      this.globalService.getApiUrl() +
-      'api/home/check_session?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
-    this.http.get(url).subscribe(
+    const checkSessionEndpoint =
+      this.globalService.apiUrl +
+      'api/home/check_session';
+
+    this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         //process the json data
         console.log(response);

@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { GlobalService } from '../global.service';
 import * as dayjs from 'dayjs';
@@ -90,14 +90,18 @@ export class AuthenticationService {
   }
 
   checkExpiredToken() {
-    let token = this.token;
-    let url =
-      this.globalService.getApiUrl() +
-      'api/home/check_session?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
-    this.http.get(url).subscribe(
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': String(this.token)
+    });
+
+    const options = { headers: headers };
+
+    const checkSessionEndpoint =
+      this.globalService.apiUrl +
+      'api/home/check_session';
+
+    this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         //process the json data
         console.log(response);

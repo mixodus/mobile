@@ -31,8 +31,7 @@ export class NewsService {
 
     const completeEndpoint =
       this._globalService.getApiUrl() +
-      API_ENDPOINTS.News +
-      `?X-Token=${this._auth.token}&X-Api-Key=${this._globalService.getGlobalApiKey()}`;
+      API_ENDPOINTS.News
 
     return this._http.get<NewsResponse>(completeEndpoint, options);
   }
@@ -50,12 +49,18 @@ export class NewsService {
   }
 
   getBanner() {
-    const url =
-      this._globalService.apiUrl +
-      'api/home_news' +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
 
-    return this._http.get<NewsResponse>(url);
+    const bannerEndpoint =
+      this._globalService.apiUrl +
+      'api/home_news';
+
+    return this._http.get<NewsResponse>(bannerEndpoint, options);
   }
 
   getBannerDataStore(refresh: boolean = false) {
@@ -70,11 +75,18 @@ export class NewsService {
   }
 
   getNewsDetail(newsDetailId: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
+
     const newsDetailEndpoint =
-      this._globalService.getApiUrl() +
-      'api/news/detail/' + newsDetailId +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
-    return this._http.get<NewsResponse>(newsDetailEndpoint);
+      this._globalService.apiUrl +
+      'api/news/detail/' + newsDetailId;
+
+    return this._http.get<NewsResponse>(newsDetailEndpoint, options);
   }
 
   getNewsDetailDateStore(newsDetailId: string, refresh: boolean = false) {

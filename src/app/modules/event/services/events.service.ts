@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../services/global.service';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { EventsResponse, OnGoingEventListResponse } from '../../../core/models/event/EventResponse';
@@ -31,29 +31,50 @@ export class EventsService {
     return this._http.get<UserProfileModel>(url);
   }
   getBannerList() {
-    const url =
-      this._globalService.apiUrl +
-      '/api/home_event' +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<EventsResponse>(url);
+    const options = { headers: headers };
+
+    const homeEventeEndpoint =
+      this._globalService.apiUrl +
+      'api/home_event';
+
+    return this._http.get<EventsResponse>(homeEventeEndpoint, options);
   }
 
   getList() {
-    const url =
-      this._globalService.apiUrl +
-      'api/event/all_ongoing' +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<OnGoingEventListResponse>(url);
+    const options = { headers: headers };
+
+    const eventBootcampChallengeEndpoint =
+      this._globalService.apiUrl +
+      'api/event/all_ongoing';
+
+    return this._http.get<OnGoingEventListResponse>(eventBootcampChallengeEndpoint, options);
   }
   getListType(event_type: string) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/event_type/${event_type}` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<EventsResponse>(url);
+    const options = { headers: headers };
+
+    const eventTypeEndpoint =
+      this._globalService.apiUrl +
+      'api/event/event_type/' + event_type;
+
+    return this._http.get<EventsResponse>(eventTypeEndpoint, options);
   }
 
   getSingle(id: string) {

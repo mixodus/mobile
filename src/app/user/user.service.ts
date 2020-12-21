@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../services/global.service';
 import { Observable } from 'rxjs';
 import { UserProfileModel } from './profile/user-profile.model';
@@ -7,6 +7,7 @@ import { UserProfileModel } from './profile/user-profile.model';
 import { DataStore } from '../shell/data-store';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../services/auth/authentication.service';
+import { NewsResponse } from '../core/models/news/NewsResponse';
 
 @Injectable()
 export class UserService {
@@ -19,11 +20,18 @@ export class UserService {
   }
 
   getProfileDataSource(): Observable<UserProfileModel> {
-    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    const url = this.globalService.getApiUrl() + 'api/profile?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    console.log('user:', this.http.get<UserProfileModel>(url));
-    return this.http.get<UserProfileModel>(url);
+    const profileEndpoint =
+      this.globalService.apiUrl +
+      'api/profile';
+
+    return this.http.get<UserProfileModel>(profileEndpoint, options);
   }
 
   public getProfileStore(dataSource: Observable<UserProfileModel>, refresh: boolean = false): DataStore<UserProfileModel> {

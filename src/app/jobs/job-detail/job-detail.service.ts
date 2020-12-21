@@ -3,8 +3,9 @@ import { JobDetailsModel } from './job-details.model';
 import { DataStore } from '../../shell/data-store';
 import { GlobalService } from '../../services/global.service';
 import { AuthenticationService } from '../../services/auth/authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NewsResponse } from '../../core/models/news/NewsResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,19 @@ export class JobDetailService {
   constructor(private http: HttpClient, private globalService: GlobalService, private auth: AuthenticationService) { }
 
   public getJobsDetailDataSource(job_id: string): Observable<JobDetailsModel> {
-    let token = this.auth.token;
-    let url = this.globalService.getApiUrl() + 'api/job_post/detail/' + job_id + '?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    return this.http.get<JobDetailsModel>(url);
-    //return this.http.get<JobsModel>('./assets/sample-data/user/user-friends.json');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const jobPostDetailEndpoint =
+      this.globalService.apiUrl +
+      'api/job_post/detail/' + job_id;
+
+    return this.http.get<JobDetailsModel>(jobPostDetailEndpoint, options);
+
   }
   public getJobsDetailStore(dataSource: Observable<JobDetailsModel>): DataStore<JobDetailsModel> {
 

@@ -268,6 +268,8 @@ export class JobsPage implements OnInit {
   }
 
   formattingJobsResponse(response) {
+    console.log('response: ', response);
+
     return {
       status: response.status,
       message: response.message,

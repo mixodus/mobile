@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JobsModel } from './jobs.model';
 import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { JobsApplicationModel } from './jobsapplication.model';
+import { API_ENDPOINTS } from '../core/constants/api-endpoints';
+import { NewsResponse } from '../core/models/news/NewsResponse';
 
 @Injectable()
 export class JobsService {
@@ -17,17 +19,32 @@ export class JobsService {
     private http: HttpClient,
     private globalService: GlobalService,
     private auth: AuthenticationService
-  ) {}
+  ) {
+  }
 
   public getJobsDataSource(): Observable<JobsModel> {
-    let token = this.auth.token;
-    let url =
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const jobPostEndpoint =
       this.globalService.getApiUrl() +
-      'api/job_post?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
-    return this.http.get<JobsModel>(url);
+      '/api/job_post';
+
+    return this.http.get<JobsModel>(jobPostEndpoint, options);
+
+
+    // let token = this.auth.token;
+    // let url =
+    //   this.globalService.getApiUrl() +
+    //   'api/job_post?X-Api-Key=' +
+    //   this.globalService.getGlobalApiKey() +
+    //   '&X-Token=' +
+    //   token;
+    // return this.http.get<JobsModel>(url);
   }
 
   public getJobsStore(
@@ -47,16 +64,18 @@ export class JobsService {
   }
 
   public getSearchDataSource(filter: string): Observable<JobsModel> {
-    let token = this.auth.token;
-    let url =
-      this.globalService.getApiUrl() +
-      'search/jobs?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token +
-      '&q=' +
-      filter;
-    return this.http.get<JobsModel>(url);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const newsDetailEndpoint =
+      this.globalService.apiUrl +
+      'search/jobs' + '?q=' + filter;
+
+    return this.http.get<JobsModel>(newsDetailEndpoint, options);
   }
 
   public getSearchStore(dataSource: Observable<JobsModel>): DataStore<JobsModel> {
@@ -68,14 +87,18 @@ export class JobsService {
   }
 
   public getJobsApplicationDataSource(): Observable<JobsApplicationModel> {
-    let token = this.auth.token;
-    let url =
-      this.globalService.getApiUrl() +
-      'api/job_post/progress?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
-    return this.http.get<JobsApplicationModel>(url);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const jobPostApplicationEndpoint =
+      this.globalService.apiUrl +
+      'api/job_post/progress';
+
+    return this.http.get<JobsApplicationModel>(jobPostApplicationEndpoint, options);
   }
 
   public getJobsApplicationStore(

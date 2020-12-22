@@ -96,6 +96,8 @@ export class NotificationsPage implements OnInit {
   }
 
   filterData() {
+    console.log('this.notif.data: ', this.notif.data);
+
     this.notifToday = this.notif.data.filter((data) => {
       if (data.date_convert === false) {
         return data;

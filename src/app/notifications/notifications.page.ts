@@ -197,13 +197,20 @@ export class NotificationsPage implements OnInit {
   }
 
   goTo(type_id: string, detail_id: string, id: string) {
-    let url = this._globalService.getApiUrl() + 'api/notif?X-Api-Key=' + this._globalService.getGlobalApiKey() + '&X-Token=' + this._auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    const options = {
-      notif_id: id
-    };
+    const body = {notif_id: id};
 
-    this._http.put(url, options).pipe()
+    const options = { headers: headers};
+
+    const notifUpdateReadEndpoint =
+      this._globalService.apiUrl +
+      'api/notif';
+
+    this._http.put(notifUpdateReadEndpoint, body, options).pipe()
       .subscribe(data => {
         // this.presentToast(data["message"]);
         console.log(type_id);

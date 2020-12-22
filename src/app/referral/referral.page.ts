@@ -7,7 +7,7 @@ import {
   ModalController,
   Platform,
 } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../services/global.service';
 import { finalize } from 'rxjs/operators';
 import { AuthenticationService } from '../services/auth/authentication.service';
@@ -142,22 +142,27 @@ export class ReferralPage implements OnInit {
     await loading.present();
     let token = this.auth.token;
 
-    let url =
-      this.globalService.getApiUrl() +
-      'api/referral?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const referralEndpoint =
+      this.globalService.apiUrl +
+      'api/referral';
 
     let formData = this.referralForm.value;
     formData.referral_contact_no = '0' + formData.referral_contact_no;
     this.http
-      .post(url, formData)
+      .post(referralEndpoint, formData, options)
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         (data) => {
           console.log('data referral: ', data);
           if (data['data'] !== undefined) {
+            console.log('data: ', data);
             this.referralList.data.unshift(data['data']);
             // this.openModal('Selamat!', data['message']);
             this.openModal('Selamat!', 'Anda berhasil mendaftarkan rujukan.');
@@ -169,7 +174,8 @@ export class ReferralPage implements OnInit {
           if (err.error.message === undefined) {
             message = 'Permasalahan jaringan, mohon coba lagi.';
           } else {
-            message = err.error.message;
+            console.log('err: ', err.error.message.referral_email[0])
+            message = err.error.message.referral_email[0];
           }
 
           this.presentToast(message);

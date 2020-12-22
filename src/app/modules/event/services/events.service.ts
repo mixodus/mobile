@@ -14,14 +14,15 @@ export class EventsService {
     private _globalService: GlobalService,
     private _mapperService: MapperService,
     private _auth: AuthenticationService
-    ) {}
-    
-    // data stores
-    private _bannerDataStore: DataStore<EventsResponse>;
-    private _singleDataStore: DataStore<EventsResponse>;
-    private _listDataStore: DataStore<OnGoingEventListResponse>;
-    private _listTypeDataStore: DataStore<EventsResponse>;
-    private _profileDataStore: DataStore<UserProfileModel>;
+  ) {
+  }
+
+  // data stores
+  private _bannerDataStore: DataStore<EventsResponse>;
+  private _singleDataStore: DataStore<EventsResponse>;
+  private _listDataStore: DataStore<OnGoingEventListResponse>;
+  private _listTypeDataStore: DataStore<EventsResponse>;
+  private _profileDataStore: DataStore<UserProfileModel>;
 
   getProfile() {
     const url =
@@ -30,6 +31,7 @@ export class EventsService {
       `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
     return this._http.get<UserProfileModel>(url);
   }
+
   getBannerList() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -61,6 +63,7 @@ export class EventsService {
 
     return this._http.get<OnGoingEventListResponse>(eventBootcampChallengeEndpoint, options);
   }
+
   getListType(event_type: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -78,12 +81,19 @@ export class EventsService {
   }
 
   getSingle(id: string) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/detail/${id}` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<EventsResponse>(url);
+    const options = { headers: headers };
+
+    const detailEventEndpoint =
+      this._globalService.apiUrl +
+      'api/event/detail/' + id;
+
+    return this._http.get<EventsResponse>(detailEventEndpoint, options);
   }
 
   register(data: any) {
@@ -104,6 +114,7 @@ export class EventsService {
 
     return this._mapperService.mapImageUrl(directory);
   }
+
   // getChallengeImage(filename: string) {
   //   const directory = `/challenge/${filename}`;
 
@@ -142,6 +153,7 @@ export class EventsService {
     }
     return this._listDataStore;
   }
+
   getListTypeDataStore(event_type: string, refresh: boolean = false) {
     // Use cache if available
     if (this._listTypeDataStore == undefined || refresh) {
@@ -152,6 +164,7 @@ export class EventsService {
     }
     return this._listTypeDataStore;
   }
+
   getProfileDataStore(refresh: boolean = false) {
     // Use cache if available
     if (this._profileDataStore == undefined || refresh) {

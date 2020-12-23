@@ -34,14 +34,14 @@
         </div>
       </ion-col>
       <ion-col size="2" class="point">
-        <app-text-shell [data]="levels.current_level.level_min_point"></app-text-shell>
+        <div style="color: var(--idstar-grey);">{{levels.current_level.level_min_point}}</div>
       </ion-col>
       <ion-col size="8" class="point">
         <app-text-shell [data]="toNextLevel + ' Poin Tersisa'">
         </app-text-shell>
       </ion-col>
       <ion-col size="2" class="point">
-        <app-text-shell style="color: var(--idstar-grey);" [data]="levels.current_level.level_max_point"></app-text-shell>
+        <div style="color: var(--idstar-grey);">{{levels.current_level.level_max_point}}</div>
       </ion-col>
     </ion-row>
   </div>

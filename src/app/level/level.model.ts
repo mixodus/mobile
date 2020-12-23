@@ -19,8 +19,8 @@ export interface CurrentLevel {
     level_name: string;
     level_code: string;
     level_icon: string;
-    level_min_point: string;
-    level_max_point: string;
+    level_min_point: number;
+    level_max_point: number;
     created_at: string;
     modified_at: string;
     is_passed: boolean;
@@ -44,7 +44,7 @@ export interface User {
     profile_picture: string;
     zip_code: string;
     cash: string;
-    points: string;
+    points: number;
     skill_text: string;
     profile_picture_url?: any;
 }
@@ -73,8 +73,8 @@ export class LevelModel extends ShellModel {
         level_name: '',
         level_code: '',
         level_icon: '',
-        level_min_point: '',
-        level_max_point: '',
+        level_min_point: 0,
+        level_max_point: 0,
         created_at: '',
         modified_at: '',
         is_passed: false,
@@ -97,7 +97,7 @@ export class LevelModel extends ShellModel {
         profile_picture: '',
         zip_code: '',
         cash: '',
-        points: '',
+        points: 0,
         skill_text: '',
         profile_picture_url: '',
     };

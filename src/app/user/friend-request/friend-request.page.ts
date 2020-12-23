@@ -35,7 +35,7 @@ export class FriendRequestPage implements OnInit {
 
   user_id: any;
 
-  profileImg: string = './assets/sample-images/user/default-profile.svg';
+  profileImg = './assets/sample-images/user/default-profile.svg';
   modalController: ModalController;
 
   separator: any;
@@ -104,31 +104,24 @@ export class FriendRequestPage implements OnInit {
   async approve(id) {
     // console.log(this.friendRequest.data.find(x => x.user_id === id))
     console.log(id);
-    let loading = await this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    let url =
-      this.globalService.getApiUrl() +
-      'friend/approve?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
+    const body = {id: id};
 
-    let data: any = {
-      // me : this.user_id,
-      from: id,
-    };
+    const options = { headers: headers, body: body };
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
+    const approveFriendEndpoint =
+      this.globalService.apiUrl +
+      'friend/approve?from=' + id;
 
     this.http
-      .post(url, data)
+      .post(approveFriendEndpoint, options)
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         (data) => {
@@ -138,8 +131,8 @@ export class FriendRequestPage implements OnInit {
         },
         (err) => {
           let message = '';
-          if (err.error.message === undefined) message = 'Network problem, please try again !';
-          else message = err.error.message;
+          if (err.error.message === undefined) { message = 'Network problem, please try again !'; }
+          else { message = err.error.message; }
 
           this.presentToast(message);
         }
@@ -152,19 +145,19 @@ export class FriendRequestPage implements OnInit {
   }
 
   async reject(id) {
-    let loading = await this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    let token = this.auth.token;
+    const token = this.auth.token;
 
-    let url =
+    const url =
       this.globalService.getApiUrl() +
       'friend/reject?X-Api-Key=' +
       this.globalService.getGlobalApiKey() +
       '&X-Token=' +
       token;
 
-    let data: any = {
+    const data: any = {
       // me : this.user_id,
       who: id,
     };
@@ -186,8 +179,8 @@ export class FriendRequestPage implements OnInit {
         },
         (err) => {
           let message = '';
-          if (err.error.message === undefined) message = 'Network problem, please try again !';
-          else message = err.error.message;
+          if (err.error.message === undefined) { message = 'Network problem, please try again !'; }
+          else { message = err.error.message; }
 
           this.presentToast(message);
         }

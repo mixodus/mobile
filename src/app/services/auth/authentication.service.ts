@@ -46,7 +46,6 @@ export class AuthenticationService {
 
     let postdata = { username: email, password: password };
     // normaly posting login to API Server
-    // http.post
     let loading = await this.loadingCtrl.create();
     await loading.present();
     this.http

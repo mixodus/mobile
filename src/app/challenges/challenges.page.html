@@ -15,7 +15,7 @@
     </ion-refresher>
 
     <ng-container *ngIf="listing?.data">
-        <div *ngIf="listing.data.length <= 0" class="no-listing-item">Belum ada tantanngan saat ini<br> Mohon periksa lagi nanti.
+        <div *ngIf="listing.data.length <= 0 || listing.data === null" class="no-listing-item">Belum ada tantanngan saat ini<br> Mohon periksa lagi nanti.
         </div>
 
         <div class="listing-item" *ngFor="let item of listing.data">

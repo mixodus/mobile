@@ -41,8 +41,12 @@
         <div *ngIf="!events?.isShell && countOnGoing >= 1">
             <div class="event" *ngFor="let event of onGoing"
                  (click)="goToEventDetail(event.event_id, event.event_type_id)">
-                <div class="event-image"
-                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'"></div>
+                <div class="event-image" *ngIf="getEventImage(event.event_banner) === ''"
+                     [style.background-image]="'url(../../../../../assets/images/image-no-available-placeholder.png)'">
+                </div>
+                <div class="event-image" *ngIf="getEventImage(event.event_banner) !== ''"
+                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'">
+                </div>
                 <div class="event-content">
                     <div class="event-metadata">
                         <span class="category category--{{ categoryName | titlecase }}">{{ categoryName | titlecase }}</span>
@@ -84,12 +88,15 @@
             </div>
         </ng-container>
 
-
         <div *ngIf="!events?.isShell && countUpComing >= 1">
             <div class="event" *ngFor="let event of upComing"
                  (click)="goToEventDetail(event.event_id, event.event_type_id)">
-                <div class="event-image"
-                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'"></div>
+                <div class="event-image" *ngIf="getEventImage(event.event_banner) === ''"
+                     [style.background-image]="'url(../../../../../assets/images/image-no-available-placeholder.png)'">
+                </div>
+                <div class="event-image" *ngIf="getEventImage(event.event_banner) !== ''"
+                     [style.background-image]="'url(' + getEventImage(event.event_banner) + ')'">
+                </div>
                 <div class="event-content">
                     <div class="event-metadata">
                         <span class="category category--{{ categoryName | titlecase }}">{{ categoryName | titlecase }}</span>

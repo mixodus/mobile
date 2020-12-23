@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   api: {
-    endpoint: 'http://dev-talents-api.oneindonesia.id/',
+    endpoint: 'http://dev-laravel.oneindonesia.id/',
   },
-  imageEndpoint: 'http://dev-talents-api.oneindonesia.id/uploads',
+  imageEndpoint: 'http://dev-laravel.oneindonesia.id//uploads',
 };
 
 /*

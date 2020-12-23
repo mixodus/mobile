@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AchievementsModel } from './achievements.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { DataStore } from '../../../shell/data-store';
 import { GlobalService } from '../../../services/global.service';
@@ -18,10 +18,17 @@ export class AchievementsService {
   constructor(private _mapperService: MapperService, private http: HttpClient, private globalService: GlobalService, private storage: Storage, private auth: AuthenticationService) { }
 
   getAchievementsDataSource(): Observable<AchievementsModel> {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/challenge/achievement?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    return this.http.get<AchievementsModel>(url);
+    const challengeAchievementEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge/achievement';
+
+    return this.http.get<AchievementsModel>(challengeAchievementEndpoint, options);
   }
 
   getAchievementsDataStore(dataSource: Observable<AchievementsModel>): DataStore<AchievementsModel> {

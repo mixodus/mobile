@@ -66,6 +66,7 @@ export class LevelPage implements OnInit {
     const profileDataStore: DataStore<LevelModel> = this.levelService.getLevelStore(dataSource, true);
     profileDataStore.state.subscribe(
       (state) => {
+        console.log('state: ', state);
         this.levels = state;
         this.currentProgress = parseInt(this.levels.user.points) / parseInt(this.levels.current_level.level_max_point);
         this.toNextLevel = parseInt(this.levels.current_level.level_max_point) + 1 - (this.currentProgress * 1000);

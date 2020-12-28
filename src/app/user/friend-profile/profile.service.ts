@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataStore } from '../../shell/data-store';
 import { FriendProfileModel } from './profile.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../services/global.service';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../services/auth/authentication.service';
@@ -15,11 +15,17 @@ export class FriendProfileService {
   }
 
   getFriendProfileDataSource(userId): Observable<FriendProfileModel> {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/profile/friend/' + userId + '?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const profileFriendEndpoint =
+      this.globalService.apiUrl +
+      'api/profile/friend/' + userId;
 
-    return this.http.get<FriendProfileModel>(url);
+    return this.http.get<FriendProfileModel>(profileFriendEndpoint, options);
     // return this.http.get<UserProfileModel>('./assets/sample-data/user/user-profile.json');
 
   }

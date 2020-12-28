@@ -19,22 +19,6 @@ import { Location } from '@angular/common';
   ]
 })
 export class ProfilePage implements OnInit {
-  private checked: boolean = false;
-  private specificChecked: boolean = false;
-  activeButton: any;
-  experienceImage: string = './assets/images/building.png';
-  educationImg: string = './assets/images/graduation-hat.png';
-  projectImg: string = './assets/images/project.png';
-  friendProfile: FriendProfileModel;
-  profile: any;
-  segmentValue: string = 'experience';
-  subscribe: any;
-  profileImg: string = './assets/sample-images/user/default-profile.svg';
-  @ViewChild('readMoreBtn', { static: false }) readMoreBtn: ElementRef;
-  @ViewChild('moreText', { static: false }) moreText: ElementRef;
-
-  buttonAdd: string = 'aaaa';
-  click: number;
 
   // user_id: any;
 
@@ -55,6 +39,42 @@ export class ProfilePage implements OnInit {
     this.getData();
     // this.getUserId();
   }
+
+  private checked = false;
+  private specificChecked = false;
+  activeButton: any;
+  experienceImage = './assets/images/building.png';
+  educationImg = './assets/images/graduation-hat.png';
+  projectImg = './assets/images/project.png';
+  friendProfile: FriendProfileModel;
+  profile: any;
+  segmentValue = 'experience';
+  subscribe: any;
+  profileImg = './assets/sample-images/user/default-profile.svg';
+  @ViewChild('readMoreBtn', { static: false }) readMoreBtn: ElementRef;
+  @ViewChild('moreText', { static: false }) moreText: ElementRef;
+
+  buttonAdd = 'aaaa';
+  click: number;
+
+  name = 'Angular 6';
+  users: Array<any> = [{
+    id: 1,
+    name: 'User 1',
+    active: false
+  }, {
+    id: 2,
+    name: 'User 2',
+    active: true
+  }, {
+    id: 3,
+    name: 'User 3',
+    active: true
+  }, {
+    id: 4,
+    name: 'User 4',
+    active: false
+  }];
 
   getData() {
     this.route.data.subscribe((resolvedRouteData) => {
@@ -116,11 +136,11 @@ export class ProfilePage implements OnInit {
   async addFriend() {
     // if(this.click==0){
     //   this.click=1;
-    //   this.buttonAdd='requested'; 
+    //   this.buttonAdd='requested';
     //   console.log(this.click);
     // }
     // else if(this.click==1){
-    //   this.buttonAdd='decline'; 
+    //   this.buttonAdd='decline';
     //   this.click=2;
     //   console.log(this.click);
     // }
@@ -128,30 +148,31 @@ export class ProfilePage implements OnInit {
     //   this.click=0;
     //   this.buttonAdd='add-friend';
     //   console.log(this.click)
-    // } 
+    // }
 
-    let loading = await this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    let token = this.auth.token;
 
-    let url = this.globalService.getApiUrl() + 'friend/add_friend?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    let data: any = {
-      // me : this.user_id,
-      to: this.friendProfile.user_id
-    };
+    const body = {};
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    const options = { headers: headers };
 
-    this.http.post(url, data).pipe(
+    const addFriendEndpoint =
+      this.globalService.apiUrl +
+      'friend/add_friend' + '?to=' + this.friendProfile.user_id;
+
+    this.http.post(addFriendEndpoint, body, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
+        console.log('data222: ', data);
         this.presentToast(data['message']);
         this.globalService.refreshFlag.profile = true;
         this.globalService.refreshFlag.level = true;
@@ -164,30 +185,29 @@ export class ProfilePage implements OnInit {
           message = err.error.message;
         }
 
+        console.log('message: ', message);
         this.presentToast(message);
       });
   }
 
   async unFriend() {
-    let loading = await this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    let url = this.globalService.getApiUrl() + 'friend/unfriend?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const body = {};
 
-    let data: any = {
-      // me : this.user_id,
-      who: this.friendProfile.user_id
-    };
+    const options = { headers: headers };
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    const unfriendEndpoint =
+      this.globalService.apiUrl +
+      'friend/unfriend' + '?who=' + this.friendProfile.user_id;
 
-    this.http.post(url, data).pipe(
+    this.http.post(unfriendEndpoint, body, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
@@ -225,27 +245,8 @@ export class ProfilePage implements OnInit {
     toast.present();
   }
 
-  name = 'Angular 6';
-  users: Array<any> = [{
-    id: 1,
-    name: 'User 1',
-    active: false
-  }, {
-    id: 2,
-    name: 'User 2',
-    active: true
-  }, {
-    id: 3,
-    name: 'User 3',
-    active: true
-  }, {
-    id: 4,
-    name: 'User 4',
-    active: false
-  }];
-
   click2(user) {
-    user.active = !user.active
+    user.active = !user.active;
     // your code here....
   }
 

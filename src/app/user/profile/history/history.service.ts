@@ -20,12 +20,17 @@ export class HistoryService {
     private _ChallengeDataStore: DataStore<ChallengeHistoryResponse>;
 
     getEvent(event_type: string) {
-        const url =
-            this._globalService.apiUrl +
-            `api/event/history/${event_type}` +
-            `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+        const headers = new HttpHeaders({
+            'X-Api-Key': this._globalService.getGlobalApiKey(),
+            'X-Token': `${this._auth.token}`
+        });
+        const options = { headers: headers };
 
-        return this._http.get<EventHistoryResponse>(url);
+        const eventHistoryEndpoint =
+          this._globalService.apiUrl +
+          `api/event/history/${event_type}`;
+
+        return this._http.get<EventHistoryResponse>(eventHistoryEndpoint, options);
     }
     getChallenge() {
         const headers = new HttpHeaders({

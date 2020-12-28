@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { DataStore } from '../../../shell/data-store';
 import { CountryResponse } from '../../models/country/CountryResponse';
@@ -18,12 +18,17 @@ export class AddressService {
   private _countriesDataStore: DataStore<CountryResponse>;
 
   getCountries() {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/countries` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
 
-    return this._http.get<CountryResponse>(url);
+    const countriesEventEndpoint =
+      this._globalService.apiUrl +
+      'api/event/countries';
+
+    return this._http.get<CountryResponse>(countriesEventEndpoint, options);
   }
 
   getCountriesDataStore(refresh: boolean = false) {

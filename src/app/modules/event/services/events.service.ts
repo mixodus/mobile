@@ -25,11 +25,18 @@ export class EventsService {
   private _profileDataStore: DataStore<UserProfileModel>;
 
   getProfile() {
-    const url =
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
+
+    const profileEndpoint =
       this._globalService.apiUrl +
-      `/api/profile` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
-    return this._http.get<UserProfileModel>(url);
+      'api/profile';
+
+    return this._http.get<UserProfileModel>(profileEndpoint, options);
   }
 
   getBannerList() {
@@ -97,12 +104,21 @@ export class EventsService {
   }
 
   register(data: any) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/join` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.post<any>(url, data);
+    const body = data;
+
+    const options = { headers: headers };
+
+    const joinEventEndpoint =
+      this._globalService.apiUrl +
+      'api/event/join';
+
+    return this._http.post<any>(joinEventEndpoint, body, options);
   }
 
   /**

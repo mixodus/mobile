@@ -125,9 +125,22 @@ export class AddSkillsPage implements OnInit {
     await loading.present();
     // tslint:disable-next-line:prefer-const
     let savedSkills = this.selectedSkills.join(',');
-    const token = this.auth.token;
-    const url = this.globalService.getApiUrl() + 'api/profile/skill?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    this.http.post(url, { 'skill': savedSkills }).pipe(
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+
+    const body = { 'skill': savedSkills };
+
+    const options = { headers: headers };
+
+    const skillUpdateEndpoint =
+      this.globalService.apiUrl +
+      'api/profile/skill';
+
+    this.http.post(skillUpdateEndpoint, body, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

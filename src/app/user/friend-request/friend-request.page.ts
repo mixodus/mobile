@@ -148,28 +148,21 @@ export class FriendRequestPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    const token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    const url =
-      this.globalService.getApiUrl() +
-      'friend/reject?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
+    const body = {};
 
-    const data: any = {
-      // me : this.user_id,
-      who: id,
-    };
+    const options = { headers: headers};
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
+    const rejectFriendEndpoint =
+      this.globalService.apiUrl +
+      'friend/reject' + '?who=' + id;
 
     this.http
-      .post(url, data)
+      .post(rejectFriendEndpoint, body, options)
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         (data) => {

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController, ModalController, LoadingController, ToastController, NavController } from '@ionic/angular';
 import { PasswordValidator } from '../../../validators/password.validator';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../services/global.service';
 import { finalize } from 'rxjs/operators';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
@@ -70,17 +70,26 @@ export class ChangePasswordPage implements OnInit {
     let loading = await this.loadingCtrl.create();
     await loading.present();
 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const changePasswordEndpoint =
+      this.globalService.apiUrl +
+      'api/profile/change_password';
+
     let formData = this.changePasswordForm.value
     formData.newpassword = formData.matching_passwords.newpassword;
     formData.confirm_newpassword = formData.matching_passwords.confirm_newpassword;
 
-    let token = this.auth.token
-    let url = this.globalService.getApiUrl() + 'api/profile/change_password?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
     if (this.changePasswordForm.controls.password.value === this.matching_passwords_group.controls.newpassword.value && this.changePasswordForm.controls.password.value !== '') {
       this.presentToast("New password cannot be the same with old password");
       loading.dismiss();
     } else {
-      this.http.post(url, formData).pipe(
+      this.http.post(changePasswordEndpoint, formData, options).pipe(
         finalize(() => loading.dismiss())
       )
         .subscribe(data => {

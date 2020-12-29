@@ -191,6 +191,7 @@ export class EditPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
+      console.log('imageData: ', imageData);
       this.crop.crop(imageData, cropOpt).then((cropped) => {
         this.showCroppedImage(cropped.split('?')[0]);
       }, (err) => {
@@ -212,7 +213,13 @@ export class EditPage implements OnInit {
     var imageName = splitPath[splitPath.length - 1];
     var filePath = ImagePath.split(imageName)[0];
 
+    console.log('copyPath: ', copyPath);
+    console.log('splitPath: ', splitPath);
+    console.log('imageName: ', imageName);
+    console.log('filePath: ', filePath);
+
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
+      console.log('base64: ', base64);
       this.editProfileForm.controls['profile_picture'].setValue(base64);
       this.editProfileForm.controls['profile_picture_url'].setValue(base64);
       console.log('this.editProfileForm: ', this.editProfileForm.value);

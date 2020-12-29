@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, AlertController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, NavController, Platform, ToastController } from '@ionic/angular';
 import { ShellModel } from '../../../../shell/data-store';
-import * as moment from 'moment';
 import { CertificationService } from '../certification.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
@@ -12,7 +11,7 @@ import { GlobalService } from '../../../../services/global.service';
 import { CertificationResponse } from '../../../../core/models/certification/CertificationResponse';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
@@ -43,7 +42,7 @@ export class EditCertificationPage implements OnInit {
     private platform: Platform,
     private filePath: FilePath,
     private file: File,
-    private filePicker: IOSFilePicker
+    private filePicker: IOSFilePicker,
   ) {
     this._route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -66,6 +65,7 @@ export class EditCertificationPage implements OnInit {
   filetype: any;
   bool: boolean = true;
   fileTransfer: FileTransferObject;
+  resolvedPath: any;
 
 
   certificationForm = this._fb.group({
@@ -131,6 +131,13 @@ export class EditCertificationPage implements OnInit {
 
     console.log('this.getfileName: ', this.getfileName());
 
+    console.log('this.filetype: ', this.filetype);
+    if (this.filetype !== 'pdf') {
+      this.presentToast('Mohon menggunakan file pdf.');
+      this.bool = false;
+      console.log(this.bool);
+    }
+
     if (!this.getfileName()) {
       this.presentToast('Mohon mengunggah file pdf anda.');
     } else if (this.bool === true) {
@@ -165,12 +172,12 @@ export class EditCertificationPage implements OnInit {
   chooseFile() {
     if (this.platform.is('ios')) {
       this.filePicker.pickFile().then(uri => {
+        console.log('uri: ', uri);
         this.bool = true;
         this.fileURL = uri;
         console.log(this.fileURL);
         this.filePath.resolveNativePath(uri)
           .then((path) => {
-            console.log(path);
             const index = path.lastIndexOf('/');
             this.filepath = path.substr(index + 1);
 
@@ -203,14 +210,18 @@ export class EditCertificationPage implements OnInit {
     }
     if (this.platform.is('android')) {
       this.fileChooser.open().then(uri => {
+        console.log('uri typeof: ', typeof uri);
         this.bool = true;
         this.fileURL = uri;
-        console.log(this.fileURL);
+        console.log('this.fileURA: ', this.fileURL);
         this.filePath.resolveNativePath(this.fileURL)
           .then(path => {
-            console.log(path);
+            console.log('path: ', typeof path);
+            this.resolvedPath = path;
             const index = path.lastIndexOf('/');
             this.filepath = path.substr(index + 1);
+
+            console.log('filepath: ', this.filepath);
 
             this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
 
@@ -242,23 +253,65 @@ export class EditCertificationPage implements OnInit {
   }
 
   transferFile(id) {
-    console.log(this.fileURL);
+    console.log('this.resolvedPath: ', this.resolvedPath);
     this.fileTransfer = this.transfer.create();
-    let options: FileUploadOptions = {
+
+    const options: FileUploadOptions = {
       fileKey: 'userfile',
       fileName: 'file.pdf',
       chunkedMode: false,
-      mimeType: 'application/pdf'
+      mimeType: 'application/pdf',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': this._globalService.getGlobalApiKey(),
+        'X-Token': `${this._auth.token}`
+      }
     };
-    var url = encodeURI(this._globalService.getApiUrl() + 'upload/upload/' + id);
+    const uploadCertificationEndpoint = encodeURI(this._globalService.getApiUrl() + 'upload/upload/' + id);
 
-    this.fileTransfer.upload(this.fileURL, url, options).then((data) => {
+    this.fileTransfer.upload(this.resolvedPath, uploadCertificationEndpoint, options).then((data) => {
       this.presentToast('File berhasil diperbaharui.');
       this._router.navigateByUrl('app/user/certification');
     }, (err) => {
-      this.presentToast('Mohon mengunggah sertifikat Anda.');
+      console.log('err: ', err);
+      this.presentToast(err.message);
     });
   }
+
+
+  // transferFile(id) {
+  //   console.log(this.resolvedPath);
+  //
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'X-Api-Key': this._globalService.getGlobalApiKey(),
+  //     'X-Token': `${this._auth.token}`
+  //   });
+  //
+  //   const body = { 'userfile': this.resolvedPath };
+  //
+  //   const options = { headers: headers };
+  //
+  //   // const url = encodeURI(this._globalService.getApiUrl() + 'upload/upload/' + id);
+  //
+  //   const uploadCertificationEndpoint = this._globalService.apiUrl + 'upload/upload/' + id;
+  //
+  //   this._http.post(uploadCertificationEndpoint, body, options).subscribe((data) => {
+  //     this.presentToast('File berhasil diperbaharui.');
+  //     this._router.navigateByUrl('app/user/certification');
+  //   }, (err) => {
+  //     console.log('err: ', err);
+  //     this.presentToast(err.error.message);
+  //   });
+  //
+  //   // this.fileTransfer.upload(this.fileURL, uploadCertificationEndpoint, options).then((data) => {
+  //   //   this.presentToast('File berhasil diperbaharui.');
+  //   //   this._router.navigateByUrl('app/user/certification');
+  //   // }, (err) => {
+  //   //   console.log('err: ', err);
+  //   //   this.presentToast('Mohon mengunggah sertifikat Anda.');
+  //   // });
+  // }
 
   async presentToast(message) {
     const toast = await this.toast.create({

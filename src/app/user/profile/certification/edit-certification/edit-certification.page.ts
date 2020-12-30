@@ -268,6 +268,7 @@ export class EditCertificationPage implements OnInit {
 
 
     this.fileTransfer.upload(this.fileURL, uploadCertificationEndpoint, options).then((data) => {
+      console.log('data response: ', data);
       this.presentToast('File berhasil diperbaharui.');
       this._router.navigateByUrl('app/user/certification');
     }, (err) => {

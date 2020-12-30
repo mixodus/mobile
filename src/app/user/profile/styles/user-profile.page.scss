@@ -41,6 +41,30 @@
   }
 }
 
+.email-verification-container{
+  display: flex;
+  flex-direction: row;
+  background-color: var(--idstar-red-2);
+  padding: 22px 38px;
+  justify-content: space-between;
+  align-items: center;
+
+  .verification-text{
+    color: var(--idstar-white);
+    font-weight: bold;
+    font-size: 8px;
+  }
+
+  .verification-button{
+    color: var(--idstar-white);
+    padding: 6px 14px;
+    border-radius: 20px;
+    background-color: var(--idstar-yellow-2);
+    font-weight: bold;
+    font-size: 9px;
+  }
+}
+
 .profile-detail-1 {
   display: flex;
   flex-direction: row;
@@ -87,8 +111,8 @@
 
   .star-image {
     //padding: 10px;
-    height: 33px;
-    width: 33px;
+    height: auto;
+    width: 30%;
     border-radius: 5px;
     //background-color: var(--idstar-grey);
   }

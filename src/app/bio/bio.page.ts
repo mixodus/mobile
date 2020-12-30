@@ -4,7 +4,7 @@ import { NavController, LoadingController, ToastController } from '@ionic/angula
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -161,22 +161,23 @@ export class BioPage implements OnInit {
 
     console.log(postData);
 
-    var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json');
-
     let loading = await this.loadingCtrl.create();
     await loading.present();
-    let token = this.auth.token;
-    let url =
-      this.globalService.getApiUrl() +
-      'api/profile/complete_bio?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+
+    const options = { headers: headers };
+
+    const completeBioEndpoint =
+      this.globalService.apiUrl +
+      '/api/profile';
 
     this.http
-      .post(url, postData)
+      .post(completeBioEndpoint, postData, options)
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(
         (data) => {

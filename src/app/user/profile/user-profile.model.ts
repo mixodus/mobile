@@ -17,6 +17,7 @@ export class UserProfileModel extends ShellModel {
   contact_no: string;
   skill_text: string = '';
   profile_picture_url: string;
+  status_email: boolean;
   level_icon_url: string;
   total_achievement: string;
   friends: Array<{ image: string, name: string }> = [
@@ -76,7 +77,7 @@ export class UserProfileModel extends ShellModel {
       description: ''
     }
   ];
-  certification: Array<{ certification_id: string, employee_id: string, certification_date: string, title: string, description: string , certification_file: string}> = [
+  certification: Array<{ certification_id: string, employee_id: string, certification_date: string, title: string, description: string, certification_file: string }> = [
     {
       certification_id: '',
       employee_id: '',
@@ -96,7 +97,7 @@ export class UserProfileModel extends ShellModel {
       end_period: '',
       description: ''
     }
-  ]
+  ];
 
   history: Array<{ event_done: string, bootcamp_done: string, challenge_done: string }> = [
     {
@@ -104,7 +105,7 @@ export class UserProfileModel extends ShellModel {
       bootcamp_done: '',
       challenge_done: ''
     }
-  ]
+  ];
 
   achievements: Array<{ image: string, name: string, point: number }> = [
     {
@@ -167,7 +168,7 @@ export class UserProfileModel extends ShellModel {
       name: '',
       point: 0,
     }
-  ]
+  ];
 
   constructor() {
     super();

@@ -39,7 +39,7 @@ export class ProjectsPage implements OnInit {
     private network: Network,
     private workExperienceService: WorkExperienceService,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
   ) { }
 
   @HostBinding('class.is-shell') get isShell() {

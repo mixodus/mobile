@@ -73,6 +73,7 @@ export class EditPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.profile = this.router.getCurrentNavigation().extras.state.data;
+        console.log('this.profile: ', this.profile);
         this.getDataToForm();
       } else {
         this.router.navigateByUrl('app/user');
@@ -118,6 +119,9 @@ export class EditPage implements OnInit {
       summary: new FormControl('', Validators.compose([
         Validators.required,
       ])),
+      npwp: new FormControl('', Validators.compose([
+        // Validators.required,
+      ]))
     });
     this.editProfileForm.controls['profile_picture'].setValue(this.profile.profile_picture);
     this.editProfileForm.controls['profile_picture_url'].setValue(this.profile.profile_picture_url);
@@ -144,6 +148,7 @@ export class EditPage implements OnInit {
     this.editProfileForm.controls['address'].setValue(this.profile.address);
     this.editProfileForm.controls['zip_code'].setValue(String(this.profile.zip_code));
     this.editProfileForm.controls['contact_no'].setValue(this.profile.contact_no);
+    this.editProfileForm.controls['npwp'].setValue(this.profile.npwp);
 
     console.log(this.editProfileForm.value);
   }

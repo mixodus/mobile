@@ -110,7 +110,7 @@ export class BioPage implements OnInit {
   editSalaryValue(amount: string) {
     // let newString = amount.replace(/\B(?=(\.))/g, '');
     let newString = amount.replace(/[.]/g, '');
-    this.createProfileForm.controls['expected_salary'].setValue(newString);
+    this.createProfileForm.controls['expected_salary'].setValue(Number(newString));
     console.log(this.createProfileForm.controls['expected_salary'].value);
   }
   getEmployeeStatus(ev) {
@@ -158,7 +158,7 @@ export class BioPage implements OnInit {
     // change date selected into year only
     const year = new Date(postData.start_work_year);
     postData.start_work_year = year.getFullYear().toString();
-
+    postData.expected_salary = Number(postData.expected_salary);
     console.log(postData);
 
     let loading = await this.loadingCtrl.create();

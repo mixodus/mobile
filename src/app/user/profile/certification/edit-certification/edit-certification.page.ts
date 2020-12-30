@@ -42,7 +42,7 @@ export class EditCertificationPage implements OnInit {
     private platform: Platform,
     private filePath: FilePath,
     private file: File,
-    private filePicker: IOSFilePicker,
+    private filePicker: IOSFilePicker
   ) {
     this._route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -210,7 +210,6 @@ export class EditCertificationPage implements OnInit {
     }
     if (this.platform.is('android')) {
       this.fileChooser.open().then(uri => {
-        console.log('uri typeof: ', typeof uri);
         this.bool = true;
         this.fileURL = uri;
         console.log('this.fileURA: ', this.fileURL);
@@ -220,8 +219,6 @@ export class EditCertificationPage implements OnInit {
             this.resolvedPath = path;
             const index = path.lastIndexOf('/');
             this.filepath = path.substr(index + 1);
-
-            console.log('filepath: ', this.filepath);
 
             this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
 
@@ -269,7 +266,8 @@ export class EditCertificationPage implements OnInit {
     };
     const uploadCertificationEndpoint = encodeURI(this._globalService.getApiUrl() + 'upload/upload/' + id);
 
-    this.fileTransfer.upload(this.resolvedPath, uploadCertificationEndpoint, options).then((data) => {
+
+    this.fileTransfer.upload(this.fileURL, uploadCertificationEndpoint, options).then((data) => {
       this.presentToast('File berhasil diperbaharui.');
       this._router.navigateByUrl('app/user/certification');
     }, (err) => {

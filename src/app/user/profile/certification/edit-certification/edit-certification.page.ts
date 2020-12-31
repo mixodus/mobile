@@ -259,7 +259,6 @@ export class EditCertificationPage implements OnInit {
       chunkedMode: false,
       mimeType: 'application/pdf',
       headers: {
-        'Content-Type': 'application/json',
         'X-Api-Key': this._globalService.getGlobalApiKey(),
         'X-Token': `${this._auth.token}`
       }

@@ -132,6 +132,11 @@ export class EditCertificationPage implements OnInit {
     console.log('this.getfileName: ', this.getfileName());
 
     console.log('this.filetype: ', this.filetype);
+
+    if (!this.filetype) {
+      this.filetype = this.currentUser.certification_file.substr(this.currentUser.certification_file.lastIndexOf('.') + 1);
+    }
+
     if (this.filetype !== 'pdf') {
       this.presentToast('Mohon menggunakan file pdf.');
       this.bool = false;
@@ -219,13 +224,18 @@ export class EditCertificationPage implements OnInit {
             this.resolvedPath = path;
             const index = path.lastIndexOf('/');
             this.filepath = path.substr(index + 1);
+            console.log('filepath: ', this.filepath);
 
             this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
+            console.log('this.filepath.lastIndexOf(\'.\') + 1: ', this.filepath.lastIndexOf('.') + 1);
+            console.log('this.filetype: ', this.filetype);
 
             if (this.filetype != 'pdf') {
               this.presentToast('Mohon menggunakan file pdf.');
               this.bool = false;
               console.log(this.bool);
+            } else {
+              console.log('this.filetype: ', this.filetype);
             }
 
             this.file.resolveLocalFilesystemUrl(this.fileURL).then(fileEntry => {

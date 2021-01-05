@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GlobalService } from '../services/global.service';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-notifications',
@@ -96,6 +96,8 @@ export class NotificationsPage implements OnInit {
   }
 
   filterData() {
+    console.log('this.notif.data: ', this.notif.data);
+
     this.notifToday = this.notif.data.filter((data) => {
       if (data.date_convert === false) {
         return data;
@@ -117,9 +119,18 @@ export class NotificationsPage implements OnInit {
     setTimeout(() => {
       console.log(this.start);
 
-      let url = this._globalService.getApiUrl() + 'api/notif?X-Api-Key=' + this._globalService.getGlobalApiKey() + '&start=' + this.start + '&X-Token=' + this._auth.token;
+      const headers = new HttpHeaders({
+        'X-Api-Key': this._globalService.getGlobalApiKey(),
+        'X-Token': String(this._auth.token)
+      });
 
-      this._http.get(url).pipe()
+      const options = { headers: headers };
+
+      const notifUpdateReadEndpoint =
+        this._globalService.apiUrl +
+        'api/notif';
+
+      this._http.get(notifUpdateReadEndpoint, options).pipe()
         .subscribe(res => {
           console.log(res);
           this.response = res;
@@ -186,13 +197,20 @@ export class NotificationsPage implements OnInit {
   }
 
   goTo(type_id: string, detail_id: string, id: string) {
-    let url = this._globalService.getApiUrl() + 'api/notif?X-Api-Key=' + this._globalService.getGlobalApiKey() + '&X-Token=' + this._auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    const options = {
-      notif_id: id
-    };
+    const body = {notif_id: id};
 
-    this._http.put(url, options).pipe()
+    const options = { headers: headers};
+
+    const notifUpdateReadEndpoint =
+      this._globalService.apiUrl +
+      'api/notif';
+
+    this._http.put(notifUpdateReadEndpoint, body, options).pipe()
       .subscribe(data => {
         // this.presentToast(data["message"]);
         console.log(type_id);

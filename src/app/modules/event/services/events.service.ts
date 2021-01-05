@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../services/global.service';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { EventsResponse, OnGoingEventListResponse } from '../../../core/models/event/EventResponse';
@@ -14,64 +14,111 @@ export class EventsService {
     private _globalService: GlobalService,
     private _mapperService: MapperService,
     private _auth: AuthenticationService
-    ) {}
-    
-    // data stores
-    private _bannerDataStore: DataStore<EventsResponse>;
-    private _singleDataStore: DataStore<EventsResponse>;
-    private _listDataStore: DataStore<OnGoingEventListResponse>;
-    private _listTypeDataStore: DataStore<EventsResponse>;
-    private _profileDataStore: DataStore<UserProfileModel>;
+  ) {
+  }
+
+  // data stores
+  private _bannerDataStore: DataStore<EventsResponse>;
+  private _singleDataStore: DataStore<EventsResponse>;
+  private _listDataStore: DataStore<OnGoingEventListResponse>;
+  private _listTypeDataStore: DataStore<EventsResponse>;
+  private _profileDataStore: DataStore<UserProfileModel>;
 
   getProfile() {
-    const url =
-      this._globalService.apiUrl +
-      `/api/profile` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
-    return this._http.get<UserProfileModel>(url);
-  }
-  getBannerList() {
-    const url =
-      this._globalService.apiUrl +
-      '/api/home_event' +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+    const options = { headers: headers };
 
-    return this._http.get<EventsResponse>(url);
+    const profileEndpoint =
+      this._globalService.apiUrl +
+      'api/profile';
+
+    return this._http.get<UserProfileModel>(profileEndpoint, options);
+  }
+
+  getBannerList() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+
+    const options = { headers: headers };
+
+    const homeEventeEndpoint =
+      this._globalService.apiUrl +
+      'api/home_event';
+
+    return this._http.get<EventsResponse>(homeEventeEndpoint, options);
   }
 
   getList() {
-    const url =
-      this._globalService.apiUrl +
-      'api/event/all_ongoing' +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<OnGoingEventListResponse>(url);
+    const options = { headers: headers };
+
+    const eventBootcampChallengeEndpoint =
+      this._globalService.apiUrl +
+      'api/event/all_ongoing';
+
+    return this._http.get<OnGoingEventListResponse>(eventBootcampChallengeEndpoint, options);
   }
-  getListType(event_type: string) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/event_type/${event_type}` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
 
-    return this._http.get<EventsResponse>(url);
+  getListType(event_type: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
+
+    const options = { headers: headers };
+
+    const eventTypeEndpoint =
+      this._globalService.apiUrl +
+      'api/event/event_type/' + event_type;
+
+    return this._http.get<EventsResponse>(eventTypeEndpoint, options);
   }
 
   getSingle(id: string) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/detail/${id}` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.get<EventsResponse>(url);
+    const options = { headers: headers };
+
+    const detailEventEndpoint =
+      this._globalService.apiUrl +
+      'api/event/detail/' + id;
+
+    return this._http.get<EventsResponse>(detailEventEndpoint, options);
   }
 
   register(data: any) {
-    const url =
-      this._globalService.apiUrl +
-      `api/event/join` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': `${this._auth.token}`
+    });
 
-    return this._http.post<any>(url, data);
+    const body = data;
+
+    const options = { headers: headers };
+
+    const joinEventEndpoint =
+      this._globalService.apiUrl +
+      'api/event/join';
+
+    return this._http.post<any>(joinEventEndpoint, body, options);
   }
 
   /**
@@ -83,6 +130,7 @@ export class EventsService {
 
     return this._mapperService.mapImageUrl(directory);
   }
+
   // getChallengeImage(filename: string) {
   //   const directory = `/challenge/${filename}`;
 
@@ -121,6 +169,7 @@ export class EventsService {
     }
     return this._listDataStore;
   }
+
   getListTypeDataStore(event_type: string, refresh: boolean = false) {
     // Use cache if available
     if (this._listTypeDataStore == undefined || refresh) {
@@ -131,6 +180,7 @@ export class EventsService {
     }
     return this._listTypeDataStore;
   }
+
   getProfileDataStore(refresh: boolean = false) {
     // Use cache if available
     if (this._profileDataStore == undefined || refresh) {

@@ -6,7 +6,7 @@ import { RegisterModalPage } from '../../../../signup/modal/register-modal.page'
 import { PrivacyPolicyPage } from '../../../../privacy-policy/privacy-policy.page';
 
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../services/global.service';
 import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -184,6 +184,7 @@ export class RegisterPage implements OnInit, IPage {
   async onSubmit() {
     console.log('isPolicyTermsChecked: ', this.isPolicyTermsChecked);
     const formValue = this.registerForm.value;
+    console.log('this.registerForm.value: ', this.registerForm.value);
     console.log('this.registerForm.get(\'email\'): ', this.registerForm.get('email'));
     console.log('validation: ', this.registerForm.get('password'));
     console.log(formValue);
@@ -194,12 +195,18 @@ export class RegisterPage implements OnInit, IPage {
       const loading = await this._loadingController.create();
       await loading.present();
 
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this._globalService.getGlobalApiKey() });
+      const options = { headers: headers };
+
+      const registerUserEndpoint = this._globalService.getApiUrl() + 'user/register';
+
       this._http
         .post(
-          this._globalService.getApiUrl() +
-          'user/register?X-Api-Key=' +
-          this._globalService.getGlobalApiKey(),
-          formValue
+          registerUserEndpoint,
+          formValue,
+          options
         )
         .pipe(finalize(() => loading.dismiss()))
         .subscribe(

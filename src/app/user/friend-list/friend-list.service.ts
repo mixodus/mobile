@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataStore } from '../../shell/data-store';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../services/global.service';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../services/auth/authentication.service';
@@ -16,10 +16,18 @@ export class FriendListService {
     constructor(private http: HttpClient, private globalService: GlobalService, private storage: Storage, private auth: AuthenticationService) { }
 
     public getDataSource(){
-        let token = this.auth.token;
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-Api-Key': this.globalService.getGlobalApiKey(),
+            'X-Token': `${this.auth.token}`
+        });
+        const options = { headers: headers };
 
-        let url = this.globalService.getApiUrl() + 'friend/list?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-        return this.http.get<FriendListModel>(url);
+        const getFriendEndpoint =
+          this.globalService.apiUrl +
+          'friend/list';
+
+        return this.http.get<FriendListModel>(getFriendEndpoint, options);
     }
 
     public getDataStore(dataSource: Observable<FriendListModel>): DataStore<FriendListModel> {

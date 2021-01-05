@@ -89,6 +89,8 @@ export class EventsListByCategoryPage implements OnInit {
 
   filterData(){
     if(this.events.data){
+      console.log('this.event.data: ', this.events.data);
+
       this.onGoing = this.events.data.filter((data) => {
         return data.event_ongoing;
       });

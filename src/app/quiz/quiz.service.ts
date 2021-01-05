@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { Storage } from '@ionic/storage';
 import { GlobalService } from '../services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class QuizService {
@@ -16,10 +16,18 @@ export class QuizService {
     }
 
     getQuizDataSource(id: string): Observable<QuizModel> {
-        let token = this.auth.token;
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-Api-Key': this.globalService.getGlobalApiKey(),
+            'X-Token': `${this.auth.token}`
+        });
+        const options = { headers: headers };
 
-        let url = this.globalService.getApiUrl() + 'api/challenge/quiz?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token + '&challenge_id=' + id;
-        return this.http.get<QuizModel>(url);
+        const quizChallengeEndpoint =
+          this.globalService.apiUrl +
+          'api/challenge/quiz' + '?challenge_id=' + id;
+
+        return this.http.get<QuizModel>(quizChallengeEndpoint, options);
     }
 
     getQuizStore(dataSource: Observable<QuizModel>): DataStore<QuizModel> {

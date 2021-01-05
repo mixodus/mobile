@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GlobalService } from '../../../services/global.service';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoadingController, NavController, ToastController, AlertController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { Chooser, ChooserResult } from '@ionic-native/chooser/ngx';
@@ -172,16 +172,19 @@ export class EasyApplyPage implements OnInit {
 
     console.log(dataPass);
 
-    const token = this.auth.token;
-    const url =
-      this.globalService.getApiUrl() +
-      'api/job_post/apply?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const applyJobPostEndpoint =
+      this.globalService.apiUrl +
+      'api/job_post/apply';
 
     this.http
-      .post(url, dataPass)
+      .post(applyJobPostEndpoint, dataPass, options)
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         async (data) => {

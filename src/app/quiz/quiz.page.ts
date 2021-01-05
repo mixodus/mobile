@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavController, LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GlobalService } from '../services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { filter, finalize } from 'rxjs/operators';
 import { Location } from '@angular/common';
@@ -42,6 +42,7 @@ export class QuizPage implements OnInit {
 
         detailsDataStore.state.subscribe(
           (state) => {
+            console.log('state: ', state);
             this.questions = state;
             this.current_quiz_id = parseInt(this.questions.data[0].id);
           },
@@ -85,10 +86,20 @@ export class QuizPage implements OnInit {
     let submitAnswer = this.quizForm.value;
     submitAnswer.quiz_id = this.current_quiz_id;
 
-    let token = this.auth.token;
-    let url = this.globalService.getApiUrl() + 'api/challenge/quiz?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    console.log('submitAnswer: ', submitAnswer);
 
-    this.http.post(url, submitAnswer).pipe(
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const quizChallengeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge/quiz';
+
+    this.http.post(quizChallengeEndpoint, submitAnswer, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
@@ -119,10 +130,18 @@ export class QuizPage implements OnInit {
     let submitAnswer = this.quizForm.value;
     submitAnswer.quiz_id = this.current_quiz_id;
 
-    let token = this.auth.token;
-    let url = this.globalService.getApiUrl() + 'api/challenge/quiz?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    this.http.post(url, submitAnswer).pipe(
+    const quizChallengeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge/quiz';
+
+    this.http.post(quizChallengeEndpoint, submitAnswer, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

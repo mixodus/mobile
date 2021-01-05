@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../services/global.service';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { DataStore } from '../../../shell/data-store';
@@ -20,20 +20,30 @@ export class HistoryService {
     private _ChallengeDataStore: DataStore<ChallengeHistoryResponse>;
 
     getEvent(event_type: string) {
-        const url =
-            this._globalService.apiUrl +
-            `api/event/history/${event_type}` +
-            `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+        const headers = new HttpHeaders({
+            'X-Api-Key': this._globalService.getGlobalApiKey(),
+            'X-Token': `${this._auth.token}`
+        });
+        const options = { headers: headers };
 
-        return this._http.get<EventHistoryResponse>(url);
+        const eventHistoryEndpoint =
+          this._globalService.apiUrl +
+          `api/event/history/${event_type}`;
+
+        return this._http.get<EventHistoryResponse>(eventHistoryEndpoint, options);
     }
     getChallenge() {
-        const url =
-            this._globalService.apiUrl +
-            `api/challenge/history` +
-            `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+        const headers = new HttpHeaders({
+            'X-Api-Key': this._globalService.getGlobalApiKey(),
+            'X-Token': `${this._auth.token}`
+        });
+        const options = { headers: headers };
 
-        return this._http.get<ChallengeHistoryResponse>(url);
+        const historyChallengeEndpoint =
+          this._globalService.apiUrl +
+          'api/challenge/history';
+
+        return this._http.get<ChallengeHistoryResponse>(historyChallengeEndpoint, options);
     }
     getEventImage(filename: string) {
         const directory = `/event/${filename}`;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalService } from '../services/global.service';
 import { MapperService } from '../core/services/mapper/mapper.service';
@@ -21,12 +21,18 @@ export class NotificationsService {
 
 
   public getData(): Observable<any> {
-    const url =
-      this._globalService.apiUrl +
-      `api/notif` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': String(this._auth.token)
+    });
 
-    return this._http.get<NotificationResponse>(url);
+    const options = { headers: headers };
+
+    const notifUpdateReadEndpoint =
+      this._globalService.apiUrl +
+      'api/notif';
+
+    return this._http.get<NotificationResponse>(notifUpdateReadEndpoint, options);
   }
 
   getDataStore(refresh: boolean = false) {
@@ -41,13 +47,17 @@ export class NotificationsService {
   }
 
   getNewNotifications() {
-    const url =
+    const headers = new HttpHeaders({
+      'X-Api-Key': this._globalService.getGlobalApiKey(),
+      'X-Token': String(this._auth.token)
+    });
+
+    const options = { headers: headers };
+
+    const newNotifEndpoint =
       this._globalService.apiUrl +
-      `api/notif/new_notif` +
-      `?X-Api-Key=${this._globalService.getGlobalApiKey()}&X-Token=${this._auth.token}`;
+      'api/notif/new_notif';
 
-    console.log('this._http.get(url): ', this._http.get(url));
-
-    return this._http.get(url);
+    return this._http.get(newNotifEndpoint, options);
   }
 }

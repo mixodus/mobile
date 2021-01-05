@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../../app/services/global.service';
 import { AuthenticationService } from '../../../../../app/services/auth/authentication.service';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
@@ -113,11 +113,19 @@ export class EditWorkExperiencePage implements OnInit {
       return;
     }
 
-    let formData = this.editExperienceForm.value;
+    const formData = this.editExperienceForm.value;
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/work_experience?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const workExperienceEndpoint =
+      this.globalService.apiUrl +
+      'api/work_experience';
+
     if (this.data == null) {
       let addData: any = {};
       addData = {
@@ -135,7 +143,7 @@ export class EditWorkExperiencePage implements OnInit {
         addData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' })
       }
 
-      this.http.post(url, addData).pipe(
+      this.http.post(workExperienceEndpoint, addData, options).pipe(
         finalize(() => this.loadingCtrl.dismiss())
       )
         .subscribe(data => {
@@ -178,7 +186,7 @@ export class EditWorkExperiencePage implements OnInit {
     }
 
 
-    this.http.put(url, formData).pipe(
+    this.http.put(workExperienceEndpoint, formData, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../../app/services/global.service';
 import { AuthenticationService } from '../../../../../app/services/auth/authentication.service';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
@@ -130,11 +130,18 @@ export class EditProjectPage implements OnInit {
       return;
     }
 
-    let formData = this.editProjectForm.value;
+    const formData = this.editProjectForm.value;
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/project?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const projectEndpoint =
+      this.globalService.apiUrl +
+      'api/project';
 
     if (this.data == null) {
       let currentDate = new Date()
@@ -151,7 +158,7 @@ export class EditProjectPage implements OnInit {
         tools: formData.tools
       }
 
-      this.http.post(url, addData).pipe(
+      this.http.post(projectEndpoint, addData, options).pipe(
         finalize(() => this.loadingCtrl.dismiss())
       )
         .subscribe(data => {
@@ -183,7 +190,7 @@ export class EditProjectPage implements OnInit {
     //convert end year
     formData.end_period_year = this.convertYear(formData.end_period_year)
 
-    this.http.put(url, formData).pipe(
+    this.http.put(projectEndpoint, formData, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

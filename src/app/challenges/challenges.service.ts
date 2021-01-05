@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataStore } from '../shell/data-store';
 import { ChallengesModel } from './challenges.model';
 import { Observable } from 'rxjs';
@@ -16,10 +16,19 @@ export class ChallengesService {
   }
 
   public getChallengesDataSource(): Observable<ChallengesModel> {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    let url = this.globalService.getApiUrl() + 'api/challenge?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    return this.http.get<ChallengesModel>(url);
+    const options = { headers: headers};
+
+    const challengeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge';
+
+    return this.http.get<ChallengesModel>(challengeEndpoint, options);
     // return this.http.get<ChallengesModel>('./assets/sample-data/deals/listing.json');
   }
 
@@ -37,10 +46,19 @@ export class ChallengesService {
   }
 
   public getChallengeDetailDataSource(challenge_id: string): Observable<ChallengeDetailModel> {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    let url = this.globalService.getApiUrl() + 'api/challenge/detail/' + challenge_id + '?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    return this.http.get<ChallengeDetailModel>(url);
+    const options = { headers: headers };
+
+    const challengeDetailEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge/detail/' + challenge_id;
+
+    return this.http.get<ChallengeDetailModel>(challengeDetailEndpoint, options);
   }
 
   public getChallengeDetailStore(dataSource: Observable<ChallengeDetailModel>): DataStore<ChallengeDetailModel> {

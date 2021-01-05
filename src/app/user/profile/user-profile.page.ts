@@ -12,13 +12,13 @@ import {
   NavController,
   ToastController,
   Platform,
-  PopoverController,
+  PopoverController, LoadingController,
 } from '@ionic/angular';
 import { LanguageService } from '../../language/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { GlobalService } from '../../services/global.service';
-import { take, map } from 'rxjs/operators';
+import { take, map, finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -30,6 +30,7 @@ import { PickerController } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { PopoverPage } from '../../popover/popover.page';
 import { LevelModel } from '../../level/level.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -81,7 +82,9 @@ export class UserProfilePage implements OnInit {
     private platform: Platform,
     private network: Network,
     private pickerController: PickerController,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private loadingCtrl: LoadingController,
+    private http: HttpClient,
   ) {
   }
 
@@ -93,6 +96,7 @@ export class UserProfilePage implements OnInit {
         profileDataStore.state.subscribe(
           (state) => {
             this.profile = state;
+            console.log('this.profile: ', this.profile);
             if (this.profile.profile_picture === undefined) {
               this.profile.profile_picture = 'assets/sample-images/user/default-profile.svg';
             }
@@ -175,6 +179,43 @@ export class UserProfilePage implements OnInit {
     popover.present();
   }
 
+  async verifyEmail() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const body = {};
+
+    const verifyEmailEndpoint =
+      this.globalService.apiUrl +
+      'api/user/verify-email';
+
+    this.http.get(verifyEmailEndpoint, options).pipe(
+      finalize(() => this.loadingCtrl.dismiss())
+    ).subscribe((data: any) => {
+        this.presenAlertVerifyEmail(data.message);
+        // this.presentToast(data.message);
+    }, (err) => {
+      this.presenAlertVerifyEmail(err.message);
+      // this.presentToast(err.message);
+      }
+    );
+  }
+
+  async presenAlertVerifyEmail(message) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['Tutup']
+    });
+    await alert.present();
+  }
+
   editProfile() {
     const navigationExtras: NavigationExtras = {
       state: {
@@ -248,6 +289,7 @@ export class UserProfilePage implements OnInit {
     );
     profileDataStore.state.subscribe(
       (state) => {
+        console.log('state: ', state);
         this.profile = state;
         // console.log(this.profile.profile_picture);
         if (this.profile.profile_picture == undefined) {

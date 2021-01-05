@@ -13,7 +13,7 @@ import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
 import { HomeModalPage } from '../modal/update-modal/home-modal.page';
 import { Storage } from '@ionic/storage';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ZoomImageModalComponent } from '../modal/zoom-image-modal/zoom-image-modal.component';
 import { Network } from '@ionic-native/network/ngx';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
@@ -115,17 +115,18 @@ export class HomePage implements OnInit {
   data: any;
 
   checkSession() {
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': String(this.auth.token)
+    });
 
-    console.log(token);
+    const options = { headers: headers };
 
-    let url =
-      this.globalService.getApiUrl() +
-      'api/home/check_session?X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      token;
-    this.http.get(url).subscribe(
+    const checkSessionEndpoint =
+      this.globalService.apiUrl +
+      'api/home/check_session';
+
+    this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         //process the json data
         console.log(response);
@@ -472,16 +473,18 @@ export class HomePage implements OnInit {
   }
 
   filterSearch(filter: string) {
-    let url =
-      this.globalService.getApiUrl() +
-      'search/generalsearch?q=' +
-      filter +
-      '&X-Api-Key=' +
-      this.globalService.getGlobalApiKey() +
-      '&X-Token=' +
-      this.auth.token;
-    //   let url = this.globalService.getApiUrl()+ 'search/reference?q='+filter+'&cat=skill';
-    const peopleDataSource: Observable<SearchPeopleModel> = this.http.get<SearchPeopleModel>(url);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const generalSearchEndpoint =
+      this.globalService.apiUrl +
+      'search/generalsearch?q=' + filter;
+
+    const peopleDataSource: Observable<SearchPeopleModel> = this.http.get<SearchPeopleModel>(generalSearchEndpoint, options);
     const shellModel: SearchPeopleModel = new SearchPeopleModel();
     this.peopleDataStore = new DataStore(shellModel);
     // Trigger the loading mechanism (with shell) in the dataStore

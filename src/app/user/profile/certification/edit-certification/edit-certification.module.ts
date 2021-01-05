@@ -28,7 +28,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [EditCertificationPage],
-  providers: [CertificationResolver, 
+  providers: [CertificationResolver,
     CertificationService]
 })
 export class EditCertificationPageModule {}

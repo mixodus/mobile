@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillModel } from '../skills.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../../app/services/global.service';
 import { Observable } from 'rxjs';
 import { DataStore } from '../../../../../app/shell/data-store';
@@ -63,8 +63,18 @@ export class AddSkillsPage implements OnInit {
      * load datasource to datastore
      * subscribe datastore value to jobs
      */
-    const url = this.globalService.getApiUrl() + 'search/reference?q=' + filter + '&cat=skill' + '&X-Api-Key=' + this.globalService.getGlobalApiKey();
-    const skillDataSource: Observable<SkillModel> = this.http.get<SkillModel>(url);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const skillSearchEndpoint =
+      this.globalService.apiUrl +
+      'search/reference?q=' + filter + '&cat=skill';
+
+    const skillDataSource: Observable<SkillModel> = this.http.get<SkillModel>(skillSearchEndpoint, options);
     const shellModel: SkillModel = new SkillModel();
     this.skillDataStore = new DataStore(shellModel);
     // Trigger the loading mechanism (with shell) in the dataStore
@@ -115,9 +125,22 @@ export class AddSkillsPage implements OnInit {
     await loading.present();
     // tslint:disable-next-line:prefer-const
     let savedSkills = this.selectedSkills.join(',');
-    const token = this.auth.token;
-    const url = this.globalService.getApiUrl() + 'api/profile/skill?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    this.http.post(url, { 'skill': savedSkills }).pipe(
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+
+    const body = { 'skill': savedSkills };
+
+    const options = { headers: headers };
+
+    const skillUpdateEndpoint =
+      this.globalService.apiUrl +
+      'api/profile/skill';
+
+    this.http.post(skillUpdateEndpoint, body, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

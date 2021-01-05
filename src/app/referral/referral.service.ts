@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataStore } from '../shell/data-store';
 import { Observable } from 'rxjs';
 import { ReferralModel } from './referral.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../services/global.service';
 import { AuthenticationService } from '../services/auth/authentication.service';
 
@@ -15,9 +15,16 @@ export class ReferralService {
 
     }
     public getReferralDataSource(): Observable<ReferralModel> {
-        let token = this.auth.token;
-        let url = this.globalService.getApiUrl() + 'api/referral?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-        return this.http.get<ReferralModel>(url);
+        const headers = new HttpHeaders({
+            'X-Api-Key': this.globalService.getGlobalApiKey(),
+            'X-Token': `${this.auth.token}`
+        });
+        const options = { headers: headers };
+
+        const referralEndpoint =
+          this.globalService.apiUrl +
+          'api/referral';
+        return this.http.get<ReferralModel>(referralEndpoint, options);
     }
 
     public getReferralDataStore(dataSource: Observable<ReferralModel>, refresh: boolean = false): DataStore<ReferralModel> {

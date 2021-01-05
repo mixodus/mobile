@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChallengeDetailModel } from './challenge-detail.model';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../services/global.service';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
@@ -69,10 +69,21 @@ export class ChallengeDetailPage implements OnInit {
     let loading = await this.loadingCtrl.create();
     await loading.present();
 
-    let token = this.auth.token;
-    let url = this.globalService.getApiUrl() + 'api/challenge/join?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    this.http.post(url, { 'challenge_id': this.details.data.challenge_id }).pipe(
+    const body = {'challenge_id': this.details.data.challenge_id};
+
+    const options = { headers: headers};
+
+    const joinChallengeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge/join';
+
+    this.http.post(joinChallengeEndpoint, body, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

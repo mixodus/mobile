@@ -105,16 +105,21 @@ export class CertificationPage implements OnInit {
     await loading.present();
     let token = this.auth.token;
 
-    let url = this.globalService.getApiUrl() + 'api/certification?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: id
-    };
+    const body = {id: id};
 
-    this.http.delete(url, options).pipe(
+    const options = { headers: headers, body: body };
+
+    const certificationEndpoint =
+      this.globalService.apiUrl +
+      'api/certification';
+
+    this.http.delete(certificationEndpoint, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

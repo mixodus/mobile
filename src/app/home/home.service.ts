@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { HomeModel } from './home.model';
@@ -14,9 +14,18 @@ export class HomeService {
   }
 
   public getProfileDataSource(): Observable<HomeModel> {
-    const token = this.auth.token;
-    const url = this.globalService.getApiUrl() + 'api/home?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    return this.http.get<HomeModel>(url);
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': String(this.auth.token)
+    });
+
+    const options = { headers: headers };
+
+    const homeEndpoint =
+      this.globalService.apiUrl +
+      'api/home';
+
+    return this.http.get<HomeModel>(homeEndpoint, options);
   }
 
   public getProfileStore(dataSource: Observable<HomeModel>, refresh: boolean = false): DataStore<HomeModel> {

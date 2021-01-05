@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../../../app/services/auth/authentication.service';
 import { GlobalService } from '../../../../app/services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoadingController, ToastController, NavController, AlertController, Platform } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -73,6 +73,7 @@ export class EditPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.profile = this.router.getCurrentNavigation().extras.state.data;
+        console.log('this.profile: ', this.profile);
         this.getDataToForm();
       } else {
         this.router.navigateByUrl('app/user');
@@ -118,6 +119,9 @@ export class EditPage implements OnInit {
       summary: new FormControl('', Validators.compose([
         Validators.required,
       ])),
+      npwp: new FormControl('', Validators.compose([
+        // Validators.required,
+      ]))
     });
     this.editProfileForm.controls['profile_picture'].setValue(this.profile.profile_picture);
     this.editProfileForm.controls['profile_picture_url'].setValue(this.profile.profile_picture_url);
@@ -142,8 +146,9 @@ export class EditPage implements OnInit {
     this.editProfileForm.controls['country'].setValue(this.profile.country);
     this.editProfileForm.controls['province'].setValue(this.profile.province);
     this.editProfileForm.controls['address'].setValue(this.profile.address);
-    this.editProfileForm.controls['zip_code'].setValue(this.profile.zip_code);
+    this.editProfileForm.controls['zip_code'].setValue(String(this.profile.zip_code));
     this.editProfileForm.controls['contact_no'].setValue(this.profile.contact_no);
+    this.editProfileForm.controls['npwp'].setValue(this.profile.npwp);
 
     console.log(this.editProfileForm.value);
   }
@@ -191,6 +196,7 @@ export class EditPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
+      console.log('imageData: ', imageData);
       this.crop.crop(imageData, cropOpt).then((cropped) => {
         this.showCroppedImage(cropped.split('?')[0]);
       }, (err) => {
@@ -212,9 +218,16 @@ export class EditPage implements OnInit {
     var imageName = splitPath[splitPath.length - 1];
     var filePath = ImagePath.split(imageName)[0];
 
+    console.log('copyPath: ', copyPath);
+    console.log('splitPath: ', splitPath);
+    console.log('imageName: ', imageName);
+    console.log('filePath: ', filePath);
+
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
+      console.log('base64: ', base64);
       this.editProfileForm.controls['profile_picture'].setValue(base64);
       this.editProfileForm.controls['profile_picture_url'].setValue(base64);
+      console.log('this.editProfileForm: ', this.editProfileForm.value);
       this.profilePictureChanged = true;
       loading.dismiss();
     }, error => {
@@ -326,16 +339,28 @@ export class EditPage implements OnInit {
     await loading.present();
     let formData = this.editProfileForm.value;
     formData.date_of_birth = formData.date_of_birth.substr(0, 10);
+    formData.zip_code = String(formData.zip_code);
+
+    console.log('formData: ', formData);
+
     if (!this.profilePictureChanged) {
       formData.profile_picture = '';
       formData.profile_picture_url = '';
     }
     formData.resume = this.base64s;
 
-    let token = this.auth.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
 
-    let url = this.globalService.getApiUrl() + 'api/profile?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
-    this.http.put(url, formData).pipe(
+    const completeProfileEndpoint =
+      this.globalService.apiUrl +
+      'api/profile';
+
+    this.http.put(completeProfileEndpoint, formData, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

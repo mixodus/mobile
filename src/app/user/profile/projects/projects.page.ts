@@ -39,7 +39,7 @@ export class ProjectsPage implements OnInit {
     private network: Network,
     private workExperienceService: WorkExperienceService,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
   ) { }
 
   @HostBinding('class.is-shell') get isShell() {
@@ -122,16 +122,22 @@ export class ProjectsPage implements OnInit {
     await loading.present();
     let token = this.auth.token;
 
-    let url = this.globalService.getApiUrl() + 'api/project?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: id
-    };
-    
-    this.http.delete(url, options).pipe(
+    const body = {id: id};
+
+    const options = { headers: headers, body: body };
+
+    const workExperienceEndpoint =
+      this.globalService.apiUrl +
+      'api/project';
+
+
+    this.http.delete(workExperienceEndpoint, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MenuController, LoadingController, NavController, Platform } from '@ionic/angular';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { GlobalService } from '../../../../services/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
@@ -117,6 +117,16 @@ export class LoginPage implements OnInit {
     this.storage.set('prevNavigation', true);
     const loading = await this.loadingCtrl.create();
     const postdata = { username: formData.email, password: formData.password };
+
+    const body = new FormData();
+    body.append('username', formData.email);
+    body.append('password', formData.password);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey() });
+    const options = { headers: headers };
+
     this.storage.set('rememberCheck', this.remember);
     if (this.remember) {
       this.storage.set('rememberEmail', formData.email);
@@ -130,9 +140,8 @@ export class LoginPage implements OnInit {
     this.http
       .post(
         this.globalService.getApiUrl() +
-        'user/login?X-Api-Key=' +
-        this.globalService.getGlobalApiKey(),
-        postdata
+        'user/login',
+        postdata, options
       )
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(

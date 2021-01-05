@@ -100,18 +100,22 @@ export class EducationsPage implements OnInit {
   async deleteEducation(id) {
     let loading = await this.loadingCtrl.create();
     await loading.present();
-    let token = this.auth.token;
 
-    let url = this.globalService.getApiUrl() + 'api/education?X-Api-Key=' + this.globalService.getGlobalApiKey() + '&X-Token=' + token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: id
-    };
+    const body = {id: id};
 
-    this.http.delete(url, options).pipe(
+    const options = { headers: headers, body: body };
+
+    const educationEndpoint =
+      this.globalService.apiUrl +
+      'api/education';
+
+    this.http.delete(educationEndpoint, options).pipe(
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
@@ -124,7 +128,7 @@ export class EducationsPage implements OnInit {
 
         let message = "";
         if (err.error.message === undefined)
-          message = "Permasalahan jaringan, mohon coba lagi.";
+          message = 'Permasalahan jaringan, mohon coba lagi.';
         else
           message = err.error.message;
 

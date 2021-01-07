@@ -32,7 +32,7 @@ export class JobsService {
 
     const jobPostEndpoint =
       this.globalService.getApiUrl() +
-      '/api/job_post';
+      'api/job_post';
 
     return this.http.get<JobsModel>(jobPostEndpoint, options);
 

@@ -13,6 +13,10 @@ import * as moment from 'moment';
   styleUrls: ['./news-detail.page.scss'],
 })
 export class NewsDetailPage implements OnInit {
+  profileImg = './assets/sample-images/user/default-profile.svg';
+  replyOutline = './assets/images/reply-outline.svg';
+
+
   @HostBinding('class.is-shell') get isShell() {
     return this.newsDetail && this.newsDetail.isShell;
   }

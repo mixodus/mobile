@@ -87,12 +87,90 @@
     }
 
     .comment-container-1 {
+      margin-top: 27px;
 
       .comment {
         border-radius: 10px;
         --background: var(--idstar-light-grey-3);
         padding: 17px;
         font-size: 12px;
+      }
+    }
+
+    .reply-button{
+      margin: 36px 0;
+      width: 50%;
+      --background: rgb(117,194,68);
+      --background: linear-gradient(90deg, rgba(117,194,68,1) 0%, rgba(100,229,18,1) 50%);
+      font-size: 12px;
+      color: var(--idstar-white);
+      font-family: var(--montserrat-family);
+      --box-shadow: 0 0 32px -7px #75C244;
+    }
+
+    .comment-container-2 {
+      display: flex;
+      flex-direction: row;
+      margin: 30px 0;
+
+      .comment-container-2-1 {
+        width: 20%;
+        display: flex;
+
+
+        .profile-image {
+          max-height: 35px;
+          width: auto;
+        }
+      }
+
+      .comment-container-2-2 {
+        width: 80%;
+
+        .name-text {
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .date-container {
+          display: flex;
+          flex-direction: row;
+          margin-top: 5px;
+
+          .time-text {
+            font-size: 8px;
+            font-weight: 400;
+          }
+
+          .date-text {
+            font-size: 8px;
+            font-weight: 400;
+          }
+        }
+
+        .comment-text{
+          margin-top: 8px;
+          font-size: 12px;
+          font-weight: 400;
+        }
+
+        .reply-container{
+          display: flex;
+          flex-direction: row;
+          margin-top: 10px;
+
+          .reply-image{
+            height: 11px;
+            width: auto;
+          }
+
+          .reply-text{
+            font-size: 8px;
+            font-weight: 400;
+            color: var(--idstar-primary);
+            margin-left: 5px;
+          }
+        }
       }
     }
   }

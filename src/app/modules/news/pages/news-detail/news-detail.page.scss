@@ -1,6 +1,10 @@
 .news-detail-header {
   color: var(--idstar-dark-grey);
 
+  .toolbar {
+    --background: var(--idstar-white);
+  }
+
   .back {
     font-size: 22px;
     color: var(--idstar-dark-grey);
@@ -17,7 +21,7 @@
 }
 
 .news-content {
-  --background: var(--idstar-light-grey);
+  --background: var(--idstar-white);
 
   .image-row {
     margin: 30px;
@@ -65,7 +69,31 @@
     }
 
     .news-detail {
-      margin: 42px 30px;
+      margin: 0 30px 30px 30px;
+    }
+  }
+
+  .comment-container {
+    margin: 30px;
+
+    .comment-container-0 {
+      display: flex;
+      justify-content: space-between;
+
+      .number-of-comment-text {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+
+    .comment-container-1 {
+
+      .comment {
+        border-radius: 10px;
+        --background: var(--idstar-light-grey-3);
+        padding: 17px;
+        font-size: 12px;
+      }
     }
   }
 }

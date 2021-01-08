@@ -1,5 +1,5 @@
 <ion-header class="news-detail-header" no-border>
-    <ion-toolbar>
+    <ion-toolbar class="toolbar">
         <ion-buttons slot="start" (click)="handleButtonBackClick()">
             <ion-icon class="back" name="ios-arrow-back"></ion-icon>
         </ion-buttons>
@@ -14,33 +14,45 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div class="image-row">
-        <div size="12" *ngIf="newsDetail?.isShell">
-            <app-aspect-ratio>
-                <app-image-shell animation="gradient"></app-image-shell>
-            </app-aspect-ratio>
+    <!--    <div class="image-row">-->
+    <!--        <div size="12" *ngIf="newsDetail?.isShell">-->
+    <!--            <app-aspect-ratio>-->
+    <!--                <app-image-shell animation="gradient"></app-image-shell>-->
+    <!--            </app-aspect-ratio>-->
+    <!--        </div>-->
+    <!--        <div size="12" *ngIf="!newsDetail?.isShell">-->
+    <!--            <div class="image-container">-->
+    <!--                <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"-->
+    <!--                class="image"-->
+    <!--                />-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!--    <div *ngIf="!this.newsDetail.isShell">-->
+    <!--        <div class="news-sub-content-2">-->
+    <!--            <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>-->
+
+    <!--            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>-->
+
+    <!--            <div class="news-title">-->
+    <!--                {{ newsDetail.data.newsTitle }}-->
+    <!--            </div>-->
+
+    <!--            <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="comment-container">
+        <div class="comment-container-0">
+            <div class="number-of-comment-text">3 Komentar</div>
         </div>
-        <div size="12" *ngIf="!newsDetail?.isShell">
-            <div class="image-container">
-                <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"
-                class="image"
-                />
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="!this.newsDetail.isShell">
-        <div class="news-sub-content-2">
-            <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>
-
-            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>
-
-            <div class="news-title">
-                {{ newsDetail.data.newsTitle }}
-            </div>
-
-            <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>
-            </div>
+        <div class="comment-container-1">
+            <ion-textarea class="comment ion-no-padding" rows="6"
+                          placeholder="Berikan komentar anda disini"
+                          auto-grow=true>
+            </ion-textarea>
         </div>
     </div>
 </ion-content>

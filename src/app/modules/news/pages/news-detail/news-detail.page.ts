@@ -3,9 +3,13 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { NewsDetail } from '../../../../core/models/news/NewsResponse';
 import { NewsService } from '../../services/news.service';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { GlobalService } from '../../../../services/global.service';
+import { AuthenticationService } from '../../../../services/auth/authentication.service';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-news-detail',
@@ -25,7 +29,10 @@ export class NewsDetailPage implements OnInit {
     private _navCtrl: NavController,
     private _route: ActivatedRoute,
     private _newsService: NewsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private globalService: GlobalService,
+    private auth: AuthenticationService,
+    private http: HttpClient,
   ) {
 
   }
@@ -34,9 +41,14 @@ export class NewsDetailPage implements OnInit {
   // newsDetail: NewsResponse & ShellModel;
   newsDetail: NewsDetail;
   destroySubscription = new Subject<any>();
-
+  newsId = '';
 
   ngOnInit() {
+    console.log('init')
+    this._route.paramMap.subscribe(params => {
+      this.newsId = params.get('news-id');
+    });
+
     this._route.data.subscribe(
       (resolvedRouteData) => {
         const newsDetailStore = resolvedRouteData['newsDetail'];
@@ -50,6 +62,30 @@ export class NewsDetailPage implements OnInit {
           );
       },
       (error) => {
+      }
+    );
+    this.getCommentDetail();
+  }
+
+  async getCommentDetail() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': `${this.auth.token}`
+    });
+    const options = { headers: headers };
+
+    const body = {};
+
+    const commentDetailEndpoint =
+      this.globalService.apiUrl +
+      'api/news/comment' + '?news_id=' + this.newsId;
+
+    this.http.get(commentDetailEndpoint, options).pipe(
+      finalize(() => this.loadingCtrl.dismiss())
+    ).subscribe((data: any) => {
+        console.log('data detail comment: ', data);
+      }, (err) => {
       }
     );
   }
@@ -78,6 +114,8 @@ export class NewsDetailPage implements OnInit {
           });
         });
     });
+
+    this.getCommentDetail();
   }
 
   extractingNewsDetail(data) {
@@ -106,7 +144,7 @@ export class NewsDetailPage implements OnInit {
       case '2':
         newsType = 'Karir';
         break;
-        case '5':
+      case '5':
         newsType = 'Pendidikan';
         break;
     }

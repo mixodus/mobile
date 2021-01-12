@@ -26,9 +26,8 @@
             Formulir Rujukan
         </div>
         <div class="referral-description">
-            Undang temanmu untuk bergabung dan
-            dapatkan uang tunai mencapai Rp {{maxFeeReferral}}
-            dari setiap rujukan *
+            Undang temanmu untuk bergabung dan dapatkan uang tunai mencapai Rp {{maxFeeReferral}}*
+            dari setiap rujukan**
         </div>
 
         <form [formGroup]="referralForm" class="referral-form" (ngSubmit)="doreferFriends()">
@@ -82,7 +81,8 @@
                 </div>
                 <br>
                 <div class="referral-description">
-                    * Setelah temanmu menyetujui untuk bergabung dengan IDStar Group
+                    <span>*Uang tunai dipotong pajak</span>
+                    <span>**Setelah temanmu menyetujui untuk bergabung dengan IDStar Group</span>
                 </div>
             </ion-list>
 

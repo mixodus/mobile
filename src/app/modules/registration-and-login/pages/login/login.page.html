@@ -53,7 +53,22 @@
 
                     <ion-button class="login-btn" type="submit">MASUK SEKARANG</ion-button>
 
-                    <p class="signup-text ion-text-center">Belum punya akun? <a class="signup-anchor" [routerLink]="['/auth/signup']"> Daftar</a>
+                    <div class="or-container">
+                        <div class="horizontal-line-container">
+                            <div class="horizontal-line"></div>
+                        </div>
+                        <div class="or-text">atau</div>
+                        <div class="horizontal-line-container">
+                            <div class="horizontal-line"></div>
+                        </div>
+                    </div>
+
+                    <ion-button class="login-as-guest-button" expand="block" (click)="loginAsGuest()">Masuk Sebagai
+                        Tamu
+                    </ion-button>
+
+                    <p class="signup-text ion-text-center">Belum punya akun?
+                        <a class="signup-anchor" [routerLink]="['/auth/signup']">Daftar</a>
                     </p>
                 </ion-list>
             </form>

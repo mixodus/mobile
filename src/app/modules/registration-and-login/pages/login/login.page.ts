@@ -124,7 +124,8 @@ export class LoginPage implements OnInit {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey() });
+      'X-Api-Key': this.globalService.getGlobalApiKey()
+    });
     const options = { headers: headers };
 
     this.storage.set('rememberCheck', this.remember);
@@ -179,6 +180,10 @@ export class LoginPage implements OnInit {
           this.presentToast(message);
         }
       );
+  }
+
+  loginAsGuest() {
+
   }
 
   doLogin1() {

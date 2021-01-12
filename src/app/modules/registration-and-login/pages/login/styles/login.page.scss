@@ -151,14 +151,49 @@
 }
 
 .login-btn {
-  margin: 36px 0;
+  margin-top: 36px;
   width: 100%;
-  --background: rgb(117,194,68);
-  --background: linear-gradient(90deg, rgba(117,194,68,1) 0%, rgba(100,229,18,1) 50%);
+  --background: rgb(117, 194, 68);
+  --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
   font-size: 12px;
   color: var(--idstar-white);
   font-family: var(--montserrat-family);
   --box-shadow: 0 0 32px -7px #75C244;
+}
+
+.login-as-guest-button {
+  color: var(--idstar-primary);
+  outline-color: var(--idstar-primary);
+  --background: none;
+  height: 34px;
+  --box-shadow: none;
+  border: 1px solid var(--idstar-primary);
+  border-radius: 5px;
+}
+
+
+.or-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .horizontal-line-container {
+    align-items: center;
+    display: flex;
+    height: 34px;
+
+    .horizontal-line {
+      border-top: 1px solid var(--idstar-grey-2);
+      width: 33vw;
+    }
+  }
+
+  .or-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--idstar-grey-2);
+  }
 }
 
 .remember-checkbox {
@@ -177,7 +212,7 @@
 }
 
 .signup-text {
-  margin: 10px 0;
+  margin-top: 80px;
   text-align: left;
   font-size: 12px;
   color: var(--idstar-grey);
@@ -190,5 +225,6 @@
   font-weight: bold;
   text-decoration: none;
 }
+
 
 

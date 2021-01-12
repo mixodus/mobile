@@ -10,16 +10,20 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher *ngIf="this.auth.token" slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div *ngIf="profile.isShell" class="spinner-container">
+    <div *ngIf="!auth.token">
+        mohon login
+    </div>
+
+    <div *ngIf="auth.token && profile?.isShell" class="spinner-container">
         <ion-spinner class="spinner">Loading</ion-spinner>
         <div>Loading</div>
     </div>
 
-    <div *ngIf="!profile.isShell">
+    <div *ngIf="auth.token && !profile?.isShell">
 <!--        <div class="email-verification-container" *ngIf="!profile.status_email">-->
 <!--            <div class="verification-text">Anda belum melakukan verifikasi email</div>-->
 <!--            <div class="verification-button" (click)="verifyEmail()">Verifikasi Email</div>-->

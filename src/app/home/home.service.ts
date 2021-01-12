@@ -9,14 +9,19 @@ import { GlobalService } from '../services/global.service';
 @Injectable()
 export class HomeService {
   public profileDataStore: DataStore<HomeModel>;
+  public token = '';
 
   constructor(private http: HttpClient, private globalService: GlobalService, private auth: AuthenticationService) {
   }
 
   public getProfileDataSource(): Observable<HomeModel> {
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
     const headers = new HttpHeaders({
       'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': String(this.auth.token)
+      'X-Token': this.token
     });
 
     const options = { headers: headers };

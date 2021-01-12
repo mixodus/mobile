@@ -89,6 +89,7 @@ export class UserProfilePage implements OnInit {
   }
 
   initLoad() {
+    console.log('masuk init loaded 2');
     this.route.data.subscribe(
       (resolvedRouteData) => {
         const profileDataStore = resolvedRouteData['dataUser'];
@@ -138,13 +139,15 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    this.auth.checkExpiredToken();
-    this.subscribe = this.platform.backButton.subscribe(() => {
-      this.router.navigateByUrl('app/home');
-    });
-    this.connectSubscription = this.network.onConnect().subscribe(() => {
-    });
-    this.auth.checkExpiredToken();
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+      this.subscribe = this.platform.backButton.subscribe(() => {
+        this.router.navigateByUrl('app/home');
+      });
+      this.connectSubscription = this.network.onConnect().subscribe(() => {
+      });
+      this.auth.checkExpiredToken();
+    }
   }
 
   ionViewDidLeave() {
@@ -158,7 +161,12 @@ export class UserProfilePage implements OnInit {
 
   ngOnInit(): void {
     console.log('init loaded');
-    this.initLoad();
+    if (this.auth.token) {
+      console.log('this.auth.token: ', this.auth.token);
+      this.initLoad();
+    } else {
+      console.log('masuk else');
+    }
   }
 
   convertDate(date: string): string {
@@ -201,9 +209,9 @@ export class UserProfilePage implements OnInit {
     ).subscribe((data: any) => {
         this.presenAlertVerifyEmail(data.message);
         // this.presentToast(data.message);
-    }, (err) => {
-      this.presenAlertVerifyEmail(err.message);
-      // this.presentToast(err.message);
+      }, (err) => {
+        this.presenAlertVerifyEmail(err.message);
+        // this.presentToast(err.message);
       }
     );
   }

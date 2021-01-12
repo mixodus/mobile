@@ -65,7 +65,7 @@ const routes: Routes = [
   {
     path: 'app',
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app',
@@ -75,7 +75,7 @@ const routes: Routes = [
   {
     path: 'app/home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
 
 

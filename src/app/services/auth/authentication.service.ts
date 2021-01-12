@@ -115,7 +115,7 @@ export class AuthenticationService {
     let currentDate = dayjs();
 
     if (localStorage.getItem(this.globalService.getParamLoginTime()) === null) {
-      this.signOut();
+      // this.signOut();
       return false;
     }
     let loginTime = dayjs(localStorage.getItem(this.globalService.getParamLoginTime()));
@@ -146,6 +146,7 @@ export class AuthenticationService {
     this.authState.next(null);
     localStorage.removeItem(this.globalService.getTokenName());
     localStorage.removeItem(this.globalService.getParamLoginTime());
+    this.token = null;
     // localStorage.removeItem(this)
     this.router.navigate(['auth/login']);
   }

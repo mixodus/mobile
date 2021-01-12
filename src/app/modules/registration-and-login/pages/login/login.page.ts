@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController, LoadingController, NavController, Platform } from '@ionic/angular';
+import { MenuController, LoadingController, NavController, Platform, AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { GlobalService } from '../../../../services/global.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -44,6 +44,7 @@ export class LoginPage implements OnInit {
     private globalService: GlobalService,
     public navCtrl: NavController,
     public platform: Platform,
+    public alertController: AlertController
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl(
@@ -177,18 +178,27 @@ export class LoginPage implements OnInit {
             message = err.error.message;
           }
 
-          this.presentToast(message);
+          if(!err.error.isVerified) {
+            this.presentAlert(message);
+          } else {
+            this.presentToast(message);
+          }
         }
       );
-  }
-
-  loginAsGuest() {
-
   }
 
   doLogin1() {
     this.authService.setSignInManual();
     this.router.navigate(['app/home']);
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['Baik']
+    });
+
+    await alert.present();
   }
 
   async presentToast(message) {

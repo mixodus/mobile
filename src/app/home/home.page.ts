@@ -115,6 +115,7 @@ export class HomePage implements OnInit {
   data: any;
 
   checkSession() {
+    console.log('masuk check session home');
     const headers = new HttpHeaders({
       'X-Api-Key': this.globalService.getGlobalApiKey(),
       'X-Token': String(this.auth.token)
@@ -140,7 +141,10 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.numberOfNotification = 5;
     this.isset = false;
-    this.checkSession();
+    if (this.auth.token) {
+      this.checkSession();
+    }
+
     this.fetchData();
     this.fetchProfile();
     this.setUnreadNotification();
@@ -152,8 +156,11 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter(): void {
-    this.auth.checkExpiredToken();
-    this.auth.checkCompleteProfile();
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+      this.auth.checkCompleteProfile();
+    }
+
     this.subscribe = this.platform.backButton.subscribe(() => {
       this.presentAlertConfirm();
     });
@@ -172,7 +179,6 @@ export class HomePage implements OnInit {
     this.route.data.subscribe((resolvedState) => {
       resolvedState.news.state.subscribe(
         (data) => {
-          console.log('fetchData: ', data);
           this.newsList = data;
           this.filterData();
         },
@@ -186,7 +192,6 @@ export class HomePage implements OnInit {
       resolvedState.jobs.state.subscribe(
         (data) => {
           this.jobsPreviewHome = data.data[0];
-          console.log('jobsPreviewHome: ', this.jobsPreviewHome);
           this.filterData();
         },
         (err) => {
@@ -320,8 +325,6 @@ export class HomePage implements OnInit {
   }
 
   goToBannerDetail(bannerType: 'event' | 'challenge' | 'news', bannerTypeId: string) {
-    console.log(bannerType);
-    console.log(bannerTypeId);
     if (bannerType == 'event') {
       this.gotoDetailEvent(bannerTypeId);
     }
@@ -410,6 +413,7 @@ export class HomePage implements OnInit {
     profileDataStore.state.subscribe(
       (state) => {
         this.profile = state;
+        console.log('this.profile: ', this.profile);
         // get translations for this page to use in the Language Chooser Alert
         this.getTranslations();
 
@@ -425,6 +429,7 @@ export class HomePage implements OnInit {
   }
 
   refreshAuto() {
+    console.log('masuk refreshAuto');
     this.profile = null;
 
     this.route.data.subscribe(
@@ -433,7 +438,7 @@ export class HomePage implements OnInit {
           (state) => {
             this.profile = state;
 
-            console.log(this.profile.data);
+            console.log('this.profile.data: ', this.profile.data);
 
             let apiVersion = this.profile.data.info.api_version;
             this.globalService.maxFeeReferal = this.profile.data.info.max_fee_referral;

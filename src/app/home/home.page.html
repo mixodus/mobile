@@ -2,7 +2,7 @@
     <ion-toolbar>
         <div class="home-toolbar">
             <img class="logo-one" src="../../assets/images/icon.png">
-            <div class="home-toolbar-container-2">
+            <div class="home-toolbar-container-2" *ngIf="this.auth.token">
                 <div class="home-toolbar-container-2-1 ion-text-right">
                     <div class="text-level">Level</div>
                     <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
@@ -22,8 +22,8 @@
 </ion-header>
 
 <ion-content class="home-content">
-    <div class="proflie-container" [routerLink]="['/app/user']">
-        <div class="proflie-container-1">
+    <div class="profile-container" [routerLink]="['/app/user']" *ngIf="this.auth.token">
+        <div class="profile-container-1">
             <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
                              [src]="profile?.data?.user.profile_picture_url"
                              [alt]="profile?.data?.user.fullname" class="profile-image"
@@ -35,7 +35,7 @@
             >
             </app-image-shell>
         </div>
-        <div class="proflie-container-2">
+        <div class="profile-container-2">
             <div class="text-name">{{profile?.data?.user.fullname}}</div>
             <div class="text-position">{{profile?.data?.user.job_title}}</div>
         </div>

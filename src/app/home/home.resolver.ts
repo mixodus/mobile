@@ -8,7 +8,8 @@ import { HomeModel } from './home.model';
 @Injectable()
 export class HomeResolver implements Resolve<any> {
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService) {
+  }
 
   resolve() {
     const dataSource: Observable<HomeModel> = this.homeService.getProfileDataSource();

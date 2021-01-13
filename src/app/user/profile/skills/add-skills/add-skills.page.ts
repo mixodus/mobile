@@ -115,9 +115,10 @@ export class AddSkillsPage implements OnInit {
   addSkill() {
     const skill = this.skillForm.value.skill;
     if (this.selectedSkills.includes(skill)) {
-      return;
+      this.presentToast('Tidak dapat menambahkan keahlian yang sudah ada.');
+    } else {
+      this.selectedSkills.push(skill);
     }
-    this.selectedSkills.push(skill);
 
     this.skillForm.reset();
   }

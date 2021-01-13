@@ -9,13 +9,13 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="skill-content ion-margin">
+<ion-content class="skill-content">
 <!--    <ion-searchbar #sb class="skill-search-bar"-->
 <!--                   placeholder="Cari Keahlian" mode="ios" [debounce]="500"-->
 <!--                   [(ngModel)]="searchValue" (ionChange)="searchList($event)" animated autocomplete>-->
 <!--    </ion-searchbar>-->
-
-    <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
+    <div class="ion-margin">
+        <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
         <ion-input type="text" placeholder="Misal: Adobe Photoshop" formControlName="skill" clearInput class="text-input">
         </ion-input>
 
@@ -25,31 +25,32 @@
         >
             Tambahkan Keahlian
         </ion-button>
-    </form>
+        </form>
 
-    <ion-list class="skill-autocomplete" [hidden]="hideSuggestion">
-        <div *ngIf="isSkillShell" class="spinner-container">
-            <ion-spinner class="spinner">Loading</ion-spinner>
-            <div>Loading</div>
-        </div>
-        <div *ngIf="!isSkillShell">
-            <ion-item class="search-skill-item" *ngFor="let item of searchResult" (click)="selectItem(item)">
-                <app-text-shell [data]="item"></app-text-shell>
-            </ion-item>
-        </div>
-        <div *ngIf="searchResult.length <= 0" class="not-Found-text">
+        <ion-list class="skill-autocomplete" [hidden]="hideSuggestion">
+            <div *ngIf="isSkillShell" class="spinner-container">
+                <ion-spinner class="spinner">Loading</ion-spinner>
+                <div>Loading</div>
+            </div>
+            <div *ngIf="!isSkillShell">
+                <ion-item class="search-skill-item" *ngFor="let item of searchResult" (click)="selectItem(item)">
+                    <app-text-shell [data]="item"></app-text-shell>
+                </ion-item>
+            </div>
+            <div *ngIf="searchResult.length <= 0" class="not-Found-text">
                 Data tidak ditemukan.
+            </div>
+        </ion-list>
+        <div class="skill-list-text">Daftar Keahlian</div>
+        <div class="skill-selected">
+            <div *ngIf="selectedSkills.length == 0">
+                Mohon tambahkan keahlian.
+            </div>
+            <ion-chip class="skill-chip" outline color="primary" *ngFor="let skill of selectedSkills" (click)="removeItem(skill)">
+                <ion-label class="skill-label">{{skill}}</ion-label>
+                <ion-icon name="remove-circle"></ion-icon>
+            </ion-chip>
         </div>
-    </ion-list>
-    <div class="skill-list-text">Daftar Keahlian</div>
-    <div class="skill-selected">
-        <div *ngIf="selectedSkills.length == 0">
-            Mohon tambahkan keahlian.
-        </div>
-        <ion-chip class="skill-chip" outline color="primary" *ngFor="let skill of selectedSkills" (click)="removeItem(skill)">
-          <ion-label class="skill-label">{{skill}}</ion-label>
-          <ion-icon name="remove-circle"></ion-icon>
-        </ion-chip>
     </div>
 </ion-content>
 

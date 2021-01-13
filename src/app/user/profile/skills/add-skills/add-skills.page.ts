@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../../../app/services/auth/authentication.service';
 import { finalize } from 'rxjs/operators';
 import { LoadingController, ToastController, NavController } from '@ionic/angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-skills',
@@ -16,6 +17,7 @@ import { LoadingController, ToastController, NavController } from '@ionic/angula
 })
 export class AddSkillsPage implements OnInit {
 
+  skillForm: FormGroup;
   hideSuggestion = true;
   skillDataStore: DataStore<SkillModel>;
   searchValue: string;
@@ -38,6 +40,9 @@ export class AddSkillsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.skillForm = new FormGroup({
+      skill: new FormControl('', Validators.compose([]))
+    });
   }
 
   searchList(ev: any): void {
@@ -105,6 +110,16 @@ export class AddSkillsPage implements OnInit {
 
   showSuggestion() {
     this.hideSuggestion = false;
+  }
+
+  addSkill() {
+    const skill = this.skillForm.value.skill;
+    if (this.selectedSkills.includes(skill)) {
+      return;
+    }
+    this.selectedSkills.push(skill);
+
+    this.skillForm.reset();
   }
 
   selectItem(item: string) {

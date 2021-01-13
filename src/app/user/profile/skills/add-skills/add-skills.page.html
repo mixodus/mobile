@@ -9,11 +9,24 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="skill-content">
-    <ion-searchbar #sb class="skill-search-bar"
-                   placeholder="Cari Keahlian" mode="ios" [debounce]="500"
-                   [(ngModel)]="searchValue" (ionChange)="searchList($event)" animated autocomplete>
-    </ion-searchbar>
+<ion-content class="skill-content ion-margin">
+<!--    <ion-searchbar #sb class="skill-search-bar"-->
+<!--                   placeholder="Cari Keahlian" mode="ios" [debounce]="500"-->
+<!--                   [(ngModel)]="searchValue" (ionChange)="searchList($event)" animated autocomplete>-->
+<!--    </ion-searchbar>-->
+
+    <form [formGroup]="skillForm" (ngSubmit)="addSkill()">
+        <ion-input type="text" placeholder="Misal: Adobe Photoshop" formControlName="skill" clearInput class="text-input">
+        </ion-input>
+
+        <ion-button class="skill-add-button"
+                    type="submit"
+                    expand="block"
+        >
+            Tambahkan Keahlian
+        </ion-button>
+    </form>
+
     <ion-list class="skill-autocomplete" [hidden]="hideSuggestion">
         <div *ngIf="isSkillShell" class="spinner-container">
             <ion-spinner class="spinner">Loading</ion-spinner>
@@ -28,6 +41,7 @@
                 Data tidak ditemukan.
         </div>
     </ion-list>
+    <div class="skill-list-text">Daftar Keahlian</div>
     <div class="skill-selected">
         <div *ngIf="selectedSkills.length == 0">
             Mohon tambahkan keahlian.

@@ -10,15 +10,16 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher *ngIf="this.auth.token" slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher *ngIf="this.auth.token" slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
+                   pullMax="120">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
     <div *ngIf="!auth.token">
-        mohon login
+        <app-restricted-interface></app-restricted-interface>
     </div>
 
-    <div *ngIf="auth.token && profile?.isShell" class="spinner-container">
+    <div *ngIf="auth.token && profile.isShell" class="spinner-container">
         <ion-spinner class="spinner">Loading</ion-spinner>
         <div>Loading</div>
     </div>

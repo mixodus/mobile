@@ -6,20 +6,18 @@ import { DataStore } from '../../shell/data-store';
 import { UserProfileModel } from './user-profile.model';
 import { GlobalService } from '../../services/global.service';
 import { Storage } from '@ionic/storage';
-import { AuthenticationService } from '../../services/auth/authentication.service';
 @Injectable()
 export class UserProfileResolver implements Resolve<any> {
   token : String;
-  constructor(private userService: UserService, private globalService : GlobalService, private storage : Storage, private auth: AuthenticationService) {
+  constructor(private userService: UserService, private globalService : GlobalService, private storage : Storage) {
 
-    
+
   }
 
   resolve() {
-    if(this.auth.token) {
-      const dataSource: Observable<UserProfileModel> = this.userService.getProfileDataSource();
-      const dataStore: DataStore<UserProfileModel> = this.userService.getProfileStore(dataSource);
-      return dataStore;
-    }
+
+    const dataSource: Observable<UserProfileModel> = this.userService.getProfileDataSource();
+    const dataStore: DataStore<UserProfileModel> = this.userService.getProfileStore(dataSource);
+    return dataStore;
   }
 }

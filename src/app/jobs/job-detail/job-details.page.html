@@ -61,7 +61,7 @@
         </div>
 
         <div class="job-desc" *ngIf="toggleState === 0">
-            <h2 class="details-name" size="12">Job Description</h2>
+            <h2 class="details-name" size="12">Deskripsi Pekerjaan</h2>
 
             <div class="detail">
                 <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
@@ -74,7 +74,7 @@
             ></div>
         </div>
         <div class="job-req" *ngIf="toggleState === 1">
-            <h2 class="details-name" size="12">Requirements</h2>
+            <h2 class="details-name" size="12">Persyaratan</h2>
             <div class="detail">
                 <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
             </div>
@@ -88,7 +88,7 @@
     </div>
 </ion-content>
 
-<ion-footer class="apply-btn-container">
+<ion-footer class="apply-btn-container" *ngIf="auth.token">
     <ion-button
             class="apply-btn"
             type="button"

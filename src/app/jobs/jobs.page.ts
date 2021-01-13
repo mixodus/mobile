@@ -105,7 +105,9 @@ export class JobsPage implements OnInit {
   ionViewWillEnter(): void {
     this.refresher.disabled = false;
 
-    this.auth.checkExpiredToken();
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+    }
 
     // create new destroyer
     this.destroySubscription = new Subject<any>();

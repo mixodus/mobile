@@ -121,7 +121,7 @@ const routes: Routes = [
     path: 'app/notifications',
     loadChildren: () =>
       import('./notifications/notifications.module').then((m) => m.NotificationsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/user/redeem-points',
@@ -325,7 +325,7 @@ const routes: Routes = [
     path: 'app/jobs/job-detail/:id',
     loadChildren: () =>
       import('./jobs/job-detail/job-details.module').then((m) => m.JobDetailsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/jobs/easy-apply',

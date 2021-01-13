@@ -138,7 +138,7 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    if(this.auth.token){
+    if (this.auth.token) {
       this.auth.checkExpiredToken();
       this.subscribe = this.platform.backButton.subscribe(() => {
         this.router.navigateByUrl('app/home');
@@ -150,8 +150,10 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewDidLeave() {
-    this.subscribe.unsubscribe();
-    this.connectSubscription.unsubscribe();
+    if (this.auth.token) {
+      this.subscribe.unsubscribe();
+      this.connectSubscription.unsubscribe();
+    }
   }
 
   gotoReferralPage() {

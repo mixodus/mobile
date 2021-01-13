@@ -91,7 +91,9 @@ export class EasyApplyPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.auth.checkExpiredToken();
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+    }
     // this.testAlert();
   }
 

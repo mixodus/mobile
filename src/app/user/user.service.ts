@@ -20,18 +20,22 @@ export class UserService {
   }
 
   getProfileDataSource(): Observable<UserProfileModel> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
-    });
-    const options = { headers: headers };
+    if (this.auth.token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      });
+      const options = { headers: headers };
 
-    const profileEndpoint =
-      this.globalService.apiUrl +
-      'api/profile';
+      const profileEndpoint =
+        this.globalService.apiUrl +
+        'api/profile';
 
-    return this.http.get<UserProfileModel>(profileEndpoint, options);
+      return this.http.get<UserProfileModel>(profileEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   public getProfileStore(dataSource: Observable<UserProfileModel>, refresh: boolean = false): DataStore<UserProfileModel> {

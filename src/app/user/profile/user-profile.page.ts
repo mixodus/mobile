@@ -138,13 +138,15 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    this.auth.checkExpiredToken();
-    this.subscribe = this.platform.backButton.subscribe(() => {
-      this.router.navigateByUrl('app/home');
-    });
-    this.connectSubscription = this.network.onConnect().subscribe(() => {
-    });
-    this.auth.checkExpiredToken();
+    if(this.auth.token){
+      this.auth.checkExpiredToken();
+      this.subscribe = this.platform.backButton.subscribe(() => {
+        this.router.navigateByUrl('app/home');
+      });
+      this.connectSubscription = this.network.onConnect().subscribe(() => {
+      });
+      this.auth.checkExpiredToken();
+    }
   }
 
   ionViewDidLeave() {

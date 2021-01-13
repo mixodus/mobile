@@ -21,18 +21,22 @@ export class NotificationsService {
 
 
   public getData(): Observable<any> {
-    const headers = new HttpHeaders({
-      'X-Api-Key': this._globalService.getGlobalApiKey(),
-      'X-Token': String(this._auth.token)
-    });
+    if (this._auth.token) {
+      const headers = new HttpHeaders({
+        'X-Api-Key': this._globalService.getGlobalApiKey(),
+        'X-Token': String(this._auth.token)
+      });
 
-    const options = { headers: headers };
+      const options = { headers: headers };
 
-    const notifUpdateReadEndpoint =
-      this._globalService.apiUrl +
-      'api/notif';
+      const notifUpdateReadEndpoint =
+        this._globalService.apiUrl +
+        'api/notif';
 
-    return this._http.get<NotificationResponse>(notifUpdateReadEndpoint, options);
+      return this._http.get<NotificationResponse>(notifUpdateReadEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   getDataStore(refresh: boolean = false) {
@@ -47,17 +51,21 @@ export class NotificationsService {
   }
 
   getNewNotifications() {
-    const headers = new HttpHeaders({
-      'X-Api-Key': this._globalService.getGlobalApiKey(),
-      'X-Token': String(this._auth.token)
-    });
+    if (this._auth.token) {
+      const headers = new HttpHeaders({
+        'X-Api-Key': this._globalService.getGlobalApiKey(),
+        'X-Token': String(this._auth.token)
+      });
 
-    const options = { headers: headers };
+      const options = { headers: headers };
 
-    const newNotifEndpoint =
-      this._globalService.apiUrl +
-      'api/notif/new_notif';
+      const newNotifEndpoint =
+        this._globalService.apiUrl +
+        'api/notif/new_notif';
 
-    return this._http.get(newNotifEndpoint, options);
+      return this._http.get(newNotifEndpoint, options);
+    } else {
+      return null;
+    }
   }
 }

@@ -10,7 +10,12 @@
 </ion-header>
 
 <ion-content class="notification-content">
-    <div *ngIf="!notif?.isShell && countData > 0">
+    <div *ngIf="!_auth.token">
+        <app-restricted-interface></app-restricted-interface>
+    </div>
+
+
+    <div *ngIf="_auth.token && !notif?.isShell && countData > 0">
         <div class="notification-container" *ngFor="let notification of notifToday"
              (click)="goTo(notification.notif_type_id, notification.notif_detail_id, notification.notif_id)">
             <div class="notification-container-1">
@@ -66,7 +71,7 @@
         </ion-infinite-scroll>
     </div>
 
-    <ng-container *ngIf="!notif?.isShell && countData == 0">
+    <ng-container *ngIf="_auth.token && !notif?.isShell && countData == 0">
         <div class="no-data">
             <img src="../../assets/new-assets/ilustrasi_notif.png" class="bell">
             <div>

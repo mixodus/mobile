@@ -85,6 +85,7 @@ export class EditPage implements OnInit {
     this.editProfileForm = new FormGroup({
       profile_picture: new FormControl(''),
       profile_picture_url: new FormControl(''),
+      email: new FormControl('', Validators.compose([])),
       fullname: new FormControl('', Validators.compose([
         Validators.required,
       ])),
@@ -125,6 +126,7 @@ export class EditPage implements OnInit {
     });
     this.editProfileForm.controls['profile_picture'].setValue(this.profile.profile_picture);
     this.editProfileForm.controls['profile_picture_url'].setValue(this.profile.profile_picture_url);
+    this.editProfileForm.controls['email'].setValue(this.profile.email);
     this.editProfileForm.controls['fullname'].setValue(this.profile.fullname);
     this.editProfileForm.controls['job_title'].setValue(this.profile.job_title);
     this.editProfileForm.controls['summary'].setValue(this.profile.summary);

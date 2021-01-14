@@ -178,8 +178,9 @@ export class LoginPage implements OnInit {
             message = err.error.message;
           }
 
-          if(!err.error.isVerified) {
-            this.presentAlert(message);
+          if (err.error.isVerified === false) {
+            this.presentAlert();
+            console.log('masuk present alert email verified');
           } else {
             this.presentToast(message);
           }
@@ -192,13 +193,67 @@ export class LoginPage implements OnInit {
     this.router.navigate(['app/home']);
   }
 
-  async presentAlert(message) {
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      message: 'Email Anda belum terverifikasi, apakah Anda ingin dikirimkan link verifikasi? ',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel'
+        }, {
+          text: 'Ya',
+          handler: () => {
+            this.sendEmailVerificationLink();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertNotif(message) {
     const alert = await this.alertController.create({
       message: message,
       buttons: ['Baik']
     });
 
     await alert.present();
+  }
+
+  async sendEmailVerificationLink() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    const rawBody = {
+      'email':  this.loginForm.value.email
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey()
+    });
+    const options = { headers: headers };
+
+    const url = this.globalService.getApiUrl() + 'api/user/request-verify';
+    this.http.post(url, rawBody, options).pipe(
+      finalize(() => loading.dismiss())
+    )
+      .subscribe(data => {
+        console.log('data: ', data['message']);
+        // this.presentToast(data['message']);
+        this.presentAlertNotif(data['message']);
+      }, err => {
+
+        let message = '';
+        if (err.error.message === undefined) {
+          message = 'Permasalahan jaringan, mohon coba lagi.';
+        } else {
+          message = err.error.message;
+        }
+
+        this.presentToast(message);
+      });
   }
 
   async presentToast(message) {

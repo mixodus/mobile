@@ -213,8 +213,8 @@ export class RegisterPage implements OnInit, IPage {
           (data) => {
             this.openModal(
               'Selamat!',
-              'Kamu berhasil mendaftar.',
-              'Mari mulai perjalanan Anda!',
+              'Akunmu berhasil terdaftar.',
+              'Silahkan verifikasi emailmu untuk masuk.',
             );
           },
           (err) => {

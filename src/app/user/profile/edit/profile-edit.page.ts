@@ -367,7 +367,11 @@ export class EditPage implements OnInit {
     )
       .subscribe(data => {
         console.log(this.profile);
-        this.presentToast(data['message']);
+        if (data['isEmailChanged']) {
+          this.presentAlert(data['message']);
+        } else {
+          this.presentToast(data['message']);
+        }
         this.globalService.refreshFlag.home = true;
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
@@ -384,6 +388,15 @@ export class EditPage implements OnInit {
         this.presentToast(message);
       });
 
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertCtrl.create({
+      message: message,
+      buttons: ['Baik']
+    });
+
+    await alert.present();
   }
 
   async presentToast(message) {

@@ -88,19 +88,23 @@ export class EventsService {
   }
 
   getSingle(id: string) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this._globalService.getGlobalApiKey(),
-      'X-Token': `${this._auth.token}`
-    });
+    if (this._auth.token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this._globalService.getGlobalApiKey(),
+        'X-Token': `${this._auth.token}`
+      });
 
-    const options = { headers: headers };
+      const options = { headers: headers };
 
-    const detailEventEndpoint =
-      this._globalService.apiUrl +
-      'api/event/detail/' + id;
+      const detailEventEndpoint =
+        this._globalService.apiUrl +
+        'api/event/detail/' + id;
 
-    return this._http.get<EventsResponse>(detailEventEndpoint, options);
+      return this._http.get<EventsResponse>(detailEventEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   register(data: any) {

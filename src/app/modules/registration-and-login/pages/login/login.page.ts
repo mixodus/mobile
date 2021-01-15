@@ -162,7 +162,7 @@ export class LoginPage implements OnInit {
         (err) => {
           let message = '';
           if (err.error.message === undefined) {
-            message = 'Network problem, please try again !';
+            message = 'Permasalahan jaringan, mohon coba lagi.';
           } else if (
             this.loginForm.get('email').hasError('required') &&
             this.loginForm.get('password').hasError('required')

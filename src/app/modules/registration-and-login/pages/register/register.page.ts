@@ -130,7 +130,6 @@ export class RegisterPage implements OnInit, IPage {
   }
 
   isFormValid() {
-    console.log('this.isPasswordAlphanumeric(): ', this.isPasswordAlphanumeric());
     return this.registerForm.valid && this.isPasswordMatch() && this.isPasswordAlphanumeric() && this.isPolicyTermsChecked;
   }
 

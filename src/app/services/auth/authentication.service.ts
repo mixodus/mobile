@@ -77,7 +77,6 @@ export class AuthenticationService {
     let now = dayjs();
     localStorage.setItem(this.globalService.getParamLoginTime(), now.format());
     localStorage.setItem(this.globalService.getParamExpirationTime(), user.expiration.second);
-    console.log(dataUser.data);
     return of(user);
   }
 
@@ -103,7 +102,6 @@ export class AuthenticationService {
     this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         //process the json data
-        console.log(response);
       },
       (error) => {
         // console.log("error di check session");

@@ -173,7 +173,7 @@ const routes: Routes = [
   {
     path: 'app/user/referral',
     loadChildren: () => import('./referral/referral.module').then((m) => m.ReferralPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/user/work-experiences',

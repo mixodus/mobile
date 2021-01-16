@@ -12,79 +12,45 @@
 </ion-header>
 
 <ion-content class="event-content">
-    <div *ngIf="!auth.token">
-        <app-restricted-interface></app-restricted-interface>
-    </div>
+    <ion-row class="image-row">
+        <ion-col size="12" *ngIf="eventDetail?.isShell">
+            <app-aspect-ratio>
+                <app-image-shell animation="gradient"></app-image-shell>
+            </app-aspect-ratio>
+        </ion-col>
+        <ion-col size="12" *ngIf="!eventDetail?.isShell">
+            <div class="image-container" *ngIf="getImage() !== '' ">
+                <img [src]="getImage()" [alt]="eventDetail?.data[0]?.event_title" class="image"/>
+            </div>
+        </ion-col>
+    </ion-row>
 
-    <div *ngIf="auth.token">
-        <ion-row class="image-row">
-            <ion-col size="12" *ngIf="eventDetail?.isShell">
-                <app-aspect-ratio>
-                    <app-image-shell animation="gradient"></app-image-shell>
-                </app-aspect-ratio>
-            </ion-col>
-            <ion-col size="12" *ngIf="!eventDetail?.isShell">
-                <div class="image-container" *ngIf="getImage() !== '' ">
-                    <img [src]="getImage()" [alt]="eventDetail?.data[0]?.event_title" class="image"/>
-                </div>
-            </ion-col>
-        </ion-row>
+    <!-- DEFAULT -->
+    <div class="event-sub-content" *ngIf="!eventDetail?.data[0]?.event_registered; else registered">
+        <ng-container *ngIf="eventDetail?.isShell">
+            <div class="box1">
+                <ion-row class="time-and-type">
+                    <ion-col class="time" size="8">
+                        <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
+                    </ion-col>
+                    <ion-col class="type" size="4">
+                        <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
+                    </ion-col>
+                </ion-row>
 
-        <!-- DEFAULT -->
-        <div class="event-sub-content" *ngIf="!eventDetail?.data[0]?.event_registered; else registered">
-            <ng-container *ngIf="eventDetail?.isShell">
-                <div class="box1">
-                    <ion-row class="time-and-type">
-                        <ion-col class="time" size="8">
-                            <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
-                        </ion-col>
-                        <ion-col class="type" size="4">
-                            <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
-                        </ion-col>
-                    </ion-row>
+                <ion-row class="description-row">
+                    <ion-col size="12">
+                        <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
+                    </ion-col>
+                    <ion-col size="12" class="details-description">
+                        <app-image-shell animation="gradient" style="height: 200px;"></app-image-shell>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </ng-container>
 
-                    <ion-row class="description-row">
-                        <ion-col size="12">
-                            <app-image-shell animation="gradient" style="height: 20px;"></app-image-shell>
-                        </ion-col>
-                        <ion-col size="12" class="details-description">
-                            <app-image-shell animation="gradient" style="height: 200px;"></app-image-shell>
-                        </ion-col>
-                    </ion-row>
-                </div>
-            </ng-container>
-
-            <ng-container *ngIf="!eventDetail?.isShell">
-                <div class="event-subcontent-2">
-                    <div class="event-title">
-                        {{ eventDetail?.data[0]?.event_title }}
-                    </div>
-
-                    <div class="fill fill--{{ getEventType(eventDetail?.data[0]?.event_type_id) }}">
-                        {{ getEventType(eventDetail?.data[0]?.event_type_id) }}
-                    </div>
-
-                    <div class="expired-at-container">
-                        <div class="expired-at-title">Berakhir dalam</div>
-                        <div class="expired-at-content">{{ getDate(eventDetail?.data[0]?.event_date) | date: 'MMM d, yyyy' }}</div>
-                    </div>
-
-                    <div class="description-container">
-                        <div class="description-title">Deskripsi</div>
-                        <div class="text-description" [innerHTML]=" eventDetail?.data[0]?.event_note"></div>
-                    </div>
-
-                    <div class="button-container" *ngIf="eventDetail?.data[0]?.event_joinable">
-                        <ion-button class="apply-btn" type="submit" expand="block" (click)="confirm()">
-                            Ikuti {{ getEventType(eventDetail?.data[0]?.event_type_id) }}</ion-button>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
-
-        <!-- REGISTERED -->
-        <ng-template #registered>
-            <div class="registered-container">
+        <ng-container *ngIf="!eventDetail?.isShell">
+            <div class="event-subcontent-2">
                 <div class="event-title">
                     {{ eventDetail?.data[0]?.event_title }}
                 </div>
@@ -93,28 +59,56 @@
                     {{ getEventType(eventDetail?.data[0]?.event_type_id) }}
                 </div>
 
-                <div class="detail-title">Berakhir</div>
-                <div class="detail">{{ getDate(eventDetail?.data[0]?.event_date) | date: 'MMM d, yyyy' }}</div>
-
-
-                <div class="detail-title">Status</div>
-                <div *ngIf="eventDetail?.data[0]?.status === false; else approved">
-                    <div class="detail">
-                        Menunggu Disetujui
-                    </div>
+                <div class="expired-at-container">
+                    <div class="expired-at-title">Berakhir dalam</div>
+                    <div class="expired-at-content">{{ getDate(eventDetail?.data[0]?.event_date) | date: 'MMM d, yyyy' }}</div>
                 </div>
-                <ng-template #approved>
-                    <div class="detail">
-                        Disetujui
-                    </div>
-                </ng-template>
 
-                <div class="detail-title">Deskripsi</div>
-                <div class="detail">
-                    <div [innerHTML]=" eventDetail?.data[0]?.event_note"></div>
+                <div class="description-container">
+                    <div class="description-title">Deskripsi</div>
+                    <div class="text-description" [innerHTML]=" eventDetail?.data[0]?.event_note"></div>
+                </div>
+
+                <div class="button-container" *ngIf="eventDetail?.data[0]?.event_joinable && auth.token">
+                    <ion-button class="apply-btn" type="submit" expand="block" (click)="confirm()">
+                        Ikuti {{ getEventType(eventDetail?.data[0]?.event_type_id) }}</ion-button>
                 </div>
             </div>
-        </ng-template>
+        </ng-container>
     </div>
+
+    <!-- REGISTERED -->
+    <ng-template #registered>
+        <div class="registered-container">
+            <div class="event-title">
+                {{ eventDetail?.data[0]?.event_title }}
+            </div>
+
+            <div class="fill fill--{{ getEventType(eventDetail?.data[0]?.event_type_id) }}">
+                {{ getEventType(eventDetail?.data[0]?.event_type_id) }}
+            </div>
+
+            <div class="detail-title">Berakhir</div>
+            <div class="detail">{{ getDate(eventDetail?.data[0]?.event_date) | date: 'MMM d, yyyy' }}</div>
+
+
+            <div class="detail-title">Status</div>
+            <div *ngIf="eventDetail?.data[0]?.status === false; else approved">
+                <div class="detail">
+                    Menunggu Disetujui
+                </div>
+            </div>
+            <ng-template #approved>
+                <div class="detail">
+                    Disetujui
+                </div>
+            </ng-template>
+
+            <div class="detail-title">Deskripsi</div>
+            <div class="detail">
+                <div [innerHTML]=" eventDetail?.data[0]?.event_note"></div>
+            </div>
+        </div>
+    </ng-template>
 
 </ion-content>

@@ -7,6 +7,7 @@ import { LevelService } from './level.service';
 import { DataStore } from '../shell/data-store';
 import { IonRefresher, NavController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'app-level',
@@ -36,7 +37,8 @@ export class LevelPage implements OnInit {
     private network: Network,
     private levelService: LevelService,
     private navCtrl: NavController,
-    private location: Location
+    private location: Location,
+    private auth: AuthenticationService
   ) {
   }
 

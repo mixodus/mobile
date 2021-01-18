@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth/auth-guard.service';
-import { DataResolverService } from './services/data/data-resolver.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>

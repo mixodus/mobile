@@ -42,13 +42,20 @@ ion-slides {
 }
 
 .banner-image {
-  position: relative;
+  //position: relative;
+  //width: 80vw;
+  //padding-top: 60%;
+  //background-position: center;
+  //background-repeat: no-repeat;
+  //background-size: cover;
+  //border-radius: 5px;
   width: 80vw;
-  padding-top: 60%;
-  background-position: center;
-  background-repeat: no-repeat;
+  padding-top: 63%;
   background-size: cover;
-  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  background-color: #ececec;
 }
 
 .user-profile-container {

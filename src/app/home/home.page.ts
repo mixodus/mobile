@@ -128,7 +128,7 @@ export class HomePage implements OnInit {
 
     this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
-        //process the json data
+        // process the json data
         console.log(response);
       },
       (error) => {

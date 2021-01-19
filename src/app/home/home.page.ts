@@ -144,7 +144,7 @@ export class HomePage implements OnInit {
       this.checkSession();
     }
 
-    this.fetchData();
+    // this.fetchData();
     this.fetchProfile();
     this.setUnreadNotification();
   }
@@ -234,7 +234,7 @@ export class HomePage implements OnInit {
   }
 
   countLength(data: String) {
-    var length = 0;
+    let length = 0;
     while (data[length] !== undefined) {
       length++;
     }

@@ -100,7 +100,6 @@ export class HomePage implements OnInit {
   mainBannerOpts = {
     initialSlide: 0,
     speed: 500,
-    // loopAdditionalSlides: 1,
     autoplay: {
       delay: 4000,
       disableOnInteraction: false,
@@ -148,11 +147,6 @@ export class HomePage implements OnInit {
     this.fetchData();
     this.fetchProfile();
     this.setUnreadNotification();
-
-    // this.refreshAuto();
-    // setTimeout(() => {
-    //   this.refreshAuto();
-    // }, 1000);
   }
 
   ionViewDidEnter(): void {
@@ -171,8 +165,6 @@ export class HomePage implements OnInit {
     this.refreshAuto();
     this.fetchData();
 
-    // console.log(this.profile.data.friend_list.data);
-    // console.log(this.profile.data.friend_request.data);
   }
 
   fetchData() {
@@ -413,7 +405,6 @@ export class HomePage implements OnInit {
     profileDataStore.state.subscribe(
       (state) => {
         this.profile = state;
-        console.log('this.profile: ', this.profile);
         // get translations for this page to use in the Language Chooser Alert
         this.getTranslations();
 
@@ -437,9 +428,7 @@ export class HomePage implements OnInit {
         resolvedRouteData.data.state.subscribe(
           (state) => {
             this.profile = state;
-
-            console.log('this.profile.data: ', this.profile.data);
-
+            console.log('this.profile banner: ', this.profile.data.banner);
             let apiVersion = this.profile.data.info.api_version;
             this.globalService.maxFeeReferal = this.profile.data.info.max_fee_referral;
 

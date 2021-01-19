@@ -18,10 +18,10 @@ import { LanguageService } from '../../language/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { GlobalService } from '../../services/global.service';
-import { take, map, finalize } from 'rxjs/operators';
+import { take, map, finalize, takeUntil } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DataStore } from '../../../app/shell/data-store';
 import { UserService } from '../user.service';
 import { PickerController } from '@ionic/angular';
@@ -31,6 +31,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { PopoverPage } from '../../popover/popover.page';
 import { LevelModel } from '../../level/level.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LevelService } from '../../level/level.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -78,6 +79,7 @@ export class UserProfilePage implements OnInit {
     private storage: Storage,
     private router: Router,
     private userService: UserService,
+    private levelService: LevelService,
     private toast: ToastController,
     private platform: Platform,
     private network: Network,
@@ -89,8 +91,10 @@ export class UserProfilePage implements OnInit {
   }
 
   initLoad() {
+    console.log('init load');
     this.route.data.subscribe(
       (resolvedRouteData) => {
+        console.log('init load subscribe');
         const profileDataStore = resolvedRouteData['dataUser'];
 
         profileDataStore.state.subscribe(
@@ -138,6 +142,8 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewWillEnter(): void {
+    console.log('ioviewwillenter');
+
     if (this.auth.token) {
       this.auth.checkExpiredToken();
       this.subscribe = this.platform.backButton.subscribe(() => {
@@ -147,6 +153,48 @@ export class UserProfilePage implements OnInit {
       });
       this.auth.checkExpiredToken();
     }
+    this.initLoad2();
+    this.initLoad3();
+  }
+
+  initLoad2() {
+    const dataSource: Observable<UserProfileModel> = this.userService.getProfileDataSource();
+    const profileDataStore: DataStore<UserProfileModel> = this.userService.getProfileStore(
+      dataSource,
+      true
+    );
+    profileDataStore.state.subscribe(
+      (state) => {
+        console.log('state: ', state);
+        this.profile = state;
+        // console.log(this.profile.profile_picture);
+        if (this.profile.profile_picture == undefined) {
+          this.profile.profile_picture = 'assets/sample-images/user/default-profile.svg';
+        }
+        if (this.profile.skill_text !== '') {
+          this.skills = this.profile.skill_text.split(',');
+        } else {
+          this.skills = [];
+        }
+      },
+      (error) => {
+      }
+    );
+  }
+
+  initLoad3() {
+    const dataSource = this.levelService.getLevelDataSource();
+    const dataStore = this.levelService.getLevelStore(dataSource, true);
+
+    dataStore.state.subscribe(
+      (state) => {
+        this.levels = state;
+        this.currentProgress = Number(this.levels.user.points) / Number(this.levels.current_level.level_max_point) * 100;
+        this.toNextLevel = Number(this.levels.current_level.level_max_point) - Number(this.levels.user.points);
+      },
+      (error) => {
+      }
+    );
   }
 
   ionViewDidLeave() {

@@ -142,8 +142,6 @@ export class UserProfilePage implements OnInit {
   }
 
   ionViewWillEnter(): void {
-    console.log('ioviewwillenter');
-
     if (this.auth.token) {
       this.auth.checkExpiredToken();
       this.subscribe = this.platform.backButton.subscribe(() => {
@@ -152,12 +150,19 @@ export class UserProfilePage implements OnInit {
       this.connectSubscription = this.network.onConnect().subscribe(() => {
       });
       this.auth.checkExpiredToken();
+
+      if (!this.globalService.isInitialLoadDone.profile) {
+        this.initLoadProfile();
+        this.globalService.setProfileLoadStatus(true);
+      }
+      if (!this.globalService.isInitialLoadDone.level) {
+        this.initLoadLevel();
+        this.globalService.setLevelLoadStatus(true);
+      }
     }
-    this.initLoad2();
-    this.initLoad3();
   }
 
-  initLoad2() {
+  initLoadProfile() {
     const dataSource: Observable<UserProfileModel> = this.userService.getProfileDataSource();
     const profileDataStore: DataStore<UserProfileModel> = this.userService.getProfileStore(
       dataSource,
@@ -168,7 +173,7 @@ export class UserProfilePage implements OnInit {
         console.log('state: ', state);
         this.profile = state;
         // console.log(this.profile.profile_picture);
-        if (this.profile.profile_picture == undefined) {
+        if (this.profile.profile_picture === undefined) {
           this.profile.profile_picture = 'assets/sample-images/user/default-profile.svg';
         }
         if (this.profile.skill_text !== '') {
@@ -182,7 +187,7 @@ export class UserProfilePage implements OnInit {
     );
   }
 
-  initLoad3() {
+  initLoadLevel() {
     const dataSource = this.levelService.getLevelDataSource();
     const dataStore = this.levelService.getLevelStore(dataSource, true);
 
@@ -204,60 +209,8 @@ export class UserProfilePage implements OnInit {
     }
   }
 
-  gotoReferralPage() {
-    this.router.navigate(['referral']);
-  }
-
   ngOnInit(): void {
-    console.log('init loaded');
     this.initLoad();
-  }
-
-  convertDate(date: string): string {
-    if (date === '') {
-      return 'No date';
-    } else {
-      const date_format = new Date(date);
-      return date_format.toLocaleString('default', { month: 'short', year: 'numeric' });
-    }
-  }
-
-  async openPopover(ev: Event) {
-    const popover = await this.popoverCtrl.create({
-      component: PopoverPage,
-      componentProps: { homeRef: this },
-      event: ev,
-    });
-    popover.present();
-  }
-
-  async verifyEmail() {
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
-    });
-    const options = { headers: headers };
-
-    const body = {};
-
-    const verifyEmailEndpoint =
-      this.globalService.apiUrl +
-      'api/user/verify-email';
-
-    this.http.get(verifyEmailEndpoint, options).pipe(
-      finalize(() => this.loadingCtrl.dismiss())
-    ).subscribe((data: any) => {
-        this.presenAlertVerifyEmail(data.message);
-        // this.presentToast(data.message);
-      }, (err) => {
-        this.presenAlertVerifyEmail(err.message);
-        // this.presentToast(err.message);
-      }
-    );
   }
 
   async presenAlertVerifyEmail(message) {
@@ -275,18 +228,6 @@ export class UserProfilePage implements OnInit {
       },
     };
     this.navCtrl.navigateForward(['/app/user/edit'], navigationExtras);
-  }
-
-  friendReqList() {
-    this.navCtrl.navigateForward('app/user/friend-request');
-  }
-
-  friendList() {
-    this.navCtrl.navigateForward('app/user/friend-list');
-  }
-
-  navigateTo() {
-    this.router.navigateByUrl('app/user/accounts');
   }
 
   getTranslations() {
@@ -356,6 +297,9 @@ export class UserProfilePage implements OnInit {
       (error) => {
       }
     );
+
+    this.initLoadLevel();
+
     ev.target.complete();
   }
 

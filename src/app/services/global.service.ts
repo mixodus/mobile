@@ -39,7 +39,13 @@ export class GlobalService {
   };
   restrictedBackUrl = '';
   previousPage = '';
-  constructor() {}
+  isInitialLoadDone = {
+    profile: false,
+    level: false
+  };
+
+  constructor() {
+  }
 
   setBackRestrictedUrl(url) {
     this.restrictedBackUrl = url;
@@ -71,7 +77,7 @@ export class GlobalService {
   }
 
   map = {
-    "'": '&apos;',
+    '\'': '&apos;',
     '<': '&lt;',
     '>': '&gt;',
     ' ': '&nbsp;',
@@ -371,4 +377,12 @@ export class GlobalService {
       name: 'Indonesia',
     },
   ];
+
+  setProfileLoadStatus(status: boolean) {
+    this.isInitialLoadDone.profile = status;
+  }
+
+  setLevelLoadStatus(status: boolean) {
+    this.isInitialLoadDone.profile = status;
+  }
 }

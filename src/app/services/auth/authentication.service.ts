@@ -147,6 +147,8 @@ export class AuthenticationService {
     this.token = null;
     // localStorage.removeItem(this)
     this.router.navigate(['auth/login']);
+    this.globalService.setProfileLoadStatus(false);
+    this.globalService.setLevelLoadStatus(false);
   }
 
   checkCompleteProfile() {

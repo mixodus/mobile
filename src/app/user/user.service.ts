@@ -20,6 +20,7 @@ export class UserService {
   }
 
   getProfileDataSource(): Observable<UserProfileModel> {
+    if (this.auth.token) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'X-Api-Key': this.globalService.getGlobalApiKey(),
@@ -32,6 +33,9 @@ export class UserService {
         'api/profile';
 
       return this.http.get<UserProfileModel>(profileEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   public getProfileStore(dataSource: Observable<UserProfileModel>, refresh: boolean = false): DataStore<UserProfileModel> {

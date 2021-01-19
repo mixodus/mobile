@@ -28,6 +28,10 @@ export class LevelPage implements OnInit {
     this.refresher.disabled = false;
   }
 
+  ionViewWillEnter(): void {
+    this.loadLevelData();
+  }
+
   ionViewWillLeave() {
     this.refresher.disabled = true;
   }
@@ -58,6 +62,20 @@ export class LevelPage implements OnInit {
       },
       (error) => {
       });
+  }
+
+  loadLevelData() {
+    const dataSource: Observable<LevelModel> = this.levelService.getLevelDataSource();
+    const profileDataStore: DataStore<LevelModel> = this.levelService.getLevelStore(dataSource, true);
+    profileDataStore.state.subscribe(
+      (state) => {
+        this.levels = state;
+        this.currentProgress = this.levels.user.points / this.levels.current_level.level_max_point * 100;
+        this.toNextLevel = this.levels.current_level.level_max_point - this.levels.user.points;
+      },
+      (error) => {
+      }
+    );
   }
 
   doRefresh(ev) {

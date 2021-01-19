@@ -1,36 +1,25 @@
-import {
-  Component,
-  OnInit,
-  HostBinding,
-  ViewChild,
-  ɵCompiler_compileModuleSync__POST_R3__,
-} from '@angular/core';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Component, HostBinding, OnInit, } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserProfileModel } from '../profile/user-profile.model';
 import {
   AlertController,
+  LoadingController,
   NavController,
-  ToastController,
+  PickerController,
   Platform,
-  PopoverController, LoadingController,
+  PopoverController,
+  ToastController,
 } from '@ionic/angular';
 import { LanguageService } from '../../language/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { GlobalService } from '../../services/global.service';
-import { take, map, finalize, takeUntil } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataStore } from '../../../app/shell/data-store';
 import { UserService } from '../user.service';
-import { PickerController } from '@ionic/angular';
-
-// import { NetworkServiceProviderService } from '../../network-service-provider.service';
 import { Network } from '@ionic-native/network/ngx';
-import { PopoverPage } from '../../popover/popover.page';
 import { LevelModel } from '../../level/level.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LevelService } from '../../level/level.service';
 
 @Component({
@@ -47,10 +36,6 @@ export class UserProfilePage implements OnInit {
   profile: UserProfileModel;
   setValue: any = 0;
   setText: any = 'Jan';
-  month: { text: string; value: number };
-  experienceImage = './assets/images/building.png';
-  educationImg = './assets/images/graduation-hat.png';
-  projectImg = './assets/images/project.png';
   profileImg = './assets/sample-images/user/default-profile.svg';
   skills: Array<string> = [];
 
@@ -69,7 +54,6 @@ export class UserProfilePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    // private netService : NetworkServiceProviderService,
     private navCtrl: NavController,
     public translate: TranslateService,
     public languageService: LanguageService,
@@ -83,31 +67,22 @@ export class UserProfilePage implements OnInit {
     private toast: ToastController,
     private platform: Platform,
     private network: Network,
-    private pickerController: PickerController,
-    private popoverCtrl: PopoverController,
-    private loadingCtrl: LoadingController,
-    private http: HttpClient,
   ) {
   }
 
   initLoad() {
-    console.log('init load');
     this.route.data.subscribe(
       (resolvedRouteData) => {
-        console.log('init load subscribe');
         const profileDataStore = resolvedRouteData['dataUser'];
 
         profileDataStore.state.subscribe(
           (state) => {
             this.profile = state;
-            console.log('this.profile: ', this.profile);
             if (this.profile.profile_picture === undefined) {
               this.profile.profile_picture = 'assets/sample-images/user/default-profile.svg';
             }
             if (this.profile.skill_text !== '') {
-              console.log('this.profile.skill_text: ', this.profile.skill_text);
               this.skills = this.profile.skill_text.split(',');
-              console.log('skills: ', this.skills);
             } else {
               this.skills = [];
             }
@@ -213,14 +188,6 @@ export class UserProfilePage implements OnInit {
     this.initLoad();
   }
 
-  async presenAlertVerifyEmail(message) {
-    const alert = await this.alertController.create({
-      message: message,
-      buttons: ['Tutup']
-    });
-    await alert.present();
-  }
-
   editProfile() {
     const navigationExtras: NavigationExtras = {
       state: {
@@ -235,40 +202,6 @@ export class UserProfilePage implements OnInit {
     this.translate.getTranslation(this.translate.currentLang).subscribe((translations) => {
       this.translations = translations;
     });
-  }
-
-  async openLanguageChooser() {
-    this.available_languages = this.languageService.getLanguages().map((item) => ({
-      name: item.name,
-      type: 'radio',
-      label: item.name,
-      value: item.code,
-      checked: item.code === this.translate.currentLang,
-    }));
-
-    const alert = await this.alertController.create({
-      header: this.translations.SELECT_LANGUAGE,
-      inputs: this.available_languages,
-      cssClass: 'language-alert',
-      buttons: [
-        {
-          text: this.translations.CANCEL,
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-          },
-        },
-        {
-          text: this.translations.OK,
-          handler: (data) => {
-            if (data) {
-              this.translate.use(data);
-            }
-          },
-        },
-      ],
-    });
-    await alert.present();
   }
 
   doRefresh(ev) {
@@ -303,18 +236,6 @@ export class UserProfilePage implements OnInit {
     ev.target.complete();
   }
 
-  goToBootcamp() {
-    this.router.navigate(['history/bootcamp/2']);
-  }
-
-  goToEvent() {
-    this.router.navigate(['history/event/1']);
-  }
-
-  goToChallenge() {
-    this.router.navigate(['history/challenge']);
-  }
-
   goToSkills() {
     let navigationExtras: NavigationExtras;
     navigationExtras = {
@@ -342,10 +263,6 @@ export class UserProfilePage implements OnInit {
     } else {
       this.navCtrl.navigateForward(['/app/user/projects'], navigationExtras);
     }
-  }
-
-  goToLevel() {
-    this.router.navigate(['app/user/level']);
   }
 
   signOut() {

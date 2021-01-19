@@ -383,6 +383,6 @@ export class GlobalService {
   }
 
   setLevelLoadStatus(status: boolean) {
-    this.isInitialLoadDone.profile = status;
+    this.isInitialLoadDone.level = status;
   }
 }

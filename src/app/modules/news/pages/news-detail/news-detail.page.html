@@ -44,17 +44,22 @@
     <!--        </div>-->
     <!--    </div>-->
 
+
     <div class="comment-container">
         <div class="comment-container-0">
             <div class="number-of-comment-text">3 Komentar</div>
         </div>
-        <div class="comment-container-1">
-            <ion-textarea class="comment ion-no-padding" rows="6"
-                          placeholder="Berikan komentar anda disini"
-                          auto-grow=true>
-            </ion-textarea>
-        </div>
-        <ion-button class="reply-button" type="submit">Kirim</ion-button>
+        <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+            <div class="comment-container-1">
+                <ion-textarea class="comment ion-no-padding" rows="6"
+                              placeholder="Berikan komentar anda disini"
+                              auto-grow=true
+                              formControlName="comment"
+                >
+                </ion-textarea>
+            </div>
+            <ion-button class="reply-button" type="submit">Kirim</ion-button>
+        </form>
 
         <div class="comment-container-2">
             <div class="comment-container-2-1">

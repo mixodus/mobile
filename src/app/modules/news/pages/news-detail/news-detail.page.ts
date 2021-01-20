@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../services/global.service';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-news-detail',
@@ -17,13 +17,13 @@ import { ActivatedRouteSnapshot } from '@angular/router';
   styleUrls: ['./news-detail.page.scss'],
 })
 export class NewsDetailPage implements OnInit {
-  profileImg = './assets/sample-images/user/default-profile.svg';
-  replyOutline = './assets/images/reply-outline.svg';
-
-
   @HostBinding('class.is-shell') get isShell() {
     return this.newsDetail && this.newsDetail.isShell;
   }
+
+  commentForm: FormGroup;
+  profileImg = './assets/sample-images/user/default-profile.svg';
+  replyOutline = './assets/images/reply-outline.svg';
 
   constructor(
     private _navCtrl: NavController,
@@ -34,17 +34,16 @@ export class NewsDetailPage implements OnInit {
     private auth: AuthenticationService,
     private http: HttpClient,
   ) {
-
+    this.commentForm = new FormGroup({
+      comment: new FormControl('', Validators.compose([]))
+    });
   }
 
-  imageBaseUrl = 'http://dev-talents-api.oneindonesia.id/uploads/news/';
-  // newsDetail: NewsResponse & ShellModel;
   newsDetail: NewsDetail;
   destroySubscription = new Subject<any>();
   newsId = '';
 
   ngOnInit() {
-    console.log('init')
     this._route.paramMap.subscribe(params => {
       this.newsId = params.get('news-id');
     });
@@ -180,5 +179,13 @@ export class NewsDetailPage implements OnInit {
 
   handleButtonBackClick() {
     this._navCtrl.back();
+  }
+
+  submitComment() {
+    const commentFormData = this.commentForm.value;
+
+
+
+    console.log('commentFormData: ', commentFormData);
   }
 }

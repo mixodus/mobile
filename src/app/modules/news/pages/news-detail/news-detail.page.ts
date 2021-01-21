@@ -44,6 +44,8 @@ export class NewsDetailPage implements OnInit {
   commentForm: FormGroup;
   isCommentLoading = false;
   isReplyComment = false;
+  currentNameToReply = '';
+  currentCommentId = '';
   newsId = '';
   placeholderProfilePict = './assets/sample-images/user/default-profile.svg';
   replyOutline = './assets/images/reply-outline.svg';
@@ -182,7 +184,6 @@ export class NewsDetailPage implements OnInit {
     this._navCtrl.back();
   }
 
-
   async getCommentDetail() {
     this.isCommentLoading = true;
     this.newsDetailService.getNewsComment(this.newsId)
@@ -202,21 +203,25 @@ export class NewsDetailPage implements OnInit {
     });
   }
 
-  submitComment(commentId?: string) {
+  submitComment() {
     const commentFormData = this.commentForm.value;
-    let typeId = this.newsId;
-
-    if (commentId) {
-      typeId = commentId;
-    }
 
     if (commentFormData.comment) {
       this.isCommentLoading = true;
-      this.newsDetailService.postNewsComment('comment', typeId, commentFormData.comment)
+      let commentType = 'comment';
+      let typeId = this.newsId;
+
+      if (this.isReplyComment) {
+        commentType = 'reply_comment';
+        typeId = this.currentCommentId;
+      }
+
+      this.newsDetailService.postNewsComment(commentType, typeId, commentFormData.comment)
         .pipe(finalize(() => {
             this.isCommentLoading = false;
             this.getCommentDetail();
             this.commentForm.reset();
+            this.setReplyOff();
           }
         )).subscribe(
         () => {
@@ -232,5 +237,17 @@ export class NewsDetailPage implements OnInit {
           this.isCommentLoading = false;
         });
     }
+  }
+
+  setReplyOn(name, commentId) {
+    this.isReplyComment = true;
+    this.currentNameToReply = name;
+    this.currentCommentId = commentId;
+  }
+
+  setReplyOff() {
+    this.isReplyComment = false;
+    this.currentNameToReply = '';
+    this.currentCommentId = '';
   }
 }

@@ -51,6 +51,7 @@
         </div>
 
         <div class="comment-container" *ngIf="!isCommentLoading">
+            <div class="number-of-comment-text">{{newsComment.commentTotal}} Komentar</div>
             <div class="comment-container-2" *ngFor="let comment of newsComment.comments">
                 <div class="comment-container-2-0">
                     <div class="comment-container-2-1">
@@ -66,7 +67,7 @@
                         <div class="comment-text">{{comment.comment}}</div>
                         <div class="reply-container">
                             <img class="reply-image" [src]="replyOutline" alt="">
-                            <div class="reply-text">Balas</div>
+                            <div class="reply-text" (click)="setReplyOn(comment.fullName, comment.commentId)">Balas</div>
                         </div>
                     </div>
                 </div>
@@ -89,8 +90,11 @@
                 </div>
             </div>
 
-            <div class="comment-container-0">
-                <div class="number-of-comment-text">{{newsComment.commentTotal}} Komentar</div>
+            <div class="comment-container-0" *ngIf="isReplyComment">
+                <div class="comment-container-0-0" >
+                    <div class="reply-comment-container">Balas Komentar <span class="current-name-to-reply-text">{{currentNameToReply}}</span></div>
+                    <ion-icon name="close-circle" (click)="setReplyOff()"></ion-icon>
+                </div>
             </div>
             <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
                 <div class="comment-container-1">

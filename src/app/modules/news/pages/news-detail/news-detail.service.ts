@@ -8,6 +8,7 @@ import { NewsComments } from './newsModel';
 @Injectable({
   providedIn: 'root'
 })
+
 export class NewsDetailService {
   constructor(
     private http: HttpClient,
@@ -15,6 +16,9 @@ export class NewsDetailService {
     private auth: AuthenticationService
   ) {
   }
+
+  objComment = {};
+
 
   getNewsComment(newsId) {
     const headers = new HttpHeaders({
@@ -87,13 +91,24 @@ export class NewsDetailService {
     });
     const options = { headers: headers };
 
-    const newsDetailEndpoint =  this.globalService.apiUrl + 'api/news/comment';
+    const newsDetailEndpoint = this.globalService.apiUrl + 'api/news/comment';
 
-    const body = {
-      'type': type,
-      'comment': comment,
-      'news_id': typeId
-    };
+
+    if (type === 'comment') {
+      this.objComment = {
+        type: type,
+        comment: comment,
+        news_id: typeId
+      };
+    } else {
+      this.objComment = {
+        type: type,
+        comment: comment,
+        comment_id: typeId
+      };
+    }
+
+    const body = JSON.stringify(this.objComment);
 
     return this.http.post(newsDetailEndpoint, body, options);
   }

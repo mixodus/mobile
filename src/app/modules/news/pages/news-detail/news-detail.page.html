@@ -45,38 +45,64 @@
     <!--    </div>-->
 
 
-    <div class="comment-container">
-        <div class="comment-container-0">
-            <div class="number-of-comment-text">3 Komentar</div>
+    <div *ngIf="!auth.token">
+        <div class="spinner-container" *ngIf="isCommentLoading">
+            <ion-spinner class="spinner"></ion-spinner>
         </div>
-        <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
-            <div class="comment-container-1">
-                <ion-textarea class="comment ion-no-padding" rows="6"
-                              placeholder="Berikan komentar anda disini"
-                              auto-grow=true
-                              formControlName="comment"
-                >
-                </ion-textarea>
-            </div>
-            <ion-button class="reply-button" type="submit">Kirim</ion-button>
-        </form>
 
-        <div class="comment-container-2">
-            <div class="comment-container-2-1">
-                <img class="profile-image" [src]="profileImg" alt="">
-            </div>
-            <div class="comment-container-2-2">
-                <div class="name-text">Rama Pradana</div>
-                <div class="date-container">
-                    <div class="time-text">06:56 PM</div>
-                    <div class="date-text">21 Des 2020</div>
+        <div class="comment-container" *ngIf="!isCommentLoading">
+            <div class="comment-container-2" *ngFor="let comment of newsComment.comments">
+                <div class="comment-container-2-0">
+                    <div class="comment-container-2-1">
+                        <img class="profile-image" [src]="placeholderProfilePict" alt="" *ngIf="!comment.profilePict">
+                        <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="comment.profilePict">
+                    </div>
+                    <div class="comment-container-2-2">
+                        <div class="name-text">{{comment.fullName}}</div>
+                        <div class="date-container">
+                            <div class="time-text">{{comment.timeCreated}}</div>
+                            <div class="date-text">{{comment.dateCreated}}</div>
+                        </div>
+                        <div class="comment-text">{{comment.comment}}</div>
+                        <div class="reply-container">
+                            <img class="reply-image" [src]="replyOutline" alt="">
+                            <div class="reply-text">Balas</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="comment-text">Minim nostrud in est elit fugiat.</div>
+
                 <div class="reply-container">
-                    <img class="reply-image" [src]="replyOutline" alt="">
-                    <div class="reply-text">Reply</div>
+                    <div class="reply-container-2-0" *ngFor="let reply of comment.commentReplies">
+                        <div class="reply-container-2-1">
+                            <img class="profile-image" [src]="placeholderProfilePict" alt="" *ngIf="!reply.profilePict">
+                            <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="reply.profilePict">
+                        </div>
+                        <div class="reply-container-2-2">
+                            <div class="name-text">{{reply.fullName}}</div>
+                            <div class="date-container">
+                                <div class="time-text">{{reply.timeCreated}}</div>
+                                <div class="date-text">{{reply.dateCreated}}</div>
+                            </div>
+                            <div class="comment-text">{{reply.comment}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="comment-container-0">
+                <div class="number-of-comment-text">{{newsComment.commentTotal}} Komentar</div>
+            </div>
+            <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+                <div class="comment-container-1">
+                    <ion-textarea class="comment ion-no-padding" rows="6"
+                                  placeholder="Berikan komentar anda disini"
+                                  auto-grow=true
+                                  formControlName="comment"
+                    >
+                    </ion-textarea>
+                </div>
+                <ion-button class="reply-button" type="submit">Kirim</ion-button>
+            </form>
         </div>
     </div>
 </ion-content>

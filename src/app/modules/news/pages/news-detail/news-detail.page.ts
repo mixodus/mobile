@@ -1,15 +1,17 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { NewsDetail } from '../../../../core/models/news/NewsResponse';
 import { NewsService } from '../../services/news.service';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../../../services/global.service';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NewsDetailService } from './news-detail.service';
+import { NewsComment } from './newsModel';
 
 @Component({
   selector: 'app-news-detail',
@@ -21,16 +23,13 @@ export class NewsDetailPage implements OnInit {
     return this.newsDetail && this.newsDetail.isShell;
   }
 
-  commentForm: FormGroup;
-  isCommentLoading = false;
-  profileImg = './assets/sample-images/user/default-profile.svg';
-  replyOutline = './assets/images/reply-outline.svg';
-
   constructor(
     private _navCtrl: NavController,
     private _route: ActivatedRoute,
     private _newsService: NewsService,
+    private newsDetailService: NewsDetailService,
     private loadingCtrl: LoadingController,
+    private toastController: ToastController,
     private globalService: GlobalService,
     private auth: AuthenticationService,
     private http: HttpClient,
@@ -40,11 +39,19 @@ export class NewsDetailPage implements OnInit {
     });
   }
 
+  newsDetail: NewsDetail;
+  newsComment: NewsComment;
+  commentForm: FormGroup;
+  isCommentLoading = false;
+  isReplyComment = false;
+  newsId = '';
+  placeholderProfilePict = './assets/sample-images/user/default-profile.svg';
+  replyOutline = './assets/images/reply-outline.svg';
+
   imageBaseUrl = 'http://dev-laravel.oneindonesia.id/uploads/news/';
   // newsDetail: NewsResponse & ShellModel;
-  newsDetail: NewsDetail;
   destroySubscription = new Subject<any>();
-  newsId = '';
+
 
   ngOnInit() {
     this._route.paramMap.subscribe(params => {
@@ -59,37 +66,21 @@ export class NewsDetailPage implements OnInit {
             (state) => {
               this.newsDetail = state;
             },
-            (error) => {
+            (err) => {
+              let message = '';
+              if (err.error.message === undefined) {
+                message = 'Permasalahan jaringan, mohon coba lagi.';
+              } else {
+                message = err.error.message;
+              }
+
+              this.presentToast(message);
+              this.isCommentLoading = false;
             }
           );
-      },
-      (error) => {
       }
     );
     this.getCommentDetail();
-  }
-
-  async getCommentDetail() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
-    });
-    const options = { headers: headers };
-
-    const body = {};
-
-    const commentDetailEndpoint =
-      this.globalService.apiUrl +
-      'api/news/comment' + '?news_id=' + this.newsId;
-
-    this.http.get(commentDetailEndpoint, options).pipe(
-      finalize(() => this.loadingCtrl.dismiss())
-    ).subscribe((data: any) => {
-        console.log('data detail comment: ', data);
-      }, (err) => {
-      }
-    );
   }
 
   ionViewWillEnter(): void {
@@ -120,6 +111,14 @@ export class NewsDetailPage implements OnInit {
     this.getCommentDetail();
   }
 
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   extractingNewsDetail(data) {
     return {
       data: !data.isShell ? this.formattingNewsDetail(data.data[0]) : null,
@@ -131,7 +130,6 @@ export class NewsDetailPage implements OnInit {
   }
 
   formattingNewsDetail(data) {
-    console.log('data: ', data);
     let newsType = '';
     switch (data.news_type_id) {
       case '3':
@@ -184,14 +182,55 @@ export class NewsDetailPage implements OnInit {
     this._navCtrl.back();
   }
 
-  submitComment() {
+
+  async getCommentDetail() {
+    this.isCommentLoading = true;
+    this.newsDetailService.getNewsComment(this.newsId)
+      .pipe(finalize(() => this.isCommentLoading = false)).subscribe((data: any) => {
+      this.newsComment = this.newsDetailService.formattingCommentData(data.data);
+
+    }, (err) => {
+      let message = '';
+      if (err.error.message === undefined) {
+        message = 'Permasalahan jaringan, mohon coba lagi.';
+      } else {
+        message = err.error.message;
+      }
+
+      this.presentToast(message);
+      this.isCommentLoading = false;
+    });
+  }
+
+  submitComment(commentId?: string) {
     const commentFormData = this.commentForm.value;
+    let typeId = this.newsId;
+
+    if (commentId) {
+      typeId = commentId;
+    }
 
     if (commentFormData.comment) {
       this.isCommentLoading = true;
+      this.newsDetailService.postNewsComment('comment', typeId, commentFormData.comment)
+        .pipe(finalize(() => {
+            this.isCommentLoading = false;
+            this.getCommentDetail();
+            this.commentForm.reset();
+          }
+        )).subscribe(
+        () => {
+        }, (err) => {
+          let message = '';
+          if (err.error.message === undefined) {
+            message = 'Permasalahan jaringan, mohon coba lagi.';
+          } else {
+            message = err.error.message;
+          }
+
+          this.presentToast(message);
+          this.isCommentLoading = false;
+        });
     }
-
-
-    console.log('commentFormData: ', commentFormData);
   }
 }

@@ -73,6 +73,11 @@
     }
   }
 
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+  }
+
   .comment-container {
     margin: 30px;
 
@@ -97,11 +102,12 @@
       }
     }
 
-    .reply-button{
+    .reply-button {
+      text-transform: none;
       margin: 36px 0;
       width: 50%;
-      --background: rgb(117,194,68);
-      --background: linear-gradient(90deg, rgba(117,194,68,1) 0%, rgba(100,229,18,1) 50%);
+      --background: rgb(117, 194, 68);
+      --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
       font-size: 12px;
       color: var(--idstar-white);
       font-family: var(--montserrat-family);
@@ -110,65 +116,148 @@
 
     .comment-container-2 {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       margin: 30px 0;
 
-      .comment-container-2-1 {
-        width: 20%;
+      .comment-container-2-0 {
         display: flex;
+        flex-direction: row;
+
+        .comment-container-2-1 {
+          width: 20%;
+          display: flex;
 
 
-        .profile-image {
-          max-height: 35px;
-          width: auto;
+          .profile-image {
+            width: 35px;
+            height: 35px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+          }
+        }
+
+        .comment-container-2-2 {
+          width: 80%;
+
+          .name-text {
+            font-size: 12px;
+            font-weight: 700;
+          }
+
+          .date-container {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            margin-top: 5px;
+            width: 40%;
+
+            .time-text {
+              font-size: 8px;
+              font-weight: 400;
+            }
+
+            .date-text {
+              font-size: 8px;
+              font-weight: 400;
+            }
+          }
+
+          .comment-text {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 400;
+          }
+
+          .reply-container {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+
+            .reply-image {
+              height: 11px;
+              width: auto;
+            }
+
+            .reply-text {
+              font-size: 8px;
+              font-weight: 400;
+              color: var(--idstar-primary);
+              margin-left: 5px;
+            }
+          }
         }
       }
 
-      .comment-container-2-2 {
-        width: 80%;
-
-        .name-text {
-          font-size: 12px;
-          font-weight: 700;
-        }
-
-        .date-container {
+      .reply-container {
+        .reply-container-2-0 {
           display: flex;
           flex-direction: row;
-          margin-top: 5px;
+          margin-left: 10%;
+          margin-top: 30px;
 
-          .time-text {
-            font-size: 8px;
-            font-weight: 400;
+          .reply-container-2-1 {
+            width: 20%;
+            display: flex;
+
+            .profile-image {
+              width: 35px;
+              height: 35px;
+              background-position: center center;
+              background-repeat: no-repeat;
+              border-radius: 50%;
+            }
           }
 
-          .date-text {
-            font-size: 8px;
-            font-weight: 400;
-          }
-        }
+          .reply-container-2-2 {
+            width: 80%;
 
-        .comment-text{
-          margin-top: 8px;
-          font-size: 12px;
-          font-weight: 400;
-        }
+            .name-text {
+              font-size: 12px;
+              font-weight: 700;
+            }
 
-        .reply-container{
-          display: flex;
-          flex-direction: row;
-          margin-top: 10px;
+            .date-container {
+              display: flex;
+              justify-content: space-between;
+              flex-direction: row;
+              margin-top: 5px;
+              width: 40%;
 
-          .reply-image{
-            height: 11px;
-            width: auto;
-          }
+              .time-text {
+                font-size: 8px;
+                font-weight: 400;
+              }
 
-          .reply-text{
-            font-size: 8px;
-            font-weight: 400;
-            color: var(--idstar-primary);
-            margin-left: 5px;
+              .date-text {
+                font-size: 8px;
+                font-weight: 400;
+              }
+            }
+
+            .comment-text {
+              margin-top: 8px;
+              font-size: 12px;
+              font-weight: 400;
+            }
+
+            .reply-container {
+              display: flex;
+              flex-direction: row;
+              margin-top: 10px;
+
+              .reply-image {
+                height: 11px;
+                width: auto;
+              }
+
+              .reply-text {
+                font-size: 8px;
+                font-weight: 400;
+                color: var(--idstar-primary);
+                margin-left: 5px;
+              }
+            }
           }
         }
       }

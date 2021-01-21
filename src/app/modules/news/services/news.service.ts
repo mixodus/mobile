@@ -5,6 +5,7 @@ import { API_ENDPOINTS } from '../../../core/constants/api-endpoints';
 import { DataStore } from '../../../shell/data-store';
 import { NewsResponse } from '../../../core/models/news/NewsResponse';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { forEach } from '@angular-devkit/schematics';
 
 @Injectable()
 export class NewsService {
@@ -30,7 +31,7 @@ export class NewsService {
 
     const completeEndpoint =
       this._globalService.getApiUrl() +
-      API_ENDPOINTS.News
+      API_ENDPOINTS.News;
 
     return this._http.get<NewsResponse>(completeEndpoint, options);
   }

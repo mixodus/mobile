@@ -9,6 +9,7 @@ import { RegistrationPage } from './registration.page';
 import { RegistrationResolver } from './registration.resolver';
 import { ShellModule } from '../../../../shell/shell.module';
 import { ProfileResolver } from './profile.resolver';
+import { ComponentsModule } from '../../../../components/components.module';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     IonicModule,
     ShellModule,
     RouterModule.forChild(routes),
+    ComponentsModule,
   ],
   declarations: [RegistrationPage],
   providers: [RegistrationResolver, ProfileResolver],

@@ -83,14 +83,18 @@ export class JobDetailsPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.auth.checkExpiredToken();
-    this.subscribe = this.platform.backButton.subscribe(() => {
-      this.navCtrl.back();
-    });
+    if(this.auth.token){
+      this.auth.checkExpiredToken();
+      this.subscribe = this.platform.backButton.subscribe(() => {
+        this.navCtrl.back();
+      });
+    }
   }
 
   ionViewWillLeave() {
-    this.subscribe.unsubscribe();
+    if(this.auth.token) {
+      this.subscribe.unsubscribe();
+    }
   }
 
   handleToggleContent(index: number) {
@@ -100,12 +104,13 @@ export class JobDetailsPage implements OnInit {
   easyApply() {
     //check profile completion before going to easy apply page
     if (
-      !this.profile.email ||
+      (!this.profile.email ||
       this.profile.email === '' ||
       !this.profile.contact_no ||
-      this.profile.contact_no === ''
+      this.profile.contact_no === '')
+      && this.auth.token
     ) {
-      this.presentToast('Please complete your profile!');
+      this.presentToast('Mohon lengkapi profil Anda.');
       this.navCtrl.navigateForward(['app/user']);
       return;
     }

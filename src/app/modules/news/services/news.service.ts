@@ -21,7 +21,6 @@ export class NewsService {
 
   // this._auth.token
   getNews() {
-    console.log('this._auth.token: ', this._auth.token)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this._globalService.getGlobalApiKey(),

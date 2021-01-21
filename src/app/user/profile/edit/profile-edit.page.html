@@ -4,7 +4,7 @@
             <ion-icon class="back" name="ios-arrow-back"></ion-icon>
         </ion-buttons>
         <ion-title class="title">
-            Edit Profile
+            Edit Profil
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -21,6 +21,11 @@
             <img src="../../../../assets/icons/pencil-outline.png" class="icon" alt="">
 <!--            <ion-icon name="pencil-outline" class="icon"></ion-icon>-->
         </div>
+
+        <div class="section-title">Email</div>
+        <ion-input type="text" placeholder="Email" formControlName="email" clearInput autocapitalize="off"
+                   class="ion-no-padding input-text">
+        </ion-input>
 
         <div class="section-title">Nama Lengkap</div>
         <ion-input type="text" placeholder="Nama Lengkap" formControlName="fullname" clearInput autocapitalize="off"
@@ -96,10 +101,14 @@
         <ion-textarea placeholder="Tentang Saya" formControlName="summary" class="ion-no-padding textarea"
                       auto-grow=true></ion-textarea>
 
-        <div class="section-title">NPWP</div>
+        <div class="section-title">NPWP*</div>
         <ion-input type="text" placeholder="NPWP" formControlName="npwp" clearInput autocapitalize="off"
                    class="ion-no-padding input-text">
         </ion-input>
+
+        <div class="npwp-label-text">
+            *Dengan memasukkan NPWP, Anda akan mengurangi biaya pajak yang dikenakan atas insentif rujukan
+        </div>
     </form>
 
     <!--      <form [formGroup]="editProfileForm" class="edit-profile-form">-->

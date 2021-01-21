@@ -22,10 +22,10 @@
                         </ng-container>
                     </div>
 
-                    <span class="subsection-title">Password</span>
+                    <span class="subsection-title">Kata Sandi</span>
                     <ion-item class="input-item">
                         <app-show-hide-password>
-                            <ion-input type="password" placeholder="Password Anda" formControlName="password"
+                            <ion-input type="password" placeholder="Kata Sandi Anda" formControlName="password"
                                        class="input-class ion-invalid ng-invalid"></ion-input>
                         </app-show-hide-password>
                     </ion-item>
@@ -48,12 +48,27 @@
                             </ion-checkbox>
                             <ion-label class="remember-label">Ingat Saya</ion-label>
                         </div>
-                        <a class="forgot-anchor" [routerLink]="['/auth/forgot-password']">Lupa Password ?</a>
+                        <a class="forgot-anchor" [routerLink]="['/auth/forgot-password']">Lupa Kata Sandi ?</a>
                     </div>
 
-                    <ion-button class="login-btn" type="submit">MASUK</ion-button>
+                    <ion-button class="login-btn" type="submit">MASUK SEKARANG</ion-button>
 
-                    <p class="signup-text ion-text-center">Belum punya akun? <a class="signup-anchor" [routerLink]="['/auth/signup']"> Daftar</a>
+                    <div class="or-container">
+                        <div class="horizontal-line-container">
+                            <div class="horizontal-line"></div>
+                        </div>
+                        <div class="or-text">atau</div>
+                        <div class="horizontal-line-container">
+                            <div class="horizontal-line"></div>
+                        </div>
+                    </div>
+
+                    <ion-button class="login-as-guest-button" expand="block" [routerLink]="['/app/home']">Masuk Sebagai
+                        Tamu
+                    </ion-button>
+
+                    <p class="signup-text ion-text-center">Belum punya akun?
+                        <a class="signup-anchor" [routerLink]="['/auth/signup']">Daftar</a>
                     </p>
                 </ion-list>
             </form>

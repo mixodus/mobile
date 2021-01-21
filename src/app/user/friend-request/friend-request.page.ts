@@ -131,7 +131,7 @@ export class FriendRequestPage implements OnInit {
         },
         (err) => {
           let message = '';
-          if (err.error.message === undefined) { message = 'Network problem, please try again !'; }
+          if (err.error.message === undefined) { message = 'Permasalahan jaringan, mohon coba lagi.'; }
           else { message = err.error.message; }
 
           this.presentToast(message);
@@ -172,7 +172,7 @@ export class FriendRequestPage implements OnInit {
         },
         (err) => {
           let message = '';
-          if (err.error.message === undefined) { message = 'Network problem, please try again !'; }
+          if (err.error.message === undefined) { message = 'Permasalahan jaringan, mohon coba lagi.'; }
           else { message = err.error.message; }
 
           this.presentToast(message);

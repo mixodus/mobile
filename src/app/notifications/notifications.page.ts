@@ -67,7 +67,9 @@ export class NotificationsPage implements OnInit {
 
   ionViewWillEnter() {
     this.pastNotif = [];
-    this.fetchData();
+    if(this._auth.token) {
+      this.fetchData();
+    }
   }
 
   fetchData() {

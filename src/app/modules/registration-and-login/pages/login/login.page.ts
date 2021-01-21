@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController, LoadingController, NavController, Platform } from '@ionic/angular';
+import { MenuController, LoadingController, NavController, Platform, AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { GlobalService } from '../../../../services/global.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -44,6 +44,7 @@ export class LoginPage implements OnInit {
     private globalService: GlobalService,
     public navCtrl: NavController,
     public platform: Platform,
+    public alertController: AlertController
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl(
@@ -124,7 +125,8 @@ export class LoginPage implements OnInit {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey() });
+      'X-Api-Key': this.globalService.getGlobalApiKey()
+    });
     const options = { headers: headers };
 
     this.storage.set('rememberCheck', this.remember);
@@ -160,7 +162,7 @@ export class LoginPage implements OnInit {
         (err) => {
           let message = '';
           if (err.error.message === undefined) {
-            message = 'Network problem, please try again !';
+            message = 'Permasalahan jaringan, mohon coba lagi.';
           } else if (
             this.loginForm.get('email').hasError('required') &&
             this.loginForm.get('password').hasError('required')
@@ -176,7 +178,12 @@ export class LoginPage implements OnInit {
             message = err.error.message;
           }
 
-          this.presentToast(message);
+          if (err.error.isVerified === false) {
+            this.presentAlert();
+            console.log('masuk present alert email verified');
+          } else {
+            this.presentToast(message);
+          }
         }
       );
   }
@@ -184,6 +191,69 @@ export class LoginPage implements OnInit {
   doLogin1() {
     this.authService.setSignInManual();
     this.router.navigate(['app/home']);
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      message: 'Email Anda belum terverifikasi, apakah Anda ingin dikirimkan link verifikasi? ',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel'
+        }, {
+          text: 'Ya',
+          handler: () => {
+            this.sendEmailVerificationLink();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertNotif(message) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['Baik']
+    });
+
+    await alert.present();
+  }
+
+  async sendEmailVerificationLink() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    const rawBody = {
+      'email':  this.loginForm.value.email
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey()
+    });
+    const options = { headers: headers };
+
+    const url = this.globalService.getApiUrl() + 'api/user/request-verify';
+    this.http.post(url, rawBody, options).pipe(
+      finalize(() => loading.dismiss())
+    )
+      .subscribe(data => {
+        console.log('data: ', data['message']);
+        // this.presentToast(data['message']);
+        this.presentAlertNotif(data['message']);
+      }, err => {
+
+        let message = '';
+        if (err.error.message === undefined) {
+          message = 'Permasalahan jaringan, mohon coba lagi.';
+        } else {
+          message = err.error.message;
+        }
+
+        this.presentToast(message);
+      });
   }
 
   async presentToast(message) {

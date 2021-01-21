@@ -17,6 +17,8 @@ export class EventsService {
   ) {
   }
 
+  public token = '';
+
   // data stores
   private _bannerDataStore: DataStore<EventsResponse>;
   private _singleDataStore: DataStore<EventsResponse>;
@@ -88,10 +90,14 @@ export class EventsService {
   }
 
   getSingle(id: string) {
+    if (this._auth.token) {
+      this.token = String(this._auth.token);
+    }
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this._globalService.getGlobalApiKey(),
-      'X-Token': `${this._auth.token}`
+      'X-Token': this.token
     });
 
     const options = { headers: headers };

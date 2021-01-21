@@ -16,19 +16,23 @@ export class LevelService {
   }
 
   getLevelDataSource(): Observable<LevelModel> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
-    });
+    if (this.auth.token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      });
 
-    const options = { headers: headers };
+      const options = { headers: headers };
 
-    const levelEndpoint =
-      this.globalService.apiUrl +
-      'api/level';
+      const levelEndpoint =
+        this.globalService.apiUrl +
+        'api/level';
 
-    return this.http.get<LevelModel>(levelEndpoint, options);
+      return this.http.get<LevelModel>(levelEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   getLevelStore(dataSource: Observable<LevelModel>, refresh: boolean = false): DataStore<LevelModel> {

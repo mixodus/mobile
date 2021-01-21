@@ -5,10 +5,8 @@
 export const environment = {
   production: false,
   api: {
-    // endpoint: 'http://prod-laravel.oneindonesia.id/',
     endpoint: 'http://dev-laravel.oneindonesia.id/',
   },
-  // imageEndpoint: 'http://prod-laravel.oneindonesia.id/uploads',
   imageEndpoint: 'http://dev-laravel.oneindonesia.id/uploads',
 };
 
@@ -19,3 +17,4 @@ export const environment = {
  * because it will have performance impact when throw error
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+

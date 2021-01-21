@@ -69,7 +69,7 @@
                     <div class="text-description" [innerHTML]=" eventDetail?.data[0]?.event_note"></div>
                 </div>
 
-                <div class="button-container" *ngIf="eventDetail?.data[0]?.event_joinable">
+                <div class="button-container" *ngIf="eventDetail?.data[0]?.event_joinable && auth.token">
                     <ion-button class="apply-btn" type="submit" expand="block" (click)="confirm()">
                         Ikuti {{ getEventType(eventDetail?.data[0]?.event_type_id) }}</ion-button>
                 </div>
@@ -110,4 +110,5 @@
             </div>
         </div>
     </ng-template>
+
 </ion-content>

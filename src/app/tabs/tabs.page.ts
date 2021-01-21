@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { NotificationsService } from '../notifications/notifications.service';
 import { finalize } from 'rxjs/operators';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'app-tabs',
@@ -17,13 +18,16 @@ export class TabsPage {
 
   constructor(
     public menu: MenuController,
-    public notificationsService: NotificationsService
+    public notificationsService: NotificationsService,
+    public auth: AuthenticationService
   ) {
   }
 
   ionViewWillEnter() {
     this.menu.enable(true);
-    this.getNewNotifications();
+    if(this.auth.token) {
+      this.getNewNotifications();
+    }
   }
 
   getNewNotifications() {

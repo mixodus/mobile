@@ -159,7 +159,7 @@ export class EditWorkExperiencePage implements OnInit {
 
           let message = "";
           if (err.error.message === undefined)
-            message = "Network problem, please try again !";
+            message = "Permasalahan jaringan, mohon coba lagi.";
           else
             message = err.error.message;
 
@@ -199,7 +199,7 @@ export class EditWorkExperiencePage implements OnInit {
 
         let message = "";
         if (err.error.message === undefined){
-          message = "Network problem, please try again !";
+          message = "Permasalahan jaringan, mohon coba lagi.";
         }
         else
           message = err.error.message;

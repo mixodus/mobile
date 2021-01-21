@@ -6,8 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
+<div *ngIf="!auth.token">
+  <app-restricted-interface></app-restricted-interface>
+</div>
 
-<div class="upper">
+<div class="upper" *ngIf="auth.token">
   <div class="image">
     <app-aspect-ratio [ratio]="{w:1, h:1}">
       <app-image-shell
@@ -26,7 +29,7 @@
   </div>
 </div>
 
-<ion-content class="details-content">
+<ion-content class="details-content" *ngIf="auth.token">
   <div class="lower">
 <!--    <div class="description-title">-->
 <!--      <ion-row>-->
@@ -95,7 +98,7 @@
   </div>
 </ion-content>
 
-<ion-footer class="apply-btn-container">
+<ion-footer class="apply-btn-container" *ngIf="auth.token">
   <ion-button
           class="apply-btn"
           type="button"

@@ -11,6 +11,7 @@ import { CountdownTimerComponent } from './countdown-timer/countdown-timer.compo
 import { CounterInputComponent } from './counter-input/counter-input.component';
 import { RatingInputComponent } from './rating-input/rating-input.component';
 import { GoogleMapComponent } from './google-map/google-map.component';
+import { RestrictedInterfaceComponent } from './restricted-interface/restricted-interface.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     CountdownTimerComponent,
     CounterInputComponent,
     RatingInputComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    RestrictedInterfaceComponent
   ],
   exports: [
     ShellModule,
@@ -34,7 +36,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     CountdownTimerComponent,
     CounterInputComponent,
     RatingInputComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    RestrictedInterfaceComponent
   ]
 })
 export class ComponentsModule {}

@@ -177,13 +177,13 @@ export class AppComponent implements OnInit {
   async confirm() {
     const alert = await this.alertController.create({
       header: 'Confirm',
-      message: 'Are you sure want to exit ?',
+      message: 'Apakah kamu yakin ingin keluar ?',
       buttons: [
         {
-          text: 'No',
+          text: 'Tidak',
           role: 'cancel',
         }, {
-          text: 'Yes',
+          text: 'Ya',
           handler: (blah) => {
             this.auth.signOut();
           }

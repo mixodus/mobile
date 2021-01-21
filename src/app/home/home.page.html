@@ -2,7 +2,7 @@
     <ion-toolbar>
         <div class="home-toolbar">
             <img class="logo-one" src="../../assets/images/icon.png">
-            <div class="home-toolbar-container-2">
+            <div class="home-toolbar-container-2" *ngIf="this.auth.token">
                 <div class="home-toolbar-container-2-1 ion-text-right">
                     <div class="text-level">Level</div>
                     <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
@@ -22,8 +22,12 @@
 </ion-header>
 
 <ion-content class="home-content">
-    <div class="proflie-container" [routerLink]="['/app/user']">
-        <div class="proflie-container-1">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="profile-container" [routerLink]="['/app/user']" *ngIf="this.auth.token">
+        <div class="profile-container-1">
             <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
                              [src]="profile?.data?.user.profile_picture_url"
                              [alt]="profile?.data?.user.fullname" class="profile-image"
@@ -35,7 +39,7 @@
             >
             </app-image-shell>
         </div>
-        <div class="proflie-container-2">
+        <div class="profile-container-2">
             <div class="text-name">{{profile?.data?.user.fullname}}</div>
             <div class="text-position">{{profile?.data?.user.job_title}}</div>
         </div>
@@ -43,7 +47,7 @@
 
     <div class="menu-container">
         <div class="menu-container-1">
-            <div class="menu-bootcamp-container" [routerLink]="['/app/events/category/2']" >
+            <div class="menu-bootcamp-container" [routerLink]="['/app/events/category/2']">
                 <div class="menu-bootcamp">
                     <img class="icon-bootcamp" src="../../assets/icons/flag.svg" alt="">
                 </div>
@@ -90,46 +94,10 @@
     </div>
 
     <div class="padding-container">
-        <!--        <div class="upcoming-event-container">-->
-        <!--            <div class="upcoming-event-text">-->
-        <!--                Pekerjaan-->
-        <!--            </div>-->
-        <!--            <div class="see-more-text" [routerLink]="['/app/jobs']">-->
-        <!--                Lihat Semua-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-        <!--        <ion-card class="job-card">-->
-        <!--            <ion-card-content class="job-card-content">-->
-        <!--                <div class="applied-jobs-row">-->
-        <!--                    <div class="subcontainer-1">-->
-        <!--                        <img class="icon-job-company" src="{{jobsPreviewHome?.company_logo_url ? jobsPreviewHome.company_logo_url : './assets/icons/work_outline-100px-with-background.png'}}">-->
-        <!--                    </div>-->
-        <!--                    <div class="subcontainer-2">-->
-        <!--                        <div class="job-company">{{jobsPreviewHome?.company_name}}</div>-->
-        <!--                        <div class="job-name">{{jobsPreviewHome?.job_title}}</div>-->
-        <!--                        <div class="job-detail-container">-->
-        <!--                            <div class="location-container">-->
-        <!--                                <ion-icon class="icon-location" src="./assets/icons/place-24px.svg"></ion-icon>-->
-        <!--                                <div class="job-location">{{jobsPreviewHome?.province}}</div>-->
-        <!--                            </div>-->
-        <!--&lt;!&ndash;                            <div class="job-type-detail-container">&ndash;&gt;-->
-        <!--&lt;!&ndash;                                <ion-icon class="icon-time" src="./assets/icons/schedule-24px.svg"></ion-icon>&ndash;&gt;-->
-        <!--&lt;!&ndash;                                <div class="job-type-detail">Full Time</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </ion-card-content>-->
-        <!--        </ion-card>-->
-
         <div class="upcoming-event-container">
             <div class="upcoming-event-text">
                 Kabar Terbaru
             </div>
-            <!--            <div class="see-more-text">-->
-            <!--                Lihat Semua-->
-            <!--            </div>-->
         </div>
 
         <section class="banner-container" *ngIf="profile != null && profile != undefined">

@@ -77,7 +77,6 @@ export class AuthenticationService {
     let now = dayjs();
     localStorage.setItem(this.globalService.getParamLoginTime(), now.format());
     localStorage.setItem(this.globalService.getParamExpirationTime(), user.expiration.second);
-    console.log(dataUser.data);
     return of(user);
   }
 
@@ -103,7 +102,6 @@ export class AuthenticationService {
     this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         //process the json data
-        console.log(response);
       },
       (error) => {
         // console.log("error di check session");
@@ -115,7 +113,7 @@ export class AuthenticationService {
     let currentDate = dayjs();
 
     if (localStorage.getItem(this.globalService.getParamLoginTime()) === null) {
-      this.signOut();
+      // this.signOut();
       return false;
     }
     let loginTime = dayjs(localStorage.getItem(this.globalService.getParamLoginTime()));
@@ -146,8 +144,11 @@ export class AuthenticationService {
     this.authState.next(null);
     localStorage.removeItem(this.globalService.getTokenName());
     localStorage.removeItem(this.globalService.getParamLoginTime());
+    this.token = null;
     // localStorage.removeItem(this)
     this.router.navigate(['auth/login']);
+    this.globalService.setProfileLoadStatus(false);
+    this.globalService.setLevelLoadStatus(false);
   }
 
   checkCompleteProfile() {

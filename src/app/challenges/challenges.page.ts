@@ -8,6 +8,7 @@ import { ChallengesService } from './challenges.service';
 import { Observable } from 'rxjs';
 import { DataStore } from '../shell/data-store';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'app-challenges',
@@ -24,11 +25,15 @@ export class ChallengesPage implements OnInit {
   refresher: IonRefresher;
 
   ionViewDidEnter() {
-    this.refresher.disabled = false;
+    if (this.auth.token) {
+      this.refresher.disabled = false;
+    }
   }
 
   ionViewWillLeave() {
-    this.refresher.disabled = true;
+    if (this.auth.token) {
+      this.refresher.disabled = true;
+    }
   }
 
   constructor(
@@ -37,7 +42,8 @@ export class ChallengesPage implements OnInit {
     private navCtrl: NavController,
     private network: Network,
     private challengesService: ChallengesService,
-    private location: Location
+    private location: Location,
+    private auth: AuthenticationService
   ) {
   }
 

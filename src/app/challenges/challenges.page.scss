@@ -20,6 +20,15 @@
 
 .challenge-content {
   --background: var(--idstar-light-grey);
+
+  .no-listing-item {
+    width: 100%;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 
@@ -58,14 +67,7 @@
   --background: var(--idstar-darker);
 }
 
-.no-listing-item {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+
 
 .listing-item {
   background-color: var(--idstar-white);

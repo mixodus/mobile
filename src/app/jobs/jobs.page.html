@@ -25,7 +25,7 @@
                                    [value]="selectedItem" (ionBlur)="onBlur($event)" autocomplete></ion-searchbar>
                 </div>
 
-                <div class="button-toggle-job-container">
+                <div class="button-toggle-job-container" *ngIf="auth.token">
                     <ion-button [ngClass]="{'toggle-job-fill': toggleState === 0, 'toggle-job-outline':toggleState === 1 }" expand="block" (click)="handleToggleJob(0)">Pekerjaan</ion-button>
                     <ion-button [ngClass]="{'toggle-job-fill': toggleState === 1, 'toggle-job-outline':toggleState === 0 }" expand="block" (click)="handleToggleJob(1)">Status</ion-button>
                 </div>

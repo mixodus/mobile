@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   api: {
-    endpoint: 'http://dev-talents-api.oneindonesia.id/',
+    endpoint: 'http://dev-laravel.oneindonesia.id/',
   },
-  imageEndpoint: 'http://dev-talents-api.oneindonesia.id/uploads',
+  imageEndpoint: 'http://dev-laravel.oneindonesia.id/',
 };

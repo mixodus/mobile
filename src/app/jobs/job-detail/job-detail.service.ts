@@ -13,14 +13,20 @@ import { NewsResponse } from '../../core/models/news/NewsResponse';
 export class JobDetailService {
 
   private jobsDetailDataStore: DataStore<JobDetailsModel>;
+  public token = '';
 
-  constructor(private http: HttpClient, private globalService: GlobalService, private auth: AuthenticationService) { }
+  constructor(private http: HttpClient, private globalService: GlobalService, private auth: AuthenticationService) {
+  }
 
   public getJobsDetailDataSource(job_id: string): Observable<JobDetailsModel> {
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
+      'X-Token': this.token
     });
     const options = { headers: headers };
 
@@ -29,11 +35,11 @@ export class JobDetailService {
       'api/job_post/detail/' + job_id;
 
     return this.http.get<JobDetailsModel>(jobPostDetailEndpoint, options);
-
   }
+
   public getJobsDetailStore(dataSource: Observable<JobDetailsModel>): DataStore<JobDetailsModel> {
 
-    if(this.globalService.refreshFlag.job_detail){
+    if (this.globalService.refreshFlag.job_detail) {
       // Initialize the model specifying that it is a shell model
       const shellModel: JobDetailsModel = new JobDetailsModel();
       this.jobsDetailDataStore = new DataStore(shellModel);

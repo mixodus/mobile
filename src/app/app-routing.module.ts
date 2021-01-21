@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth/auth-guard.service';
-import { DataResolverService } from './services/data/data-resolver.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -65,7 +64,7 @@ const routes: Routes = [
   {
     path: 'app',
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app',
@@ -75,7 +74,7 @@ const routes: Routes = [
   {
     path: 'app/home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
 
 
@@ -121,7 +120,7 @@ const routes: Routes = [
     path: 'app/notifications',
     loadChildren: () =>
       import('./notifications/notifications.module').then((m) => m.NotificationsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/user/redeem-points',
@@ -173,7 +172,7 @@ const routes: Routes = [
   {
     path: 'app/user/referral',
     loadChildren: () => import('./referral/referral.module').then((m) => m.ReferralPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/user/work-experiences',
@@ -325,7 +324,7 @@ const routes: Routes = [
     path: 'app/jobs/job-detail/:id',
     loadChildren: () =>
       import('./jobs/job-detail/job-details.module').then((m) => m.JobDetailsPageModule),
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
   },
   {
     path: 'app/jobs/easy-apply',

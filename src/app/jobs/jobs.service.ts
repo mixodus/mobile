@@ -87,18 +87,22 @@ export class JobsService {
   }
 
   public getJobsApplicationDataSource(): Observable<JobsApplicationModel> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
-    });
-    const options = { headers: headers };
+    if(this.auth.token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      });
+      const options = { headers: headers };
 
-    const jobPostApplicationEndpoint =
-      this.globalService.apiUrl +
-      'api/job_post/progress';
+      const jobPostApplicationEndpoint =
+        this.globalService.apiUrl +
+        'api/job_post/progress';
 
-    return this.http.get<JobsApplicationModel>(jobPostApplicationEndpoint, options);
+      return this.http.get<JobsApplicationModel>(jobPostApplicationEndpoint, options);
+    } else {
+      return null;
+    }
   }
 
   public getJobsApplicationStore(

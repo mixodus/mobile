@@ -9,13 +9,13 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UserProfileResolver implements Resolve<any> {
   token : String;
-  constructor(private userService: UserService, private globalService : GlobalService, private storage : Storage) { 
+  constructor(private userService: UserService, private globalService : GlobalService, private storage : Storage) {
 
-    
+
   }
 
   resolve() {
-   
+
     const dataSource: Observable<UserProfileModel> = this.userService.getProfileDataSource();
     const dataStore: DataStore<UserProfileModel> = this.userService.getProfileStore(dataSource);
     return dataStore;

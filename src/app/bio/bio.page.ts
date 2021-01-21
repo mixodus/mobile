@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalService } from '../services/global.service';
-import { NavController, LoadingController, ToastController } from '@ionic/angular';
+import { NavController, LoadingController, ToastController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +27,8 @@ export class BioPage implements OnInit {
   items: Array<string>;
   isItemAvailable: boolean;
   signupForm: FormGroup;
+  subscribe: any;
+  connectSubscription: any;
 
   validation_messages = {
     country: [{ type: 'required', message: 'Negara dibutuhkan.' }],
@@ -51,7 +55,10 @@ export class BioPage implements OnInit {
     private storage: Storage,
     public fb: FormBuilder,
     private auth: AuthenticationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private platform: Platform,
+    private router: Router,
+    private network: Network,
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +86,23 @@ export class BioPage implements OnInit {
     this.createProfileForm.controls['start_work_year'].setValue('');
     this.createProfileForm.controls['summary'].setValue('');
   }
+
+  ionViewWillEnter() {
+    this.auth.checkExpiredToken();
+    this.subscribe = this.platform.backButton.subscribe(() => {
+      this.router.navigateByUrl('app/home');
+    });
+    this.connectSubscription = this.network.onConnect().subscribe(() => {
+    });
+    this.auth.checkExpiredToken();
+  }
+
+  ionViewDidLeave() {
+    this.subscribe.unsubscribe();
+    this.connectSubscription.unsubscribe();
+  }
+
+
   eventHandler(event: any) {
     if (event.keyCode > 57) {
       this.createProfileForm.controls['expected_salary'].setValue('');

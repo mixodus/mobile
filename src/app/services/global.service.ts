@@ -8,9 +8,8 @@ export class GlobalService {
   // apiUrl: string = 'http://app.idstar.co.id/talents/';
   // apiUrl: string = "localhost:8080/idstar/api/profile?X-Api-Key=idstar123!&{{TOKEN}}";
   // apiUrl: string = 'http://localhost/idstar-web/';
-  // apiUrl: string = 'http://dev-talents-api.oneindonesia.id/';
-  // apiUrl: string = 'http://prod-laravel.oneindonesia.id/';
   apiUrl: string = 'http://dev-laravel.oneindonesia.id/';
+  // apiUrl: string = 'http://prod-laravel.oneindonesia.id/';
   // apiUrl: string = 'http://ids-api.diodeiva.com/';
   // apiUrl: string = "http://192.168.0.8/idstar-web/";
   globalApiKey = 'idstar123!';
@@ -40,7 +39,13 @@ export class GlobalService {
   };
   restrictedBackUrl = '';
   previousPage = '';
-  constructor() {}
+  isInitialLoadDone = {
+    profile: false,
+    level: false
+  };
+
+  constructor() {
+  }
 
   setBackRestrictedUrl(url) {
     this.restrictedBackUrl = url;
@@ -72,7 +77,7 @@ export class GlobalService {
   }
 
   map = {
-    "'": '&apos;',
+    '\'': '&apos;',
     '<': '&lt;',
     '>': '&gt;',
     ' ': '&nbsp;',
@@ -372,4 +377,12 @@ export class GlobalService {
       name: 'Indonesia',
     },
   ];
+
+  setProfileLoadStatus(status: boolean) {
+    this.isInitialLoadDone.profile = status;
+  }
+
+  setLevelLoadStatus(status: boolean) {
+    this.isInitialLoadDone.level = status;
+  }
 }

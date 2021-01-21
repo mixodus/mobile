@@ -22,6 +22,7 @@ export class NewsDetailPage implements OnInit {
   }
 
   commentForm: FormGroup;
+  isCommentLoading = false;
   profileImg = './assets/sample-images/user/default-profile.svg';
   replyOutline = './assets/images/reply-outline.svg';
 
@@ -184,6 +185,9 @@ export class NewsDetailPage implements OnInit {
   submitComment() {
     const commentFormData = this.commentForm.value;
 
+    if (commentFormData.comment) {
+      this.isCommentLoading = true;
+    }
 
 
     console.log('commentFormData: ', commentFormData);

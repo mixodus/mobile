@@ -14,35 +14,35 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <!--    <div class="image-row">-->
-    <!--        <div size="12" *ngIf="newsDetail?.isShell">-->
-    <!--            <app-aspect-ratio>-->
-    <!--                <app-image-shell animation="gradient"></app-image-shell>-->
-    <!--            </app-aspect-ratio>-->
-    <!--        </div>-->
-    <!--        <div size="12" *ngIf="!newsDetail?.isShell">-->
-    <!--            <div class="image-container">-->
-    <!--                <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"-->
-    <!--                class="image"-->
-    <!--                />-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+        <div class="image-row">
+            <div size="12" *ngIf="newsDetail?.isShell">
+                <app-aspect-ratio>
+                    <app-image-shell animation="gradient"></app-image-shell>
+                </app-aspect-ratio>
+            </div>
+            <div size="12" *ngIf="!newsDetail?.isShell">
+                <div class="image-container">
+                    <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"
+                    class="image"
+                    />
+                </div>
+            </div>
+        </div>
 
-    <!--    <div *ngIf="!this.newsDetail.isShell">-->
-    <!--        <div class="news-sub-content-2">-->
-    <!--            <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>-->
+        <div *ngIf="!this.newsDetail.isShell">
+            <div class="news-sub-content-2">
+                <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>
 
-    <!--            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>-->
+                <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>
 
-    <!--            <div class="news-title">-->
-    <!--                {{ newsDetail.data.newsTitle }}-->
-    <!--            </div>-->
+                <div class="news-title">
+                    {{ newsDetail.data.newsTitle }}
+                </div>
 
-    <!--            <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+                <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>
+                </div>
+            </div>
+        </div>
 
 
     <div *ngIf="!auth.token">

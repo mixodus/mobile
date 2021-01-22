@@ -26,7 +26,7 @@ export class NewsDetailPage implements OnInit {
 
   }
 
-  imageBaseUrl = 'http://dev-laravel.oneindonesia.id/uploads/news/';
+  imageBaseUrl = 'https://dev-api.oneindonesia.id/uploads/news/';
   // newsDetail: NewsResponse & ShellModel;
   newsDetail: NewsDetail;
   destroySubscription = new Subject<any>();

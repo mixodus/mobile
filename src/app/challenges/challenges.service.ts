@@ -15,6 +15,8 @@ export class ChallengesService {
   constructor(private http: HttpClient, private auth: AuthenticationService, private globalService: GlobalService) {
   }
 
+  public token = '';
+
   public getChallengesDataSource(): Observable<ChallengesModel> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -22,7 +24,7 @@ export class ChallengesService {
       'X-Token': `${this.auth.token}`
     });
 
-    const options = { headers: headers};
+    const options = { headers: headers };
 
     const challengeEndpoint =
       this.globalService.apiUrl +
@@ -46,10 +48,14 @@ export class ChallengesService {
   }
 
   public getChallengeDetailDataSource(challenge_id: string): Observable<ChallengeDetailModel> {
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': `${this.auth.token}`
+      'X-Token': this.token
     });
 
     const options = { headers: headers };

@@ -112,7 +112,7 @@
         </ion-button>
     </div>
 
-    <div *ngIf="details.data?.me === null" class="button-container">
+    <div *ngIf="details.data?.me === null && auth.token" class="button-container">
         <ion-button class="join-button"
                     expand= "block"
                     (click)="joinChallenge()">

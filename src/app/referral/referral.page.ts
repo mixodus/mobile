@@ -174,8 +174,7 @@ export class ReferralPage implements OnInit {
           if (err.error.message === undefined) {
             message = 'Permasalahan jaringan, mohon coba lagi.';
           } else {
-            console.log('err: ', err.error.message.referral_email[0])
-            message = err.error.message.referral_email[0];
+            message = err.error.message;
           }
 
           this.presentToast(message);

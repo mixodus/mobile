@@ -292,7 +292,6 @@ const routes: Routes = [
         loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizPageModule),
       },
     ],
-    canActivate: [AuthGuardService],
   },
   {
     path: 'app/user/achievements',

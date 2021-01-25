@@ -50,7 +50,7 @@ export class NewsDetailPage implements OnInit {
   placeholderProfilePict = './assets/sample-images/user/default-profile.svg';
   replyOutline = './assets/images/reply-outline.svg';
 
-  imageBaseUrl = 'http://dev-laravel.oneindonesia.id/uploads/news/';
+  imageBaseUrl = 'https://dev-api.oneindonesia.id/uploads/news/';
   // newsDetail: NewsResponse & ShellModel;
   destroySubscription = new Subject<any>();
 

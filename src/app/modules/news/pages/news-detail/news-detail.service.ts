@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from '../../../../services/global.service';
 import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { NewsResponse } from '../../../../core/models/news/NewsResponse';
-import { NewsComments } from './newsModel';
 
 @Injectable({
   providedIn: 'root'

@@ -58,8 +58,7 @@
             </div>
 
 
-<!--            <div *ngIf="auth.token">-->
-            <div>
+            <div *ngIf="auth.token">
                 <div class="comment-container-0" *ngIf="isReplyComment">
                     <div class="comment-container-0-0">
                         <div class="reply-comment-container">Balas komentar <span
@@ -92,7 +91,8 @@
             <div class="comment-container-2" *ngFor="let comment of newsComment.comments">
                 <div class="comment-container-2-0">
                     <div class="comment-container-2-1">
-                        <img class="profile-image" [src]="placeholderProfilePict" alt="" *ngIf="!comment.profilePict">
+                        <img class="profile-image" [src]="placeholderProfilePict" alt=""
+                             *ngIf="!comment.profilePict">
                         <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="comment.profilePict">
                     </div>
                     <div class="comment-container-2-2">
@@ -113,7 +113,8 @@
                 <div class="reply-container">
                     <div class="reply-container-2-0" *ngFor="let reply of comment.commentReplies">
                         <div class="reply-container-2-1">
-                            <img class="profile-image" [src]="placeholderProfilePict" alt="" *ngIf="!reply.profilePict">
+                            <img class="profile-image" [src]="placeholderProfilePict" alt=""
+                                 *ngIf="!reply.profilePict">
                             <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="reply.profilePict">
                         </div>
                         <div class="reply-container-2-2">

@@ -137,6 +137,7 @@ export class NewsDetailPage implements OnInit {
   }
 
   formattingNewsDetail(data) {
+    console.log('data: ', data);
     let newsType = '';
     switch (data.news_type_id) {
       case '3':

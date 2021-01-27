@@ -33,7 +33,7 @@
         <div class="news-sub-content-2">
             <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>
 
-            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>
+            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'd MMMM y' }}</div>
 
             <div class="news-title">
                 {{ newsDetail.data.newsTitle }}

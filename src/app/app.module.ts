@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -8,16 +8,14 @@ import { ComponentsModule } from './components/components.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicStorageModule } from '@ionic/storage';
 import { ThemeableBrowser } from '@ionic-native/themeable-browser/ngx';
-import { DataResolverService } from './services/data/data-resolver.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 // import { InterceptorProvider } from './provider/interceptor/interceptor';
 import { SafeHtmlPipe } from './safe-html.pipe';
-import { HomeService } from './home/home.service';
 // import { NetworkServiceProviderService } from './network-service-provider.service';
 import { Network } from '@ionic-native/network/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
@@ -28,10 +26,15 @@ import { PopoverPageModule } from './popover/popover.module';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { JobsPageModule } from './jobs/jobs.module';
+
+import { registerLocaleData } from '@angular/common';
+import localeId from '@angular/common/locales/id';
+
+registerLocaleData(localeId, 'id');
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,8 +79,10 @@ export function createTranslateLoader(http: HttpClient) {
     FilePath,
     IOSFilePicker,
     InAppBrowser,
+    { provide: LOCALE_ID, useValue: 'id-ID' }
     // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true }
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -215,11 +215,12 @@ ion-searchbar {
   margin: 0 0 calc(var(--page-margin) / 2);
   display: flex;
   align-items: center;
+  align-content: center;
   color: var(--ion-color-danger);
   font-size: 12px;
 
-  ion-icon {
-    padding-inline-end: calc(var(--page-margin) / 2);
+  .information-container{
+    margin-right: 3px;
   }
 }
 

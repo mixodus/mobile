@@ -44,16 +44,17 @@ export class NewsDetailPage implements OnInit {
   commentForm: FormGroup;
   isCommentLoading = false;
   isReplyComment = false;
+  isExceedCommentMaxLength = false;
   currentNameToReply = '';
   currentCommentId = '';
   newsId = '';
+  isSubmitted = false;
   placeholderProfilePict = './assets/sample-images/user/default-profile.svg';
   replyOutline = './assets/images/reply-outline.svg';
 
   imageBaseUrl = 'https://dev-api.oneindonesia.id/uploads/news/';
   // newsDetail: NewsResponse & ShellModel;
   destroySubscription = new Subject<any>();
-
 
   ngOnInit() {
     this._route.paramMap.subscribe(params => {
@@ -110,6 +111,10 @@ export class NewsDetailPage implements OnInit {
         });
     });
 
+    this.getCommentDetail();
+  }
+
+  doRefreshComment() {
     this.getCommentDetail();
   }
 
@@ -204,7 +209,14 @@ export class NewsDetailPage implements OnInit {
   }
 
   submitComment() {
+    this.isSubmitted = true;
+
     const commentFormData = this.commentForm.value;
+    if (commentFormData.comment.length > 200) {
+      this.isExceedCommentMaxLength = true;
+
+      return;
+    }
 
     if (commentFormData.comment) {
       this.isCommentLoading = true;
@@ -236,10 +248,15 @@ export class NewsDetailPage implements OnInit {
           this.presentToast(message);
           this.isCommentLoading = false;
         });
+
+      this.isExceedCommentMaxLength = false;
     }
   }
 
   setReplyOn(name, commentId) {
+    const anchor = document.getElementById('comment-input');
+    anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
+
     this.isReplyComment = true;
     this.currentNameToReply = name;
     this.currentCommentId = commentId;

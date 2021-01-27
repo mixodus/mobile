@@ -14,44 +14,81 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-        <div class="image-row">
-            <div size="12" *ngIf="newsDetail?.isShell">
-                <app-aspect-ratio>
-                    <app-image-shell animation="gradient"></app-image-shell>
-                </app-aspect-ratio>
-            </div>
-            <div size="12" *ngIf="!newsDetail?.isShell">
-                <div class="image-container">
-                    <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"
-                    class="image"
-                    />
-                </div>
+    <div class="image-row">
+        <div size="12" *ngIf="newsDetail?.isShell">
+            <app-aspect-ratio>
+                <app-image-shell animation="gradient"></app-image-shell>
+            </app-aspect-ratio>
+        </div>
+        <div size="12" *ngIf="!newsDetail?.isShell">
+            <div class="image-container">
+                <img *ngIf="this.newsDetail.data.newsPhoto" [src]="imageBaseUrl + newsDetail.data.newsPhoto"
+                     class="image"
+                />
             </div>
         </div>
+    </div>
 
-        <div *ngIf="!this.newsDetail.isShell">
-            <div class="news-sub-content-2">
-                <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>
+    <div *ngIf="!this.newsDetail.isShell">
+        <div class="news-sub-content-2">
+            <div class="fill {{ convertKebabCase(newsDetail.data.newsType) }}">{{ newsDetail.data.newsType }}</div>
 
-                <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>
+            <div class="news-date">{{ getDate(newsDetail.data.newsDate) | date: 'MMM d, yyyy' }}</div>
 
-                <div class="news-title">
-                    {{ newsDetail.data.newsTitle }}
-                </div>
+            <div class="news-title">
+                {{ newsDetail.data.newsTitle }}
+            </div>
 
-                <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>
-                </div>
+            <div class="news-detail" [innerHTML]=newsDetail.data.newsDetail>
             </div>
         </div>
+    </div>
 
 
-    <div *ngIf="!auth.token">
+    <div>
         <div class="spinner-container" *ngIf="isCommentLoading">
             <ion-spinner class="spinner"></ion-spinner>
+            <div>Memuat Komentar...</div>
         </div>
 
         <div class="comment-container" *ngIf="!isCommentLoading">
-            <div class="number-of-comment-text">{{newsComment.commentTotal}} Komentar</div>
+            <div class="comment-refresh-container">
+                <div class="number-of-comment-text" id="comment-input">{{newsComment.commentTotal}} Komentar</div>
+                <ion-icon class="refresh-icon" name="refresh-circle" (click)="doRefreshComment()"></ion-icon>
+            </div>
+
+
+<!--            <div *ngIf="auth.token">-->
+            <div>
+                <div class="comment-container-0" *ngIf="isReplyComment">
+                    <div class="comment-container-0-0">
+                        <div class="reply-comment-container">Balas komentar <span
+                                class="current-name-to-reply-text">{{currentNameToReply}}</span></div>
+                        <ion-icon name="close-circle" (click)="setReplyOff()"></ion-icon>
+                    </div>
+                </div>
+                <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+                    <div class="comment-container-1">
+                        <ion-textarea class="comment ion-no-padding" rows="6"
+                                      placeholder="Berikan komentar anda disini"
+                                      auto-grow=true
+                                      formControlName="comment"
+                        >
+                        </ion-textarea>
+                    </div>
+                    <div class="comment-container-2">
+                        <span class="max-length-text">{{commentForm.value.comment.length}} / 200</span>
+
+                        <div class="error-message" *ngIf="isExceedCommentMaxLength && isSubmitted">
+                            <ion-icon class="information-container" name="information-circle-outline"></ion-icon>
+                            <div class="error-text">Komentar tidak boleh melebihi 200 karakter.</div>
+                        </div>
+
+                        <ion-button class="reply-button" type="submit">Kirim</ion-button>
+                    </div>
+                </form>
+            </div>
+
             <div class="comment-container-2" *ngFor="let comment of newsComment.comments">
                 <div class="comment-container-2-0">
                     <div class="comment-container-2-1">
@@ -67,7 +104,8 @@
                         <div class="comment-text">{{comment.comment}}</div>
                         <div class="reply-container">
                             <img class="reply-image" [src]="replyOutline" alt="">
-                            <div class="reply-text" (click)="setReplyOn(comment.fullName, comment.commentId)">Balas</div>
+                            <div class="reply-text" (click)="setReplyOn(comment.fullName, comment.commentId)">Balas
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,24 +127,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="comment-container-0" *ngIf="isReplyComment">
-                <div class="comment-container-0-0" >
-                    <div class="reply-comment-container">Balas Komentar <span class="current-name-to-reply-text">{{currentNameToReply}}</span></div>
-                    <ion-icon name="close-circle" (click)="setReplyOff()"></ion-icon>
-                </div>
-            </div>
-            <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
-                <div class="comment-container-1">
-                    <ion-textarea class="comment ion-no-padding" rows="6"
-                                  placeholder="Berikan komentar anda disini"
-                                  auto-grow=true
-                                  formControlName="comment"
-                    >
-                    </ion-textarea>
-                </div>
-                <ion-button class="reply-button" type="submit">Kirim</ion-button>
-            </form>
         </div>
     </div>
 </ion-content>

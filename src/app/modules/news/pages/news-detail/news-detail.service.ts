@@ -85,7 +85,7 @@ export class NewsDetailService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjo3NjI2fSwiaWF0IjoxNjExMjM0MTkxLCJleHAiOjE2MTE4Mzg5OTF9.DPU16RA8RVsMKLPzI-c8d8_nxOmeWVE2I27oAW8v0FY'
+      'X-Token': `${this.auth.token}`
     });
     const options = { headers: headers };
 

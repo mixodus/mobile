@@ -76,7 +76,7 @@
                         </ion-textarea>
                     </div>
                     <div class="comment-container-2">
-                        <span class="max-length-text">{{commentForm.value.comment.length}} / 200</span>
+                        <span class="max-length-text" *ngIf="commentForm.value.comment">{{commentForm.value.comment.length}} / 200</span>
 
                         <div class="error-message" *ngIf="isExceedCommentMaxLength && isSubmitted">
                             <ion-icon class="information-container" name="information-circle-outline"></ion-icon>

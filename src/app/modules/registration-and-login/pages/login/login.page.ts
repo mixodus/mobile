@@ -77,7 +77,6 @@ export class LoginPage implements OnInit {
         });
       }
     });
-
     // this.storage.get("showIntro").then((result) => {
     //   if(result === null){
     //     this.router.navigate(['walkthrough']);

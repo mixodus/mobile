@@ -9,9 +9,9 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { GlobalService } from '../../../../services/global.service';
 import { CertificationResponse } from '../../../../core/models/certification/CertificationResponse';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
@@ -77,7 +77,10 @@ export class EditCertificationPage implements OnInit {
 
   validation_messages = {
     title: [{ type: 'required', message: 'Gelar dibutuhkan.' }],
-    description: [{ type: 'required', message: 'Deskripsi dibutuhkan.' }],
+    description: [
+      { type: 'required', message: 'Deskripsi dibutuhkan.' },
+      { type: 'minlength', message: 'Deskripsi minimal 20 karakter.' }
+    ],
     certification_date: [{ type: 'required', message: 'Tanggal Penerimaan dibutuhkan.' }]
   };
 
@@ -133,7 +136,7 @@ export class EditCertificationPage implements OnInit {
 
     console.log('this.filetype: ', this.filetype);
 
-    if (!this.filetype) {
+    if (!this.filetype && this.currentUser) {
       this.filetype = this.currentUser.certification_file.substr(this.currentUser.certification_file.lastIndexOf('.') + 1);
     }
 

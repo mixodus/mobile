@@ -15,11 +15,11 @@ import { finalize } from 'rxjs/operators';
   ],
 })
 export class EditWorkExperiencePage implements OnInit {
-  
-  editExperienceForm: FormGroup
+
+  editExperienceForm: FormGroup;
   data: any;
-  currentlyWork: boolean = false;
-  isSubmitted: boolean = false;
+  currentlyWork = false;
+  isSubmitted = false;
 
   validation_messages = {
     'description': [
@@ -72,27 +72,27 @@ export class EditWorkExperiencePage implements OnInit {
         Validators.required,
         Validators.minLength(20),
       ])),
-    })
+    });
     if (this.data == null) {
-      return
+      return;
     }
-    this.editExperienceForm.controls['id'].setValue(this.data.work_experience_id)
-    this.editExperienceForm.controls['company_name'].setValue(this.data.company_name)
-    this.editExperienceForm.controls['post'].setValue(this.data.post)
+    this.editExperienceForm.controls['id'].setValue(this.data.work_experience_id);
+    this.editExperienceForm.controls['company_name'].setValue(this.data.company_name);
+    this.editExperienceForm.controls['post'].setValue(this.data.post);
     this.editExperienceForm.controls['start_period_month'].setValue(this.data.start_period);
     this.editExperienceForm.controls['start_period_year'].setValue(this.data.start_period);
-    if(new Date(this.data.end_period).getFullYear() === 9999){
-      this.currentlyWork = true
+    if (new Date(this.data.end_period).getFullYear() === 9999) {
+      this.currentlyWork = true;
     } else {
       this.editExperienceForm.controls['end_period_month'].setValue(this.data.end_period);
       this.editExperienceForm.controls['end_period_year'].setValue(this.data.end_period);
     }
-    this.editExperienceForm.controls['description'].setValue(this.data.description)
+    this.editExperienceForm.controls['description'].setValue(this.data.description);
     this.onChangeCheckbox();
   }
 
-  onChangeCheckbox(){
-    if(this.currentlyWork){
+  onChangeCheckbox() {
+    if (this.currentlyWork) {
       this.editExperienceForm.controls['end_period_month'].disable();
       this.editExperienceForm.controls['end_period_year'].disable();
     } else {
@@ -104,11 +104,11 @@ export class EditWorkExperiencePage implements OnInit {
 
   async saveWorkExperience(event) {
     event.stopPropagation();
-    let loading = await this.loadingCtrl.create();
+    const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    if(!this.editExperienceForm.valid || this.validDate()){
-      this.presentToast("Mohon isi semua data yang dibutuhkan dengan benar.");
+    if (!this.editExperienceForm.valid || this.validDate()) {
+      this.presentToast('Mohon isi semua data yang dibutuhkan dengan benar.');
       loading.dismiss();
       return;
     }
@@ -134,20 +134,20 @@ export class EditWorkExperiencePage implements OnInit {
         start_period_month: new Date(formData.start_period_month).toLocaleString('default', { month: '2-digit' }),
         start_period_year: new Date(formData.start_period_year).toLocaleString('default', { year: 'numeric' }),
         description: formData.description,
-      }
+      };
       if (this.currentlyWork === true) {
-        addData.end_period_month = 12
-        addData.end_period_year = 9999
+        addData.end_period_month = '12';
+        addData.end_period_year = '9999';
       } else {
-        addData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' })
-        addData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' })
+        addData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' });
+        addData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' });
       }
 
       this.http.post(workExperienceEndpoint, addData, options).pipe(
         finalize(() => this.loadingCtrl.dismiss())
       )
         .subscribe(data => {
-          this.presentToast(data["message"]);
+          this.presentToast(data['message']);
           this.globalService.refreshFlag.workExp = true;
           this.globalService.refreshFlag.profile = true;
           this.globalService.refreshFlag.home = true;
@@ -157,32 +157,33 @@ export class EditWorkExperiencePage implements OnInit {
         }, err => {
           console.log('JS Call error: ', err);
 
-          let message = "";
-          if (err.error.message === undefined)
-            message = "Permasalahan jaringan, mohon coba lagi.";
-          else
+          let message = '';
+          if (err.error.message === undefined) {
+            message = 'Permasalahan jaringan, mohon coba lagi.';
+          } else {
             message = err.error.message;
+          }
 
           this.presentToast(message);
         });
-      return
+      return;
     }
 
-    //convert start month
-    formData.start_period_month = new Date(formData.start_period_month).toLocaleString('default', { month: '2-digit' })
-    //convert start year
-    formData.start_period_year = new Date(formData.start_period_year).toLocaleString('default', { year: 'numeric' })  
-    //convert end month
-    if(this.currentlyWork){
+    // convert start month
+    formData.start_period_month = new Date(formData.start_period_month).toLocaleString('default', { month: '2-digit' });
+    // convert start year
+    formData.start_period_year = new Date(formData.start_period_year).toLocaleString('default', { year: 'numeric' });
+    // convert end month
+    if (this.currentlyWork) {
       formData.end_period_month = 12;
     } else {
-      formData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' })
+      formData.end_period_month = new Date(formData.end_period_month).toLocaleString('default', { month: '2-digit' });
     }
-    //convert end year
-    if(this.currentlyWork){
+    // convert end year
+    if (this.currentlyWork) {
       formData.end_period_year = 9999;
     } else {
-      formData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' })
+      formData.end_period_year = new Date(formData.end_period_year).toLocaleString('default', { year: 'numeric' });
     }
 
 
@@ -190,38 +191,38 @@ export class EditWorkExperiencePage implements OnInit {
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
-        this.presentToast(data["message"]);
+        this.presentToast(data['message']);
         this.globalService.refreshFlag.workExp = true;
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
       }, err => {
         console.log('JS Call error: ', err);
 
-        let message = "";
-        if (err.error.message === undefined){
-          message = "Permasalahan jaringan, mohon coba lagi.";
-        }
-        else
+        let message = '';
+        if (err.error.message === undefined) {
+          message = 'Permasalahan jaringan, mohon coba lagi.';
+        } else {
           message = err.error.message;
+        }
 
         this.presentToast(message);
       });
   }
 
-  validDate() : boolean {
+  validDate(): boolean {
     if (!this.currentlyWork && this.editExperienceForm.controls['end_period_month'].value != '' &&
       this.editExperienceForm.controls['end_period_year'].value != '' &&
       this.editExperienceForm.controls['start_period_month'].value != '' &&
       this.editExperienceForm.controls['start_period_year'].value != '') {
-      const start_date = new Date(new Date(this.editExperienceForm.controls['start_period_year'].value).getFullYear(), new Date(this.editExperienceForm.controls['start_period_month'].value).getMonth())
-      const end_date = new Date(new Date(this.editExperienceForm.controls['end_period_year'].value).getFullYear(), new Date(this.editExperienceForm.controls['end_period_month'].value).getMonth())
-      if(end_date < start_date){
-        return true
+      const start_date = new Date(new Date(this.editExperienceForm.controls['start_period_year'].value).getFullYear(), new Date(this.editExperienceForm.controls['start_period_month'].value).getMonth());
+      const end_date = new Date(new Date(this.editExperienceForm.controls['end_period_year'].value).getFullYear(), new Date(this.editExperienceForm.controls['end_period_month'].value).getMonth());
+      if (end_date < start_date) {
+        return true;
       } else {
-        return false
+        return false;
       }
     }
-    return false
+    return false;
   }
 
   async presentToast(message) {

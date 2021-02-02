@@ -102,7 +102,7 @@
                             <div class="date-text">{{comment.dateCreated}}</div>
                         </div>
                         <div class="comment-text">{{comment.comment}}</div>
-                        <div class="reply-container">
+                        <div class="reply-container" *ngIf="auth.token">
                             <img class="reply-image" [src]="replyOutline" alt="">
                             <div class="reply-text" (click)="setReplyOn(comment.fullName, comment.commentId)">Balas
                             </div>

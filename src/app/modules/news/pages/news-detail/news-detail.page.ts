@@ -268,4 +268,19 @@ export class NewsDetailPage implements OnInit {
     this.currentNameToReply = '';
     this.currentCommentId = '';
   }
+
+  handleSeeMoreAll(commentId: string, index: number) {
+    const cloneComment = [...this.newsComment.comments];
+    const toUpdatedObject = cloneComment[index];
+
+    const updatedObject = Object.assign({} , toUpdatedObject, {
+      isReplyOpen: !toUpdatedObject.isReplyOpen
+    });
+
+    this.newsComment.comments = [
+      ...this.newsComment.comments.slice(0, index),
+      updatedObject,
+      ...this.newsComment.comments.slice(index + 1)
+    ];
+  }
 }

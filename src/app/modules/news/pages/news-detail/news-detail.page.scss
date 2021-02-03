@@ -80,7 +80,7 @@
     justify-content: center;
     margin: 50px 0 100px 0;
 
-    .spinner{
+    .spinner {
       margin-bottom: 10px;
     }
   }
@@ -110,16 +110,16 @@
   .comment-container {
     margin: 30px;
 
-    .comment-refresh-container{
+    .comment-refresh-container {
       display: flex;
       align-items: center;
 
-      .number-of-comment-text{
+      .number-of-comment-text {
         margin-right: 10px;
         color: var(--idstar-dark-grey);
       }
 
-      .refresh-icon{
+      .refresh-icon {
         color: var(--idstar-dark-grey);
         font-size: 20px;
       }
@@ -243,12 +243,23 @@
         }
       }
 
+      .see-all-text-container {
+        margin-left: 10%;
+
+        .see-all-text {
+          font-size: 8px;
+          margin-top: 10px;
+          text-decoration: underline;
+          color: var(--idstar-primary);
+        }
+      }
+
       .reply-container {
         .reply-container-2-0 {
           display: flex;
           flex-direction: row;
           margin-left: 10%;
-          margin-top: 30px;
+          margin-top: 20px;
 
           .reply-container-2-1 {
             width: 20%;

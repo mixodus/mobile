@@ -76,7 +76,8 @@
                         </ion-textarea>
                     </div>
                     <div class="comment-container-2">
-                        <span class="max-length-text" *ngIf="commentForm.value.comment">{{commentForm.value.comment.length}} / 200</span>
+                        <span class="max-length-text"
+                              *ngIf="commentForm.value.comment">{{commentForm.value.comment.length}} / 200</span>
 
                         <div class="error-message" *ngIf="isExceedCommentMaxLength && isSubmitted">
                             <ion-icon class="information-container" name="information-circle-outline"></ion-icon>
@@ -88,7 +89,7 @@
                 </form>
             </div>
 
-            <div class="comment-container-2" *ngFor="let comment of newsComment.comments ; first as isFirst">
+            <div class="comment-container-2" *ngFor="let comment of newsComment.comments ; let i = index">
                 <div class="comment-container-2-0">
                     <div class="comment-container-2-1">
                         <img class="profile-image" [src]="placeholderProfilePict" alt=""
@@ -110,19 +111,28 @@
                     </div>
                 </div>
 
-                <div *ngIf="!comment.isReplyOpen && comment.commentReplies.length > 0">
-                    <div class="reply-container-2-1">
-                        <img class="profile-image" [src]="placeholderProfilePict" alt=""
-                             *ngIf="!comment.commentReplies[0]?.profilePict">
-                        <img class="profile-image" [src]=comment.commentReplies[0].profilePict alt="" *ngIf="comment.commentReplies[0]?.profilePict">
+                <div class="see-all-text-container" *ngIf="comment.commentReplies.length > 1">
+                    <div class="see-all-text" (click)="handleSeeMoreAll(comment.commentId, i)">
+                        {{comment.isReplyOpen ? 'Tutup semua balasan' : 'Lihat semua balasan'}}
                     </div>
-                    <div class="reply-container-2-2">
-                        <div class="name-text">{{comment.commentReplies[0]?.fullName}}</div>
-                        <div class="date-container">
-                            <div class="time-text">{{comment.commentReplies[0]?.timeCreated}}</div>
-                            <div class="date-text">{{comment.commentReplies[0]?.dateCreated}}</div>
+                </div>
+
+                <div class="reply-container">
+                    <div class="reply-container-2-0" *ngIf="!comment.isReplyOpen && comment.commentReplies.length > 0">
+                        <div class="reply-container-2-1">
+                            <img class="profile-image" [src]="placeholderProfilePict" alt=""
+                                 *ngIf="!comment.commentReplies[0]?.profilePict">
+                            <img class="profile-image" [src]=comment.commentReplies[0].profilePict alt=""
+                                 *ngIf="comment.commentReplies[0]?.profilePict">
                         </div>
-                        <div class="comment-text">{{comment.commentReplies[0]?.comment}}</div>
+                        <div class="reply-container-2-2">
+                            <div class="name-text">{{comment.commentReplies[0]?.fullName}}</div>
+                            <div class="date-container">
+                                <div class="time-text">{{comment.commentReplies[0]?.timeCreated}}</div>
+                                <div class="date-text">{{comment.commentReplies[0]?.dateCreated}}</div>
+                            </div>
+                            <div class="comment-text">{{comment.commentReplies[0]?.comment}}</div>
+                        </div>
                     </div>
                 </div>
 

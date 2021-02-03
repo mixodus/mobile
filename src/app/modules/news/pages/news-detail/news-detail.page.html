@@ -115,7 +115,7 @@
                         <div class="reply-container-2-1">
                             <img class="profile-image" [src]="placeholderProfilePict" alt=""
                                  *ngIf="!reply.profilePict">
-                            <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="reply.profilePict">
+                            <img class="profile-image" [src]=reply.profilePict alt="" *ngIf="reply.profilePict">
                         </div>
                         <div class="reply-container-2-2">
                             <div class="name-text">{{reply.fullName}}</div>

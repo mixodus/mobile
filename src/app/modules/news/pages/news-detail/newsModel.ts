@@ -12,6 +12,7 @@ export interface NewsCommentsDetail {
   commentReplies: NewsReplies[];
   dateCreated: string;
   timeCreated: string;
+  isReplyOpen: boolean;
 }
 
 export interface NewsReplies {

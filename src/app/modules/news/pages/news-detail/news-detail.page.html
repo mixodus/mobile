@@ -88,7 +88,7 @@
                 </form>
             </div>
 
-            <div class="comment-container-2" *ngFor="let comment of newsComment.comments">
+            <div class="comment-container-2" *ngFor="let comment of newsComment.comments ; first as isFirst">
                 <div class="comment-container-2-0">
                     <div class="comment-container-2-1">
                         <img class="profile-image" [src]="placeholderProfilePict" alt=""
@@ -110,12 +110,28 @@
                     </div>
                 </div>
 
-                <div class="reply-container">
+                <div *ngIf="!comment.isReplyOpen && comment.commentReplies.length > 0">
+                    <div class="reply-container-2-1">
+                        <img class="profile-image" [src]="placeholderProfilePict" alt=""
+                             *ngIf="!comment.commentReplies[0]?.profilePict">
+                        <img class="profile-image" [src]=comment.commentReplies[0].profilePict alt="" *ngIf="comment.commentReplies[0]?.profilePict">
+                    </div>
+                    <div class="reply-container-2-2">
+                        <div class="name-text">{{comment.commentReplies[0]?.fullName}}</div>
+                        <div class="date-container">
+                            <div class="time-text">{{comment.commentReplies[0]?.timeCreated}}</div>
+                            <div class="date-text">{{comment.commentReplies[0]?.dateCreated}}</div>
+                        </div>
+                        <div class="comment-text">{{comment.commentReplies[0]?.comment}}</div>
+                    </div>
+                </div>
+
+                <div class="reply-container" *ngIf="comment.isReplyOpen">
                     <div class="reply-container-2-0" *ngFor="let reply of comment.commentReplies">
                         <div class="reply-container-2-1">
                             <img class="profile-image" [src]="placeholderProfilePict" alt=""
                                  *ngIf="!reply.profilePict">
-                            <img class="profile-image" [src]=comment.profilePict alt="" *ngIf="reply.profilePict">
+                            <img class="profile-image" [src]=reply.profilePict alt="" *ngIf="reply.profilePict">
                         </div>
                         <div class="reply-container-2-2">
                             <div class="name-text">{{reply.fullName}}</div>

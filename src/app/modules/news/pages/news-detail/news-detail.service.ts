@@ -54,7 +54,8 @@ export class NewsDetailService {
           comment: comment.comment,
           commentReplies: this.extractingCommentReplies(comment.comment_replies),
           dateCreated: comment.date_created,
-          timeCreated: comment.time_created
+          timeCreated: comment.time_created,
+          isReplyOpen: false
         }
       );
     });

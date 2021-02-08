@@ -28,42 +28,87 @@
             </div>
         </div>
 
-        <div class="reward-container">
-            <div class="reward-text">
-                Hadiah
+        <div *ngIf="toggleState === 0">
+            <div class="reward-container">
+                <div class="reward-text">
+                    Hadiah
+                </div>
+                <div class="reward-detail-container">
+                    <div class="reward-detail-content-container">
+                        <div class="medal-image-container">
+                            <img class="medal-image" src="../../assets/icons/gold-medal.png" alt="">
+                        </div>
+
+                        <div class="reward-detail-text-container">
+                            <div class="reward-detail-text">Juara 1</div>
+                            <div class="reward-detail-text">IDR 45.000.000</div>
+                        </div>
+                    </div>
+
+                    <div class="reward-detail-content-container">
+                        <div class="medal-image-container">
+                            <img class="medal-image" src="../../assets/icons/silver-medal.png" alt="">
+                        </div>
+                        <div class="reward-detail-text-container">
+                            <div class="reward-detail-text">Juara 1</div>
+                            <div class="reward-detail-text">IDR 45.000.000</div>
+                        </div>
+                    </div>
+
+                    <div class="reward-detail-content-container">
+                        <div class="medal-image-container">
+                            <img class="medal-image" src="../../assets/icons/bronze-medal.png" alt="">
+                        </div>
+                        <div class="reward-detail-text-container">
+                            <div class="reward-detail-text">Juara 1</div>
+                            <div class="reward-detail-text">IDR 45.000.000</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="reward-detail-container">
-                <div class="reward-detail-content-container">
-                    <div class="medal-image-container">
-                        <img class="medal-image" src="../../assets/icons/gold-medal.png" alt="">
-                    </div>
 
-                    <div class="reward-detail-text-container">
-                        <div class="reward-detail-text">Juara 1</div>
-                        <div class="reward-detail-text">IDR 45.000.000</div>
+            <div class="timeline">
+                <div class="container">
+                    <div class="green-dot"></div>
+                    <div class="timeline-icon-container">
+                        <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+                    </div>
+                    <div class="timeline-text-container">
+                        <div class="timeline-text-1">Registrasi</div>
+                        <div class="timeline-text-2">01 Maret 2021</div>
                     </div>
                 </div>
-
-                <div class="reward-detail-content-container">
-                    <div class="medal-image-container">
-                        <img class="medal-image" src="../../assets/icons/silver-medal.png" alt="">
+                <div class="container">
+                    <div class="green-dot"></div>
+                    <div class="timeline-icon-container">
+                        <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
                     </div>
-                    <div class="reward-detail-text-container">
-                        <div class="reward-detail-text">Juara 1</div>
-                        <div class="reward-detail-text">IDR 45.000.000</div>
+                    <div class="timeline-text-container">
+                        <div class="timeline-text-1">Registrasi</div>
+                        <div class="timeline-text-2">01 Maret 2021</div>
                     </div>
                 </div>
-
-                <div class="reward-detail-content-container">
-                    <div class="medal-image-container">
-                        <img class="medal-image" src="../../assets/icons/bronze-medal.png" alt="">
+                <div class="container">
+                    <div class="green-dot"></div>
+                    <div class="timeline-icon-container">
+                        <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
                     </div>
-                    <div class="reward-detail-text-container">
-                        <div class="reward-detail-text">Juara 1</div>
-                        <div class="reward-detail-text">IDR 45.000.000</div>
+                    <div class="timeline-text-container">
+                        <div class="timeline-text-1">Registrasi</div>
+                        <div class="timeline-text-2">01 Maret 2021</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div *ngIf="toggleState === 1">
+            <div class="status-container">
+                <div class="status-text">Status</div>
+            </div>
+        </div>
     </div>
 </ion-content>
+
+<ion-footer class="hackathon-footer">
+    <ion-button class="signup-button" expand="block" type="submit">Daftar Hackathon</ion-button>
+</ion-footer>

@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div *ngIf="toggleState === 0">
+        <div *ngIf="toggleState === 1">
             <div class="reward-container">
                 <div class="reward-text">
                     Hadiah
@@ -101,9 +101,24 @@
             </div>
         </div>
 
-        <div *ngIf="toggleState === 1">
-            <div class="status-container">
+        <div *ngIf="toggleState === 0">
+            <div class="status-text-container">
                 <div class="status-text">Status</div>
+            </div>
+            <div class="timeline-icon-container-2">
+                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+            </div>
+            <div class="status-detail-container">
+                <div class="status-detail-text-1">Test</div>
+                <div class="status-detail-text-2">01 Maret 2021</div>
+                <div class="status-detail-text-3">
+                    Amet cillum occaecat ut minim amet ut Lorem consectetur. Eiusmod magna nulla adipisicing nostrud in
+                    pariatur cupidatat officia esse pariatur fugiat do.
+                </div>
             </div>
         </div>
     </div>

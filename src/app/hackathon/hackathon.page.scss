@@ -1,0 +1,110 @@
+.hackathon-header {
+  color: var(--idstar-white);
+
+  .back {
+    font-size: 22px;
+    color: var(--idstar-dark-grey);
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.hackathon-content {
+  --background: var(--idstar-white);
+
+  .hackkathon-content-column {
+    padding: 40px;
+
+    .hacktahon-image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .hacktahon-image {
+        max-width: 165px;
+        margin-bottom: 6px;
+      }
+    }
+
+    .hacktahon-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--idstar-dark-grey);
+      margin-bottom: 37px;
+    }
+
+    .toggle-container {
+      padding: 0 20%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: 18px;
+
+      .toggle-content-fill {
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        background-color: var(--idstar-light-green);
+      }
+
+      .toggle-content-outline {
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        background-color: var(--idstar-light-grey);
+        color: var(--idstar-grey);
+      }
+    }
+
+    .reward-container {
+      .reward-text {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--idstar-dark-grey);
+        margin-bottom: 21px;
+      }
+
+      .reward-detail-container {
+        .reward-detail-content-container {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 20px;
+
+          .medal-image-container {
+            width: 15%;
+
+            .medal-image {
+              height: 45px;
+            }
+          }
+
+          .reward-detail-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 85%;
+            margin-left: 30px;
+
+            .reward-detail-text {
+              font-size: 12px;
+              font-weight: 700;
+              color: var(--idstar-dark-grey);
+            }
+          }
+        }
+      }
+    }
+  }
+}

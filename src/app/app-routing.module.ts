@@ -314,6 +314,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
+    path: 'app/hackathon',
+    loadChildren: () =>
+      import('./hackathon/hackathon.module').then((m) => m.HackathonPageModule),
+  },
+  {
     path: 'profile/:userId',
     loadChildren: () =>
       import('./user/friend-profile/profile.module').then((m) => m.ProfilePageModule),
@@ -364,7 +369,8 @@ const routes: Routes = [
   },
   { path: 'popover', loadChildren: './popover/popover.module#PopoverPageModule' },
   { path: 'history', loadChildren: './user/profile/history/history.module#HistoryPageModule' },
-  { path: 'academy', loadChildren: './academy/academy.module#AcademyPageModule' }
+  { path: 'academy', loadChildren: './academy/academy.module#AcademyPageModule' },
+
 
 ];
 

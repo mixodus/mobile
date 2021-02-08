@@ -1,0 +1,69 @@
+<ion-header class="hackathon-header" no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start" (click)="goBack()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-buttons>
+        <ion-title class="title">
+            <div>Hackathon</div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="hackathon-content">
+    <div class="hackkathon-content-column">
+        <div class="hacktahon-image-container">
+            <img class="hacktahon-image" src="https://dev-api.oneindonesia.id/uploads/event/ICStar.png" alt="">
+        </div>
+
+        <div class="hacktahon-title">
+            ICStar Hackathon
+        </div>
+
+        <div class="toggle-container">
+            <div [ngClass]="{'toggle-content-fill': toggleState === 0, 'toggle-content-outline':toggleState === 1 }"
+                 (click)="handleToggleContent(0)">Deskripsi
+            </div>
+            <div [ngClass]="{'toggle-content-fill': toggleState === 1, 'toggle-content-outline':toggleState === 0 }"
+                 (click)="handleToggleContent(1)">Status
+            </div>
+        </div>
+
+        <div class="reward-container">
+            <div class="reward-text">
+                Hadiah
+            </div>
+            <div class="reward-detail-container">
+                <div class="reward-detail-content-container">
+                    <div class="medal-image-container">
+                        <img class="medal-image" src="../../assets/icons/gold-medal.png" alt="">
+                    </div>
+
+                    <div class="reward-detail-text-container">
+                        <div class="reward-detail-text">Juara 1</div>
+                        <div class="reward-detail-text">IDR 45.000.000</div>
+                    </div>
+                </div>
+
+                <div class="reward-detail-content-container">
+                    <div class="medal-image-container">
+                        <img class="medal-image" src="../../assets/icons/silver-medal.png" alt="">
+                    </div>
+                    <div class="reward-detail-text-container">
+                        <div class="reward-detail-text">Juara 1</div>
+                        <div class="reward-detail-text">IDR 45.000.000</div>
+                    </div>
+                </div>
+
+                <div class="reward-detail-content-container">
+                    <div class="medal-image-container">
+                        <img class="medal-image" src="../../assets/icons/bronze-medal.png" alt="">
+                    </div>
+                    <div class="reward-detail-text-container">
+                        <div class="reward-detail-text">Juara 1</div>
+                        <div class="reward-detail-text">IDR 45.000.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

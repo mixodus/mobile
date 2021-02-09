@@ -118,12 +118,18 @@
 
   .menu-container-1 {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    //flex-direction: row;
+    //justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
 
     .menu-bootcamp-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-bootcamp {
         display: flex;
         justify-content: center;
@@ -149,6 +155,12 @@
     }
 
     .menu-academy-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-academy {
         display: flex;
         justify-content: center;
@@ -174,6 +186,12 @@
     }
 
     .menu-point-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-point {
         display: flex;
         justify-content: center;
@@ -201,12 +219,15 @@
 
   .menu-container-2 {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     width: 100%;
-    margin-bottom: 15px;
 
     .menu-news-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-news {
         display: flex;
         justify-content: center;
@@ -232,6 +253,12 @@
     }
 
     .menu-referral-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-referral {
         display: flex;
         justify-content: center;
@@ -257,6 +284,12 @@
     }
 
     .menu-challenge-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 33.33%;
+
       .menu-challenge {
         display: flex;
         justify-content: center;

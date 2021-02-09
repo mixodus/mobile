@@ -319,6 +319,10 @@ const routes: Routes = [
       import('./hackathon/hackathon.module').then((m) => m.HackathonPageModule),
   },
   {
+    path: 'app/hackathon/registration',
+    loadChildren: './hackathon/hackathon-registration/hackathon-registration.module#HackathonRegistrationPageModule'
+  },
+  {
     path: 'profile/:userId',
     loadChildren: () =>
       import('./user/friend-profile/profile.module').then((m) => m.ProfilePageModule),

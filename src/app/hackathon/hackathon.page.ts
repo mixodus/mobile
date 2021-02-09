@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../services/auth/authentication.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-hackathon',
@@ -12,7 +13,8 @@ export class HackathonPage implements OnInit {
 
   constructor(
     private auth: AuthenticationService,
-    private location: Location
+    private location: Location,
+    private alertCtrl: AlertController
   ) {
   }
 
@@ -27,11 +29,33 @@ export class HackathonPage implements OnInit {
 
   goBack() {
     this.location.back();
-    // this.navCtrl.navigateForward(['app/events']);
   }
 
   handleToggleContent(index: number) {
     this.toggleState = index;
   }
 
+  async presentRegisAlert() {
+    const alert = await this.alertCtrl.create({
+      message: `<div class="message-body">
+                    <p class="title">Oops!</p>
+                    <p class="content">
+                    Anda harus registrasi akun terlebih dahulu
+                    agar dapat mengikuti hackathon ini!</p>
+                </div>`,
+      cssClass: 'idstar-custom-alert',
+      buttons: [
+        {
+          cssClass: 'idstar-custom-alert-action',
+          text: 'Registrasi Sekarang',
+          handler: () => {
+            console.log('ke Registrasi')
+            // this.navCtrl.navigateForward(['/app/jobs']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
 }

@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div *ngIf="toggleState === 1">
+        <div *ngIf="toggleState === 0">
             <div class="reward-container">
                 <div class="reward-text">
                     Hadiah
@@ -101,16 +101,19 @@
             </div>
         </div>
 
-        <div *ngIf="toggleState === 0">
+        <div *ngIf="toggleState === 1">
             <div class="status-text-container">
                 <div class="status-text">Status</div>
             </div>
-            <div class="timeline-icon-container-2">
-                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
-                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
-                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
-                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
-                <img class="timeline-icon" src="https://dummyimage.com/600x400/000/fff" alt="">
+            <div class="timeline-container">
+                <div class="horizontal-line"></div>
+                <div class="timeline-icon-container-2">
+                    <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                    <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                    <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                    <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                    <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                </div>
             </div>
             <div class="status-detail-container">
                 <div class="status-detail-text-1">Test</div>
@@ -125,5 +128,6 @@
 </ion-content>
 
 <ion-footer class="hackathon-footer">
-    <ion-button class="signup-button" expand="block" type="submit">Daftar Hackathon</ion-button>
+    <ion-button class="signup-button" expand="block" [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
+    </ion-button>
 </ion-footer>

@@ -160,8 +160,9 @@ ion-searchbar {
   }
 
   .idstar-custom-alert-action {
-    background-color: rgb(117, 194, 68);
-    background-color: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    text-transform: none;
+    //background: red;
+    background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
     border-radius: 5px;
     font-weight: bold;
     font-size: 12px;
@@ -184,10 +185,11 @@ ion-searchbar {
       margin-bottom: 10px;
     }
 
-    .title,
+    .title {
+      margin-bottom: 24px;
+    }
     .content {
-      margin-bottom: 5px;
-      margin-top: 0;
+      margin-bottom: 34px;
     }
 
     .title {

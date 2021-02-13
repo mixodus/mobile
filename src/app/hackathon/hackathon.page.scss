@@ -16,6 +16,10 @@
   }
 }
 
+.description {
+  font-size: 12px;
+}
+
 .hackathon-content {
   --background: var(--idstar-white);
 
@@ -68,6 +72,20 @@
       }
     }
 
+    .description-container {
+      margin-bottom: 26px;
+
+      .description-text {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--idstar-dark-grey);
+      }
+
+      .description {
+        font-size: 12px;
+      }
+    }
+
     .reward-container {
       .reward-text {
         font-size: 14px;
@@ -104,6 +122,20 @@
             }
           }
         }
+      }
+    }
+
+    .requirement-container {
+      margin-bottom: 26px;
+
+      .requirement-text {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--idstar-dark-grey);
+      }
+
+      .requirement {
+        font-size: 12px;
       }
     }
 
@@ -168,6 +200,40 @@
       bottom: 0;
       left: 12px;
       border-radius: 5px;
+    }
+
+    .container-1 {
+      .illustration-wrapper {
+        margin: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-title {
+        margin-bottom: 20px;
+        color: var(--ion-color-dark);
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .modal-text {
+        color: var(--idstar-grey);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .go-login-btn {
+        margin-top: 30px;
+        width: 100%;
+        --background: rgb(117, 194, 68);
+        --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+        font-size: 12px;
+        color: var(--idstar-white);
+        font-family: var(--nunito-family);
+        --box-shadow: 0 0 32px -7px #75C244;
+      }
     }
 
     .status-text-container {

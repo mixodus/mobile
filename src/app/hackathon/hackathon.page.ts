@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
+import { HackathonService } from './hackathon.service';
+import { HackathonDetail } from './hackathonModel';
 
 @Component({
   selector: 'app-hackathon',
@@ -10,15 +13,48 @@ import { AlertController } from '@ionic/angular';
 })
 export class HackathonPage implements OnInit {
   toggleState = 0;
+  isHackathonDetailLoading: boolean;
+  hackathonDetail: HackathonDetail;
 
   constructor(
     private auth: AuthenticationService,
+    private hackathonService: HackathonService,
     private location: Location,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastController: ToastController
   ) {
   }
 
   ngOnInit() {
+    this.getHackathonDetail();
+  }
+
+  getHackathonDetail() {
+    this.isHackathonDetailLoading = true;
+    this.hackathonService.getHackathonDetailData()
+      .pipe(finalize(() => this.isHackathonDetailLoading = false)).subscribe((data: any) => {
+      this.hackathonDetail = this.hackathonService.formattingHackathonDetail(data.data);
+      console.log('data: ', data);
+      console.log('this.hackathonDetail: ', this.hackathonDetail);
+    }, (err) => {
+      let message = '';
+      if (err.error.message === undefined) {
+        message = 'Permasalahan jaringan, mohon coba lagi.';
+      } else {
+        message = err.error.message;
+      }
+
+      this.presentToast(message);
+      this.isHackathonDetailLoading = false;
+    });
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
   ionViewWillEnter() {
@@ -49,7 +85,7 @@ export class HackathonPage implements OnInit {
           cssClass: 'idstar-custom-alert-action',
           text: 'Registrasi Sekarang',
           handler: () => {
-            console.log('ke Registrasi')
+            console.log('ke Registrasi');
             // this.navCtrl.navigateForward(['/app/jobs']);
           },
         },
@@ -57,5 +93,9 @@ export class HackathonPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  handleLoginButtonClick() {
+    this.auth.signOut();
   }
 }

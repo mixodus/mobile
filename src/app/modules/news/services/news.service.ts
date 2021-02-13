@@ -42,7 +42,6 @@ export class NewsService {
       this._listDataStore = new DataStore(shellModel);
       // Trigger the loading mechanism (with shell) in the dataStore
       this._listDataStore.load(this.getNews());
-      console.log('this.getNews(): ', this.getNews());
     }
     return this._listDataStore;
   }

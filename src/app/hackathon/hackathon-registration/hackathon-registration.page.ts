@@ -8,6 +8,8 @@ import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { finalize } from 'rxjs/operators';
+import { HackathonService } from '../hackathon.service';
 
 @Component({
   selector: 'app-hackathon-registration',
@@ -36,9 +38,6 @@ export class HackathonRegistrationPage implements OnInit {
     private filePath: FilePath,
     private toastCtrl: ToastController,
   ) {
-  }
-
-  ngOnInit() {
     this.hackathonForm = new FormGroup({
       universityName: new FormControl('', Validators.compose([
         Validators.required
@@ -47,6 +46,9 @@ export class HackathonRegistrationPage implements OnInit {
         Validators.required
       ])),
     });
+  }
+
+  ngOnInit() {
   }
 
   goBack() {

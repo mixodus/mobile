@@ -23,6 +23,18 @@
 .hackathon-content {
   --background: var(--idstar-white);
 
+  .spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .spinner {
+      margin-bottom: 10px;
+    }
+  }
+
   .hackkathon-content-column {
     padding: 40px;
 
@@ -174,14 +186,13 @@
 
         .timeline-text-container {
           margin-left: 15px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+          width: 50%;
 
           .timeline-text-1 {
             color: var(--idstar-dark-grey);
             font-weight: 900;
             font-size: 14px;
+            word-break: break-word;
           }
 
           .timeline-text-2 {
@@ -291,6 +302,7 @@
         font-weight: 900;
         font-size: 14px;
         margin-bottom: 4px;
+        color: var(--idstar-dark-grey);
       }
 
       .status-detail-text-2 {
@@ -302,6 +314,17 @@
       .status-detail-text-3 {
         font-size: 12px;
         font-weight: 400;
+      }
+    }
+
+    .status-detail-container-failed{
+      background-color: var(--idstar-red-2);
+      padding: 24px;
+      border-radius: 5px;
+
+      .status-detail-text-failed{
+        text-align: center;
+        color: var(--idstar-white);
       }
     }
   }

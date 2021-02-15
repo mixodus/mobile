@@ -5,6 +5,9 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { HackathonService } from './hackathon.service';
 import { HackathonDetail } from './hackathonModel';
+import { Observable } from 'rxjs';
+import { UserProfileModel } from '../user/profile/user-profile.model';
+import { DataStore } from '../shell/data-store';
 
 @Component({
   selector: 'app-hackathon',
@@ -27,6 +30,12 @@ export class HackathonPage implements OnInit {
 
   ngOnInit() {
     this.getHackathonDetail();
+  }
+
+  doRefresh(ev) {
+    this.getHackathonDetail();
+
+    ev.target.complete();
   }
 
   getHackathonDetail() {

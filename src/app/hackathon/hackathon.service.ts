@@ -43,7 +43,8 @@ export class HackathonService {
       description: unformattedHackathonDetail.event_note,
       prizes: this.extractingHackathonDetail(unformattedHackathonDetail.event_prize),
       requirement: unformattedHackathonDetail.event_requirement,
-      schedules: this.extractingSchedules(unformattedHackathonDetail.eventSchedules)
+      schedules: this.extractingSchedules(unformattedHackathonDetail.eventSchedules),
+      currentSchedule: this.formattingSchedule(unformattedHackathonDetail.current_state)
     };
   }
 
@@ -69,12 +70,23 @@ export class HackathonService {
       extractedPrizes.push(
         {
           name: schedule.name,
-          iconUrl: schedule.icon,
+          iconUrl: schedule.icon_url,
           startDate: schedule.schedule_start,
-          status: schedule.status
+          status: schedule.status,
+          description: schedule.desc
         }
       );
     });
     return extractedPrizes;
+  }
+
+  formattingSchedule(unformattedSchedule: any) {
+    return {
+      name: unformattedSchedule.name,
+      iconUrl: unformattedSchedule.icon_url,
+      startDate: unformattedSchedule.schedule_start,
+      status: unformattedSchedule.status,
+      description: unformattedSchedule.desc
+    };
   }
 }

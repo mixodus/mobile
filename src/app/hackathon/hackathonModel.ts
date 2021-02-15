@@ -5,6 +5,7 @@ export interface HackathonDetail {
   prizes: Prize[];
   requirement: string;
   schedules: Schedule[];
+  currentSchedule: Schedule;
 }
 
 interface Prize {
@@ -18,4 +19,5 @@ interface Schedule {
   iconUrl: string;
   startDate: string;
   status: string;
+  description: string;
 }

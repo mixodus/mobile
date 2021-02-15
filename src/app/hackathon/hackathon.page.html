@@ -10,6 +10,11 @@
 </ion-header>
 
 <ion-content class="hackathon-content">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
+                   pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
     <div class="spinner-container" *ngIf="isHackathonDetailLoading">
         <ion-spinner class="spinner"></ion-spinner>
         <div>Memuat...</div>
@@ -94,7 +99,9 @@
                     <div class="modal-text">Untuk dapat mengakses halaman ini,</div>
                     <div class="modal-text">harap masuk terlebih dahulu</div>
                     <div class="ion-text-center">
-                        <ion-button class="go-login-btn" expand="block" fill="outline" (click)="handleLoginButtonClick()">Masuk</ion-button>
+                        <ion-button class="go-login-btn" expand="block" fill="outline"
+                                    (click)="handleLoginButtonClick()">Masuk
+                        </ion-button>
                     </div>
                 </div>
             </div>
@@ -106,27 +113,29 @@
                 <div class="timeline-container">
                     <div class="horizontal-line"></div>
                     <div class="timeline-icon-container-2">
-                        <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
-                        <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
-                        <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
-                        <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
-                        <img class="timeline-icon" src="https://dummyimage.com/600x400/f00/fff" alt="">
+                        <div *ngFor="let schedule of hackathonDetail.schedules">
+                            <img class="timeline-icon" [src]="schedule.iconUrl" alt="">
+                        </div>
                     </div>
                 </div>
-                <div class="status-detail-container">
-                    <div class="status-detail-text-1">Test</div>
-                    <div class="status-detail-text-2">01 Maret 2021</div>
-                    <div class="status-detail-text-3">
-                        Amet cillum occaecat ut minim amet ut Lorem consectetur. Eiusmod magna nulla adipisicing nostrud in
-                        pariatur cupidatat officia esse pariatur fugiat do.
+                <div class="status-detail-container" *ngIf="hackathonDetail.currentSchedule.status !== 'Failed'">
+                    <div class="status-detail-text-1">{{hackathonDetail.currentSchedule.name}}</div>
+                    <div class="status-detail-text-2">{{hackathonDetail.currentSchedule.startDate | date: 'd MMMM y'}}</div>
+                    <div class="status-detail-text-3">{{hackathonDetail.currentSchedule.description}}
+                    </div>
+                </div>
+                <div class="status-detail-container-failed" *ngIf="hackathonDetail.currentSchedule.status === 'Failed'">
+                    <div class="status-detail-text-failed">Dengan berat hati anda tidak dapat lanjut ke tahap
+                        berikutnya.
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </ion-content>
 
 <ion-footer class="hackathon-footer">
-    <ion-button [disabled]="!auth.token" class="signup-button" expand="block" [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
+    <ion-button [disabled]="!auth.token" class="signup-button" expand="block"
+                [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
     </ion-button>
 </ion-footer>

@@ -63,12 +63,12 @@
       }
 
       .toggle-content-outline {
-        padding: 8px 15px;
+        border: 2px solid var(--idstar-dark-grey);
+        padding: 6px 15px;
         border-radius: 5px;
         font-size: 10px;
         font-weight: 700;
-        background-color: var(--idstar-light-grey);
-        color: var(--idstar-grey);
+        color: var(--idstar-dark-grey);
       }
     }
 
@@ -179,6 +179,7 @@
           justify-content: center;
 
           .timeline-text-1 {
+            color: var(--idstar-dark-grey);
             font-weight: 900;
             font-size: 14px;
           }
@@ -199,7 +200,6 @@
       top: 0;
       bottom: 0;
       left: 12px;
-      border-radius: 5px;
     }
 
     .container-1 {

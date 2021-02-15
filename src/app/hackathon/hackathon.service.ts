@@ -73,6 +73,7 @@ export class HackathonService {
         {
           name: schedule.name,
           iconUrl: schedule.icon_url,
+          iconStatusUrl: schedule.icon_status_url,
           startDate: schedule.schedule_start,
           status: schedule.status,
           description: schedule.desc
@@ -87,6 +88,7 @@ export class HackathonService {
       return {
         name: unformattedSchedule.name,
         iconUrl: unformattedSchedule.icon_url,
+        iconStatusUrl: unformattedSchedule.icon__status_url,
         startDate: unformattedSchedule.schedule_start,
         status: unformattedSchedule.status,
         description: unformattedSchedule.desc

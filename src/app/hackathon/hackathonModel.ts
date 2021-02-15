@@ -17,6 +17,7 @@ interface Prize {
 interface Schedule {
   name: string;
   iconUrl: string;
+  iconStatusUrl: string;
   startDate: string;
   status: string;
   description: string;

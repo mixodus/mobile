@@ -20,7 +20,7 @@
         <div>Memuat...</div>
     </div>
 
-    <div class="hackkathon-content-column" *ngIf="!isHackathonDetailLoading">
+    <div class="hackkathon-content-column" *ngIf="!isHackathonDetailLoading && hackathonDetail">
         <div class="hacktahon-image-container">
             <img class="hacktahon-image" [src]="hackathonDetail.bannerUrl" alt="">
         </div>

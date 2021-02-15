@@ -37,6 +37,8 @@ export class HackathonService {
   }
 
   formattingHackathonDetail(unformattedHackathonDetail: any) {
+    console.log('unformattedHackathonDetail: ', unformattedHackathonDetail);
+
     return {
       title: unformattedHackathonDetail.event_title,
       bannerUrl: unformattedHackathonDetail.event_banner_url,
@@ -80,13 +82,15 @@ export class HackathonService {
     return extractedPrizes;
   }
 
-  formattingSchedule(unformattedSchedule: any) {
-    return {
-      name: unformattedSchedule.name,
-      iconUrl: unformattedSchedule.icon_url,
-      startDate: unformattedSchedule.schedule_start,
-      status: unformattedSchedule.status,
-      description: unformattedSchedule.desc
-    };
+  formattingSchedule(unformattedSchedule?: any) {
+    if (unformattedSchedule) {
+      return {
+        name: unformattedSchedule.name,
+        iconUrl: unformattedSchedule.icon_url,
+        startDate: unformattedSchedule.schedule_start,
+        status: unformattedSchedule.status,
+        description: unformattedSchedule.desc
+      };
+    } else { return null; }
   }
 }

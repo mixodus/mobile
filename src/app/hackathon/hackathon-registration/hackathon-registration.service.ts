@@ -63,25 +63,27 @@ export class HackathonRegistrationService {
   }
 
   transferFile(fileGroup: FileGroup[]) {
-    this.transferFileA(fileGroup[0]);
+    this.transferFileA(fileGroup[0], 1);
     this.transferFileB(fileGroup[1]);
     this.transferFileC(fileGroup[2]);
   }
 
-  transferFileA(file: FileGroup) {
+  transferFileA(file: FileGroup, typeNumber) {
+    console.log('masuk transferFileA');
     this.fileTransfer = this.transfer.create();
+
+    console.log('file.type + 1: ', file.type + 1);
 
     const options: FileUploadOptions = {
       fileName: file.pathInterface,
       chunkedMode: false,
-      mimeType: 2 + 1 === 3 ? 'application/jpg' : 'application/png',
       headers: {
         'X-Api-Key': this.globalService.getGlobalApiKey(),
         'X-Token': `${this.auth.token}`
       },
       params: {
         event_id: this.eventId,
-        type: file.type
+        type: typeNumber
       }
     };
     const uploadFileEndpoint = encodeURI(this.globalService.getApiUrl() + 'api/event/hackathon/file');

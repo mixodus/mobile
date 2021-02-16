@@ -89,6 +89,14 @@ export class HackathonRegistrationPage implements OnInit {
     ev.target.complete();
   }
 
+  ionViewWillEnter() {
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+    } else if (!this.auth.token) {
+      this.auth.signOut();
+    }
+  }
+
   getHackathonSemester() {
     this.isHackathonSemesterLoading = true;
     this.hackathonRegistrationService.getSemesterData()
@@ -126,10 +134,12 @@ export class HackathonRegistrationPage implements OnInit {
             if (this.filetype === 'jpg' || this.filetype === 'png') {
               this.resolvedPath = path;
               this.fileGroup[fileIdx].pathInterface = this.filepath;
+              this.fileGroup[fileIdx].isValid = true;
               this.fileGroup[fileIdx].type = this.filetype;
             } else {
               this.presentToast('Mohon menggunakan file jpg/png.');
               this.fileGroup[fileIdx].pathInterface = '';
+              this.fileGroup[fileIdx].isValid = false;
               this.fileGroup[fileIdx].type = '';
               this.fileGroup[fileIdx].fileUrl = '';
             }
@@ -139,6 +149,7 @@ export class HackathonRegistrationPage implements OnInit {
                 if (metadata.size > 5242880) {
                   this.presentToast('Mohon menggunakan file size yang lebih kecil.');
                   this.fileGroup[fileIdx].pathInterface = '';
+                  this.fileGroup[fileIdx].isValid = false;
                   this.fileGroup[fileIdx].type = '';
                   this.fileGroup[fileIdx].fileUrl = '';
                 }
@@ -169,8 +180,9 @@ export class HackathonRegistrationPage implements OnInit {
   handleRegistrationClick() {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
+    console.log('this.fileGroup: ', this.fileGroup);
 
-    if (this.isWillingToFollowRulesValid) {
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid) {
       const formData = this.hackathonForm.value;
       formData.event_id = this.hackathonRegistrationService.eventId;
 

@@ -247,6 +247,33 @@
       }
     }
 
+    .message-body {
+      background: var(--idstar-dark);
+      text-align: center;
+
+      .illustration-wrapper {
+        margin: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .title {
+        margin-top: 34px;
+        margin-bottom: 24px;
+        color: var(--idstar-dark-grey);
+        font-weight: 700;
+        font-size: 24px;
+      }
+
+      .content {
+        margin-bottom: 34px;
+        color: var(--idstar-grey);
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+
     .status-text-container {
       .status-text {
         font-size: 14px;
@@ -317,12 +344,12 @@
       }
     }
 
-    .status-detail-container-failed{
+    .status-detail-container-failed {
       background-color: var(--idstar-red-2);
       padding: 24px;
       border-radius: 5px;
 
-      .status-detail-text-failed{
+      .status-detail-text-failed {
         text-align: center;
         color: var(--idstar-white);
       }

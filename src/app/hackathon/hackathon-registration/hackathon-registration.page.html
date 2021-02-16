@@ -10,62 +10,105 @@
 </ion-header>
 
 <ion-content class="hackathon-registration-content">
-    <form [formGroup]="hackathonForm" class="hackathon-registration-form">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
+                   pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="spinner-container" *ngIf="isHackathonSemesterLoading || isHackathonPostLoading">
+        <ion-spinner class="spinner"></ion-spinner>
+        <div>Memuat...</div>
+    </div>
+
+    <form [formGroup]="hackathonForm" class="hackathon-registration-form" *ngIf="!isHackathonSemesterLoading">
         <div class="subsection-title">Nama Perguruan Tinggi</div>
-        <ion-input type="text" placeholder="Misal: Universitas Bina Nusantara" formControlName="universityName"
+        <ion-input type="text" placeholder="Misal: Universitas Bina Nusantara" formControlName="university"
                    class="ion-no-padding input-text" clearInput autocapitalize="off">
         </ion-input>
+        <div class="error-message" *ngIf="hackathonForm.get('university').hasError('required') && isSubmitted">
+            <span>Nama Perguruan Tinggi dibutuhkan.</span>
+        </div>
+
+        <div class="subsection-title">Jurusan</div>
+        <ion-input type="text" placeholder="Misal: Teknik Informatika" formControlName="major"
+                   class="ion-no-padding input-text" clearInput autocapitalize="off">
+        </ion-input>
+        <div class="error-message" *ngIf="hackathonForm.get('major').hasError('required') && isSubmitted">
+            <span>Nama Jurusan dibutuhkan.</span>
+        </div>
 
         <div class="subsection-title">Semester Saat Ini</div>
         <ion-select formControlName="semester" multiple="false" interface="popover" placeholder="7"
                     class="select-item">
-            <ion-select-option value="6">6</ion-select-option>
-            <ion-select-option value="7">7</ion-select-option>
-            <ion-select-option value="8">8</ion-select-option>
+            <ion-select-option *ngFor="let semester of hackathonSemesters.semesters"
+                               [value]="semester">{{semester}}</ion-select-option>
         </ion-select>
+        <div class="error-message" *ngIf="hackathonForm.get('semester').hasError('required') && isSubmitted">
+            <span>Semester dibutuhkan.</span>
+        </div>
 
         <div class="subsection-title">Unggah KTP</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile()" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(0)" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
             </div>
-            <div *ngIf="!getfileName()" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
-            <div *ngIf="getfileName()" class="file-name-container">{{getfileName()}}</div>
+            <div *ngIf="!getfileName(0)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
+            <div *ngIf="getfileName(0)" class="file-name-container">{{getfileName(0)}}</div>
+        </div>
+        <div class="error-message" *ngIf="!getfileName(0) && isSubmitted">
+            <span>Mohon mengunggah KTP dengan benar.</span>
         </div>
 
         <div class="subsection-title">Unggah Kartu Mahasiswa</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile()" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(1)" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
             </div>
-            <div *ngIf="!getfileName()" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
-            <div *ngIf="getfileName()" class="file-name-container">{{getfileName()}}</div>
+            <div *ngIf="!getfileName(1)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
+            <div *ngIf="getfileName(1)" class="file-name-container">{{getfileName(1)}}</div>
+        </div>
+        <div class="error-message" *ngIf="!getfileName(1) && isSubmitted">
+            <span>Mohon mengunggah Kartu Mahasiswa dengan benar.</span>
         </div>
 
         <div class="subsection-title">Unggah Transkrip Nilai</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile()" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(2)" class="upload-icon" src="../../../../../assets/icons/upload.svg" alt="">
             </div>
-            <div *ngIf="!getfileName()" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
-            <div *ngIf="getfileName()" class="file-name-container">{{getfileName()}}</div>
+            <div *ngIf="!getfileName(2)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
+            <div *ngIf="getfileName(2)" class="file-name-container">{{getfileName(2)}}</div>
+        </div>
+        <div class="error-message" *ngIf="!getfileName(2) && isSubmitted">
+            <span>Mohon mengunggah Transkrip Nilai dengan benar.</span>
         </div>
     </form>
 
     <div class="checkbox-content-container">
-        <div class="checkbox-container">
-            <ion-checkbox class="checkbox"
-                          [(ngModel)]="isWillingToFollowRules"
-                          [ngModelOptions]="{standalone: true}">
-            </ion-checkbox>
+        <div class="container-1">
+            <div class="checkbox-container">
+                <ion-checkbox class="checkbox"
+                              [(ngModel)]="isWillingToFollowRules"
+                              [ngModelOptions]="{standalone: true}">
+                </ion-checkbox>
+            </div>
+            <div class="checkbox-text">
+                Saya bersedia mengikuti peraturan hackathon dan bersedia mengikuti hackathon hingga akhir
+            </div>
         </div>
-        <div class="checkbox-text">
-            Saya bersedia mengikuti peraturan hackathon dan bersedia mengikuti hackathon hingga akhir
+
+        <div class="container-2" *ngIf="!isWillingToFollowRulesValid">
+            <div class="error-container"
+            >
+                <div class="error-message">
+                    <div>Mohon untuk bersedia mengikuti peraturan hackathon dan mengikuti hackathon hingga akhir.</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="registration-button-container">
-        <ion-button class="registration-button" expand="block" (click)="handleRegistrationClick()">
+        <ion-button type="submit" class="registration-button" expand="block" (click)="handleRegistrationClick()">
             Daftar Hackathon
         </ion-button>
     </div>

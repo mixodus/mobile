@@ -6,10 +6,11 @@ import { Platform, ToastController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-import { finalize } from 'rxjs/operators';
-import { HackathonService } from '../hackathon.service';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { HackathonRegistrationService } from './hackathon-registration.service';
+import { FileGroup, HackathonSemesters } from './hackathonRegistrationModel';
 
 @Component({
   selector: 'app-hackathon-registration',
@@ -21,14 +22,41 @@ export class HackathonRegistrationPage implements OnInit {
   fileURL: string;
   filepath: string;
   resolvedPath: string;
-  fileTransfer: FileTransferObject;
   filetype: string;
-  isFileValid = true;
-  pathInterface: string;
+
+  fileGroup: FileGroup[] = [
+    {
+      pathInterface: '',
+      isValid: false,
+      type: '',
+      fileUrl: ''
+    },
+    {
+      pathInterface: '',
+      isValid: false,
+      type: '',
+      fileUrl: ''
+    },
+    {
+      pathInterface: '',
+      isValid: false,
+      type: '',
+      fileUrl: ''
+    }
+  ];
+
   isWillingToFollowRules: boolean;
+  isWillingToFollowRulesValid = true;
+
+  isHackathonSemesterLoading: boolean;
+  isHackathonPostLoading: boolean;
+  hackathonSemesters: HackathonSemesters;
+
+  isSubmitted = false;
 
   constructor(
     private auth: AuthenticationService,
+    private hackathonRegistrationService: HackathonRegistrationService,
     private location: Location,
     private formBuilder: FormBuilder,
     private platform: Platform,
@@ -39,7 +67,10 @@ export class HackathonRegistrationPage implements OnInit {
     private toastCtrl: ToastController,
   ) {
     this.hackathonForm = new FormGroup({
-      universityName: new FormControl('', Validators.compose([
+      university: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      major: new FormControl('', Validators.compose([
         Validators.required
       ])),
       semester: new FormControl('', Validators.compose([
@@ -49,34 +80,67 @@ export class HackathonRegistrationPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getHackathonSemester();
+  }
+
+  doRefresh(ev) {
+    this.getHackathonSemester();
+
+    ev.target.complete();
+  }
+
+  getHackathonSemester() {
+    this.isHackathonSemesterLoading = true;
+    this.hackathonRegistrationService.getSemesterData()
+      .pipe(finalize(() => this.isHackathonSemesterLoading = false)).subscribe((data: any) => {
+      this.hackathonSemesters = this.hackathonRegistrationService.formattingHackathonSemesters(data.data);
+    }, (err) => {
+      let message = '';
+      if (err.error.message === undefined) {
+        message = 'Permasalahan jaringan, mohon coba lagi.';
+      } else {
+        message = err.error.message;
+      }
+
+      this.presentToast(message);
+      this.isHackathonSemesterLoading = false;
+    });
+
+    console.log('hackathonSemester: ', this.hackathonSemesters);
   }
 
   goBack() {
     this.location.back();
   }
 
-  chooseFile() {
+  chooseFile(fileIdx: number) {
     if (this.platform.is('android')) {
       this.fileChooser.open().then(uri => {
         this.fileURL = uri;
+        this.fileGroup[fileIdx].fileUrl = uri;
         this.filePath.resolveNativePath(this.fileURL)
           .then(path => {
+            const index = path.lastIndexOf('/');
+            this.filepath = path.substr(index + 1);
+            this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
+            if (this.filetype === 'jpg' || this.filetype === 'png') {
+              this.resolvedPath = path;
+              this.fileGroup[fileIdx].pathInterface = this.filepath;
+              this.fileGroup[fileIdx].type = this.filetype;
+            } else {
+              this.presentToast('Mohon menggunakan file jpg/png.');
+              this.fileGroup[fileIdx].pathInterface = '';
+              this.fileGroup[fileIdx].type = '';
+              this.fileGroup[fileIdx].fileUrl = '';
+            }
+
             this.file.resolveLocalFilesystemUrl(this.fileURL).then(fileEntry => {
               fileEntry.getMetadata((metadata) => {
                 if (metadata.size > 5242880) {
                   this.presentToast('Mohon menggunakan file size yang lebih kecil.');
-                  this.pathInterface = '';
-                } else {
-                  const index = path.lastIndexOf('/');
-                  this.filepath = path.substr(index + 1);
-                  this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
-                  if (this.filetype === 'jpg' || this.filetype === 'png') {
-                    this.resolvedPath = path;
-                    this.pathInterface = this.filepath;
-                  } else {
-                    this.presentToast('Mohon menggunakan file jpg/png.');
-                    this.pathInterface = '';
-                  }
+                  this.fileGroup[fileIdx].pathInterface = '';
+                  this.fileGroup[fileIdx].type = '';
+                  this.fileGroup[fileIdx].fileUrl = '';
                 }
               });
             });
@@ -96,13 +160,38 @@ export class HackathonRegistrationPage implements OnInit {
     toast.present();
   }
 
-  getfileName() {
-    if (this.pathInterface) {
-      return this.pathInterface;
+  getfileName(idx: number) {
+    if (this.fileGroup[idx].pathInterface) {
+      return this.fileGroup[idx].pathInterface;
     }
   }
 
   handleRegistrationClick() {
+    this.isSubmitted = true;
+    this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
 
+    if (this.isWillingToFollowRulesValid) {
+      const formData = this.hackathonForm.value;
+      formData.event_id = this.hackathonRegistrationService.eventId;
+
+      this.hackathonRegistrationService.postHackathonData(formData)
+        .pipe(finalize(() => this.isHackathonPostLoading = false))
+        .subscribe(() => {
+          this.hackathonRegistrationService
+            .transferFile(this.fileGroup);
+        }, (err) => {
+          let message = '';
+          if (err.error.message === undefined) {
+            message = 'Permasalahan jaringan, mohon coba lagi.';
+          } else {
+            message = err.error.message;
+          }
+
+          this.presentToast(message);
+          this.isHackathonPostLoading = false;
+        });
+    }
   }
+
+
 }

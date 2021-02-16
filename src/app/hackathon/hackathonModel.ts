@@ -6,6 +6,8 @@ export interface HackathonDetail {
   requirement: string;
   schedules: Schedule[];
   currentSchedule: Schedule;
+  isJoinable: boolean;
+  failedMessage: string;
 }
 
 interface Prize {

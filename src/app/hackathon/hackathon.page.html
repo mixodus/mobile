@@ -90,6 +90,7 @@
 
         <div *ngIf="toggleState === 1">
             <div *ngIf="!auth.token">
+<!--            <div *ngIf="!hackathonService.token">-->
                 <div class="container-1">
                     <div class="illustration-wrapper">
                         <img src="./assets/images/Saly-17.svg" style="background-color: transparent">
@@ -106,7 +107,16 @@
                 </div>
             </div>
 
-            <div *ngIf="auth.token">
+                        <div *ngIf="auth.token && hackathonDetail.isJoinable">
+<!--            <div *ngIf="hackathonService.token && hackathonDetail.isJoinable">-->
+                <div class="message-body">
+                    <div class="title">Oops!</div>
+                    <div class="content">Anda harus registrasi akun terlebih dahulu
+                        agar dapat mengikuti hackathon ini!</div>
+                </div>
+            </div>
+
+            <div *ngIf="auth.token && !hackathonDetail.isJoinable">
                 <div class="status-text-container">
                     <div class="status-text">Status</div>
                 </div>
@@ -125,8 +135,7 @@
                     </div>
                 </div>
                 <div class="status-detail-container-failed" *ngIf="hackathonDetail.currentSchedule.status === 'Failed'">
-                    <div class="status-detail-text-failed">Dengan berat hati anda tidak dapat lanjut ke tahap
-                        berikutnya.
+                    <div class="status-detail-text-failed">{{hackathonDetail.failedMessage}}
                     </div>
                 </div>
             </div>
@@ -134,8 +143,8 @@
     </div>
 </ion-content>
 
-<ion-footer class="hackathon-footer">
-    <ion-button [disabled]="!auth.token" class="signup-button" expand="block"
+<ion-footer class="hackathon-footer" *ngIf="hackathonDetail">
+    <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable" class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
     </ion-button>
 </ion-footer>

@@ -8,7 +8,7 @@ import { AuthenticationService } from '../services/auth/authentication.service';
   providedIn: 'root'
 })
 export class HackathonService {
-  token = '';
+  token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjo3NjI2fSwiaWF0IjoxNjEzNDQxOTE5LCJleHAiOjE2MTQwNDY3MTl9.sTZvR37X2ICWZIqEOLHrBGRnsvEh2tDBjBNyPKXMn8Y';
 
   constructor(
     private http: HttpClient,
@@ -37,8 +37,6 @@ export class HackathonService {
   }
 
   formattingHackathonDetail(unformattedHackathonDetail: any) {
-    console.log('unformattedHackathonDetail: ', unformattedHackathonDetail);
-
     return {
       title: unformattedHackathonDetail.event_title,
       bannerUrl: unformattedHackathonDetail.event_banner_url,
@@ -46,7 +44,9 @@ export class HackathonService {
       prizes: this.extractingHackathonDetail(unformattedHackathonDetail.event_prize),
       requirement: unformattedHackathonDetail.event_requirement,
       schedules: this.extractingSchedules(unformattedHackathonDetail.eventSchedules),
-      currentSchedule: this.formattingSchedule(unformattedHackathonDetail.current_state)
+      currentSchedule: this.formattingSchedule(unformattedHackathonDetail.current_state),
+      isJoinable: unformattedHackathonDetail.event_joinable,
+      failedMessage: unformattedHackathonDetail.failed_message ? unformattedHackathonDetail.failed_message : ''
     };
   }
 

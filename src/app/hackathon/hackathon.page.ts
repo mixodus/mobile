@@ -8,6 +8,7 @@ import { HackathonDetail } from './hackathonModel';
 import { Observable } from 'rxjs';
 import { UserProfileModel } from '../user/profile/user-profile.model';
 import { DataStore } from '../shell/data-store';
+import { HackathonRegistrationService } from './hackathon-registration/hackathon-registration.service';
 
 @Component({
   selector: 'app-hackathon',
@@ -22,6 +23,7 @@ export class HackathonPage implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private hackathonService: HackathonService,
+    private hackathonRegistrationService: HackathonRegistrationService,
     private location: Location,
     private alertCtrl: AlertController,
     private toastController: ToastController
@@ -43,8 +45,7 @@ export class HackathonPage implements OnInit {
     this.hackathonService.getHackathonDetailData()
       .pipe(finalize(() => this.isHackathonDetailLoading = false)).subscribe((data: any) => {
       this.hackathonDetail = this.hackathonService.formattingHackathonDetail(data.data);
-      console.log('data: ', data);
-      console.log('this.hackathonDetail: ', this.hackathonDetail);
+      this.hackathonRegistrationService.setEventId(data.data.event_id);
     }, (err) => {
       let message = '';
       if (err.error.message === undefined) {

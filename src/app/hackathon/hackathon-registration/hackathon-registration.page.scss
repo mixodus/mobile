@@ -17,6 +17,18 @@
 }
 
 .hackathon-registration-content {
+  .spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .spinner {
+      margin-bottom: 10px;
+    }
+  }
+
   .hackathon-registration-form {
     padding: 20px 30px;
 
@@ -66,26 +78,45 @@
 
   .checkbox-content-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     padding: 20px 30px;
     background-color: var(--idstar-grey-4);
 
-    .checkbox-container{
-      .checkbox {
-        margin-right: 22px;
-        --size: 18px;
-        --background: var(--idstar-grey);
-        --border-color: var(--idstar-grey);
-        --background-checked: var(--idstar-primary);
-        --border-color-checked: var(--idstar-primary);
-        --checkmark-color: white;
+    .container-1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      margin-bottom: 10px;
+
+      .checkbox-container {
+        .checkbox {
+          margin-right: 22px;
+          --size: 18px;
+          --background: var(--idstar-grey);
+          --border-color: var(--idstar-grey);
+          --background-checked: var(--idstar-primary);
+          --border-color-checked: var(--idstar-primary);
+          --checkmark-color: white;
+        }
+      }
+
+      .checkbox-text {
+        font-size: 9px;
       }
     }
 
-    .checkbox-text{
-      font-size: 9px;
+    .container-2 {
+      .error-container {
+        .error-message {
+          margin: 0 0 calc(var(--page-margin) / 2);
+          display: flex;
+          align-items: center;
+          align-content: center;
+          color: var(--ion-color-danger);
+          font-size: 9px;
+        }
+      }
     }
   }
 

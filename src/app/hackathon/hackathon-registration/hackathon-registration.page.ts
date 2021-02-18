@@ -6,9 +6,8 @@ import { Platform, ToastController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { HackathonRegistrationService } from './hackathon-registration.service';
 import { FileGroup, HackathonSemesters } from './hackathonRegistrationModel';
 
@@ -21,7 +20,6 @@ export class HackathonRegistrationPage implements OnInit {
   hackathonForm: FormGroup;
   fileURL: string;
   filepath: string;
-  resolvedPath: string;
   filetype: string;
 
   fileGroup: FileGroup[] = [
@@ -98,9 +96,15 @@ export class HackathonRegistrationPage implements OnInit {
   }
 
   getHackathonSemester() {
-    this.isHackathonSemesterLoading = true;
+    this.hackathonRegistrationService.setLoadingOn();
+    this.hackathonRegistrationService.setLoadingMessage('Memuat...');
     this.hackathonRegistrationService.getSemesterData()
-      .pipe(finalize(() => this.isHackathonSemesterLoading = false)).subscribe((data: any) => {
+      .pipe(finalize(
+        () => {
+          this.hackathonRegistrationService.setLoadingOff();
+          this.hackathonRegistrationService.setLoadingMessage('');
+        }
+      )).subscribe((data: any) => {
       this.hackathonSemesters = this.hackathonRegistrationService.formattingHackathonSemesters(data.data);
     }, (err) => {
       let message = '';
@@ -111,7 +115,8 @@ export class HackathonRegistrationPage implements OnInit {
       }
 
       this.presentToast(message);
-      this.isHackathonSemesterLoading = false;
+      this.hackathonRegistrationService.setLoadingOff();
+      this.hackathonRegistrationService.setLoadingMessage('');
     });
 
     console.log('hackathonSemester: ', this.hackathonSemesters);
@@ -132,7 +137,43 @@ export class HackathonRegistrationPage implements OnInit {
             this.filepath = path.substr(index + 1);
             this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
             if (this.filetype === 'jpg' || this.filetype === 'png') {
-              this.resolvedPath = path;
+              this.fileGroup[fileIdx].pathInterface = this.filepath;
+              this.fileGroup[fileIdx].isValid = true;
+              this.fileGroup[fileIdx].type = this.filetype;
+            } else {
+              this.presentToast('Mohon menggunakan file jpg/png.');
+              this.fileGroup[fileIdx].pathInterface = '';
+              this.fileGroup[fileIdx].isValid = false;
+              this.fileGroup[fileIdx].type = '';
+              this.fileGroup[fileIdx].fileUrl = '';
+            }
+
+            this.file.resolveLocalFilesystemUrl(this.fileURL).then(fileEntry => {
+              fileEntry.getMetadata((metadata) => {
+                if (metadata.size > 5242880) {
+                  this.presentToast('Mohon menggunakan file size yang lebih kecil.');
+                  this.fileGroup[fileIdx].pathInterface = '';
+                  this.fileGroup[fileIdx].isValid = false;
+                  this.fileGroup[fileIdx].type = '';
+                  this.fileGroup[fileIdx].fileUrl = '';
+                }
+              });
+            });
+          })
+          .catch();
+      }, (err) => {
+        this.presentToast(JSON.stringify(err));
+      });
+    } else {
+      this.filePicker.pickFile().then(uri => {
+        this.fileURL = uri;
+        this.fileGroup[fileIdx].fileUrl = uri;
+        this.filePath.resolveNativePath(this.fileURL)
+          .then(path => {
+            const index = path.lastIndexOf('/');
+            this.filepath = path.substr(index + 1);
+            this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
+            if (this.filetype === 'jpg' || this.filetype === 'png') {
               this.fileGroup[fileIdx].pathInterface = this.filepath;
               this.fileGroup[fileIdx].isValid = true;
               this.fileGroup[fileIdx].type = this.filetype;
@@ -180,14 +221,18 @@ export class HackathonRegistrationPage implements OnInit {
   handleRegistrationClick() {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
-    console.log('this.fileGroup: ', this.fileGroup);
 
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid) {
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid) {
+      this.hackathonRegistrationService.setLoadingOn();
+      this.hackathonRegistrationService.setLoadingMessage('Submit Data...');
       const formData = this.hackathonForm.value;
       formData.event_id = this.hackathonRegistrationService.eventId;
 
       this.hackathonRegistrationService.postHackathonData(formData)
-        .pipe(finalize(() => this.isHackathonPostLoading = false))
+        .pipe(finalize(() => {
+          this.hackathonRegistrationService.setLoadingOff();
+          this.hackathonRegistrationService.setLoadingMessage('');
+        }))
         .subscribe(() => {
           this.hackathonRegistrationService
             .transferFile(this.fileGroup);
@@ -200,10 +245,9 @@ export class HackathonRegistrationPage implements OnInit {
           }
 
           this.presentToast(message);
-          this.isHackathonPostLoading = false;
+          this.hackathonRegistrationService.setLoadingOff();
+          this.hackathonRegistrationService.setLoadingMessage('');
         });
     }
   }
-
-
 }

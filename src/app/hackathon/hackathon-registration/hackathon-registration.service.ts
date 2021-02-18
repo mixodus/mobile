@@ -6,6 +6,7 @@ import { NewsResponse } from '../../core/models/news/NewsResponse';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { FileGroup } from './hackathonRegistrationModel';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,17 @@ import { ToastController } from '@ionic/angular';
 export class HackathonRegistrationService {
   eventId: number;
   fileTransfer: FileTransferObject;
+  fileGroup: FileGroup[];
+  isLoading = false;
+  loadingMessage = 'Memuat';
 
   constructor(
     private http: HttpClient,
     private globalService: GlobalService,
     private auth: AuthenticationService,
     private transfer: FileTransfer,
-    private toast: ToastController
+    private toast: ToastController,
+    private router: Router
   ) {
   }
 
@@ -63,16 +68,53 @@ export class HackathonRegistrationService {
   }
 
   transferFile(fileGroup: FileGroup[]) {
-    this.transferFileA(fileGroup[0], 1);
-    this.transferFileB(fileGroup[1]);
-    this.transferFileC(fileGroup[2]);
+    this.fileGroup = fileGroup;
+    this.transferFileA(1);
   }
 
-  transferFileA(file: FileGroup, typeNumber) {
-    console.log('masuk transferFileA');
+  transferFileA(typeNumber) {
+    this.setLoadingOn();
+    this.setLoadingMessage('Mengunggah KTP...');
+
+    const file = this.fileGroup[0];
     this.fileTransfer = this.transfer.create();
 
-    console.log('file.type + 1: ', file.type + 1);
+    const options: FileUploadOptions = {
+      fileName: file.pathInterface,
+      chunkedMode: false,
+      headers: {
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      },
+      params: {
+        event_id: this.eventId,
+        type: typeNumber
+      }
+    };
+
+    const uploadFileEndpoint = encodeURI(this.globalService.getApiUrl() + 'api/event/hackathon/file');
+
+    this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
+      const message = JSON.parse(data.response).message;
+      this.presentToast(message);
+      console.log('A sukses');
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+      this.transferFileB(2);
+    }, (err) => {
+      const errMessage = JSON.parse(err.body).message;
+      this.presentToast(errMessage);
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+    });
+  }
+
+  transferFileB(typeNumber) {
+    this.setLoadingOn();
+    this.setLoadingMessage('Mengunggah Kartu Mahasiswa...');
+    console.log('masuk transferFileB');
+    const file = this.fileGroup[1];
+    this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
       fileName: file.pathInterface,
@@ -89,15 +131,56 @@ export class HackathonRegistrationService {
     const uploadFileEndpoint = encodeURI(this.globalService.getApiUrl() + 'api/event/hackathon/file');
 
     this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
-      this.presentToast('File berhasil diperbaharui.');
+      const message = JSON.parse(data.response).message;
+      this.presentToast(message);
+      console.log('B sukses');
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+      this.transferFileC(3);
     }, (err) => {
-      console.log('err: ', err);
-      this.presentToast(err.message);
+      const errMessage = JSON.parse(err.body).message;
+      this.presentToast(errMessage);
+      this.setLoadingOff();
+      this.setLoadingMessage('');
     });
   }
 
-  transferFileB(file: FileGroup) {}
-  transferFileC(file: FileGroup) {}
+  transferFileC(typeNumber) {
+    this.setLoadingOn();
+    this.setLoadingMessage('Mengunggah Transkrip Nilai...');
+    console.log('masuk transferFileC');
+    const file = this.fileGroup[1];
+    this.fileTransfer = this.transfer.create();
+
+    const options: FileUploadOptions = {
+      fileName: file.pathInterface,
+      chunkedMode: false,
+      headers: {
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      },
+      params: {
+        event_id: this.eventId,
+        type: typeNumber
+      }
+    };
+    const uploadFileEndpoint = encodeURI(this.globalService.getApiUrl() + 'api/event/hackathon/file');
+
+    this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
+      const message = JSON.parse(data.response).message;
+      this.presentToast(message);
+      console.log('C sukses');
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+      this.router.navigateByUrl('app/hackathon');
+    }, (err) => {
+      const errMessage = JSON.parse(err.body).message;
+      this.presentToast(errMessage);
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+    });
+  }
+
 
   async presentToast(message) {
     const toast = await this.toast.create({
@@ -105,5 +188,17 @@ export class HackathonRegistrationService {
       duration: 2000,
     });
     toast.present();
+  }
+
+  setLoadingOn() {
+    this.isLoading = true;
+  }
+
+  setLoadingOff() {
+    this.isLoading = false;
+  }
+
+  setLoadingMessage(message: string) {
+    this.loadingMessage = message;
   }
 }

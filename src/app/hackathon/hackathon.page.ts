@@ -71,6 +71,7 @@ export class HackathonPage implements OnInit {
     if (this.auth.token) {
       this.auth.checkExpiredToken();
     }
+    this.getHackathonDetail();
   }
 
   goBack() {

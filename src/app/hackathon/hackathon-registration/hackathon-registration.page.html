@@ -15,12 +15,12 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div class="spinner-container" *ngIf="isHackathonSemesterLoading || isHackathonPostLoading">
+    <div class="spinner-container" *ngIf="hackathonRegistrationService.isLoading">
         <ion-spinner class="spinner"></ion-spinner>
-        <div>Memuat...</div>
+        <div>{{hackathonRegistrationService.loadingMessage}}</div>
     </div>
 
-    <form [formGroup]="hackathonForm" class="hackathon-registration-form" *ngIf="!isHackathonSemesterLoading">
+    <form [formGroup]="hackathonForm" class="hackathon-registration-form" *ngIf="!hackathonRegistrationService.isLoading">
         <div class="subsection-title">Nama Perguruan Tinggi</div>
         <ion-input type="text" placeholder="Misal: Universitas Bina Nusantara" formControlName="university"
                    class="ion-no-padding input-text" clearInput autocapitalize="off">

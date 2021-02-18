@@ -1,7 +1,7 @@
 <ion-header class="hackathon-header" no-border>
     <ion-toolbar>
-        <ion-buttons slot="start" (click)="goBack()">
-            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        <ion-buttons slot="start">
+            <ion-icon class="back" name="ios-arrow-back" [routerLink]="['/app/home']"></ion-icon>
         </ion-buttons>
         <ion-title class="title">
             <div>Hackathon</div>
@@ -90,7 +90,6 @@
 
         <div *ngIf="toggleState === 1">
             <div *ngIf="!auth.token">
-<!--            <div *ngIf="!hackathonService.token">-->
                 <div class="container-1">
                     <div class="illustration-wrapper">
                         <img src="./assets/images/Saly-17.svg" style="background-color: transparent">
@@ -107,12 +106,12 @@
                 </div>
             </div>
 
-                        <div *ngIf="auth.token && hackathonDetail.isJoinable">
-<!--            <div *ngIf="hackathonService.token && hackathonDetail.isJoinable">-->
+            <div *ngIf="auth.token && hackathonDetail.isJoinable">
                 <div class="message-body">
                     <div class="title">Oops!</div>
                     <div class="content">Anda harus registrasi akun terlebih dahulu
-                        agar dapat mengikuti hackathon ini!</div>
+                        agar dapat mengikuti hackathon ini!
+                    </div>
                 </div>
             </div>
 

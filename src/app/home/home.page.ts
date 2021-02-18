@@ -113,6 +113,22 @@ export class HomePage implements OnInit {
     this.getProfileDetail();
   }
 
+  ionViewWillEnter() {
+    if (this.auth.token) {
+      this.auth.checkExpiredToken();
+
+      if (!this.globalService.isInitialLoadDone.profile) {
+        this.getProfileDetail();
+        this.globalService.setProfileLoadStatus(true);
+      }
+      if (!this.globalService.isInitialLoadDone.level) {
+        this.getProfileDetail();
+        this.globalService.setLevelLoadStatus(true);
+      }
+    }
+  }
+
+
   getProfileDetail() {
     this.homeService.getProfileDataSource().pipe().subscribe((data: any) => {
       this.profile = data;

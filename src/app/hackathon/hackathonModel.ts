@@ -5,7 +5,7 @@ export interface HackathonDetail {
   prizes: Prize[];
   requirement: string;
   schedules: Schedule[];
-  currentSchedule: Schedule;
+  currentIndexSchedule: number;
   isJoinable: boolean;
   failedMessage: string;
 }
@@ -23,4 +23,6 @@ interface Schedule {
   startDate: string;
   status: string;
   description: string;
+  nextScheduleDate: string;
+  nextScheduleMessage: string;
 }

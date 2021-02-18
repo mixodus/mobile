@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HackathonRegistrationPage } from './hackathon-registration.page';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule
   ],
-  declarations: [HackathonRegistrationPage]
+  declarations: [HackathonRegistrationPage, TermsConditionsComponent],
+  entryComponents: [TermsConditionsComponent]
 })
-export class HackathonRegistrationPageModule {}
+export class HackathonRegistrationPageModule {
+}

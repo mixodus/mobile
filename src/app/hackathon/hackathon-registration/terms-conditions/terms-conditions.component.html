@@ -1,0 +1,26 @@
+<ion-header class="header-container" *ngIf="!isTermsConditionsLoading">
+    <div class="header-title">{{termsConditions.title}}</div>
+</ion-header>
+
+<ion-content class="terms-conditions-container">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
+                   pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="spinner-container" *ngIf="isTermsConditionsLoading">
+        <ion-spinner class="spinner"></ion-spinner>
+        <div>Memuat...</div>
+    </div>
+
+    <div class="content-container" *ngIf="!isTermsConditionsLoading">
+        <div class="content" [innerHTML]="termsConditions.description">
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer class="button-container">
+    <ion-button color="primary" class="close-button" expand="block" fill="outline" (click)="handleButtonCloseClick()">
+        Tutup
+    </ion-button>
+</ion-footer>

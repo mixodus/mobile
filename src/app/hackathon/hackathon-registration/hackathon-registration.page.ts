@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Platform, ToastController } from '@ionic/angular';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
@@ -10,6 +10,8 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { finalize } from 'rxjs/operators';
 import { HackathonRegistrationService } from './hackathon-registration.service';
 import { FileGroup, HackathonSemesters } from './hackathonRegistrationModel';
+import { PrivacyPolicyPage } from '../../privacy-policy/privacy-policy.page';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 @Component({
   selector: 'app-hackathon-registration',
@@ -63,6 +65,7 @@ export class HackathonRegistrationPage implements OnInit {
     private fileChooser: FileChooser,
     private filePath: FilePath,
     private toastCtrl: ToastController,
+    private modalController: ModalController,
   ) {
     this.hackathonForm = new FormGroup({
       university: new FormControl('', Validators.compose([
@@ -249,5 +252,16 @@ export class HackathonRegistrationPage implements OnInit {
           this.hackathonRegistrationService.setLoadingMessage('');
         });
     }
+  }
+
+  async showRules() {
+    const modal = await this.modalController.create({
+      component: TermsConditionsComponent,
+      componentProps: {
+        title: 'Peraturan Hackathon',
+      },
+    });
+
+    await modal.present();
   }
 }

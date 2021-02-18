@@ -127,13 +127,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="status-detail-container" *ngIf="hackathonDetail.currentSchedule.status !== 'Failed'">
-                    <div class="status-detail-text-1">{{hackathonDetail.currentSchedule.name}}</div>
-                    <div class="status-detail-text-2">{{hackathonDetail.currentSchedule.startDate | date: 'd MMMM y'}}</div>
-                    <div class="status-detail-text-3">{{hackathonDetail.currentSchedule.description}}
+                <div class="status-detail-container"
+                     *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status !== 'Failed'">
+                    <div class="status-detail-container-1" *ngIf="hackathonDetail.currentIndexSchedule > 0">
+                        <div class="status-detail-text-1">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].name}}</div>
+                        <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate | date: 'd MMMM y'}}</div>
+                        <div class="status-detail-text-3">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].description}}
+                        </div>
+                    </div>
+                    <div class="status-detail-container-2">
+                        <div class="status-detail-text-5">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleMessage}}</div>
+                        <div class="status-detail-text-4">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleDate | date: 'd MMMM y'}}</div>
                     </div>
                 </div>
-                <div class="status-detail-container-failed" *ngIf="hackathonDetail.currentSchedule.status === 'Failed'">
+                <div class="status-detail-container-failed" *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status === 'Failed'">
                     <div class="status-detail-text-failed">{{hackathonDetail.failedMessage}}
                     </div>
                 </div>

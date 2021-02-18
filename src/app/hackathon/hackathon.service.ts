@@ -8,7 +8,7 @@ import { AuthenticationService } from '../services/auth/authentication.service';
   providedIn: 'root'
 })
 export class HackathonService {
-  token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjo3NjI2fSwiaWF0IjoxNjEzNDQxOTE5LCJleHAiOjE2MTQwNDY3MTl9.sTZvR37X2ICWZIqEOLHrBGRnsvEh2tDBjBNyPKXMn8Y';
+  token = '';
 
   constructor(
     private http: HttpClient,
@@ -44,7 +44,7 @@ export class HackathonService {
       prizes: this.extractingHackathonDetail(unformattedHackathonDetail.event_prize),
       requirement: unformattedHackathonDetail.event_requirement,
       schedules: this.extractingSchedules(unformattedHackathonDetail.eventSchedules),
-      currentSchedule: this.formattingSchedule(unformattedHackathonDetail.current_state),
+      currentIndexSchedule: this.findCurrentIndexSchedule(unformattedHackathonDetail.eventSchedules),
       isJoinable: unformattedHackathonDetail.event_joinable,
       failedMessage: unformattedHackathonDetail.failed_message ? unformattedHackathonDetail.failed_message : ''
     };
@@ -76,23 +76,16 @@ export class HackathonService {
           iconStatusUrl: schedule.icon_status_url,
           startDate: schedule.schedule_start,
           status: schedule.status,
-          description: schedule.desc
+          description: schedule.desc,
+          nextScheduleDate: schedule.next_schedule_date,
+          nextScheduleMessage: schedule.next_schedule_message
         }
       );
     });
     return extractedPrizes;
   }
 
-  formattingSchedule(unformattedSchedule?: any) {
-    if (unformattedSchedule) {
-      return {
-        name: unformattedSchedule.name,
-        iconUrl: unformattedSchedule.icon_url,
-        iconStatusUrl: unformattedSchedule.icon__status_url,
-        startDate: unformattedSchedule.schedule_start,
-        status: unformattedSchedule.status,
-        description: unformattedSchedule.desc
-      };
-    } else { return null; }
+  findCurrentIndexSchedule(unformattedSchedules: any[]) {
+    return unformattedSchedules.findIndex((schedule) => schedule.is_current_state === true);
   }
 }

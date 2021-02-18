@@ -103,6 +103,11 @@
 
       .checkbox-text {
         font-size: 9px;
+
+        .rules-text{
+          font-weight: bold;
+          color: var(--idstar-primary);
+        }
       }
     }
 

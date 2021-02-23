@@ -134,10 +134,8 @@ export class HackathonRegistrationPage implements OnInit {
       this.filePicker.pickFile().then(uri => {
         this.fileURL = uri;
         this.fileGroup[fileIdx].fileUrl = uri;
-        this.presentToast(uri);
         this.filePath.resolveNativePath(uri)
           .then(path => {
-            this.presentToast(path);
             const index = path.lastIndexOf('/');
             this.filepath = path.substr(index + 1);
             this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
@@ -224,7 +222,7 @@ export class HackathonRegistrationPage implements OnInit {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
 
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid) {
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid) {
       this.hackathonRegistrationService.setLoadingOn();
       this.hackathonRegistrationService.setLoadingMessage('Submit Data...');
       const formData = this.hackathonForm.value;

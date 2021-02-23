@@ -82,7 +82,7 @@
                     </div>
                     <div class="timeline-text-container">
                         <div class="timeline-text-1">{{schedule.name}}</div>
-                        <div class="timeline-text-2">{{schedule.startDate | date: 'd MMMM y'}}</div>
+                        <div class="timeline-text-2">{{schedule.startDate}}</div>
                     </div>
                 </div>
             </div>
@@ -131,13 +131,13 @@
                      *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status !== 'Failed'">
                     <div class="status-detail-container-1">
                         <div class="status-detail-text-1">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].name}}</div>
-                        <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate | date: 'd MMMM y'}}</div>
+                        <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate}}</div>
                         <div class="status-detail-text-3">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].description}}
                         </div>
                     </div>
                     <div class="status-detail-container-2">
                         <div class="status-detail-text-5">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleMessage}}</div>
-                        <div class="status-detail-text-4">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleDate | date: 'd MMMM y'}}</div>
+                        <div class="status-detail-text-4">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleDate}}</div>
                     </div>
                 </div>
                 <div class="status-detail-container-failed" *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status === 'Failed'">

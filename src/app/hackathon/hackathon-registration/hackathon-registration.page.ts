@@ -10,7 +10,6 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { finalize } from 'rxjs/operators';
 import { HackathonRegistrationService } from './hackathon-registration.service';
 import { FileGroup, HackathonSemesters } from './hackathonRegistrationModel';
-import { PrivacyPolicyPage } from '../../privacy-policy/privacy-policy.page';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 @Component({
@@ -234,7 +233,8 @@ export class HackathonRegistrationPage implements OnInit {
           this.hackathonRegistrationService.setLoadingMessage('');
           this.hackathonRegistrationService.transferFile(this.fileGroup);
         }))
-        .subscribe(() => {}, (err) => {
+        .subscribe(() => {
+        }, (err) => {
           let message = '';
           if (err.error.message === undefined) {
             message = 'Permasalahan jaringan, mohon coba lagi.';

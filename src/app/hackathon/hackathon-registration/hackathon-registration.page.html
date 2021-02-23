@@ -84,7 +84,7 @@
         </div>
     </form>
 
-    <div class="checkbox-content-container">
+    <div class="checkbox-content-container" *ngIf="!hackathonRegistrationService.isLoading">
         <div class="container-1">
             <div class="checkbox-container">
                 <ion-checkbox class="checkbox"

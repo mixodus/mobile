@@ -5,7 +5,7 @@ import { AuthenticationService } from '../../services/auth/authentication.servic
 import { NewsResponse } from '../../core/models/news/NewsResponse';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
 import { FileGroup } from './hackathonRegistrationModel';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class HackathonRegistrationService {
     private globalService: GlobalService,
     private auth: AuthenticationService,
     private transfer: FileTransfer,
+    private alertCtrl: AlertController,
     private toast: ToastController,
     private router: Router
   ) {
@@ -97,13 +98,12 @@ export class HackathonRegistrationService {
     this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
       const message = JSON.parse(data.response).message;
       this.presentToast(message);
-      console.log('A sukses');
       this.setLoadingOff();
       this.setLoadingMessage('');
       this.transferFileB(2);
     }, (err) => {
       const errMessage = JSON.parse(err.body).message;
-      this.presentToast(errMessage);
+      this.presentAlert(errMessage);
       this.setLoadingOff();
       this.setLoadingMessage('');
     });
@@ -139,7 +139,7 @@ export class HackathonRegistrationService {
       this.transferFileC(3);
     }, (err) => {
       const errMessage = JSON.parse(err.body).message;
-      this.presentToast(errMessage);
+      this.presentAlert(errMessage);
       this.setLoadingOff();
       this.setLoadingMessage('');
     });
@@ -175,10 +175,19 @@ export class HackathonRegistrationService {
       this.router.navigateByUrl('app/hackathon');
     }, (err) => {
       const errMessage = JSON.parse(err.body).message;
-      this.presentToast(errMessage);
+      this.presentAlert(errMessage);
       this.setLoadingOff();
       this.setLoadingMessage('');
     });
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertCtrl.create({
+      message: message,
+      buttons: ['Baik']
+    });
+
+    await alert.present();
   }
 
 

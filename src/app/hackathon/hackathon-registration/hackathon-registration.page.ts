@@ -167,6 +167,7 @@ export class HackathonRegistrationPage implements OnInit {
 
     if (this.platform.is('ios')) {
       this.filePicker.pickFile().then(uri => {
+        console.log('uri ios: ', uri);
         let fileName = '';
 
         if (fileIdx === 0) {

@@ -232,11 +232,9 @@ export class HackathonRegistrationPage implements OnInit {
         .pipe(finalize(() => {
           this.hackathonRegistrationService.setLoadingOff();
           this.hackathonRegistrationService.setLoadingMessage('');
+          this.hackathonRegistrationService.transferFile(this.fileGroup);
         }))
-        .subscribe(() => {
-          this.hackathonRegistrationService
-            .transferFile(this.fileGroup);
-        }, (err) => {
+        .subscribe(() => {}, (err) => {
           let message = '';
           if (err.error.message === undefined) {
             message = 'Permasalahan jaringan, mohon coba lagi.';

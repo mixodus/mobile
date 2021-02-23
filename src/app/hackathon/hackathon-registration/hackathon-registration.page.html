@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <div class="registration-button-container">
+    <div class="registration-button-container" *ngIf="!hackathonRegistrationService.isLoading">
         <ion-button type="submit" class="registration-button" expand="block" (click)="handleRegistrationClick()">
             Daftar Hackathon
         </ion-button>

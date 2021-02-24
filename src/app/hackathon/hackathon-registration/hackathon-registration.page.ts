@@ -9,7 +9,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { finalize } from 'rxjs/operators';
 import { HackathonRegistrationService } from './hackathon-registration.service';
-import { FileGroup, HackathonSemesters } from './hackathonRegistrationModel';
+import { FileGroup, HackathonRegistrationDetail } from './hackathonRegistrationModel';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 @Component({
@@ -49,7 +49,7 @@ export class HackathonRegistrationPage implements OnInit {
 
   isHackathonSemesterLoading: boolean;
   isHackathonPostLoading: boolean;
-  hackathonSemesters: HackathonSemesters;
+  hackathonRegistrationDetail: HackathonRegistrationDetail;
 
   isSubmitted = false;
 
@@ -100,14 +100,14 @@ export class HackathonRegistrationPage implements OnInit {
   getHackathonSemester() {
     this.hackathonRegistrationService.setLoadingOn();
     this.hackathonRegistrationService.setLoadingMessage('Memuat...');
-    this.hackathonRegistrationService.getSemesterData()
+    this.hackathonRegistrationService.getHackationRegistrationDetailData()
       .pipe(finalize(
         () => {
           this.hackathonRegistrationService.setLoadingOff();
           this.hackathonRegistrationService.setLoadingMessage('');
         }
       )).subscribe((data: any) => {
-      this.hackathonSemesters = this.hackathonRegistrationService.formattingHackathonSemesters(data.data);
+      this.hackathonRegistrationDetail = this.hackathonRegistrationService.formattingHackathonRegistrationDetail(data.data);
     }, (err) => {
       let message = '';
       if (err.error.message === undefined) {
@@ -121,7 +121,7 @@ export class HackathonRegistrationPage implements OnInit {
       this.hackathonRegistrationService.setLoadingMessage('');
     });
 
-    console.log('hackathonSemester: ', this.hackathonSemesters);
+    console.log('hackathonSemester: ', this.hackathonRegistrationDetail);
   }
 
   goBack() {

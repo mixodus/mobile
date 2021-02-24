@@ -46,7 +46,10 @@ export class HackathonService {
       schedules: this.extractingSchedules(unformattedHackathonDetail.eventSchedules),
       currentIndexSchedule: this.findCurrentIndexSchedule(unformattedHackathonDetail.eventSchedules),
       isJoinable: unformattedHackathonDetail.event_joinable,
-      failedMessage: unformattedHackathonDetail.failed_message ? unformattedHackathonDetail.failed_message : ''
+      failedMessage: unformattedHackathonDetail.failed_message ? unformattedHackathonDetail.failed_message : '',
+      isComingSoon: unformattedHackathonDetail.event_coming_soon,
+      commingSoonTitle: unformattedHackathonDetail.event_coming_soon_title,
+      commingSoonMessage: unformattedHackathonDetail.event_coming_soon_message
     };
   }
 

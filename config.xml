@@ -3,7 +3,7 @@
     <name>ONE Talent</name>
     <description>Recruitment Platform Marketplace</description>
     <author email="dev@idstar.co.id" href="http://idstar.co.id">Idstar Team</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -110,5 +110,4 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <allow-navigation href="http://localhost:8100" sessionid="afb628f8" />
 </widget>

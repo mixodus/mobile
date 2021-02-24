@@ -33,7 +33,7 @@ export class HackathonRegistrationService {
     this.eventId = eventId;
   }
 
-  getSemesterData() {
+  getHackationRegistrationDetailData() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Api-Key': this.globalService.getGlobalApiKey(),
@@ -47,9 +47,10 @@ export class HackathonRegistrationService {
     return this.http.get<NewsResponse>(hackathonSemesterEndpoint, options);
   }
 
-  formattingHackathonSemesters(unformattedHackathonSemesters: any) {
+  formattingHackathonRegistrationDetail(unformattedHackathonRegistrationDetail: any) {
     return {
-      semesters: unformattedHackathonSemesters.format1
+      semesters: unformattedHackathonRegistrationDetail.format1,
+      imageUrl: unformattedHackathonRegistrationDetail.upload_icon_url
     };
   }
 

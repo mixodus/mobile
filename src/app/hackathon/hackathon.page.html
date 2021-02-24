@@ -10,17 +10,28 @@
 </ion-header>
 
 <ion-content class="hackathon-content">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
-                   pullMax="120">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-
     <div class="spinner-container" *ngIf="isHackathonDetailLoading">
         <ion-spinner class="spinner"></ion-spinner>
         <div>Memuat...</div>
     </div>
 
-    <div class="hackkathon-content-column" *ngIf="!isHackathonDetailLoading && hackathonDetail">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60"
+                   pullMax="120">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngIf="!isHackathonDetailLoading && hackathonDetail && hackathonDetail.isComingSoon" class="coming-soon-container">
+        <div class="illustration-wrapper">
+            <img src="../../assets/images/Saly-17.svg" style="background-color: transparent">
+        </div>
+        <div class="coming-soon-message">{{hackathonDetail.commingSoonTitle}}</div>
+
+        <div class="coming-soon-message-detail">{{hackathonDetail.title}}</div>
+        <div class="coming-soon-message-detail">{{hackathonDetail.commingSoonMessage}}</div>
+    </div>
+
+    <div class="hackkathon-content-column"
+         *ngIf="!isHackathonDetailLoading && hackathonDetail && !hackathonDetail.isComingSoon">
         <div class="hacktahon-image-container">
             <img class="hacktahon-image" [src]="hackathonDetail.bannerUrl" alt="">
         </div>
@@ -140,7 +151,8 @@
                         <div class="status-detail-text-4">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].nextScheduleDate}}</div>
                     </div>
                 </div>
-                <div class="status-detail-container-failed" *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status === 'Failed'">
+                <div class="status-detail-container-failed"
+                     *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status === 'Failed'">
                     <div class="status-detail-text-failed">{{hackathonDetail.failedMessage}}
                     </div>
                 </div>
@@ -150,7 +162,7 @@
 </ion-content>
 
 <ion-footer class="hackathon-footer" *ngIf="hackathonDetail">
-    <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable" class="signup-button" expand="block"
+    <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon" class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
     </ion-button>
 </ion-footer>

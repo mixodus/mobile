@@ -5,6 +5,7 @@ export interface FileGroup {
   fileUrl: string;
 }
 
-export interface HackathonSemesters {
+export interface HackathonRegistrationDetail {
   semesters: number[];
+  imageUrl: string;
 }

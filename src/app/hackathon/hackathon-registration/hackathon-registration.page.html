@@ -40,7 +40,7 @@
         <div class="subsection-title">Semester Saat Ini</div>
         <ion-select formControlName="semester" multiple="false" interface="popover" placeholder="7"
                     class="select-item">
-            <ion-select-option *ngFor="let semester of hackathonSemesters.semesters"
+            <ion-select-option *ngFor="let semester of hackathonRegistrationDetail.semesters"
                                [value]="semester">{{semester}}</ion-select-option>
         </ion-select>
         <div class="error-message" *ngIf="hackathonForm.get('semester').hasError('required') && isSubmitted">
@@ -50,7 +50,7 @@
         <div class="subsection-title">Unggah KTP</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile(0)" class="upload-icon" src="../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(0)" class="upload-icon" [src]="hackathonRegistrationDetail.imageUrl" alt="">
             </div>
             <div *ngIf="!getfileName(0)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
             <div *ngIf="getfileName(0)" class="file-name-container">{{getfileName(0)}}</div>
@@ -62,7 +62,7 @@
         <div class="subsection-title">Unggah Kartu Mahasiswa</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile(1)" class="upload-icon" src="../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(1)" class="upload-icon" [src]="hackathonRegistrationDetail.imageUrl" alt="">
             </div>
             <div *ngIf="!getfileName(1)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
             <div *ngIf="getfileName(1)" class="file-name-container">{{getfileName(1)}}</div>
@@ -74,7 +74,7 @@
         <div class="subsection-title">Unggah Transkrip Nilai</div>
         <div class="upload-container">
             <div class="upload-button-container">
-                <img (click)="chooseFile(2)" class="upload-icon" src="../../../assets/icons/upload.svg" alt="">
+                <img (click)="chooseFile(2)" class="upload-icon" [src]="hackathonRegistrationDetail.imageUrl" alt="">
             </div>
             <div *ngIf="!getfileName(2)" class="file-name-container">*Unggah KTP (format jpg / png maksimal 5mb)</div>
             <div *ngIf="getfileName(2)" class="file-name-container">{{getfileName(2)}}</div>

@@ -8,6 +8,9 @@ export interface HackathonDetail {
   currentIndexSchedule: number;
   isJoinable: boolean;
   failedMessage: string;
+  isComingSoon: boolean;
+  commingSoonTitle: string;
+  commingSoonMessage: string;
 }
 
 interface Prize {

@@ -5,9 +5,6 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { HackathonService } from './hackathon.service';
 import { HackathonDetail } from './hackathonModel';
-import { Observable } from 'rxjs';
-import { UserProfileModel } from '../user/profile/user-profile.model';
-import { DataStore } from '../shell/data-store';
 import { HackathonRegistrationService } from './hackathon-registration/hackathon-registration.service';
 
 @Component({
@@ -45,6 +42,7 @@ export class HackathonPage implements OnInit {
     this.hackathonService.getHackathonDetailData()
       .pipe(finalize(() => this.isHackathonDetailLoading = false)).subscribe((data: any) => {
       this.hackathonDetail = this.hackathonService.formattingHackathonDetail(data.data);
+      console.log('hackathonDetail: ', this.hackathonDetail);
       this.hackathonRegistrationService.setEventId(data.data.event_id);
     }, (err) => {
       let message = '';

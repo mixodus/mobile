@@ -161,7 +161,7 @@
     </div>
 </ion-content>
 
-<ion-footer class="hackathon-footer" *ngIf="hackathonDetail">
+<ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
     <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon" class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
     </ion-button>

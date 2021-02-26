@@ -79,6 +79,7 @@ export class HackathonRegistrationService {
     this.setLoadingMessage('Mengunggah KTP...');
 
     const file = this.fileGroup[0];
+    console.log('file 0: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -115,6 +116,7 @@ export class HackathonRegistrationService {
     this.setLoadingMessage('Mengunggah Kartu Mahasiswa...');
     console.log('masuk transferFileB');
     const file = this.fileGroup[1];
+    console.log('file 1: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -150,7 +152,8 @@ export class HackathonRegistrationService {
     this.setLoadingOn();
     this.setLoadingMessage('Mengunggah Transkrip Nilai...');
     console.log('masuk transferFileC');
-    const file = this.fileGroup[1];
+    const file = this.fileGroup[2];
+    console.log('file 2: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {

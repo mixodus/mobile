@@ -278,9 +278,9 @@ export class HackathonRegistrationPage implements OnInit {
         .pipe(finalize(() => {
           this.hackathonRegistrationService.setLoadingOff();
           this.hackathonRegistrationService.setLoadingMessage('');
-          this.hackathonRegistrationService.transferFile(this.fileGroup);
         }))
         .subscribe(() => {
+          this.hackathonRegistrationService.transferFile(this.fileGroup);
         }, (err) => {
           let message = '';
           if (err.error.message === undefined) {

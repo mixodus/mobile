@@ -20,7 +20,8 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div *ngIf="!isHackathonDetailLoading && hackathonDetail && hackathonDetail.isComingSoon" class="coming-soon-container">
+    <div *ngIf="!isHackathonDetailLoading && hackathonDetail && hackathonDetail.isComingSoon"
+         class="coming-soon-container">
         <div class="illustration-wrapper">
             <img src="../../assets/images/Saly-17.svg" style="background-color: transparent">
         </div>
@@ -85,15 +86,23 @@
                 </div>
             </div>
 
-            <div class="timeline" *ngFor="let schedule of hackathonDetail.schedules">
+            <div class="timeline" *ngFor="let schedule of hackathonDetail.schedules; let i = index">
                 <div class="container">
                     <div class="green-dot"></div>
-                    <div class="timeline-icon-container">
-                        <img class="timeline-icon" [src]="schedule.iconUrl" alt="">
-                    </div>
-                    <div class="timeline-text-container">
-                        <div class="timeline-text-1">{{schedule.name}}</div>
-                        <div class="timeline-text-2">{{schedule.startDate}}</div>
+                    <div class="container-0" (click)="handleScheduleDropDownClick(i)">
+                        <div class="container-0-0">
+                            <div class="timeline-icon-container">
+                                <img class="timeline-icon" [src]="schedule.iconUrl" alt="">
+                            </div>
+                            <div class="timeline-text-container">
+                                <div class="timeline-text-1">{{schedule.name}}</div>
+                                <div class="timeline-text-2">{{schedule.startDate}}</div>
+                            </div>
+                            <ion-icon *ngIf="schedule.isDescriptionOpen" name="ios-arrow-up"></ion-icon>
+                            <ion-icon *ngIf="!schedule.isDescriptionOpen" name="ios-arrow-down"></ion-icon>
+                        </div>
+                        <div class="timeline-description"
+                             *ngIf="schedule.isDescriptionOpen">{{schedule.description}}</div>
                     </div>
                 </div>
             </div>
@@ -162,7 +171,8 @@
 </ion-content>
 
 <ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
-    <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon" class="signup-button" expand="block"
+    <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon"
+                class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
     </ion-button>
 </ion-footer>

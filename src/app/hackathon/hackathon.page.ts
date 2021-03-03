@@ -107,4 +107,21 @@ export class HackathonPage implements OnInit {
   handleLoginButtonClick() {
     this.auth.signOut();
   }
+
+  handleScheduleDropDownClick(index) {
+    console.log('index: ', index);
+
+    const cloneSchedule = [...this.hackathonDetail.schedules];
+    const toUpdatedObject = cloneSchedule[index];
+
+    const updatedObject = Object.assign({} , toUpdatedObject, {
+      isDescriptionOpen: !toUpdatedObject.isDescriptionOpen
+    });
+
+    this.hackathonDetail.schedules = [
+      ...this.hackathonDetail.schedules.slice(0, index),
+      updatedObject,
+      ...this.hackathonDetail.schedules.slice(index + 1)
+    ];
+  }
 }

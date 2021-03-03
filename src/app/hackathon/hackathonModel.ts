@@ -28,4 +28,5 @@ interface Schedule {
   description: string;
   nextScheduleDate: string;
   nextScheduleMessage: string;
+  isDescriptionOpen: string;
 }

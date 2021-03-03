@@ -81,7 +81,8 @@ export class HackathonService {
           status: schedule.status,
           description: schedule.desc,
           nextScheduleDate: schedule.next_schedule_date,
-          nextScheduleMessage: schedule.next_schedule_message
+          nextScheduleMessage: schedule.next_schedule_message,
+          isDescriptionOpen: false
         }
       );
     });

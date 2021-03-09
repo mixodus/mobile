@@ -112,12 +112,6 @@ export class HomePage implements OnInit {
       this.checkSession();
     }
 
-    this.storage.get(TOKEN_KEY).then((data) => {
-      if (!data.token) {
-        this.router.navigateByUrl('auth/login');
-      }
-    });
-
     this.getProfileDetail();
   }
 

@@ -33,6 +33,7 @@ export class AuthenticationService {
     this.storage.get(TOKEN_KEY).then((data) => {
       if (data) {
         this.authState.next(data);
+        this.token = data.token;
       } else {
         this.authState.next({ token: null });
       }

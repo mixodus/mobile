@@ -18,6 +18,8 @@ import * as moment from 'moment';
 import { InAppBrowserService } from '../core/services/in-app-browser/in-app-browser.service';
 import { resolveData } from '@angular/router/src/operators/resolve_data';
 
+const TOKEN_KEY = 'idstar-token';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './home.page.html',
@@ -109,6 +111,12 @@ export class HomePage implements OnInit {
     if (this.auth.token) {
       this.checkSession();
     }
+
+    this.storage.get(TOKEN_KEY).then((data) => {
+      if (!data.token) {
+        this.router.navigateByUrl('auth/login');
+      }
+    });
 
     this.getProfileDetail();
   }

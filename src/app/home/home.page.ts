@@ -1,7 +1,7 @@
 import { Component, HostBinding, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeModel } from './home.model';
-import { AlertController, ModalController, NavController, Platform, ToastController, } from '@ionic/angular';
+import { ModalController, NavController, Platform, ToastController, } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { ThemeableBrowser, } from '@ionic-native/themeable-browser/ngx';
@@ -16,9 +16,6 @@ import { Network } from '@ionic-native/network/ngx';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
 import * as moment from 'moment';
 import { InAppBrowserService } from '../core/services/in-app-browser/in-app-browser.service';
-import { resolveData } from '@angular/router/src/operators/resolve_data';
-
-const TOKEN_KEY = 'idstar-token';
 
 @Component({
   selector: 'app-user-profile',

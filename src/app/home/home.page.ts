@@ -1,7 +1,7 @@
 import { Component, HostBinding, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeModel } from './home.model';
-import { ModalController, NavController, Platform, ToastController, } from '@ionic/angular';
+import { AlertController, ModalController, NavController, Platform, ToastController, } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { ThemeableBrowser, } from '@ionic-native/themeable-browser/ngx';
@@ -54,6 +54,7 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     private globalService: GlobalService,
     public modalController: ModalController,
+    private alertCtrl: AlertController,
     private storage: Storage,
     private http: HttpClient,
     private toastCtrl: ToastController,
@@ -109,7 +110,33 @@ export class HomePage implements OnInit {
       this.checkSession();
     }
 
+    this.presentPopupBanner();
+
     this.getProfileDetail();
+  }
+
+  async presentPopupBanner() {
+    const alert = await this.alertCtrl.create({
+      message: `<div class="home-message-body">
+                    <img src="https://dummyimage.com/1000x1000/000/fff" alt="">
+                </div>`,
+      cssClass: 'home-alert',
+      buttons: [
+        {
+          cssClass: 'alert-button-outline',
+          text: 'Tutup',
+        },
+        {
+          cssClass: 'alert-button-fill',
+          text: 'Lihat',
+          handler: () => {
+            this.navCtrl.navigateForward(['/app/hackathon']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 
   ionViewWillEnter() {

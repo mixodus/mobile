@@ -10,7 +10,7 @@ import { HomeResolver } from './home.resolver';
 import { ComponentsModule } from '../components/components.module';
 import { LanguageService } from '../language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
-import {HomeModalPage} from '../modal/update-modal/home-modal.page';
+import { HomeModalPage } from '../modal/update-modal/home-modal.page';
 // import { NetworkServiceProviderService } from '../network-service-provider.service';
 import { ZoomImageModalModule } from '../modal/zoom-image-modal/zoom-image-modal.module';
 import { NewsResolver } from './news.resolver';
@@ -53,4 +53,5 @@ const routes: Routes = [
     // NetworkServiceProviderService
   ]
 })
-export class HomePageModule {}
+export class HomePageModule {
+}

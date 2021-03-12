@@ -129,42 +129,6 @@ export class HackathonRegistrationPage implements OnInit {
   }
 
   chooseFile(fileIdx: number) {
-    // if (this.platform.is('ios')) {
-    //   this.filePicker.pickFile().then(uri => {
-    //     this.fileURL = uri;
-    //     this.fileGroup[fileIdx].fileUrl = uri;
-    //     this.filePath.resolveNativePath(uri)
-    //       .then(path => {
-    //         const index = path.lastIndexOf('/');
-    //         this.filepath = path.substr(index + 1);
-    //         this.filetype = this.filepath.substr(this.filepath.lastIndexOf('.') + 1);
-    //         if (this.filetype === 'jpg' || this.filetype === 'png') {
-    //           this.fileGroup[fileIdx].pathInterface = this.filepath;
-    //           this.fileGroup[fileIdx].isValid = true;
-    //           this.fileGroup[fileIdx].type = this.filetype;
-    //         } else {
-    //           this.presentToast('Mohon menggunakan file jpg/png.');
-    //           this.fileGroup[fileIdx].pathInterface = '';
-    //           this.fileGroup[fileIdx].isValid = false;
-    //           this.fileGroup[fileIdx].type = '';
-    //           this.fileGroup[fileIdx].fileUrl = '';
-    //         }
-    //
-    //         this.file.resolveLocalFilesystemUrl(this.fileURL).then(fileEntry => {
-    //           fileEntry.getMetadata((metadata) => {
-    //             if (metadata.size > 5242880) {
-    //               this.presentToast('Mohon menggunakan file size yang lebih kecil.');
-    //               this.fileGroup[fileIdx].pathInterface = '';
-    //               this.fileGroup[fileIdx].isValid = false;
-    //               this.fileGroup[fileIdx].type = '';
-    //               this.fileGroup[fileIdx].fileUrl = '';
-    //             }
-    //           });
-    //         });
-    //       });
-    //   });
-    // }
-
     if (this.platform.is('ios')) {
       this.filePicker.pickFile().then(uri => {
         console.log('uri ios: ', uri);
@@ -192,7 +156,6 @@ export class HackathonRegistrationPage implements OnInit {
       this.fileChooser.open().then(uri => {
         this.fileURL = uri;
         this.fileGroup[fileIdx].fileUrl = uri;
-        console.log('uri: ', uri);
         this.filePath.resolveNativePath(this.fileURL)
           .then(path => {
             const index = path.lastIndexOf('/');

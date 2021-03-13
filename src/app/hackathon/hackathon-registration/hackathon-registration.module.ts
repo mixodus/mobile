@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { HackathonRegistrationPage } from './hackathon-registration.page';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { Camera } from '@ionic-native/camera/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
 
 const routes: Routes = [
   {
@@ -24,7 +26,8 @@ const routes: Routes = [
     ReactiveFormsModule
   ],
   declarations: [HackathonRegistrationPage, TermsConditionsComponent],
-  entryComponents: [TermsConditionsComponent]
+  entryComponents: [TermsConditionsComponent],
+  providers: [Camera, Crop]
 })
 export class HackathonRegistrationPageModule {
 }

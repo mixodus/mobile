@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/auth/authentication.service';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
 import { IOSFilePicker } from '@ionic-native/file-picker/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
@@ -11,6 +11,8 @@ import { finalize } from 'rxjs/operators';
 import { HackathonRegistrationService } from './hackathon-registration.service';
 import { FileGroup, HackathonRegistrationDetail } from './hackathonRegistrationModel';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Crop, CropOptions } from '@ionic-native/crop/ngx';
 
 @Component({
   selector: 'app-hackathon-registration',
@@ -60,11 +62,15 @@ export class HackathonRegistrationPage implements OnInit {
     private formBuilder: FormBuilder,
     private platform: Platform,
     private file: File,
+    private camera: Camera,
     private filePicker: IOSFilePicker,
     private fileChooser: FileChooser,
     private filePath: FilePath,
     private toastCtrl: ToastController,
     private modalController: ModalController,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private crop: Crop,
   ) {
     this.hackathonForm = new FormGroup({
       university: new FormControl('', Validators.compose([
@@ -126,6 +132,90 @@ export class HackathonRegistrationPage implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  async chooseFileMethod(fileIdx: number) {
+    const alert = await this.alertCtrl.create({
+      header: 'Unggah Gambar',
+      buttons: [
+        {
+          text: 'Ambil gambar',
+          handler: () => {
+            this.obtainPicture(this.camera.PictureSourceType.CAMERA, fileIdx);
+          }
+        },
+        {
+          text: 'Pilih file',
+          handler: () => {
+            this.chooseFile(fileIdx);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  obtainPicture(source, fileIdx) {
+
+    const camOpt: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: source,
+    };
+
+    const cropOpt: CropOptions = {
+      quality: 70
+    };
+
+    this.camera.getPicture(camOpt).then((imageData) => {
+      console.log('imageData: ', imageData);
+      this.crop.crop(imageData, cropOpt).then((cropped) => {
+        console.log('cropped: ', cropped);
+        console.log('cropped.split(\'?\')[0]: ', cropped.split('?')[0]);
+        this.showCroppedImage(cropped.split('?')[0], fileIdx);
+      }, (err) => {
+        this.presentToast(err);
+      });
+    }, (err) => {
+      this.presentToast(err);
+    });
+
+  }
+
+  async showCroppedImage(ImagePath, fileIdx) {
+    const loading = await this.loadingCtrl.create({});
+    await loading.present();
+
+    const splittedPath = ImagePath.split('/');
+    const imageName = splittedPath[splittedPath.length - 1];
+    const filePath = ImagePath.split(imageName)[0];
+
+    console.log('splittedPath: ', splittedPath);
+    console.log('imageName: ', imageName);
+    console.log('filePath: ', filePath);
+
+    this.file.readAsDataURL(filePath, imageName).then((base64) => {
+      console.log('base64: ', base64);
+      this.fileGroup[fileIdx].pathInterface = imageName;
+      this.fileGroup[fileIdx].isValid = true;
+      this.fileGroup[fileIdx].type = 'png';
+      this.fileGroup[fileIdx].fileUrl = base64;
+
+      loading.dismiss();
+    }, (error) => {
+      this.presentToast(error);
+
+      this.fileGroup[fileIdx].pathInterface = '';
+      this.fileGroup[fileIdx].isValid = false;
+      this.fileGroup[fileIdx].type = '';
+      this.fileGroup[fileIdx].fileUrl = '';
+
+      loading.dismiss();
+    });
   }
 
   chooseFile(fileIdx: number) {

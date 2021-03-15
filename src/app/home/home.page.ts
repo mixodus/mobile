@@ -38,6 +38,8 @@ export class HomePage implements OnInit {
   refresh = false;
   subscribe: any;
 
+  isInitialBanner = true;
+
   @HostBinding('class.is-shell') get isShell() {
     return this.profile && this.profile.isShell ? true : false;
   }
@@ -110,15 +112,13 @@ export class HomePage implements OnInit {
       this.checkSession();
     }
 
-    this.presentPopupBanner();
-
     this.getProfileDetail();
   }
 
   async presentPopupBanner() {
     const alert = await this.alertCtrl.create({
       message: `<div class="home-message-body">
-                    <img src="https://dummyimage.com/1000x1000/000/fff" alt="">
+                    <img src="https://api.oneindonesia.id/uploads/event/hackathon/general/flyer_hackathon.png" alt="">
                 </div>`,
       cssClass: 'home-alert',
       buttons: [
@@ -158,6 +158,11 @@ export class HomePage implements OnInit {
   getProfileDetail() {
     this.homeService.getProfileDataSource().pipe().subscribe((data: any) => {
       this.profile = data;
+
+      if (data.data.flyer_banner.is_active && this.isInitialBanner) {
+        this.presentPopupBanner();
+        this.isInitialBanner = false;
+      }
     });
   }
 

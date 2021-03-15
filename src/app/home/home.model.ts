@@ -58,6 +58,11 @@ export interface Banner {
   banners_photo_url: string;
 }
 
+export interface FlyerBanner {
+  is_active: false;
+  url_banner: '';
+}
+
 export interface Job {
   job_id: string;
   company_id: string;
@@ -83,9 +88,11 @@ export interface Friend {
   fullname: string;
   profile_picture_url: string;
 }
+
 export interface Friend_List {
   data: Array<number>;
 }
+
 export interface Friend_Request {
   data: Array<number>;
 }
@@ -102,6 +109,7 @@ export interface Data {
   friends: Friend[];
   events: Event[];
   banner: Banner[];
+  flyer_banner: FlyerBanner;
   news: News[];
   jobs: Job[];
   info: Info;
@@ -152,6 +160,10 @@ export class HomeModel extends ShellModel {
         banners_photo_url: '',
       },
     ],
+    flyer_banner: {
+      is_active: false,
+      url_banner: ''
+    },
     events: [
       {
         event_id: '',

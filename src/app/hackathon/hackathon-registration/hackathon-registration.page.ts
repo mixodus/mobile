@@ -136,18 +136,19 @@ export class HackathonRegistrationPage implements OnInit {
 
   async chooseFileMethod(fileIdx: number) {
     const alert = await this.alertCtrl.create({
-      header: 'Unggah Gambar',
+      header: 'Unggah Foto',
       buttons: [
         {
-          text: 'Ambil gambar',
+          text: 'Ambil Foto',
           handler: () => {
             this.obtainPicture(this.camera.PictureSourceType.CAMERA, fileIdx);
           }
         },
         {
-          text: 'Pilih file',
+          text: 'Pilih Foto',
           handler: () => {
-            this.chooseFile(fileIdx);
+            this.obtainPicture(this.camera.PictureSourceType.PHOTOLIBRARY, fileIdx);
+            // this.chooseFile(fileIdx);
           }
         }
       ]
@@ -161,10 +162,11 @@ export class HackathonRegistrationPage implements OnInit {
     const camOpt: CameraOptions = {
       quality: 70,
       destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
       sourceType: source,
+      targetHeight: 500,
+      targetWidth: 500,
     };
 
     const cropOpt: CropOptions = {
@@ -172,10 +174,7 @@ export class HackathonRegistrationPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
-      console.log('imageData: ', imageData);
       this.crop.crop(imageData, cropOpt).then((cropped) => {
-        console.log('cropped: ', cropped);
-        console.log('cropped.split(\'?\')[0]: ', cropped.split('?')[0]);
         this.showCroppedImage(cropped.split('?')[0], fileIdx);
       }, (err) => {
         this.presentToast(err);

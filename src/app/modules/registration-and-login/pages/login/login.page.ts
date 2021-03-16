@@ -225,7 +225,7 @@ export class LoginPage implements OnInit {
     await loading.present();
 
     const rawBody = {
-      'email':  this.loginForm.value.email
+      'email': this.loginForm.value.email
     };
 
     const headers = new HttpHeaders({
@@ -262,6 +262,10 @@ export class LoginPage implements OnInit {
     });
     toast.present();
     this.isSubmitted = true;
+  }
+
+  handleLoginAsGuestClick() {
+    this.authService.changeIsInitialLogin(true);
   }
 
   // goToForgotPassword(): void {

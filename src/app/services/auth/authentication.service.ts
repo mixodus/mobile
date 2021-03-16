@@ -8,7 +8,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { GlobalService } from '../global.service';
 import * as dayjs from 'dayjs';
+
 const TOKEN_KEY = 'idstar-token';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +18,7 @@ export class AuthenticationService {
   user: Observable<any>;
   token: String;
   public authState = new BehaviorSubject(null);
+  isInitialLogin: boolean;
 
   constructor(
     private storage: Storage,
@@ -69,6 +72,7 @@ export class AuthenticationService {
   }
 
   setSignIn(dataUser) {
+    this.changeIsInitialLogin(true);
     let user = dataUser.data;
     let count = 0;
     this.authState.next(user);
@@ -141,6 +145,7 @@ export class AuthenticationService {
   }
 
   async signOut() {
+    this.changeIsInitialLogin(false);
     this.storage.set(TOKEN_KEY, null);
     this.authState.next(null);
     localStorage.removeItem(this.globalService.getTokenName());
@@ -150,6 +155,10 @@ export class AuthenticationService {
     this.router.navigate(['auth/login']);
     this.globalService.setProfileLoadStatus(false);
     this.globalService.setLevelLoadStatus(false);
+  }
+
+  changeIsInitialLogin(state: boolean) {
+    this.isInitialLogin = state;
   }
 
   checkCompleteProfile() {

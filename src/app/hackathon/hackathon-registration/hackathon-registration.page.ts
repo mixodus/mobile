@@ -169,20 +169,10 @@ export class HackathonRegistrationPage implements OnInit {
       targetWidth: 500,
     };
 
-    const cropOpt: CropOptions = {
-      quality: 70
-    };
-
     this.camera.getPicture(camOpt).then((imageData) => {
       console.log('imageData: ', imageData);
 
-      this.crop.crop(imageData, cropOpt).then((cropped) => {
-        console.log('cropped: ', cropped);
-
-        this.showCroppedImage(cropped.split('?')[0], fileIdx);
-      }, (err) => {
-        this.presentToast(err);
-      });
+      this.showCroppedImage(imageData.split('?')[0], fileIdx);
 
     }, (err) => {
       this.presentToast(err);

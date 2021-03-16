@@ -152,6 +152,12 @@ export class HomePage implements OnInit {
         this.globalService.setLevelLoadStatus(true);
       }
     }
+
+    if (this.auth.isInitialLogin) {
+      this.presentPopupBanner().then(() => {
+        this.auth.changeIsInitialLogin(false);
+      });
+    }
   }
 
 

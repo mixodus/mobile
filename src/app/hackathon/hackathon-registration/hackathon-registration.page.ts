@@ -174,11 +174,16 @@ export class HackathonRegistrationPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
+      console.log('imageData: ', imageData);
+
       this.crop.crop(imageData, cropOpt).then((cropped) => {
+        console.log('cropped: ', cropped);
+
         this.showCroppedImage(cropped.split('?')[0], fileIdx);
       }, (err) => {
         this.presentToast(err);
       });
+
     }, (err) => {
       this.presentToast(err);
     });

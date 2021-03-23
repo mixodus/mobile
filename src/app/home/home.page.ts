@@ -108,6 +108,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.presentPopupBanner();
     if (this.auth.token) {
       this.checkSession();
     }
@@ -166,7 +167,7 @@ export class HomePage implements OnInit {
       this.profile = data;
 
       if (data.data.flyer_banner.is_active && this.isInitialBanner) {
-        this.presentPopupBanner();
+        // this.presentPopupBanner();
         this.isInitialBanner = false;
       }
     });

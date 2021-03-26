@@ -43,6 +43,12 @@ export class HackathonRegistrationPage implements OnInit {
       isValid: false,
       type: '',
       fileUrl: ''
+    },
+    {
+      pathInterface: '',
+      isValid: false,
+      type: '',
+      fileUrl: ''
     }
   ];
 
@@ -222,10 +228,11 @@ export class HackathonRegistrationPage implements OnInit {
           fileName = 'file_ktp';
         } else if (fileIdx === 1) {
           fileName = 'file_kartu_mahasiswa';
-        } else {
+        } else if (fileIdx === 2){
           fileName = 'file_transkrip_nilai';
+        } else {
+          fileName = 'file_CV';
         }
-
         this.fileURL = uri;
         this.fileGroup[fileIdx].fileUrl = uri;
         this.fileGroup[fileIdx].pathInterface = fileName;
@@ -315,7 +322,7 @@ export class HackathonRegistrationPage implements OnInit {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
 
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid) {
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid) {
       this.hackathonRegistrationService.setLoadingOn();
       this.hackathonRegistrationService.setLoadingMessage('Submit Data...');
       const formData = this.hackathonForm.value;

@@ -185,6 +185,44 @@ export class HackathonRegistrationService {
     });
   }
 
+  transferFileD(typeNumber) {
+    this.setLoadingOn();
+    this.setLoadingMessage('Mengunggah CV...');
+    console.log('masuk transferFileD');
+    const file = this.fileGroup[3];
+    console.log('file 3: ', file);
+    this.fileTransfer = this.transfer.create();
+
+    const options: FileUploadOptions = {
+      fileName: file.pathInterface,
+      chunkedMode: false,
+      headers: {
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      },
+      params: {
+        event_id: this.eventId,
+        type: typeNumber
+      }
+    };
+    const uploadFileEndpoint = encodeURI(this.globalService.getApiUrl() + 'api/event/hackathon/file');
+
+    this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
+      const message = JSON.parse(data.response).message;
+      this.presentToast(message);
+      console.log('D sukses');
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+      this.router.navigateByUrl('app/hackathon');
+    }, (err) => {
+      const errMessage = JSON.parse(err.body).message;
+      this.presentAlert(errMessage);
+      this.setLoadingOff();
+      this.setLoadingMessage('');
+    });
+  }
+  
+
   async presentAlert(message) {
     const alert = await this.alertCtrl.create({
       message: message,

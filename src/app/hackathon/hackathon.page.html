@@ -70,12 +70,12 @@
                 <div class="reward-detail-container" *ngFor="let prize of hackathonDetail.prizes">
                     <div class="reward-detail-content-container">
                         <div class="medal-image-container">
-                            <img class="medal-image" [src]="prize.rewardIconUrl" alt="">
+                            <img class="medal-image" [src]="prize.rewardIconUrl" alt=" ">
                         </div>
 
                         <div class="reward-detail-text-container">
                             <div class="reward-detail-text">{{prize.name}}</div>
-                            <div class="reward-detail-text">{{prize.reward}}</div>
+                            <div class="reward-detail-text"[innerHTML]=prize.reward>{{prize.reward}}</div>
                         </div>
                     </div>
                 </div>
@@ -173,9 +173,14 @@
     </div>
 </ion-content>
 
-    <ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
-        <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon"
+<ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
+    <ion-button [disabled] = "!auth.token" *ngIf = "!auth.token || hackathonDetail.isJoinable"
                 class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
-        </ion-button>
-    </ion-footer>
+    </ion-button>
+
+    <ion-button *ngIf = "auth.token && !hackathonDetail.isJoinable" [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon"
+                class="signup-button" expand="block"
+                [routerLink]="['/app/hackathon/registration']">Cek Status Anda
+    </ion-button>
+</ion-footer>

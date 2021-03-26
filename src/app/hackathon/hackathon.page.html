@@ -10,10 +10,6 @@
 </ion-header>
 
 <ion-content class="hackathon-content">
-    <div *ngIf ="showMe" class="iframeshow">
-        <iframe width="100%" height="100%" [src]="url" frameborder ="0" allowfullscreen></iframe>
-    </div>
-    <div *ngIf ="!showMe">
     <div class="spinner-container" *ngIf="isHackathonDetailLoading">
         <ion-spinner class="spinner"></ion-spinner>
         <div>Memuat...</div>
@@ -62,7 +58,7 @@
                 <div class="description" [innerHTML]=hackathonDetail.description>
                 </div>
                 <div>
-                    <ion-button (click)= "showMe =! showMe">ICStar Hackathon 2021</ion-button>
+                    <ion-button [routerLink]="['/app/hackathon/hackathon-more-detail']">ICStar Hackathon 2021</ion-button>
                 </div>
             </div>
 
@@ -175,14 +171,11 @@
             </div>
         </div>
     </div>
-</div>
 </ion-content>
 
-<div *ngIf ="!showMe">
     <ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
         <ion-button [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon"
                 class="signup-button" expand="block"
                 [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
         </ion-button>
     </ion-footer>
-</div>

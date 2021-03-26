@@ -6,7 +6,6 @@ import { finalize } from 'rxjs/operators';
 import { HackathonService } from './hackathon.service';
 import { HackathonDetail } from './hackathonModel';
 import { HackathonRegistrationService } from './hackathon-registration/hackathon-registration.service';
-import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-hackathon',
@@ -17,7 +16,6 @@ export class HackathonPage implements OnInit {
   toggleState = 0;
   isHackathonDetailLoading: boolean;
   hackathonDetail: HackathonDetail;
-  url: SafeResourceUrl;
   public showMe = false
 
   constructor(
@@ -27,13 +25,11 @@ export class HackathonPage implements OnInit {
     private location: Location,
     private alertCtrl: AlertController,
     private toastController: ToastController,
-    private domSatizer: DomSanitizer,
   ) {
   }
 
   ngOnInit() {
     this.getHackathonDetail();
-    this.url = this.domSatizer.bypassSecurityTrustResourceUrl("https://icstar.oneindonesia.id/");
   }
 
   doRefresh(ev) {

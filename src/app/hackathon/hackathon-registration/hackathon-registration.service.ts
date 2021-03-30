@@ -149,6 +149,7 @@ export class HackathonRegistrationService {
   }
 
   transferFileC(typeNumber) {
+
     this.setLoadingOn();
     this.setLoadingMessage('Mengunggah Transkrip Nilai...');
     console.log('masuk transferFileC');
@@ -175,8 +176,9 @@ export class HackathonRegistrationService {
       this.presentToast(message);
       console.log('C sukses');
       this.setLoadingOff();
-      this.setLoadingMessage('');
-      this.router.navigateByUrl('app/hackathon');
+      this.setLoadingMessage('');      
+      this.transferFileD(4);
+      
     }, (err) => {
       const errMessage = JSON.parse(err.body).message;
       this.presentAlert(errMessage);
@@ -185,12 +187,13 @@ export class HackathonRegistrationService {
     });
   }
 
+  
   transferFileD(typeNumber) {
+    const file = this.fileGroup[3];
+    console.log('file 3: ', file);
     this.setLoadingOn();
     this.setLoadingMessage('Mengunggah CV...');
     console.log('masuk transferFileD');
-    const file = this.fileGroup[3];
-    console.log('file 3: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -219,6 +222,7 @@ export class HackathonRegistrationService {
       this.presentAlert(errMessage);
       this.setLoadingOff();
       this.setLoadingMessage('');
+      
     });
   }
   
@@ -240,7 +244,7 @@ export class HackathonRegistrationService {
     });
     toast.present();
   }
-
+  
   setLoadingOn() {
     this.isLoading = true;
   }

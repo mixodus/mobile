@@ -54,6 +54,7 @@ export class HackathonRegistrationPage implements OnInit {
 
   isWillingToFollowRules: boolean;
   isWillingToFollowRulesValid = true;
+  
 
   isHackathonSemesterLoading: boolean;
   isHackathonPostLoading: boolean;
@@ -230,7 +231,7 @@ export class HackathonRegistrationPage implements OnInit {
           fileName = 'file_kartu_mahasiswa';
         } else if (fileIdx === 2){
           fileName = 'file_transkrip_nilai';
-        } else {
+        } else if (fileIdx === 3){
           fileName = 'file_CV';
         }
         this.fileURL = uri;
@@ -318,11 +319,18 @@ export class HackathonRegistrationPage implements OnInit {
     }
   }
 
+ 
+  
+    
+  
+
+
   handleRegistrationClick() {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
 
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid) {
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid  ) {
+
       this.hackathonRegistrationService.setLoadingOn();
       this.hackathonRegistrationService.setLoadingMessage('Submit Data...');
       const formData = this.hackathonForm.value;

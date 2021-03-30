@@ -143,16 +143,16 @@ export class HackathonRegistrationPage implements OnInit {
 
   async chooseFileMethod(fileIdx: number) {
     const alert = await this.alertCtrl.create({
-      header: 'Unggah Foto',
+      header: 'Upload photo',
       buttons: [
         {
-          text: 'Ambil Foto',
+          text: 'Camera',
           handler: () => {
             this.obtainPicture(this.camera.PictureSourceType.CAMERA, fileIdx);
           }
         },
         {
-          text: 'Pilih Foto',
+          text: 'Gallery',
           handler: () => {
             this.obtainPicture(this.camera.PictureSourceType.PHOTOLIBRARY, fileIdx);
             // this.chooseFile(fileIdx);

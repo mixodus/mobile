@@ -362,7 +362,7 @@ export class HackathonRegistrationPage implements OnInit {
     const modal = await this.modalController.create({
       component: TermsConditionsComponent,
       componentProps: {
-        title: 'Peraturan Hackathon',
+        title: 'Hackathon Term and Condition',
       },
     });
 

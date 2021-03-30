@@ -12,7 +12,7 @@
 <ion-content class="hackathon-content">
     <div class="spinner-container" *ngIf="isHackathonDetailLoading">
         <ion-spinner class="spinner"></ion-spinner>
-        <div>Memuat...</div>
+        <div>Loading...</div>
     </div>
 
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFacto  r="0.8" pullMin="60"
@@ -43,7 +43,7 @@
 
         <div class="toggle-container">
             <div [ngClass]="{'toggle-content-fill': toggleState === 0, 'toggle-content-outline':toggleState === 1 }"
-                 (click)="handleToggleContent(0)">Deskripsi
+                 (click)="handleToggleContent(0)">Description
             </div>
             <div [ngClass]="{'toggle-content-fill': toggleState === 1, 'toggle-content-outline':toggleState === 0 }"
                  (click)="handleToggleContent(1)">Status
@@ -53,7 +53,7 @@
         <div *ngIf="toggleState === 0">
             <div class="description-container">
                 <div class="description-text">
-                    Deskripsi
+                    Description
                 </div>
                 <div class="description" [innerHTML]=hackathonDetail.description>
                 </div>
@@ -65,7 +65,7 @@
 
             <div class="reward-container">
                 <div class="reward-text">
-                    Hadiah
+                    Prize
                 </div>
                 <div class="reward-detail-container" *ngFor="let prize of hackathonDetail.prizes">
                     <div class="reward-detail-content-container">
@@ -83,7 +83,7 @@
 
             <div class="requirement-container">
                 <div class="requirement-text">
-                    Persyaratan
+                    Requirements
                 </div>
                 <div class="requirement" [innerHTML]=hackathonDetail.requirement>
                 </div>
@@ -118,12 +118,12 @@
                         <img src="./assets/images/Saly-17.svg" style="background-color: transparent">
                     </div>
 
-                    <div class="modal-title">Maaf</div>
-                    <div class="modal-text">Untuk dapat mengakses halaman ini,</div>
-                    <div class="modal-text">harap masuk terlebih dahulu</div>
+                    <div class="modal-title">Sorry</div>
+                    <div class="modal-text">To access this page,</div>
+                    <div class="modal-text">please login first</div>
                     <div class="ion-text-center">
                         <ion-button class="go-login-btn" expand="block" fill="outline"
-                                    (click)="handleLoginButtonClick()">Masuk
+                                    (click)="handleLoginButtonClick()">Login
                         </ion-button>
                     </div>
                 </div>
@@ -132,8 +132,7 @@
             <div *ngIf="auth.token && hackathonDetail.isJoinable">
                 <div class="message-body">
                     <div class="title">Oops!</div>
-                    <div class="content">Anda harus registrasi akun terlebih dahulu
-                        agar dapat mengikuti hackathon ini!
+                    <div class="content">You must register an account first to participate in Hackathon.
                     </div>
                 </div>
             </div>
@@ -176,11 +175,11 @@
 <ion-footer class="hackathon-footer" *ngIf="hackathonDetail && !isHackathonDetailLoading">
     <ion-button [disabled] = "!auth.token" *ngIf = "!auth.token || hackathonDetail.isJoinable"
                 class="signup-button" expand="block"
-                [routerLink]="['/app/hackathon/registration']">Daftar Hackathon
+                [routerLink]="['/app/hackathon/registration']">Join Hackathon
     </ion-button>
 
     <ion-button *ngIf = "auth.token && !hackathonDetail.isJoinable" [disabled]="!auth.token || !hackathonDetail.isJoinable || hackathonDetail.isComingSoon"
                 class="signup-button" expand="block"
-                [routerLink]="['/app/hackathon/registration']">Cek Status Anda
+                [routerLink]="['/app/hackathon/registration']">Check Your Status
     </ion-button>
 </ion-footer>

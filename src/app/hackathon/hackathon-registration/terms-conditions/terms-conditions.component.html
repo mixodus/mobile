@@ -10,7 +10,7 @@
 
     <div class="spinner-container" *ngIf="isTermsConditionsLoading">
         <ion-spinner class="spinner"></ion-spinner>
-        <div>Memuat...</div>
+        <div>Loading...</div>
     </div>
 
     <div class="content-container" *ngIf="!isTermsConditionsLoading">
@@ -21,6 +21,6 @@
 
 <ion-footer class="button-container">
     <ion-button color="primary" class="close-button" expand="block" fill="outline" (click)="handleButtonCloseClick()">
-        Tutup
+        Close
     </ion-button>
 </ion-footer>

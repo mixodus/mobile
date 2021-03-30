@@ -71,16 +71,16 @@
             <span>Please Upload Your Student Card.</span>
         </div>
 
-        <div class="subsection-title">Upload Transcript</div>
+        <div class="subsection-title">Upload Academic Transcript</div>
         <div class="upload-container">
             <div class="upload-button-container">
                 <img (click)="chooseFileMethod(2)" class="upload-icon" [src]="hackathonRegistrationDetail.imageUrl" alt="">
             </div>
-            <div *ngIf="!getfileName(2)" class="file-name-container">*Upload Transcript (format jpg / png max 5mb)</div>
+            <div *ngIf="!getfileName(2)" class="file-name-container">*Upload Academic Transcript (format jpg / png max 5mb)</div>
             <div *ngIf="getfileName(2)" class="file-name-container">{{getfileName(2)}}</div>
         </div>
         <div class="error-message" *ngIf="!getfileName(2) && isSubmitted">
-            <span>Please Upload Your Transcript.</span>
+            <span>Please Upload Your Academic Transcript.</span>
         </div>
 
         <div class="subsection-title">Upload CV</div>
@@ -88,7 +88,7 @@
             <div class="upload-button-container">
                 <img (click)="chooseFileMethod(3)" (change)="getfileName(3)" class="upload-icon" [src]="hackathonRegistrationDetail.imageUrl" alt="">
             </div>
-            <div *ngIf="!getfileName(3)" class="file-name-container">*Upload CV (max 5mb)</div>
+            <div *ngIf="!getfileName(3)" class="file-name-container">*Upload CV (format jpg / png max 5mb)</div>
             <div *ngIf="getfileName(3)" class="file-name-container">{{getfileName(3)}}</div>
         </div>
         <div class="error-message" *ngIf="!getfileName(3) && isSubmitted">

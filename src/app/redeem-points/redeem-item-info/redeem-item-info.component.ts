@@ -20,12 +20,12 @@ export class RedeemItemInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.name)
-    console.log(this.description)
-    console.log(this.price)
-    console.log(this.amount)
-    console.log(this.id);
-    console.log('this.router.url', this.router.url);
+    // console.log(this.name)
+    // console.log(this.description)
+    // console.log(this.price)
+    // console.log(this.amount)
+    // console.log(this.id);
+    // console.log('this.router.url', this.router.url);
     this.routingUrl = this.router.url;
   }
   close(){

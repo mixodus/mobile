@@ -85,27 +85,27 @@ export class NewsListPage implements OnInit {
   }
 
   fetchData() {
-    console.log('this._route: ', this._route);
+    //console.log('this._route: ', this._route);
     this._route.data.subscribe((resolvedState) => {
-      console.log('resolvedState: ', resolvedState);
+      //console.log('resolvedState: ', resolvedState);
       resolvedState.banner.state.subscribe(
         (data) => {
-          console.log(data);
+          //console.log(data);
           this.bannerList = data;
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
         }
       );
     });
     this._route.data.subscribe((resolvedState) => {
       resolvedState.data.state.subscribe(
         (data) => {
-          console.log(data);
+          //console.log(data);
           this.newsList = data;
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
         }
       );
     });

@@ -124,7 +124,7 @@ export class EducationsPage implements OnInit {
         this.globalService.refreshFlag.home = true;
         this.education.data.splice(this.education.data.findIndex(x => x.qualification_id == id.id), 1);
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = "";
         if (err.error.message === undefined)

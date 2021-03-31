@@ -50,7 +50,7 @@ export class FriendListPage implements OnInit {
   getUserId(){
     return this.storage.get('userId').then((user_id)=>{
       this.user_id = user_id;
-      console.log("userId " + this.user_id);
+      //console.log("userId " + this.user_id);
     });
   }
 
@@ -71,7 +71,7 @@ export class FriendListPage implements OnInit {
         (state) => {
           this.friendList = state;
           this.sort();
-          console.log(this.friendList);
+          //console.log(this.friendList);
         },
         (error) => { }
         );

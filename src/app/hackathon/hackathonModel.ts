@@ -24,6 +24,7 @@ interface Schedule {
   iconUrl: string;
   iconStatusUrl: string;
   startDate: string;
+  endDate: string;
   status: string;
   description: string;
   nextScheduleDate: string;

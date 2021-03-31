@@ -44,11 +44,11 @@ export class ChallengeComponent implements OnInit {
       resolvedState.challenge.state.subscribe(
         (eventsResponse) => {
           this.events = eventsResponse;
-          console.log(this.events);
+          //console.log(this.events);
           this.filterData();
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
         }
       );
     });
@@ -59,7 +59,7 @@ export class ChallengeComponent implements OnInit {
       return data;
     });
     this.countData = this.data.length;
-    console.log(this.countData);
+    //console.log(this.countData);
   }
 
   goToChallengeDetail(id:string){

@@ -151,7 +151,7 @@ export class SignupPage implements OnInit {
           );
         },
         (err) => {
-          console.log('error: ', err);
+          //console.log('error: ', err);
           let message = '';
           if (err.error.message === undefined) { message = 'Permasalahan jaringan, mohon coba lagi.'; } else { message = err.error.message; }
 

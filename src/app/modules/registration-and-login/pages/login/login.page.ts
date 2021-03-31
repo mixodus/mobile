@@ -179,7 +179,7 @@ export class LoginPage implements OnInit {
 
           if (err.error.isVerified === false) {
             this.presentAlert();
-            console.log('masuk present alert email verified');
+            //console.log('masuk present alert email verified');
           } else {
             this.presentToast(message);
           }
@@ -239,7 +239,7 @@ export class LoginPage implements OnInit {
       finalize(() => loading.dismiss())
     )
       .subscribe(data => {
-        console.log('data: ', data['message']);
+        //console.log('data: ', data['message']);
         // this.presentToast(data['message']);
         this.presentAlertNotif(data['message']);
       }, err => {

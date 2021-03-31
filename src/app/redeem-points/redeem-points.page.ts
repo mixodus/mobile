@@ -33,7 +33,7 @@ export class RedeemPointsPage implements OnInit {
   }
   search(ev: any){
     this.searchQuery = ev.detail.value;
-    console.log(this.searchQuery);
+    //console.log(this.searchQuery);
     this.setHidden = true;
     if(!this.searchQuery){
       this.setHidden = false;

@@ -15,12 +15,12 @@ export class PrivacyPolicyPage {
   }
 
   handleButtonAcceptClick() {
-    console.log('accept');
+    //console.log('accept');
     this.modalController.dismiss();
   }
 
   handleButtonDeclineClick() {
-    console.log('decline');
+    //console.log('decline');
     this.modalController.dismiss();
   }
 

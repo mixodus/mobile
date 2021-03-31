@@ -78,6 +78,7 @@ export class HackathonService {
           iconUrl: schedule.icon_url,
           iconStatusUrl: schedule.icon_status_url,
           startDate: schedule.schedule_start,
+          endDate : schedule.schedule_end,
           status: schedule.status,
           description: schedule.desc,
           nextScheduleDate: schedule.next_schedule_date,

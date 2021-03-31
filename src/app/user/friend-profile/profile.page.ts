@@ -172,7 +172,7 @@ export class ProfilePage implements OnInit {
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
-        console.log('data222: ', data);
+        //console.log('data222: ', data);
         this.presentToast(data['message']);
         this.globalService.refreshFlag.profile = true;
         this.globalService.refreshFlag.level = true;
@@ -185,7 +185,7 @@ export class ProfilePage implements OnInit {
           message = err.error.message;
         }
 
-        console.log('message: ', message);
+        //console.log('message: ', message);
         this.presentToast(message);
       });
   }

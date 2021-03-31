@@ -91,21 +91,21 @@ export class EventsListPage implements OnInit {
     this._route.data.subscribe((resolvedState) => {
       resolvedState.events.state.subscribe(
         (eventsResponse) => {
-          console.log(eventsResponse);
+          // console.log(eventsResponse);
           this.events = eventsResponse;
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
         }
       );
 
       resolvedState.banner.state.subscribe(
         (bannerResponse) => {
-          console.log(bannerResponse);
+          // console.log(bannerResponse);
           this.banners = bannerResponse;
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
         }
       );
     });
@@ -161,8 +161,8 @@ export class EventsListPage implements OnInit {
     combineLatest(eventDataStore.state, bannerDataStore.state)
       .pipe(takeUntil(this.destroySubscription))
       .subscribe(([eventsResponse, bannerResponse]) => {
-        console.log(eventsResponse);
-        console.log(bannerResponse);
+        // console.log(eventsResponse);
+        // console.log(bannerResponse);
 
         this.events = eventsResponse;
         this.banners = bannerResponse;
@@ -190,7 +190,7 @@ export class EventsListPage implements OnInit {
   }
 
   goToEventDetail(detailId: string, typeId: string) {
-    console.log({ detailId, typeId });
+    // console.log({ detailId, typeId });
 
     if (+typeId === EventType.Event || +typeId === EventType.Bootcamp) {
       this._navCtrl.navigateForward(['./', detailId], {

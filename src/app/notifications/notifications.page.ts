@@ -82,7 +82,7 @@ export class NotificationsPage implements OnInit {
             resolvedState.data.state.subscribe(
               (notifResponse) => {
                 this.notif = notifResponse;
-                console.log(this.notif);
+                //console.log(this.notif);
                 this.filterData();
                 this.grouping();
                 if (!this.notif.isShell) {
@@ -90,7 +90,7 @@ export class NotificationsPage implements OnInit {
                 }
               },
               (err) => {
-                console.log(err);
+                //console.log(err);
               }
             );
           });
@@ -98,7 +98,7 @@ export class NotificationsPage implements OnInit {
   }
 
   filterData() {
-    console.log('this.notif.data: ', this.notif.data);
+    //console.log('this.notif.data: ', this.notif.data);
 
     this.notifToday = this.notif.data.filter((data) => {
       if (data.date_convert === false) {
@@ -111,15 +111,15 @@ export class NotificationsPage implements OnInit {
       }
     });
     this.countData = this.notifData.length + this.notifToday.length;
-    console.log('ini data');
-    console.log(this.notifToday);
-    console.log(this.notifData);
-    console.log(this.countData);
+    // console.log('ini data');
+    // console.log(this.notifToday);
+    // console.log(this.notifData);
+    // console.log(this.countData);
   }
 
   loadData(event) {
     setTimeout(() => {
-      console.log(this.start);
+      //console.log(this.start);
 
       const headers = new HttpHeaders({
         'X-Api-Key': this._globalService.getGlobalApiKey(),
@@ -134,11 +134,11 @@ export class NotificationsPage implements OnInit {
 
       this._http.get(notifUpdateReadEndpoint, options).pipe()
         .subscribe(res => {
-          console.log(res);
+          //console.log(res);
           this.response = res;
 
           this.start += 1;
-          console.log(this.start);
+          //console.log(this.start);
           this.response.data.filter((data) => {
             if (data.date_convert === false) {
               this.notifToday.push(data);
@@ -148,7 +148,7 @@ export class NotificationsPage implements OnInit {
             }
           });
           this.countData = this.notifToday.length + this.notifData.length;
-          console.log(this.countData);
+          //console.log(this.countData);
           this.grouping();
           event.target.complete();
 
@@ -157,7 +157,7 @@ export class NotificationsPage implements OnInit {
             event.target.disabled = true;
           }
         }, err => {
-          console.log(err);
+          //console.log(err);
         });
     }, 800);
 
@@ -177,8 +177,8 @@ export class NotificationsPage implements OnInit {
     });
 
 
-    console.log('ini grouping');
-    console.log(this.pastNotif);
+    // console.log('ini grouping');
+    // console.log(this.pastNotif);
   }
 
   getDate(dateString: string) {
@@ -215,11 +215,11 @@ export class NotificationsPage implements OnInit {
     this._http.put(notifUpdateReadEndpoint, body, options).pipe()
       .subscribe(data => {
         // this.presentToast(data["message"]);
-        console.log(type_id);
-        console.log(detail_id);
-        console.log(id);
+        // console.log(type_id);
+        // console.log(detail_id);
+        // console.log(id);
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = '';
         if (err.error.message === undefined) {

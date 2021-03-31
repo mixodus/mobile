@@ -63,7 +63,7 @@ export class JobDetailsPage implements OnInit {
 
         detailsDataStore.state.subscribe(
           (state) => {
-            console.log(state);
+            // console.log(state);
             this.jobsDetail = state;
           },
           (error) => {

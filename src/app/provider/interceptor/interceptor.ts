@@ -56,7 +56,7 @@ export class InterceptorProvider implements HttpInterceptor {
         
         
         const token = localStorage.getItem(this.globalService.getTokenName());
-        console.log("intercept token", token);
+        //console.log("intercept token", token);
         if (token) {
           request = request.clone({
             setHeaders: {
@@ -77,23 +77,23 @@ export class InterceptorProvider implements HttpInterceptor {
           headers: request.headers.set('Accept', 'application/json')
         });
         
-        console.log("intercept http");
+        //console.log("intercept http");
         return next.handle(request).pipe(
           map((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-              console.log('event--->>>', event);
+              //console.log('event--->>>', event);
             }
             return event;
           }),
           catchError((error: HttpErrorResponse) => {
-              console.log("error intercept");
+              //console.log("error intercept");
             if (error.status === 401) {
               if (error.error.success === false) {
                 // this.presentToast('Login failed');
-                console.log("login failed");
+                //console.log("login failed");
               } else {
                 // this.router.navigate(['login']);
-                 console.log("go to login page");
+                 //console.log("go to login page");
               }
             }
             return throwError(error);

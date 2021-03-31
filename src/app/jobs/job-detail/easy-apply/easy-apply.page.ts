@@ -172,7 +172,7 @@ export class EasyApplyPage implements OnInit {
       contact_no: easyApply.contact_no,
     };
 
-    console.log(dataPass);
+    // console.log(dataPass);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

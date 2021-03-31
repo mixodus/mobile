@@ -50,8 +50,8 @@ export class EditProjectPage implements OnInit {
           flag = false;
           for (let j = 0; j < this.workExperience.length; j++) {
 
-            console.log(this.workExperience);
-            console.log(getWorkExperience);
+            // console.log(this.workExperience);
+            // console.log(getWorkExperience);
             if (getWorkExperience[i].company_name.toLowerCase() === this.workExperience[j].company_name.toLowerCase()) {
               flag = true;
             }

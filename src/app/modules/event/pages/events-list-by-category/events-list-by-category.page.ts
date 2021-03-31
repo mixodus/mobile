@@ -77,11 +77,11 @@ export class EventsListByCategoryPage implements OnInit {
       resolvedState.data.state.subscribe(
         (eventsResponse) => {
           this.events = eventsResponse;
-          console.log(this.events);
+          //console.log(this.events);
           this.filterData();
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
         }
       );
     });
@@ -89,7 +89,7 @@ export class EventsListByCategoryPage implements OnInit {
 
   filterData(){
     if(this.events.data){
-      console.log('this.event.data: ', this.events.data);
+      //console.log('this.event.data: ', this.events.data);
 
       this.onGoing = this.events.data.filter((data) => {
         return data.event_ongoing;
@@ -100,8 +100,8 @@ export class EventsListByCategoryPage implements OnInit {
       this.countOnGoing = this.onGoing.length;
       this.countUpComing = this.upComing.length;
     }
-      console.log(this.countOnGoing);
-      console.log(this.countUpComing);
+      //console.log(this.countOnGoing);
+      //console.log(this.countUpComing);
   }
 
   doRefresh(event: any) {
@@ -119,7 +119,7 @@ export class EventsListByCategoryPage implements OnInit {
   }
 
   goToEventDetail(detailId: string, typeId: string) {
-    console.log({ detailId, typeId });
+    //console.log({ detailId, typeId });
 
     if (+typeId === EventType.Event || +typeId === EventType.Bootcamp) {
       this._router.navigate(['app/events', detailId]);

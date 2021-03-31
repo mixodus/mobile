@@ -58,12 +58,12 @@ export class CertificationPage implements OnInit {
         resolvedState.data.state.subscribe(
           (state) => {
             this.certif = state;
-            console.log(this.certif);
+            //console.log(this.certif);
             this.filterData();
             this.countData = this.certifData.length;
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
           }
         );
       });
@@ -130,7 +130,7 @@ export class CertificationPage implements OnInit {
 
         this.ionViewWillEnter();
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
         
         let message = "";
         if (err.error.message === undefined)

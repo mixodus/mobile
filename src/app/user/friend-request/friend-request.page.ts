@@ -63,7 +63,7 @@ export class FriendRequestPage implements OnInit {
   getUserId() {
     return this.storage.get('userId').then((user_id) => {
       this.user_id = user_id;
-      console.log('userId ' + this.user_id);
+      //console.log('userId ' + this.user_id);
     });
   }
 
@@ -103,7 +103,7 @@ export class FriendRequestPage implements OnInit {
 
   async approve(id) {
     // console.log(this.friendRequest.data.find(x => x.user_id === id))
-    console.log(id);
+    //console.log(id);
     const loading = await this.loadingCtrl.create();
     await loading.present();
 

@@ -78,10 +78,10 @@ export class EventDetailPage implements OnInit {
       resolvedData.data.state.pipe(takeUntil(this.destroySubscription)).subscribe(
         (eventResponse) => {
           this.eventDetail = eventResponse;
-          console.log(this.eventDetail);
+          // console.log(this.eventDetail);
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
         }
       );
     });

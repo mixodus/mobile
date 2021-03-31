@@ -73,7 +73,7 @@ export class EditPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.profile = this.router.getCurrentNavigation().extras.state.data;
-        console.log('this.profile: ', this.profile);
+        //console.log('this.profile: ', this.profile);
         this.getDataToForm();
       } else {
         this.router.navigateByUrl('app/user');
@@ -152,7 +152,7 @@ export class EditPage implements OnInit {
     this.editProfileForm.controls['contact_no'].setValue(this.profile.contact_no);
     this.editProfileForm.controls['npwp'].setValue(this.profile.npwp);
 
-    console.log(this.editProfileForm.value);
+    //console.log(this.editProfileForm.value);
   }
 
   async openCam() {
@@ -163,7 +163,7 @@ export class EditPage implements OnInit {
         {
           text: 'Ambil foto',
           handler: (blah) => {
-            console.log('blah: ', blah);
+            //console.log('blah: ', blah);
             this.obtainPicture(this.camera.PictureSourceType.CAMERA);
           }
         },
@@ -198,16 +198,16 @@ export class EditPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
-      console.log('imageData: ', imageData);
+      //console.log('imageData: ', imageData);
       this.crop.crop(imageData, cropOpt).then((cropped) => {
         this.showCroppedImage(cropped.split('?')[0]);
       }, (err) => {
         // Handle error
-        console.log('Error ' + err);
+        //console.log('Error ' + err);
       });
     }, (err) => {
       // Handle error
-      console.log('Error ' + err);
+      //console.log('Error ' + err);
     });
 
   }
@@ -220,16 +220,16 @@ export class EditPage implements OnInit {
     var imageName = splitPath[splitPath.length - 1];
     var filePath = ImagePath.split(imageName)[0];
 
-    console.log('copyPath: ', copyPath);
-    console.log('splitPath: ', splitPath);
-    console.log('imageName: ', imageName);
-    console.log('filePath: ', filePath);
+    // console.log('copyPath: ', copyPath);
+    // console.log('splitPath: ', splitPath);
+    // console.log('imageName: ', imageName);
+    // console.log('filePath: ', filePath);
 
     this.file.readAsDataURL(filePath, imageName).then(base64 => {
-      console.log('base64: ', base64);
+      //console.log('base64: ', base64);
       this.editProfileForm.controls['profile_picture'].setValue(base64);
       this.editProfileForm.controls['profile_picture_url'].setValue(base64);
-      console.log('this.editProfileForm: ', this.editProfileForm.value);
+      //console.log('this.editProfileForm: ', this.editProfileForm.value);
       this.profilePictureChanged = true;
       loading.dismiss();
     }, error => {
@@ -343,7 +343,7 @@ export class EditPage implements OnInit {
     formData.date_of_birth = formData.date_of_birth.substr(0, 10);
     formData.zip_code = String(formData.zip_code);
 
-    console.log('formData: ', formData);
+    //console.log('formData: ', formData);
 
     if (!this.profilePictureChanged) {
       formData.profile_picture = '';
@@ -366,7 +366,7 @@ export class EditPage implements OnInit {
       finalize(() => this.loadingCtrl.dismiss())
     )
       .subscribe(data => {
-        console.log(this.profile);
+        //console.log(this.profile);
         if (data['isEmailChanged']) {
           this.presentAlert(data['message']);
         } else {
@@ -376,7 +376,7 @@ export class EditPage implements OnInit {
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = '';
         if (err.error.message === undefined) {
@@ -408,7 +408,7 @@ export class EditPage implements OnInit {
   }
 
   async presentAlertConfirm() {
-    console.log(this.profile);
+    //console.log(this.profile);
     const alert = await this.alertCtrl.create({
       message: 'Apakah kamu yakin ingin keluar tanpa menyimpan?',
       buttons: [
@@ -417,7 +417,7 @@ export class EditPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            //console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Ya',

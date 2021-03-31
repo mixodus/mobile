@@ -91,7 +91,7 @@ export class JobsPage implements OnInit {
         dataJobApply.state.subscribe(
           (state) => {
             this.jobApplicationList = state;
-            console.log('jobApplicationList: ', this.jobApplicationList);
+            // console.log('jobApplicationList: ', this.jobApplicationList);
           },
           (error) => {
           }
@@ -247,7 +247,7 @@ export class JobsPage implements OnInit {
         jobsDataStore.state.subscribe(
           (response) => {
             this.jobs = this.formattingJobsResponse(response);
-            console.log('this.jobs: ', this.jobs);
+            // console.log('this.jobs: ', this.jobs);
           },
           (error) => {
           }
@@ -270,7 +270,7 @@ export class JobsPage implements OnInit {
   }
 
   formattingJobsResponse(response) {
-    console.log('response: ', response);
+    // console.log('response: ', response);
 
     return {
       status: response.status,

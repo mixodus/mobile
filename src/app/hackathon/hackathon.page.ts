@@ -119,7 +119,7 @@ export class HackathonPage implements OnInit {
     });
 
     this.hackathonDetail.schedules = [
-      ...this.hackathonDetail.schedules.slice(0, index),
+      ...this.hackathonDetail.schedules.slice(0,index),
       updatedObject,
       ...this.hackathonDetail.schedules.slice(index + 1)
     ];

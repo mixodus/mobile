@@ -52,7 +52,7 @@ export class GlobalService {
   }
 
   setPreviousPage(page) {
-    console.log('page: ', page);
+    //console.log('page: ', page);
     this.previousPage = page;
   }
 

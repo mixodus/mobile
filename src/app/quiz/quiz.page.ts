@@ -42,7 +42,7 @@ export class QuizPage implements OnInit {
 
         detailsDataStore.state.subscribe(
           (state) => {
-            console.log('state: ', state);
+            //console.log('state: ', state);
             this.questions = state;
             this.current_quiz_id = parseInt(this.questions.data[0].id);
           },

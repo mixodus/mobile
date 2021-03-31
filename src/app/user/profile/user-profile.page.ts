@@ -145,7 +145,7 @@ export class UserProfilePage implements OnInit {
     );
     profileDataStore.state.subscribe(
       (state) => {
-        console.log('state: ', state);
+        //console.log('state: ', state);
         this.profile = state;
         // console.log(this.profile.profile_picture);
         if (this.profile.profile_picture === undefined) {
@@ -215,7 +215,7 @@ export class UserProfilePage implements OnInit {
     );
     profileDataStore.state.subscribe(
       (state) => {
-        console.log('state: ', state);
+        //console.log('state: ', state);
         this.profile = state;
         // console.log(this.profile.profile_picture);
         if (this.profile.profile_picture == undefined) {

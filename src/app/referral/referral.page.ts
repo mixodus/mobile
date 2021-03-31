@@ -160,9 +160,9 @@ export class ReferralPage implements OnInit {
       .pipe(finalize(() => this.loadingCtrl.dismiss()))
       .subscribe(
         (data) => {
-          console.log('data referral: ', data);
+          //console.log('data referral: ', data);
           if (data['data'] !== undefined) {
-            console.log('data: ', data);
+            //console.log('data: ', data);
             this.referralList.data.unshift(data['data']);
             // this.openModal('Selamat!', data['message']);
             this.openModal('Selamat!', 'Anda berhasil mendaftarkan rujukan.');
@@ -227,7 +227,7 @@ export class ReferralPage implements OnInit {
 
   searchList(ev: any): void {
     let searchValue: string = ev.detail.value;
-    console.log('ev: ', ev.detail.value);
+    //console.log('ev: ', ev.detail.value);
     if (searchValue.length >= 1) {
       this.searchData = this.filterSearch(searchValue);
       this.noSearch = false;
@@ -240,7 +240,7 @@ export class ReferralPage implements OnInit {
   }
 
   filterSearch(word: String) {
-    console.log('word: ', word);
+    //console.log('word: ', word);
     if (word != undefined && word != '') {
       return this.referralList.data.filter((e) => {
         return e.referral_name.toLowerCase().indexOf(word.toLowerCase()) > -1;

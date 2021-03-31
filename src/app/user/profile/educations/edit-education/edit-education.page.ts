@@ -48,7 +48,7 @@ export class EditEducationPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.data;
-        console.log('this.data: ', this.data);
+        //console.log('this.data: ', this.data);
       }
     });
   }
@@ -180,7 +180,7 @@ export class EditEducationPage implements OnInit {
           this.globalService.refreshFlag.leaderboard = true;
           this.navCtrl.back();
         }, err => {
-          console.log('JS Call error: ', err);
+          //console.log('JS Call error: ', err);
 
           let message = "";
           if (err.error.message === undefined)
@@ -218,7 +218,7 @@ export class EditEducationPage implements OnInit {
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = "";
         if (err.error.message === undefined)

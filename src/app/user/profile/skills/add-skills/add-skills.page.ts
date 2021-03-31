@@ -86,7 +86,7 @@ export class AddSkillsPage implements OnInit {
     this.skillDataStore.load(skillDataSource);
     this.skillDataStore.state.subscribe(
       (state) => {
-        console.log('state: ', state);
+        //console.log('state: ', state);
         const result = [];
         let flag = false;
         if (state.data.length > 0) {
@@ -167,7 +167,7 @@ export class AddSkillsPage implements OnInit {
         this.globalService.refreshFlag.leaderboard = true;
         this.navCtrl.back();
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = '';
         if (err.error.message === undefined) {

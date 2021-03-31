@@ -84,7 +84,7 @@ export class HomePage implements OnInit {
   data: any;
 
   checkSession() {
-    console.log('masuk check session home');
+    // console.log('masuk check session home');
     const headers = new HttpHeaders({
       'X-Api-Key': this.globalService.getGlobalApiKey(),
       'X-Token': String(this.auth.token)
@@ -99,10 +99,10 @@ export class HomePage implements OnInit {
     this.http.get(checkSessionEndpoint, options).subscribe(
       (response) => {
         // process the json data
-        console.log(response);
+        // console.log(response);
       },
       (error) => {
-        console.log('error di check session');
+        // console.log('error di check session');
       }
     );
   }

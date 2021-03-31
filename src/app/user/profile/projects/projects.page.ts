@@ -101,7 +101,7 @@ export class ProjectsPage implements OnInit {
           text: 'Tidak',
           role: 'cancel',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            //console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Ya',

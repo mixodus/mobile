@@ -99,7 +99,7 @@
                             </div>
                             <div class="timeline-text-container">
                                 <div class="timeline-text-1">{{schedule.name}}</div>
-                                <div class="timeline-text-2">{{schedule.startDate}}</div>
+                                <div class="timeline-text-2">{{schedule.startDate}} - {{schedule.endDate | date: 'dd MMMM yyyy'}}</div>
                             </div>
                             <ion-icon *ngIf="schedule.isDescriptionOpen" name="ios-arrow-up"></ion-icon>
                             <ion-icon *ngIf="!schedule.isDescriptionOpen" name="ios-arrow-down"></ion-icon>
@@ -155,6 +155,7 @@
                         <div class="status-detail-text-1">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].name}}</div>
                         <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate}}</div>
                         <div class="status-detail-text-3">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].description}}
+
                         </div>
                     </div>
                     <div class="status-detail-container-2">

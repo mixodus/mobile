@@ -272,7 +272,7 @@ export class RegistrationPage implements OnInit {
 
   async onRegister() {
 
-    console.log(this.registrationForm.value);
+    // console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
       // console.log(this.registrationForm.value);
       const alert = await this._alertCtrl.create({

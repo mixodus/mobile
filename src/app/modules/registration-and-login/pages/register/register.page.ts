@@ -181,12 +181,12 @@ export class RegisterPage implements OnInit, IPage {
   }
 
   async onSubmit() {
-    console.log('isPolicyTermsChecked: ', this.isPolicyTermsChecked);
+    //console.log('isPolicyTermsChecked: ', this.isPolicyTermsChecked);
     const formValue = this.registerForm.value;
-    console.log('this.registerForm.value: ', this.registerForm.value);
-    console.log('this.registerForm.get(\'email\'): ', this.registerForm.get('email'));
-    console.log('validation: ', this.registerForm.get('password'));
-    console.log(formValue);
+    // console.log('this.registerForm.value: ', this.registerForm.value);
+    // console.log('this.registerForm.get(\'email\'): ', this.registerForm.get('email'));
+    // console.log('validation: ', this.registerForm.get('password'));
+    // console.log(formValue);
     this.isPolicyTermsValid = this.isPolicyTermsChecked;
 
     if (this.isFormValid()) {

@@ -95,7 +95,7 @@ export class WorkExperiencesPage implements OnInit {
           text: 'Tidak',
           role: 'cancel',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            //console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Ya',
@@ -138,7 +138,7 @@ export class WorkExperiencesPage implements OnInit {
         this.globalService.refreshFlag.home = true;
         this.workExperience.data.splice(this.workExperience.data.findIndex(x => x.work_experience_id == id.id), 1);
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = '';
         if (err.error.message === undefined) {

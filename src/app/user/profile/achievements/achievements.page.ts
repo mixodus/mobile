@@ -25,11 +25,11 @@ export class AchievementsPage implements OnInit {
           this.currentUser = profile;
 
           if (this.currentUser) {
-            console.log(this.currentUser);
+            //console.log(this.currentUser);
           }
         },
         (err) => {
-          console.error(err);
+          //console.error(err);
         }
       );
     });
@@ -39,9 +39,9 @@ export class AchievementsPage implements OnInit {
 
         achievementDataStore.state.subscribe((state) => {
           this.achievements = state;
-          console.log(this.achievements);
+          //console.log(this.achievements);
           this.filterData();
-          console.log(this.data);
+          //console.log(this.data);
         }),
           (error) => { };
       },

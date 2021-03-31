@@ -155,7 +155,7 @@ export class EditWorkExperiencePage implements OnInit {
           this.globalService.refreshFlag.leaderboard = true;
           this.navCtrl.back();
         }, err => {
-          console.log('JS Call error: ', err);
+          //console.log('JS Call error: ', err);
 
           let message = '';
           if (err.error.message === undefined) {
@@ -196,7 +196,7 @@ export class EditWorkExperiencePage implements OnInit {
         this.globalService.refreshFlag.profile = true;
         this.navCtrl.back();
       }, err => {
-        console.log('JS Call error: ', err);
+        //console.log('JS Call error: ', err);
 
         let message = '';
         if (err.error.message === undefined) {

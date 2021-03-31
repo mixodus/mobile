@@ -89,6 +89,12 @@ export class HackathonRegistrationPage implements OnInit {
       semester: new FormControl('', Validators.compose([
         Validators.required
       ])),
+      country: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      city: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
     });
   }
 
@@ -112,7 +118,7 @@ export class HackathonRegistrationPage implements OnInit {
 
   getHackathonSemester() {
     this.hackathonRegistrationService.setLoadingOn();
-    this.hackathonRegistrationService.setLoadingMessage('Memuat...');
+    this.hackathonRegistrationService.setLoadingMessage('Loading...');
     this.hackathonRegistrationService.getHackationRegistrationDetailData()
       .pipe(finalize(
         () => {
@@ -124,7 +130,7 @@ export class HackathonRegistrationPage implements OnInit {
     }, (err) => {
       let message = '';
       if (err.error.message === undefined) {
-        message = 'Permasalahan jaringan, mohon coba lagi.';
+        message = 'Network Problem, Please Try Again.';
       } else {
         message = err.error.message;
       }
@@ -134,7 +140,7 @@ export class HackathonRegistrationPage implements OnInit {
       this.hackathonRegistrationService.setLoadingMessage('');
     });
 
-    console.log('hackathonSemester: ', this.hackathonRegistrationDetail);
+    // console.log('hackathonSemester: ', this.hackathonRegistrationDetail);
   }
 
   goBack() {
@@ -177,7 +183,7 @@ export class HackathonRegistrationPage implements OnInit {
     };
 
     this.camera.getPicture(camOpt).then((imageData) => {
-      console.log('imageData: ', imageData);
+      // console.log('imageData: ', imageData);
 
       this.showCroppedImage(imageData.split('?')[0], fileIdx);
 
@@ -195,12 +201,12 @@ export class HackathonRegistrationPage implements OnInit {
     const imageName = splittedPath[splittedPath.length - 1];
     const filePath = ImagePath.split(imageName)[0];
 
-    console.log('splittedPath: ', splittedPath);
-    console.log('imageName: ', imageName);
-    console.log('filePath: ', filePath);
+    // console.log('splittedPath: ', splittedPath);
+    // console.log('imageName: ', imageName);
+    // console.log('filePath: ', filePath);
 
     this.file.readAsDataURL(filePath, imageName).then((base64) => {
-      console.log('base64: ', base64);
+      // console.log('base64: ', base64);
       this.fileGroup[fileIdx].pathInterface = imageName;
       this.fileGroup[fileIdx].isValid = true;
       this.fileGroup[fileIdx].type = 'png';
@@ -222,7 +228,7 @@ export class HackathonRegistrationPage implements OnInit {
   chooseFile(fileIdx: number) {
     if (this.platform.is('ios')) {
       this.filePicker.pickFile().then(uri => {
-        console.log('uri ios: ', uri);
+        // console.log('uri ios: ', uri);
         let fileName = '';
 
         if (fileIdx === 0) {
@@ -258,7 +264,7 @@ export class HackathonRegistrationPage implements OnInit {
               this.fileGroup[fileIdx].isValid = true;
               this.fileGroup[fileIdx].type = this.filetype;
             } else {
-              this.presentToast('Mohon menggunakan file jpg/png.');
+              this.presentToast('Please Use Format File jpg/png.');
               this.fileGroup[fileIdx].pathInterface = '';
               this.fileGroup[fileIdx].isValid = false;
               this.fileGroup[fileIdx].type = '';
@@ -268,7 +274,7 @@ export class HackathonRegistrationPage implements OnInit {
             this.file.resolveLocalFilesystemUrl(this.fileURL).then(fileEntry => {
               fileEntry.getMetadata((metadata) => {
                 if (metadata.size > 5242880) {
-                  this.presentToast('Mohon menggunakan file size yang lebih kecil.');
+                  this.presentToast('File too large, Please Use a Smaller File.');
                   this.fileGroup[fileIdx].pathInterface = '';
                   this.fileGroup[fileIdx].isValid = false;
                   this.fileGroup[fileIdx].type = '';
@@ -332,7 +338,7 @@ export class HackathonRegistrationPage implements OnInit {
     if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid  ) {
 
       this.hackathonRegistrationService.setLoadingOn();
-      this.hackathonRegistrationService.setLoadingMessage('Submit Data...');
+      this.hackathonRegistrationService.setLoadingMessage('Sending Data...');
       const formData = this.hackathonForm.value;
       formData.event_id = this.hackathonRegistrationService.eventId;
 
@@ -346,7 +352,7 @@ export class HackathonRegistrationPage implements OnInit {
         }, (err) => {
           let message = '';
           if (err.error.message === undefined) {
-            message = 'Permasalahan jaringan, mohon coba lagi.';
+            message = 'Network Problem, Please Try Again.';
           } else {
             message = err.error.message;
           }

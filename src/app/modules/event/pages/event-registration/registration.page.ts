@@ -194,7 +194,7 @@ export class RegistrationPage implements OnInit {
           this.currentUser = profile;
 
           if (this.currentUser) {
-            console.log(this.currentUser);
+            // console.log(this.currentUser);
             this.prefillForm();
           }
         },
@@ -241,7 +241,7 @@ export class RegistrationPage implements OnInit {
       .pipe(takeUntil(this.destroySubscription))
       .subscribe(
         async (res) => {
-          console.log(res);
+          // console.log(res);
 
           const alert = await this._alertCtrl.create({
             message:
@@ -274,7 +274,7 @@ export class RegistrationPage implements OnInit {
 
     console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
+      // console.log(this.registrationForm.value);
       const alert = await this._alertCtrl.create({
         message: 'Apakah kamu yakin ingin mendaftar?',
         buttons: [

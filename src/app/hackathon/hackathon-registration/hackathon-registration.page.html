@@ -47,6 +47,30 @@
             <span>Please Input Your Current Semester</span>
         </div>
 
+        <div class="subsection-title">Country</div>
+        <ion-select formControlName="country" multiple="false" interface="popover" 
+                    class="select-item">
+            <ion-select-option 
+                value="indonesia">Indonesia
+            </ion-select-option>
+            <ion-select-option 
+                value="malaysia">Malaysia
+            </ion-select-option>
+        </ion-select>
+        <div class="error-message" *ngIf="hackathonForm.get('country').hasError('required') && isSubmitted">
+            <span>Please Input Your Country</span>
+        </div>
+
+        <div class="subsection-title">City</div>
+        <ion-input type="text" placeholder="Example: Jakarta Selatan" formControlName="city"
+                   class="ion-no-padding input-text" clearInput autocapitalize="off">
+        </ion-input>
+        <div class="error-message" *ngIf="hackathonForm.get('city').hasError('required') && isSubmitted">
+            <span>Please Input City.</span>
+        </div>
+        
+
+
         <div class="subsection-title">Upload ID Card</div>
         <div class="upload-container">
             <div class="upload-button-container">

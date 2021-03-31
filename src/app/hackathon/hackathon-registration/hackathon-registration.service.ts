@@ -76,10 +76,10 @@ export class HackathonRegistrationService {
 
   transferFileA(typeNumber) {
     this.setLoadingOn();
-    this.setLoadingMessage('Mengunggah KTP...');
+    this.setLoadingMessage('Upload ID Card...');
 
     const file = this.fileGroup[0];
-    console.log('file 0: ', file);
+    // console.log('file 0: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -113,10 +113,10 @@ export class HackathonRegistrationService {
 
   transferFileB(typeNumber) {
     this.setLoadingOn();
-    this.setLoadingMessage('Mengunggah Kartu Mahasiswa...');
-    console.log('masuk transferFileB');
+    this.setLoadingMessage('Uploading Student card...');
+    // console.log('masuk transferFileB');
     const file = this.fileGroup[1];
-    console.log('file 1: ', file);
+    // console.log('file 1: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -136,7 +136,7 @@ export class HackathonRegistrationService {
     this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
       const message = JSON.parse(data.response).message;
       this.presentToast(message);
-      console.log('B sukses');
+      // console.log('B sukses');
       this.setLoadingOff();
       this.setLoadingMessage('');
       this.transferFileC(3);
@@ -151,10 +151,10 @@ export class HackathonRegistrationService {
   transferFileC(typeNumber) {
 
     this.setLoadingOn();
-    this.setLoadingMessage('Mengunggah Transkrip Nilai...');
-    console.log('masuk transferFileC');
+    this.setLoadingMessage('Uploading Academic Transcript...');
+    // console.log('masuk transferFileC');
     const file = this.fileGroup[2];
-    console.log('file 2: ', file);
+    // console.log('file 2: ', file);
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -174,7 +174,7 @@ export class HackathonRegistrationService {
     this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
       const message = JSON.parse(data.response).message;
       this.presentToast(message);
-      console.log('C sukses');
+      // console.log('C sukses');
       this.setLoadingOff();
       this.setLoadingMessage('');      
       this.transferFileD(4);
@@ -190,10 +190,10 @@ export class HackathonRegistrationService {
   
   transferFileD(typeNumber) {
     const file = this.fileGroup[3];
-    console.log('file 3: ', file);
+    // console.log('file 3: ', file);
     this.setLoadingOn();
-    this.setLoadingMessage('Mengunggah CV...');
-    console.log('masuk transferFileD');
+    this.setLoadingMessage('Uploading CV...');
+    // console.log('masuk transferFileD');
     this.fileTransfer = this.transfer.create();
 
     const options: FileUploadOptions = {
@@ -213,7 +213,7 @@ export class HackathonRegistrationService {
     this.fileTransfer.upload(file.fileUrl, uploadFileEndpoint, options).then((data) => {
       const message = JSON.parse(data.response).message;
       this.presentToast(message);
-      console.log('D sukses');
+      // console.log('D sukses');
       this.setLoadingOff();
       this.setLoadingMessage('');
       this.router.navigateByUrl('app/hackathon');
@@ -230,7 +230,7 @@ export class HackathonRegistrationService {
   async presentAlert(message) {
     const alert = await this.alertCtrl.create({
       message: message,
-      buttons: ['Baik']
+      buttons: ['OK']
     });
 
     await alert.present();

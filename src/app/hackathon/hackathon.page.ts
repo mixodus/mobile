@@ -42,12 +42,12 @@ export class HackathonPage implements OnInit {
     this.hackathonService.getHackathonDetailData()
       .pipe(finalize(() => this.isHackathonDetailLoading = false)).subscribe((data: any) => {
       this.hackathonDetail = this.hackathonService.formattingHackathonDetail(data.data);
-      console.log('hackathonDetail: ', this.hackathonDetail);
+      // console.log('hackathonDetail: ', this.hackathonDetail);
       this.hackathonRegistrationService.setEventId(data.data.event_id);
     }, (err) => {
       let message = '';
       if (err.error.message === undefined) {
-        message = 'Permasalahan jaringan, mohon coba lagi.';
+        message = 'Network Problem, Please Try Again.';
       } else {
         message = err.error.message;
       }
@@ -85,16 +85,16 @@ export class HackathonPage implements OnInit {
       message: `<div class="message-body">
                     <p class="title">Oops!</p>
                     <p class="content">
-                    Anda harus registrasi akun terlebih dahulu
-                    agar dapat mengikuti hackathon ini!</p>
+                    You must register an account first to join Hackathon!
+                    </p>
                 </div>`,
       cssClass: 'idstar-custom-alert',
       buttons: [
         {
           cssClass: 'idstar-custom-alert-action',
-          text: 'Registrasi Sekarang',
+          text: 'Register now',
           handler: () => {
-            console.log('ke Registrasi');
+            // console.log('ke Registrasi');
             // this.navCtrl.navigateForward(['/app/jobs']);
           },
         },
@@ -109,7 +109,7 @@ export class HackathonPage implements OnInit {
   }
 
   handleScheduleDropDownClick(index) {
-    console.log('index: ', index);
+    // console.log('index: ', index);
 
     const cloneSchedule = [...this.hackathonDetail.schedules];
     const toUpdatedObject = cloneSchedule[index];

@@ -365,4 +365,42 @@ ion-searchbar ion-icon {
   }
 }
 
+.how-to-upload-alert {
+  --max-width: 300px;
+
+  .alert-head {
+    padding: 0;
+  }
+
+  .alert-message {
+    max-height: 300px;
+    padding: 0;
+  }
+
+  .sc-ion-alert-ios{
+    .alert-button-outline{
+      border-radius: 10px 0 0 10px;
+    }
+
+    .alert-button-fill{
+      border-radius: 0 10px 10px 0;
+    }
+  }
+
+  .alert-button-fill-url {
+    display: flex;
+    flex-direction: row;  
+    background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    color: var(--idstar-white);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-inline-start: 40px;
+    padding-inline-end: 40px;
+    --box-shadow: 0 0 32px -7px #75C244;
+    margin: auto;
+  }
+  
+}
+
+
 

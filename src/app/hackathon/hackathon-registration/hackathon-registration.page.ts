@@ -95,6 +95,9 @@ export class HackathonRegistrationPage implements OnInit {
       city: new FormControl('', Validators.compose([
         Validators.required
       ])),
+      link_drive: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
     });
   }
 
@@ -167,6 +170,32 @@ export class HackathonRegistrationPage implements OnInit {
       ]
     });
 
+    
+
+    await alert.present();
+  }
+  
+  async chooseFileMethodBig(fileIdx: number) {
+    const alert = await this.alertCtrl.create({
+      header: 'Upload photo',
+      buttons: [
+        {
+          text: 'Camera',
+          handler: () => {
+            this.obtainPictureBig(this.camera.PictureSourceType.CAMERA, fileIdx);
+          }
+        },
+        {
+          text: 'Gallery',
+          handler: () => {
+            this.obtainPictureBig(this.camera.PictureSourceType.PHOTOLIBRARY, fileIdx);
+            // this.chooseFile(fileIdx);
+          }
+        }
+      ]
+    });
+
+    
     await alert.present();
   }
 
@@ -192,6 +221,32 @@ export class HackathonRegistrationPage implements OnInit {
     });
 
   }
+
+  obtainPictureBig(source, fileIdx) {
+    //alert("test masuk obtain picture Big");
+
+    const camOpt: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: source,
+      targetHeight: 1400,
+      targetWidth: 1400,
+      encodingType: this.camera.EncodingType.JPEG,
+    };
+
+    this.camera.getPicture(camOpt).then((imageData) => {
+      // console.log('imageData: ', imageData);
+
+      this.showCroppedImage(imageData.split('?')[0], fileIdx);
+
+    }, (err) => {
+      this.presentToast(err);
+    });
+
+  }
+  
 
   async showCroppedImage(ImagePath, fileIdx) {
     const loading = await this.loadingCtrl.create({});
@@ -325,17 +380,11 @@ export class HackathonRegistrationPage implements OnInit {
     }
   }
 
- 
-  
-    
-  
-
-
   handleRegistrationClick() {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
-
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid  ) {
+    //console.log(this.hackathonForm)
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid ) {
 
       this.hackathonRegistrationService.setLoadingOn();
       this.hackathonRegistrationService.setLoadingMessage('Sending Data...');
@@ -373,5 +422,22 @@ export class HackathonRegistrationPage implements OnInit {
     });
 
     await modal.present();
+  }
+
+  async showHowToUploadDrive() {
+    const alert = await this.alertCtrl.create({
+      message: `<div class="home-message-body">
+                    <img src="https://api.oneindonesia.id/uploads/event/upload_drive.jpg" alt="">
+                </div>`,
+      cssClass: 'how-to-upload-alert',
+      buttons: [
+        {
+          cssClass: 'alert-button-fill-url',
+          text: 'Close',
+        },
+     ],
+    });
+
+    await alert.present();
   }
 }

@@ -167,6 +167,32 @@ export class HackathonRegistrationPage implements OnInit {
       ]
     });
 
+    
+
+    await alert.present();
+  }
+  
+  async chooseFileMethodBig(fileIdx: number) {
+    const alert = await this.alertCtrl.create({
+      header: 'Upload photo',
+      buttons: [
+        {
+          text: 'Camera',
+          handler: () => {
+            this.obtainPictureBig(this.camera.PictureSourceType.CAMERA, fileIdx);
+          }
+        },
+        {
+          text: 'Gallery',
+          handler: () => {
+            this.obtainPictureBig(this.camera.PictureSourceType.PHOTOLIBRARY, fileIdx);
+            // this.chooseFile(fileIdx);
+          }
+        }
+      ]
+    });
+
+    
     await alert.present();
   }
 
@@ -192,6 +218,32 @@ export class HackathonRegistrationPage implements OnInit {
     });
 
   }
+
+  obtainPictureBig(source, fileIdx) {
+    //alert("test masuk obtain picture Big");
+
+    const camOpt: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: source,
+      targetHeight: 1400,
+      targetWidth: 1400,
+      encodingType: this.camera.EncodingType.JPEG,
+    };
+
+    this.camera.getPicture(camOpt).then((imageData) => {
+      // console.log('imageData: ', imageData);
+
+      this.showCroppedImage(imageData.split('?')[0], fileIdx);
+
+    }, (err) => {
+      this.presentToast(err);
+    });
+
+  }
+  
 
   async showCroppedImage(ImagePath, fileIdx) {
     const loading = await this.loadingCtrl.create({});

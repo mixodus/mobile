@@ -95,6 +95,9 @@ export class HackathonRegistrationPage implements OnInit {
       city: new FormControl('', Validators.compose([
         Validators.required
       ])),
+      link_drive: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
     });
   }
 
@@ -377,17 +380,11 @@ export class HackathonRegistrationPage implements OnInit {
     }
   }
 
- 
-  
-    
-  
-
-
   handleRegistrationClick() {
     this.isSubmitted = true;
     this.isWillingToFollowRulesValid = this.isWillingToFollowRules;
-
-    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid  ) {
+    //console.log(this.hackathonForm)
+    if (this.isWillingToFollowRulesValid && this.fileGroup[0].isValid && this.fileGroup[1].isValid && this.fileGroup[2].isValid && this.fileGroup[3].isValid ) {
 
       this.hackathonRegistrationService.setLoadingOn();
       this.hackathonRegistrationService.setLoadingMessage('Sending Data...');
@@ -425,5 +422,22 @@ export class HackathonRegistrationPage implements OnInit {
     });
 
     await modal.present();
+  }
+
+  async showHowToUploadDrive() {
+    const alert = await this.alertCtrl.create({
+      message: `<div class="home-message-body">
+                    <img src="https://api.oneindonesia.id/uploads/event/upload_drive.jpg" alt="">
+                </div>`,
+      cssClass: 'how-to-upload-alert',
+      buttons: [
+        {
+          cssClass: 'alert-button-fill-url',
+          text: 'Close',
+        },
+     ],
+    });
+
+    await alert.present();
   }
 }

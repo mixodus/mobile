@@ -153,7 +153,7 @@
                      *ngIf="hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].status !== 'Failed'">
                     <div class="status-detail-container-1">
                         <div class="status-detail-text-1">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].name}}</div>
-                        <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate}}</div>
+                        <div class="status-detail-text-2">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].startDate}} - {{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].endDate | date: 'dd MMMM yyyy'}}</div>
                         <div class="status-detail-text-3">{{hackathonDetail.schedules[hackathonDetail.currentIndexSchedule].description}}
 
                         </div>

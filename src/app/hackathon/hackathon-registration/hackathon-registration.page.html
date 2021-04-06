@@ -35,7 +35,7 @@
         </ion-input>
         <div class="error-message" *ngIf="hackathonForm.get('major').hasError('required') && isSubmitted">
             <span>Please Input Your Major.</span>
-        </div>
+        </div> 
 
         <div class="subsection-title">Current Semester</div>
         <ion-select formControlName="semester" multiple="false" interface="popover" placeholder="7"
@@ -69,8 +69,6 @@
             <span>Please Input Domicile(city).</span>
         </div>
         
-
-
         <div class="subsection-title">Upload ID Card</div>
         <div class="upload-container">
             <div class="upload-button-container">
@@ -117,8 +115,15 @@
         </div>
         <div class="error-message" *ngIf="!getfileName(3) && isSubmitted">
             <span>Please Upload Your CV.</span>
-        </div> 
-
+        </div>         
+       
+        <div class="subsection-title">Google Drive Link <span class ="url-help-text" (click) = "showHowToUploadDrive()">(how to upload)</span></div>
+        <ion-input type="text" placeholder="Example: https://drive.google.com" formControlName="link_drive"
+                   class="ion-no-padding input-text" clearInput autocapitalize="off">
+        </ion-input>
+        <div class="error-message" *ngIf="hackathonForm.get('link_drive').hasError('required') && isSubmitted">
+            <span>Please Input Your Drive Link.</span>
+        </div>
 
     </form>
 

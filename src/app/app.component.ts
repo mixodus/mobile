@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { NavController, AlertController, Platform, ToastController } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 // import { NetworkServiceProviderService } from './network-service-provider.service';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { HomeService} from './home/home.service';
 
 @Component({
   selector: 'app-root',
@@ -102,6 +104,7 @@ export class AppComponent implements OnInit {
   textDir = 'ltr';
 
   disconnectSubscription: any;
+  onesignalStatus: boolean;
 
   constructor(
     public translate: TranslateService,
@@ -116,6 +119,8 @@ export class AppComponent implements OnInit {
     // private netService: NetworkServiceProviderService,
     private network: Network,
     private toast: ToastController,
+    private oneSignal: OneSignal,
+    private homeService: HomeService,
   ) {
     this.initializeApp();
     this.setLanguage();
@@ -127,20 +132,60 @@ export class AppComponent implements OnInit {
     } catch (err) {
       console.log('This is normal in a browser', err);
     }
-
-
+    //this.oneSignalInit();
     // this.auth.authState.subscribe(state => {
     //   if (state) {
-
     //     this.router.navigate(['app/home']);
-
-
     //   } else {
     //     this.router.navigate(['auth/login']);
     //   }
     // });
+  }
+  
+  oneSignalInit(){
+    this.platform.ready().then(()=>{
+      //onesignal
+      this.oneSignal.startInit('fe787342-86fe-43d4-8ede-c122be4e3d93', '266228191516');
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+      this.oneSignal.handleNotificationReceived().subscribe(() => {
+        // do something when notification is received
+        this.onPushReceived();
+      });
+  
+      this.oneSignal.handleNotificationOpened().subscribe(() => {
+      // do something when a notification is opened
+        this.onPushOpened();
+      });
+  
+      this.oneSignal.endInit();
+       //onesignal
 
+       this.oneSignal.getIds().then(identity => {
+        //alert(identity.pushToken + " It's Push Token");
+        //alert(identity.userId + " It's Devices ID");
+        // Post device_id ke API
+        let postdata = {device_id:identity.userId};
+        //console.log(postdata);
+        this.homeService.postDeviceID(postdata)
+        .pipe().subscribe(() => {
+        }, (err) => {
+          let message = '';
+          if (err.error.message === undefined) {
+            message = 'Network Problem, Please Try Again.';
+          } else {
+            message = err.error.message;
+          }
+          this.presentToast(message);
+        });
+      });
+    });
+  }
 
+  onPushReceived(){
+      console.log('received');
+  }
+  onPushOpened(){
+      console.log('opened');
   }
 
   setLanguage() {

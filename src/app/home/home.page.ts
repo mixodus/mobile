@@ -16,7 +16,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
 import * as moment from 'moment';
 import { InAppBrowserService } from '../core/services/in-app-browser/in-app-browser.service';
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './home.page.html',
@@ -63,7 +63,8 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private network: Network,
     private ngZone: NgZone, // private db: DatabaseService,
-    private _inAppBrowser: InAppBrowserService
+    private _inAppBrowser: InAppBrowserService,
+    private appComponent: AppComponent,
   ) {
   }
 
@@ -112,7 +113,6 @@ export class HomePage implements OnInit {
     if (this.auth.token) {
       this.checkSession();
     }
-
     this.getProfileDetail();
   }
 
@@ -152,8 +152,8 @@ export class HomePage implements OnInit {
         this.getProfileDetail();
         this.globalService.setLevelLoadStatus(true);
       }
+      this.appComponent.oneSignalInit();
     }
-
     if (this.auth.isInitialLogin) {
       this.presentPopupBanner().then(() => {
         this.auth.changeIsInitialLogin(false);
@@ -165,7 +165,6 @@ export class HomePage implements OnInit {
   getProfileDetail() {
     this.homeService.getProfileDataSource().pipe().subscribe((data: any) => {
       this.profile = data;
-
       if (data.data.flyer_banner.is_active && this.isInitialBanner) {
         // this.presentPopupBanner();
         this.isInitialBanner = false;
@@ -175,7 +174,6 @@ export class HomePage implements OnInit {
 
   doRefresh(ev) {
     this.profile = null;
-
     const dataSource: Observable<HomeModel> = this.homeService.getProfileDataSource();
     const profileDataStore: DataStore<HomeModel> = this.homeService.getProfileStore(
       dataSource,
@@ -188,7 +186,6 @@ export class HomePage implements OnInit {
       (error) => {
       }
     );
-
     ev.target.complete();
   }
 

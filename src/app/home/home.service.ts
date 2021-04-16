@@ -29,9 +29,29 @@ export class HomeService {
     const homeEndpoint =
       this.globalService.apiUrl +
       'api/home';
-
     return this.http.get<HomeModel>(homeEndpoint, options);
   }
+
+  public postDeviceID(formData: any) {
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token,
+    });
+    const options = { headers: headers };
+
+    const deviceIdEndpoint =
+      this.globalService.apiUrl +
+      'api/user/device_id';
+    //console.log('berhasil post Device Id'+ formData);
+    //console.log('Device ID Endpoint' + deviceIdEndpoint + options, {headers}), this.auth.token;
+
+    return this.http.post(deviceIdEndpoint, formData, options);
+    
+} 
 
   public getProfileStore(dataSource: Observable<HomeModel>, refresh: boolean = false): DataStore<HomeModel> {
     var count = 0;

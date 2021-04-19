@@ -145,7 +145,7 @@ export class AppComponent implements OnInit {
   oneSignalInit(){
     this.platform.ready().then(()=>{
       //onesignal
-      this.oneSignal.startInit('fe787342-86fe-43d4-8ede-c122be4e3d93', '266228191516');
+      this.oneSignal.startInit('0011e81d-1ec7-4dfb-91b1-fcf2d8fdbde0', '159086043014');
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
       this.oneSignal.handleNotificationReceived().subscribe(() => {
         // do something when notification is received

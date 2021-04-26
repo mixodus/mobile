@@ -107,6 +107,7 @@ export class AppComponent implements OnInit {
   onesignalStatus: boolean;
 
   constructor(
+    
     public translate: TranslateService,
     private auth: AuthenticationService,
     private router: Router,
@@ -145,7 +146,7 @@ export class AppComponent implements OnInit {
   oneSignalInit(){
     this.platform.ready().then(()=>{
       //onesignal
-      this.oneSignal.startInit('1eccf828-a256-4898-92c8-6b03bc4569f3', '469469282429');
+      this.oneSignal.startInit('6250835e-0ed8-4f39-9752-63f99e397840', '469469282429');
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
       this.oneSignal.handleNotificationReceived().subscribe(() => {
         // do something when notification is received

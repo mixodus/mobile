@@ -17,6 +17,7 @@ import { NewsResolver } from './news.resolver';
 import { NewsService } from '../modules/news/services/news.service';
 import { JobsResolver } from '../jobs/jobs.resolver';
 import { JobsService } from '../jobs/jobs.service';
+import {AppComponent} from '../app.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
     NewsResolver,
     NewsService,
     JobsResolver,
-    JobsService
+    JobsService,
+    AppComponent,
     // NetworkServiceProviderService
   ]
 })

@@ -34,6 +34,10 @@ import { JobsPageModule } from './jobs/jobs.module';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import {HomeService} from './home/home.service';
+
+
 registerLocaleData(localeId, 'id');
 
 export function createTranslateLoader(http: HttpClient) {
@@ -79,6 +83,8 @@ export function createTranslateLoader(http: HttpClient) {
     FilePath,
     IOSFilePicker,
     InAppBrowser,
+    OneSignal,
+    HomeService,
     { provide: LOCALE_ID, useValue: 'id-ID' }
     // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true }
   ],

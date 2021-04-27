@@ -183,10 +183,10 @@ export class AppComponent implements OnInit {
   }
 
   onPushReceived(){
-      console.log('received');
+      //console.log('received');
   }
   onPushOpened(){
-      console.log('opened');
+      //console.log('opened');
   }
 
   setLanguage() {

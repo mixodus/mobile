@@ -31,6 +31,43 @@ export class HomeService {
       'api/home';
     return this.http.get<HomeModel>(homeEndpoint, options);
   }
+  public getCandidate(){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const candidateEndpoint =
+      this.globalService.apiUrl +
+      'api/votes/candidates?topic_id=1';
+      console.log(candidateEndpoint);
+    return this.http.get<HomeModel>(candidateEndpoint, options);
+  }
+  public postVoteCandidate(postData: any){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const voteCandidateEndpoint =
+      this.globalService.apiUrl +
+      'api/votes';
+      console.log(voteCandidateEndpoint);
+      console.log(postData);
+    return this.http.post(voteCandidateEndpoint, postData ,options);
+  }
 
   public postDeviceID(formData: any) {
     if (this.auth.token) {

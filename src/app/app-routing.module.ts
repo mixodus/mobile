@@ -327,6 +327,10 @@ const routes: Routes = [
     path: 'app/hackathon/hackathon-more-detail', 
     loadChildren: './hackathon/hackathon-more-detail/hackathon-more-detail.module#HackathonMoreDetailPageModule' 
   },
+  { 
+    path: 'app/hackathon/hackathon-vote', 
+    loadChildren: './hackathon/hackathon-vote/hackathon-vote.module#HackathonVotePageModule' 
+  },
   {
     path: 'profile/:userId',
     loadChildren: () =>
@@ -379,6 +383,7 @@ const routes: Routes = [
   { path: 'popover', loadChildren: './popover/popover.module#PopoverPageModule' },
   { path: 'history', loadChildren: './user/profile/history/history.module#HistoryPageModule' },
   { path: 'academy', loadChildren: './academy/academy.module#AcademyPageModule' },
+
 
 
 

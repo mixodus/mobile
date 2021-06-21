@@ -41,6 +41,7 @@ export interface News {
   news_type_id: string;
   news_url: string;
   news_photo: string;
+  news_photo_url: string;
   news_colour: string;
   created_at: string;
   modified_at: string;
@@ -103,6 +104,13 @@ export interface Info {
   max_fee_referral: string;
 }
 
+export interface VotingTopic{
+  topic_id: string;
+  name: string;
+  title: string;
+  banner_url: string;
+}
+
 export interface Data {
   count_applied_jobs: number;
   user: User;
@@ -115,6 +123,39 @@ export interface Data {
   info: Info;
   friend_list: Friend_List;
   friend_request: Friend_Request;
+  voting_topic: VotingTopic[];
+}
+
+export interface DataChallenge{
+  challenge_id: number;
+  challenge_title: string;
+  challenge_point: number;
+  challenge_photo: string;
+}
+
+export interface choices{
+  name: string;
+  total_vote: string;
+  percentage: string;
+}
+
+export interface VoteResult{
+  topic_id: string;
+  name: string;
+  title: string;
+  choice: choices[];
+}
+
+export class ChallengeModel extends ShellModel {
+  status: boolean;
+  message: string;
+  data: DataChallenge[];
+}
+
+export class VoteResultModel extends ShellModel{
+  status: boolean;
+  message: string;
+  data: VoteResult;
 }
 
 export class HomeModel extends ShellModel {
@@ -208,6 +249,7 @@ export class HomeModel extends ShellModel {
         news_type_id: '',
         news_url: '',
         news_photo: '',
+        news_photo_url: '',
         news_colour: '',
         created_at: '',
         modified_at: '',
@@ -224,6 +266,14 @@ export class HomeModel extends ShellModel {
     friend_request: {
       data: [],
     },
+    voting_topic: [
+      {
+        topic_id: '',
+        name: '',
+        title: '',
+        banner_url: '',
+      },
+    ],
   };
 
   constructor() {

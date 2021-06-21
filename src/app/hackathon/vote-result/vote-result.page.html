@@ -1,0 +1,30 @@
+<ion-header class="hackathon-header" no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-icon class="back" name="ios-arrow-back" [routerLink]="['/app/home']"></ion-icon>
+      </ion-buttons>
+      <ion-title class="title">
+          <div>Vote Result</div>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-title class = "title1">{{topicName}}</ion-card-title>
+      <ion-card-title class = "title2">{{topicTitle}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas id="myChart" width="200" height="200"></canvas>
+      <ion-list>
+        <ion-item *ngFor="let choice of topicChoices; let i = index;">
+          <ion-badge color="dark">
+            <div class="dot"></div>
+          </ion-badge>
+          <ion-label style="padding-left: 1%;">{{choice.name}}</ion-label>
+          <ion-badge color = "Tint" slot="end">{{choice.percent}}%</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

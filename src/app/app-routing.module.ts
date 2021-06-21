@@ -328,7 +328,7 @@ const routes: Routes = [
     loadChildren: './hackathon/hackathon-more-detail/hackathon-more-detail.module#HackathonMoreDetailPageModule' 
   },
   { 
-    path: 'app/hackathon/hackathon-vote', 
+    path: 'app/hackathon/hackathon-vote/:topic_id', 
     loadChildren: './hackathon/hackathon-vote/hackathon-vote.module#HackathonVotePageModule' 
   },
   {
@@ -383,6 +383,17 @@ const routes: Routes = [
   { path: 'popover', loadChildren: './popover/popover.module#PopoverPageModule' },
   { path: 'history', loadChildren: './user/profile/history/history.module#HistoryPageModule' },
   { path: 'academy', loadChildren: './academy/academy.module#AcademyPageModule' },
+  // {
+  //   path: 'voting',
+  //   loadChildren: () => import('./voting/voting.module').then( m => m.VotingPageModule)
+  // },
+  { path: 'voting', loadChildren: './voting/voting.module#VotingPageModule' },
+  {
+    path: 'vote-result/:topic_id',
+    loadChildren: () => import('./hackathon/vote-result/vote-result.module').then( m => m.VoteResultPageModule)
+  },
+
+
 
 
 

@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/auth/authentication.service';
 import { HomeModel } from './home.model';
 import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
+import { ChallengesModel } from '../challenges/challenges.model';
+import { VoteResultModel } from './home.model';
 
 @Injectable()
 export class HomeService {
@@ -31,7 +33,27 @@ export class HomeService {
       'api/home';
     return this.http.get<HomeModel>(homeEndpoint, options);
   }
-  public getCandidate(){
+
+  public getChallangeSource(){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const challangeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge';
+      console.log(challangeEndpoint);
+    return this.http.get<ChallengesModel>(challangeEndpoint, options);
+  }
+
+  public getCandidate(id){
     if (this.auth.token) {
       this.token = String(this.auth.token);
     }
@@ -45,10 +67,30 @@ export class HomeService {
 
     const candidateEndpoint =
       this.globalService.apiUrl +
-      'api/votes/candidates?topic_id=1';
+      'api/votes/candidates?topic_id=' + id;
       console.log(candidateEndpoint);
     return this.http.get<HomeModel>(candidateEndpoint, options);
   }
+
+  public getVoteResult(id){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const votingEndpoint =
+      this.globalService.apiUrl +
+      'api/votes?vote_topic_id=' + id;
+      console.log(votingEndpoint);
+    return this.http.get<VoteResultModel>(votingEndpoint, options);
+  }
+
   public postVoteCandidate(postData: any){
     if (this.auth.token) {
       this.token = String(this.auth.token);

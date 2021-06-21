@@ -9,6 +9,14 @@
                     Pekerjaan
                 </ion-title>
             </ion-toolbar>
+            <ion-segment>
+                <ion-segment-button value="Pekerjaan" (click)="handleToggleJob(0)">
+                  <ion-label>Pekerjaan</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="Status" (click)="handleToggleJob(1)">
+                  <ion-label>Status</ion-label>
+                </ion-segment-button>
+            </ion-segment>
         </ion-header>
 
         <ion-content class="content" fullscreen="true">
@@ -16,6 +24,13 @@
                 <ion-refresher-content></ion-refresher-content>
             </ion-refresher>
             <div>
+
+                <!-- <div class="button-toggle-job-container" *ngIf="auth.token">
+                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 0, 'toggle-job-outline':toggleState === 1 }" expand="block" (click)="handleToggleJob(0)">Pekerjaan</ion-button>
+                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 1, 'toggle-job-outline':toggleState === 0 }" expand="block" (click)="handleToggleJob(1)">Status</ion-button>
+                </div> -->
+
+
                 <div class="search">
                     <ion-searchbar #sb showCancelButton="focus"
                                    [hidden]="toggleState === 1"
@@ -25,13 +40,8 @@
                                    [value]="selectedItem" (ionBlur)="onBlur($event)" autocomplete></ion-searchbar>
                 </div>
 
-                <div class="button-toggle-job-container" *ngIf="auth.token">
-                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 0, 'toggle-job-outline':toggleState === 1 }" expand="block" (click)="handleToggleJob(0)">Pekerjaan</ion-button>
-                    <ion-button [ngClass]="{'toggle-job-fill': toggleState === 1, 'toggle-job-outline':toggleState === 0 }" expand="block" (click)="handleToggleJob(1)">Status</ion-button>
-                </div>
 
-
-                <div *ngIf="jobs.isShell || searchedJobs?.isShell" class="spinner-container">
+                <div *ngIf="jobs?.isShell || searchedJobs?.isShell" class="spinner-container">
                     <ion-spinner class="spinner">Loading</ion-spinner>
                     <div>Loading</div>
                 </div>
@@ -75,16 +85,28 @@
                                                     <img class="icon-job-company"
                                                          [src]=[job.companyLogoUrl]>
                                                 </div>
-                                                <div class="job-company">{{ job.companyName }}</div>
-                                            </div>
-                                            <div class="job-name">{{ job.jobTitle }}</div>
-                                            <div class="job-detail-container">
-                                                <div class="location-container">
-                                                    <ion-icon class="icon-location"
-                                                              src="./assets/icons/place-24px.svg"></ion-icon>
-                                                    <div class="job-location">{{ getJobLocation(job.province, job.country) }}</div>
+                                                <div class="container-">
+                                                    <div class="job-name">{{ job.jobTitle }}</div>
+                                                    <div class="job-company">{{ job.companyName }}</div>
+                                                    <div class="job-detail-container">
+                                                        <div class="location-container">
+                                                            <ion-icon class="icon-location"
+                                                                      src="./assets/icons/place-24px.svg"></ion-icon>
+                                                            <div class="job-location">{{ getJobLocation(job.province, job.country) }}</div>
+                                                        </div>
+                                                        <!-- <div class="jobType-container">
+                                                            <ion-icon class="icon-type"
+                                                                      src="./assets/icons/job-type-icon.svg"></ion-icon>
+                                                            <div class="job-type">{{job.jobTypeName}}</div>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="jobDueDate-container">
+                                                        <ion-icon class="icon-type"
+                                                                  src="./assets/icons/clock-icon.svg"></ion-icon>
+                                                        <div class="job-type"> {{job.dateOfClosing}}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </div>  
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>
@@ -112,14 +134,22 @@
                                                     <img class="icon-job-company"
                                                          [src]=[job.companyLogoUrl]>
                                                 </div>
-                                                <div class="job-company">{{ job.companyName }}</div>
-                                            </div>
-                                            <div class="job-name">{{ job.jobTitle }}</div>
-                                            <div class="job-detail-container">
-                                                <div class="location-container">
-                                                    <ion-icon class="icon-location"
-                                                              src="./assets/icons/place-24px.svg"></ion-icon>
-                                                    <div class="job-location">{{ getJobLocation(job.province, job.country) }}</div>
+                                                <div class="container-">
+                                                    <div class="job-name">{{ job.jobTitle }}</div>
+                                                    <div class="job-company">{{ job.companyName }}</div>
+                                                    <div class="job-detail-container">
+                                                        <div class="location-container">
+                                                            <ion-icon class="icon-location"
+                                                                      src="./assets/icons/place-24px.svg"></ion-icon>
+                                                            <div class="job-location">{{ getJobLocation(job.province, job.country) }}</div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="jobDueDate-container">
+                                                        <ion-icon class="icon-type"
+                                                                  src="./assets/icons/clock-icon.svg"></ion-icon>
+                                                        <div class="job-type"> {{job.dateOfClosing}}</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </ion-col>
@@ -130,7 +160,7 @@
                     </div>
                 </section>
 
-                <section [hidden]="toggleState === 0" class="segmentJobs">
+                <section [hidden]="toggleState === 0" class="segmentJobs" *ngIf="jobApplicationList.status !== 'undefined'">
                     <div class="header-container"></div>
                     <div *ngIf="noSearch">
                         <ion-card *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0" class="ion-text-center">
@@ -149,28 +179,30 @@
                                         <div class="company-container">
                                             <div class="icon-job-company-container">
                                                 <img class="icon-job-company"
-                                                     [src]=job.company_logo_url>
+                                                     [src]=[job.company_logo_url]>
                                             </div>
-                                            <div class="job-company">{{ job.company_name }}</div>
-                                        </div>
-                                        <div class="job-name">{{job.job_title}}</div>
-                                        <div class="job-detail-container">
-                                            <div class="location-container">
-                                                <ion-icon class="icon-location"
-                                                          src="./assets/icons/place-24px.svg"></ion-icon>
-                                                <div class="job-location">{{ job.province + ', ' + job.country }}</div>
+                                            <div class="container-">
+                                                <div class="job-name">{{ job.job_title }}</div>
+                                                <div class="job-company">{{ job.company_name }}</div>
+                                                <div class="job-detail-container">
+                                                    <div class="location-container">
+                                                        <ion-icon class="icon-location"
+                                                                  src="./assets/icons/place-24px.svg"></ion-icon>
+                                                        <div class="job-location">{{job.province + ', ' + job.country}}</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </ion-col>
                                     <div class="status">
                                         <div *ngIf="job.application_status == 'Rejected'">
                                             <div class="job-status--rejected">
-                                                Ditolak
+                                                {{job.application_status}}
                                             </div>
                                         </div>
                                         <div *ngIf="job.application_status == 'Applied'">
                                             <div class="job-status--applied">
-                                                Dilamar
+                                                {{job.application_status}}
                                             </div>
                                         </div>
                                     </div>

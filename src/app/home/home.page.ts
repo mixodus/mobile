@@ -17,6 +17,7 @@ import { AuthGuardService } from '../services/auth/auth-guard.service';
 import * as moment from 'moment';
 import { InAppBrowserService } from '../core/services/in-app-browser/in-app-browser.service';
 import { AppComponent } from '../app.component';
+import { ChallengesModel } from '../challenges/challenges.model';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './home.page.html',
@@ -31,9 +32,10 @@ import { AppComponent } from '../app.component';
 })
 export class HomePage implements OnInit {
   profile: HomeModel;
+  challenge: ChallengesModel;
   ev: any;
   var: string;
-  profileImg = './assets/sample-images/user/default-profile.svg';
+  profileImg = './assets/icons/user-icon.svg';
   connectSubscription: any;
   refresh = false;
   subscribe: any;
@@ -81,6 +83,12 @@ export class HomePage implements OnInit {
     spaceBetween: 10
   };
 
+  challangeBannerOpt = {
+    slidesPerView : 1.5,
+    centerSlides : true,
+    spaceBetween : 5,
+  }
+
   arr: any;
   data: any;
 
@@ -114,8 +122,20 @@ export class HomePage implements OnInit {
       this.checkSession();
     }
     this.getProfileDetail();
+    this.getChallanges();
   }
 
+  getChallanges(){
+    this.homeService.getChallangeSource().pipe().subscribe((data: any) => {
+      this.challenge = data;
+    });
+  }
+
+  goToDetail(id: string) {
+    this.globalService.refreshFlag.challenge_detail = true;
+    this.navCtrl.navigateForward('/app/events/challenges/challenge-detail/' + id);
+  }
+  
   async presentPopupBanner() {
     const alert = await this.alertCtrl.create({
       message: `<div class="home-message-body">

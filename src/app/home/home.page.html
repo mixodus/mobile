@@ -1,24 +1,5 @@
 <ion-header no-border class="home-header">
-    <ion-toolbar>
-        <div class="home-toolbar">
-            <img class="logo-one" src="../../assets/images/icon.png">
-            <div class="home-toolbar-container-2" *ngIf="this.auth.token">
-                <div class="home-toolbar-container-2-1 ion-text-right">
-                    <div class="text-level">Level</div>
-                    <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
-                </div>
-                <div *ngIf="profile?.isShell">
-                    <ion-spinner class="ion-margin"></ion-spinner>
-                </div>
-                <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
-                                 [src]="profile?.data?.user.level_icon_url"
-                                 [alt]="profile?.data?.user.fullname" class="star-image"
-                                 [routerLink]="['/app/user/level']"
-                >
-                </app-image-shell>
-            </div>
-        </div>
-    </ion-toolbar>
+    
 </ion-header>
 
 <ion-content class="home-content">
@@ -26,89 +7,263 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div class="profile-container" [routerLink]="['/app/user']" *ngIf="this.auth.token">
-        <div class="profile-container-1">
-            <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
-                             [src]="profile?.data?.user.profile_picture_url"
-                             [alt]="profile?.data?.user.fullname" class="profile-image"
-            >
-            </app-image-shell>
-            <app-image-shell *ngIf="!profile?.data?.user.profile_picture_url" animation="spinner"
-                             [src]="profileImg"
-                             [alt]="profile?.data?.user.fullname" class="profile-image"
-            >
-            </app-image-shell>
-        </div>
-        <div class="profile-container-2">
-            <div class="text-name">{{profile?.data?.user.fullname}}</div>
-            <div class="text-position">{{profile?.data?.user.job_title}}</div>
-        </div>
-    </div>
-
-    <div class="menu-container">
-        <div class="menu-container-1">
-            <div class="menu-bootcamp-container" [routerLink]="['/app/events/category/2']">
-                <div class="menu-bootcamp">
-                    <img class="icon-bootcamp" src="../../assets/icons/flag.svg" alt="">
+    <ion-toolbar>
+        <img class="imgs" src="../../assets/home-header-color.svg">
+        <div class="home-toolbar">
+            <img class="logo-one" src="../../assets/icons/one-logo.svg">
+            <div class="profile-container" [routerLink]="['/app/user']" *ngIf="this.auth.token">
+                <div class="profile-container-1">
+                    <app-image-shell *ngIf="profile?.data?.user.profile_picture_url" animation="spinner"
+                                     [src]="profile?.data?.user.profile_picture_url"
+                                     [alt]="profile?.data?.user.fullname" class="profile-image"
+                    >
+                    </app-image-shell>
+                    <app-image-shell *ngIf="!profile?.data?.user.profile_picture_url" animation="spinner"
+                                     [src]="profileImg"
+                                     [alt]="profile?.data?.user.fullname" class="profile-image"
+                    >
+                    </app-image-shell>
                 </div>
-                <div class="text-bootcamp">Bootcamp</div>
-            </div>
-
-            <div class="menu-academy-container" [routerLink]="['/academy']">
-                <div class="menu-academy">
-                    <img class="icon-academy" src="../../assets/icons/book.svg" alt="">
+                <div class="profile-container-2">
+                    <div class="text-name">{{profile?.data?.user.fullname}}</div>
+                    <div class="text-position">{{profile?.data?.user.job_title}}</div>
                 </div>
-                <div class="text-academy">Akademi</div>
-            </div>
-
-            <div class="menu-point-container" [routerLink]="['/app/hackathon']">
-                <div class="menu-point">
-                    <img class="icon-point" src="../../assets/icons/hackathon.svg" alt="">
-                </div>
-                <div class="text-point">Hackathon</div>
-            </div>
-
-        </div>
-        <div class="menu-container-2">
-            <div class="menu-news-container" [routerLink]="['/app/news']">
-                <div class="menu-news">
-                    <img class="icon-news" src="../../assets/icons/newspaper.svg" alt="">
-                </div>
-                <div class="text-news">Berita</div>
-            </div>
-
-            <div class="menu-referral-container" [routerLink]="['/app/user/referral']">
-                <div class="menu-referral">
-                    <img class="icon-news" src="../../assets/icons/person-plus.svg" alt="">
-                </div>
-                <div class="text-referral">Rujukan</div>
-            </div>
-
-            <div class="menu-challenge-container" [routerLink]="['/app/events/challenges']">
-                <div class="menu-challenge">
-                    <img class="icon-challenge" src="../../assets/icons/puzzle.svg" alt="">
-                </div>
-                <div class="text-challenge">Tantangan</div>
             </div>
         </div>
-    </div>
+        <div class="notifications" [routerLink]="['/app/notifications']">
+            <img class="bell-icon" src="../../assets/icons/bell-icon.svg" alt="">
+        </div>
+    </ion-toolbar>
 
-    <div class="padding-container">
-        <div class="upcoming-event-container">
-            <div class="upcoming-event-text">
-                Kabar Terbaru
+    <div class="menus">
+        <div class="menu-container" *ngIf="profile?.isShell">
+            <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+            </app-aspect-ratio>
+        </div>
+        <div class="menu-container" *ngIf="!profile?.isShell">
+            <div class="menu-level">
+                <div class="menu-level-1" >
+                    <div class="menu-level-details" *ngIf="this.auth.token">
+                        <app-image-shell *ngIf="!profile?.isShell" animation="spinner"
+                                         [src]="profile?.data?.user.level_icon_url"
+                                         [alt]="profile?.data?.user.fullname" class="star-image"
+                                         [routerLink]="['/app/user/level']"
+                        >
+                        </app-image-shell>
+                        <div class="menu-level-details-1 ion-text-right">
+                            <div class="text-level" >Level</div>
+                            <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
+                        </div>
+                        <div *ngIf="profile?.isShell">
+                            <ion-spinner class="ion-margin"></ion-spinner>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-level-1" >
+                    <!-- <img src="../../assets/icons/qna-icon.svg" alt=""> -->
+                </div>
+                <div class="menu-level-1" *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-level-1" *ngIf="!profile?.isShell">
+                    <img src="../../assets/icons/rank.svg" alt="" [routerLink]="['/app/user/level']">
+                </div>
+            </div>
+            
+    
+            <div class="menu-container-1">
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-bootcamp-container" [routerLink]="['/app/events/category/2']" *ngIf="!profile?.isShell">
+                        <img class="icon-bootcamp" src="../../assets/icons/Bootcamp.svg" alt="">
+                    <div class="text-bootcamp">Bootcamp</div>
+                </div>
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-academy-container" [routerLink]="['/academy']" *ngIf="!profile?.isShell">
+                        <img class="icon-academy" src="../../assets/icons/Akademi.svg" alt="">
+                    <div class="text-academy">Akademi</div>
+                </div>
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-point-container" [routerLink]="['/app/hackathon']" *ngIf="!profile?.isShell">
+                        <img class="icon-point" src="../../assets/icons/Hackathons.svg" alt="">
+                    <div class="text-point">Hackathon</div>
+                </div>
+            </div>
+            
+            <div class="menu-container-2">
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-referral-container" [routerLink]="['/app/user/referral']" *ngIf="!profile?.isShell">
+                        <img class="icon-news" src="../../assets/icons/Rujukan.svg" alt="">
+                    <div class="text-referral">Rujukan</div>
+                </div>
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-news-container" [routerLink]="['/app/news']" *ngIf="!profile?.isShell">
+                        <img class="icon-news" src="../../assets/icons/news-icon.svg" alt="">
+                    <div class="text-news">Berita</div>
+                </div>
+                <div class="menu-bootcamp-container"  *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </div>
+                <div class="menu-challenge-container" [routerLink]="['/app/events/challenges']" *ngIf="!profile?.isShell">
+                        <img class="icon-challenge" src="../../assets/icons/challange-icon.svg" alt="">
+                    <div class="text-challenge">Tantangan</div>
+                </div>
             </div>
         </div>
 
-        <section class="banner-container" *ngIf="profile != null && profile != undefined">
-            <ion-slides pager="true" [options]="mainBannerOpts">
-                <ion-slide *ngFor="let banner of profile?.data?.banner">
-                    <a class="banner-image" (click)="goToBannerDetail(banner.banners_type, banner.banners_detail_id)"
-                       [style.background-image]="'url(' +  banner.banners_photo_url +  ')'">
-                    </a>
-                </ion-slide>
-            </ion-slides>
-          <ion-button [routerLink]="['/app/hackathon/hackathon-vote']">Vote Now</ion-button>
-        </section>
+
+        <div class="padding-container" *ngIf="profile?.data?.voting_topic.length > 0">
+            <div class="vote-container">
+                <div class="upcoming-event-container">
+                    <div class="upcoming-event-text">
+                            <div *ngIf="profile?.isShell">
+                                <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
+                            </div>
+                            <div *ngIf="!profile?.isShell">
+                                <img src="../../assets/icons/star-shooting-outline.png" alt=""> Voting
+                            </div>
+                    </div> 
+                </div>
+                <section class="padding-container" *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                      <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </section>
+                <section class="padding-container" *ngIf="!profile?.isShell">
+                    <ion-slides [options]="mainBannerOpts">
+                        <ion-slide *ngFor="let topic of profile?.data?.voting_topic">
+                            <ion-card class="voteImage" [routerLink]="['/', 'app' ,'hackathon', 'hackathon-vote', topic.topic_id]">
+                                <!-- <img class="laptop" src="../../assets/laptop.svg" alt="">
+                                <img src="../../assets/voting-hackathon.svg"> -->
+                                <img class="image" [src]="topic.banner_url" alt="">
+                            </ion-card>  
+                        </ion-slide>
+                    </ion-slides>
+                </section>
+            </div>
+        </div>
+    
+        <div class="padding-container">
+            <div class="box-container">
+                <div class="upcoming-event-container">
+                    <div class="upcoming-event-text">
+                        <div *ngIf="profile?.isShell">
+                            <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
+                        </div>
+                        <div *ngIf="!profile?.isShell">
+                            <img src="../../assets/icons/news-icon.png" alt=""> Acara
+                        </div>
+                    </div>
+                </div>
+                <section class="banner-container" *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </section>
+                <section class="banner-container" *ngIf="!profile?.isShell">
+                    <ion-slides pager="true" [options]="mainBannerOpts">
+                        <ion-slide *ngFor="let banner of profile?.data?.banner">
+                            <a class="banner-image" (click)="goToBannerDetail(banner.banners_type, banner.banners_detail_id)"
+                               [style.background-image]="'url(' +  banner.banners_photo_url +  ')'">
+                            </a>
+                        </ion-slide>
+                    </ion-slides>
+                </section>
+            </div>
+        </div>
+    
+        <div class="padding-container">
+            <div class="box-container">
+                <div class="upcoming-event-container">
+                    <div class="upcoming-event-text">
+                        <div *ngIf="profile?.isShell">
+                            <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
+                        </div>
+                        <div *ngIf="!profile?.isShell">
+                            <img src="../../assets/icons/puzzle-icon.png" alt=""> Tantangan
+                        </div>
+                    </div> 
+                </div>
+                <section class="banner-container" *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                        <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </section>
+                <section class="banner-container" *ngIf="!profile?.isShell">
+                    <ion-slides [options]="challangeBannerOpt">
+                        <ion-slide *ngFor="let challenge of challenge?.data">
+                                <ion-card (click)="goToDetail(challenge.challenge_id)">
+                                    <img class="image" src="../../assets/white-box.png">
+                                    <div>
+                                        <div class="content-title" >{{challenge.challenge_title}}</div>
+                                        <div class="content-duedate"><div>Batas Waktu </div>{{challenge.challenge_expired_date}}</div> 
+                                        <div class="box-point">
+                                            Point<br>{{challenge.challenge_point}}
+                                        </div>
+                                    </div>
+                                </ion-card>
+                        </ion-slide>
+                    </ion-slides>
+                </section>
+            </div>
+        </div>
+        
+        <div class="padding-container">
+            <div class="box-container">
+                <div class="upcoming-event-container">
+                    <div class="upcoming-event-text">
+                        <div>
+                            <img src="../../assets/icons/article-icon.png" alt=""> Artikel
+                        </div>
+                    </div> 
+                </div>
+                
+                <section class="banner-container" *ngIf="profile?.isShell">
+                    <app-aspect-ratio [ratio]="{w: 2, h: 1}">
+                      <app-image-shell animation="gradient" style="width: 100%; height: 100%;"></app-image-shell>
+                    </app-aspect-ratio>
+                </section>
+                <section class="banner-container" *ngIf="!profile?.isShell">
+                    <ion-slides [options]="challangeBannerOpt">
+                        <ion-slide *ngFor="let news of profile?.data?.news" [routerLink]="['/', 'app' ,'news', 'news-detail', news.news_id]">
+                            <ion-card class="box-article-img">
+                                <div class="image-container">
+                                    <img class="img_news" [src]="news.news_photo_url" alt="">
+                                </div>
+                                <ion-card-header>
+                                    <ion-card-title>{{news.news_title}}</ion-card-title>
+                                    <ion-card-subtitle>{{news.news_type}}</ion-card-subtitle>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-slide>
+                    </ion-slides>
+                </section>
+            </div>
+        </div>
+        
     </div>
 </ion-content>

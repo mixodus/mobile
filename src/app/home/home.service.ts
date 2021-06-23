@@ -148,4 +148,9 @@ export class HomeService {
     count++;
     return this.profileDataStore;
   }
+
+  public getAppNewestVersion(){
+    const homeEndpoint = this.globalService.apiUrl + 'api/app-version'
+    return this.http.get(homeEndpoint);
+  }
 }

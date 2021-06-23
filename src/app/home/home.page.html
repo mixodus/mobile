@@ -7,7 +7,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-toolbar>
+    <ion-toolbar class="ion-no-color">
         <img class="imgs" src="../../assets/home-header-color.svg">
         <div class="home-toolbar">
             <img class="logo-one" src="../../assets/icons/one-logo.svg">
@@ -51,13 +51,13 @@
                                          [routerLink]="['/app/user/level']"
                         >
                         </app-image-shell>
-                        <div class="menu-level-details-1 ion-text-right">
-                            <div class="text-level" >Level</div>
-                            <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
-                        </div>
-                        <div *ngIf="profile?.isShell">
-                            <ion-spinner class="ion-margin"></ion-spinner>
-                        </div>
+                    </div>
+                    <div class="menu-level-details-1">
+                        <div class="text-level" >Level</div>
+                        <div class="text-level-name">{{profile?.data?.user.level_name}}</div>
+                    </div>
+                    <div *ngIf="profile?.isShell">
+                        <ion-spinner class="ion-margin"></ion-spinner>
                     </div>
                 </div>
                 <div class="menu-level-1" >
@@ -136,15 +136,15 @@
         </div>
 
 
-        <div class="padding-container" *ngIf="profile?.data?.voting_topic.length > 0">
-            <div class="vote-container">
+        <div class="padding-container" *ngIf="profile?.data?.voting_topic.length > 0 && this.auth.token">
+            <div class="box-container">
                 <div class="upcoming-event-container">
                     <div class="upcoming-event-text">
                             <div *ngIf="profile?.isShell">
                                 <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
                             </div>
                             <div *ngIf="!profile?.isShell">
-                                <img src="../../assets/icons/star-shooting-outline.png" alt=""> Voting
+                                <img src="../../assets/icons/star-shooting-outline.svg" alt=""> Voting
                             </div>
                     </div> 
                 </div>
@@ -154,7 +154,7 @@
                     </app-aspect-ratio>
                 </section>
                 <section class="padding-container" *ngIf="!profile?.isShell">
-                    <ion-slides [options]="mainBannerOpts">
+                    <ion-slides [options]="VotingBannerOpts">
                         <ion-slide *ngFor="let topic of profile?.data?.voting_topic">
                             <ion-card class="voteImage" [routerLink]="['/', 'app' ,'hackathon', 'hackathon-vote', topic.topic_id]">
                                 <!-- <img class="laptop" src="../../assets/laptop.svg" alt="">
@@ -175,7 +175,7 @@
                             <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
                         </div>
                         <div *ngIf="!profile?.isShell">
-                            <img src="../../assets/icons/news-icon.png" alt=""> Acara
+                            <img src="../../assets/icons/news-small-icon.svg" alt=""> Acara
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                             <app-image-shell animation="gradient" style="width: inherit; height: 100%;"></app-image-shell>
                         </div>
                         <div *ngIf="!profile?.isShell">
-                            <img src="../../assets/icons/puzzle-icon.png" alt=""> Tantangan
+                            <img src="../../assets/icons/puzzle-icon.svg" alt=""> Tantangan
                         </div>
                     </div> 
                 </div>
@@ -232,12 +232,12 @@
             </div>
         </div>
         
-        <div class="padding-container">
+        <div class="padding-container" style="height: 0px;">
             <div class="box-container">
                 <div class="upcoming-event-container">
                     <div class="upcoming-event-text">
                         <div>
-                            <img src="../../assets/icons/article-icon.png" alt=""> Artikel
+                            <img src="../../assets/icons/article-icon.svg" alt=""> Artikel
                         </div>
                     </div> 
                 </div>
@@ -248,13 +248,13 @@
                     </app-aspect-ratio>
                 </section>
                 <section class="banner-container" *ngIf="!profile?.isShell">
-                    <ion-slides [options]="challangeBannerOpt">
+                    <ion-slides [options]="articleBannerOpt">
                         <ion-slide *ngFor="let news of profile?.data?.news" [routerLink]="['/', 'app' ,'news', 'news-detail', news.news_id]">
                             <ion-card class="box-article-img">
                                 <div class="image-container">
                                     <img class="img_news" [src]="news.news_photo_url" alt="">
                                 </div>
-                                <ion-card-header>
+                                <ion-card-header class="card-header">
                                     <ion-card-title>{{news.news_title}}</ion-card-title>
                                     <ion-card-subtitle>{{news.news_type}}</ion-card-subtitle>
                                 </ion-card-header>

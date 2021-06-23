@@ -16,7 +16,7 @@
   <div class="hackathon-title">
     {{title}}
   </div>
-  <div class="button-result">
+  <div class="button-result" *ngIf="voteStatus">
     <ion-button mode="md"  class= "button" [routerLink]="['/', 'vote-result', topicId]"> Lihat Hasil </ion-button>
   </div>
   <ion-grid>
@@ -28,7 +28,7 @@
             <ion-card-title  class= "card-text">{{candidate.candidateName}}</ion-card-title>
           </ion-card-header>
           <ion-card-content mode="md" *ngIf="!voteStatus">
-            <ion-button mode="md"  class= "button-fill" (click)="voteClick(candidate.candidateIconURL, candidate.candidateName, candidate.candidateChoice_id)"> Vote </ion-button>
+            <ion-button mode="md"  class= "button-fill" (click)="voteClick(candidate.candidateIconURL, candidate.candidateName, candidate.candidateChoice_id)"> Pilih </ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

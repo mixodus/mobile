@@ -78,15 +78,34 @@ export class HomePage implements OnInit {
       disableOnInteraction: false,
     },
     slidesPerView: '1.25',
-    loop: true,
+    loop: false,
+    centeredSlides: true,
+    spaceBetween: 10
+  };
+
+  VotingBannerOpts = {
+    initialSlide: 0,
+    speed: 500,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: '1.25',
+    loop: false,
     centeredSlides: true,
     spaceBetween: 10
   };
 
   challangeBannerOpt = {
-    slidesPerView : 1.5,
+    slidesPerView : '1.8',
     centerSlides : true,
-    spaceBetween : 5,
+    spaceBetween : 1,
+  }
+
+  articleBannerOpt = {
+    slidesPerView : '2.1',
+    centerSlides : true,
+    spaceBetween : 1,
   }
 
   arr: any;

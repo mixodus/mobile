@@ -20,7 +20,7 @@ export class HackathonVotePage implements OnInit {
   name='';
   title='';
   topicId= '';
-  voteStatus= '';
+  voteStatus= false;
   voteResult: any;
 
 
@@ -59,6 +59,9 @@ export class HackathonVotePage implements OnInit {
         }
       )
       this.counter += 1;
+      if(this.counter==6){
+        this.counter=0;
+      }
       //console.log(this.formattedCandidates);
     }
   }
@@ -76,7 +79,7 @@ export class HackathonVotePage implements OnInit {
       message: '<div class="vote-alert-body">'+ 
                     '<img src="'+(candidateIconURL)+'" alt="">' + 
                     '<p>' + candidateName +  '</p>' + 
-                    '<p>Apakah kamu yakin memilih kandidat ini?<p>' + 
+                    '<p>Apakah anda yakin memilih pilihan ini?<p>' + 
                 '</div>' ,
       cssClass:'vote-alert',
       buttons: [
@@ -86,11 +89,13 @@ export class HackathonVotePage implements OnInit {
         },
         {
           cssClass: 'alert-button-fill',
-          text: 'Vote',
+          text: 'Pilih',
           handler: () => {
             let postdata = {choice_id:candidateChoice_id};
             this.homeService.postVoteCandidate(postdata)
             .pipe().subscribe(() => {
+              this.voteDone();
+              this.voteStatus=true;
             }, (err) => {
               let message = '';
               if (err.error.message === undefined) {
@@ -98,6 +103,7 @@ export class HackathonVotePage implements OnInit {
               } else {
                 message = err.error.message;
                 console.log(message);
+                this.noVote();
                 //if no more votes left
               }
             });
@@ -107,6 +113,28 @@ export class HackathonVotePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async noVote(){
+    const alert = await this.alertCtrl.create({
+      message: '<div class="vote-alert-body">'+ 
+                    '<p>Anda sudah melakukan vote di topik ini!<p>' + 
+                '</div>',
+      cssClass:'vote-alert'             
+    });
+      await alert.present();
+  }
+
+  async voteDone(){
+    const alert = await this.alertCtrl.create({
+      message: '<div class="vote-done">'+ 
+                    '<img class="img-checked" src="../../assets/icons/checked-icon.svg" alt="">'+
+                    '<p class="title">Vote berhasil!<p>' + 
+                    '<p>Terima kasih sudah berpartisipasi mengikuti Voting.<p>' + 
+                '</div>',
+      cssClass:'vote-alert-notification'      
+      });
+      await alert.present();
   }
 
 }

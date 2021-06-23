@@ -209,10 +209,10 @@ export class AppComponent implements OnInit {
     await alert.present();
   }
 
-  openAppMarket(){
-    this.market.open('com.onetalents.mobile');
-    navigator['app'].exitApp();
-  }
+  // openAppMarket(){
+  //   this.market.open('com.onetalents.mobile');
+  //   navigator['app'].exitApp();
+  // }
   
   oneSignalInit(){
     this.platform.ready().then(()=>{

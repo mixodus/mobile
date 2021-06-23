@@ -94,7 +94,10 @@ ion-searchbar {
   color: var(--idstar-dark-grey);
   --placeholder-font-weight: thin;
 }
-
+ion-segment{
+  --background: white;
+  --background-checked: rgb(250,250,250);
+}
 .friends-list {
   padding: 0px var(--page-margin);
   margin-bottom: calc(var(--page-margin) * 3);
@@ -240,6 +243,11 @@ ion-item.friend-item {
   padding: 0 20px;
   margin-bottom: 20px;
 }
+.jobDueDate-container{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10%;
+}
 
 .job-type-button {
   --border-radius: 5px;
@@ -251,6 +259,12 @@ ion-item.friend-item {
   --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
   color: var(--idstar-white);
   --box-shadow: 0 0 32px -7px #75C244;
+}
+
+.container-{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
 }
 
 .user-applied-jobs-card {
@@ -303,18 +317,24 @@ ion-item.friend-item {
           .icon-job-company-container {
             --color: white !important;
             --background: var(--idstar-primary) !important;
+            border-radius: 10%;
+            box-shadow: 0px 1px 3px 0px RGB(0 0 0 / 20%);
           }
 
           .icon-job-company {
             --color: white !important;
-            width: 18px;
-            height: 18px;
+            min-width: 50px;
+            min-height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 10%;
           }
 
           .job-company {
             color: var(--idstar-dark-grey);
-            margin-left: 10px;
-            font-size: 10px;
+            font-size: 12px;
+            margin-bottom: 1%;
+            margin-top: 1%;
           }
 
           .job-name {
@@ -323,24 +343,24 @@ ion-item.friend-item {
             line-height: 1.33;
             text-align: left;
             font-size: 14px;
-            margin: 0 0 5px;
           }
 
           .job-detail-container {
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
+            min-width: 170px;
+            max-width: 170px;
           }
 
-          .location-container, .job-type-detail-container {
+          .location-container, .job-type-detail-container, .jobType-container {
             display: flex;
             flex-direction: row;
             align-items: center;
-            width: 50%;
           }
 
           .icon-location {
             color: var(--idstar-primary);
-            margin-right: 9px;
           }
 
           .job-location {
@@ -348,6 +368,14 @@ ion-item.friend-item {
             font-weight: 300;
             font-size: 11px;
             text-align: left;
+          }
+
+          .job-type{
+            color: var(--idstar-dark-grey);;
+            font-weight: 300;
+            font-size: 11px;
+            text-align: left;
+            padding-left: 2%;
           }
 
           .job-time {
@@ -360,7 +388,7 @@ ion-item.friend-item {
 
         .status {
           position: absolute;
-          top: 13px;
+          bottom: 13px;
           right: 16px;
 
           .job-status--applied {

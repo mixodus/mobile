@@ -6,87 +6,85 @@
     </ion-toolbar>
 </ion-header>
 
-<div class="upper">
-    <div class="image">
-        <app-aspect-ratio [ratio]="{w:1, h:1}">
-            <app-image-shell
-                    *ngIf="jobsDetail.data.company_logo_url"
-                    class="add-border details-image"
-                    [src]="jobsDetail.data.company_logo_url"
-            >
-            </app-image-shell>
-            <app-image-shell
-                    *ngIf="!jobsDetail.data.company_logo_url"
-                    class="add-border details-image"
-                    [src]="companyImg"
-            >
-            </app-image-shell>
-        </app-aspect-ratio>
-    </div>
-</div>
 
 <ion-content class="travel-details-content">
-    <div class="lower">
-        <div class="description-title">
-        <ion-row>
-            <ion-col class="ion-text-center">
-                <app-text-shell
-                        class="job-title"
-                        animation="gradient"
-                        [data]="jobsDetail?.data.job_title"
+    <div class="upper">
+        <div class="image">
+            <app-aspect-ratio [ratio]="{w:1, h:1}">
+                <app-image-shell
+                        *ngIf="jobsDetail.data.company_logo_url"
+                        class="add-border details-image"
+                        [src]="jobsDetail.data.company_logo_url"
                 >
-                </app-text-shell>
-                <app-text-shell animation="gradient" style="margin-top: 10px;" *ngIf="jobsDetail.isShell">
-                </app-text-shell>
-
-                <ng-container *ngIf="!jobsDetail.isShell">
-                    <div class="job-detail-container">
-                        <div class="location-container">
-                            <ion-icon class="icon-location" src="./assets/icons/place-24px.svg"></ion-icon>
-                            <div class="job-location">{{jobsDetail?.data.province + ', ' + jobsDetail?.data.country}}</div>
-                        </div>
-                        <div class="job-type-detail-container">
-                            <ion-icon class="icon-building" src="./assets/icons/business-24px.svg"></ion-icon>
-                            <div class="job-company">{{jobsDetail?.data.company_name}}</div>
-                        </div>
-                    </div>
-                </ng-container>
-            </ion-col>
-        </ion-row>
-    </div>
-
-        <div class="toggle-container">
-            <div [ngClass]="{'toggle-content-fill': toggleState === 0, 'toggle-content-outline':toggleState === 1 }" (click)="handleToggleContent(0)">Deskripsi</div>
-            <div [ngClass]="{'toggle-content-fill': toggleState === 1, 'toggle-content-outline':toggleState === 0 }" (click)="handleToggleContent(1)">Persyaratan</div>
-        </div>
-
-        <div class="job-desc" *ngIf="toggleState === 0">
-            <h2 class="details-name" size="12">Deskripsi Pekerjaan</h2>
-
-            <div class="detail">
-                <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
-            </div>
-
-            <div
-                    class="detail"
-                    *ngIf="!jobsDetail.isShell"
-                    [innerHTML]="jobsDetail?.data.short_description"
-            ></div>
-        </div>
-        <div class="job-req" *ngIf="toggleState === 1">
-            <h2 class="details-name" size="12">Persyaratan</h2>
-            <div class="detail">
-                <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
-            </div>
-
-            <div
-                    class="detail"
-                    *ngIf="!jobsDetail.isShell"
-                    [innerHTML]="jobsDetail?.data.long_description"
-            ></div>
+                </app-image-shell>
+                <app-image-shell
+                        *ngIf="!jobsDetail.data.company_logo_url"
+                        class="add-border details-image"
+                        [src]="companyImg"
+                >
+                </app-image-shell>
+            </app-aspect-ratio>
         </div>
     </div>
-</ion-content>
+    <ion-card>
+        <div class="lower">
+            <div class="description-title">
+            <ion-row>
+                <ion-col class="ion-text-center">
+                    <app-text-shell
+                            class="job-title"
+                            animation="gradient"
+                            [data]="jobsDetail?.data.job_title"
+                    >
+                    </app-text-shell>
+                    <app-text-shell animation="gradient" style="margin-top: 10px;" *ngIf="jobsDetail.isShell">
+                    </app-text-shell>
+    
+                    <ng-container *ngIf="!jobsDetail.isShell">
+                        <div class="job-detail-container">
+                            <div class="location-container">
+                                <ion-icon class="icon-location" src="./assets/icons/place-24px.svg"></ion-icon>
+                                <div class="job-location">{{jobsDetail?.data.province + ', ' + jobsDetail?.data.country}}</div>
+                            </div>
+                            <div class="job-type-detail-container">
+                                <ion-icon class="icon-building" src="./assets/icons/business-24px.svg"></ion-icon>
+                                <div class="job-company">{{jobsDetail?.data.company_name}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ion-col>
+            </ion-row>
+        </div>
+    
+            <div class="job-desc" >
+                <h2 class="details-name" size="12">Deskripsi Pekerjaan</h2>
+    
+                <div class="detail">
+                    <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
+                </div>
+    
+                <div
+                        class="detail"
+                        *ngIf="!jobsDetail.isShell"
+                        [innerHTML]="jobsDetail?.data.short_description"
+                ></div>
+            </div>
+            <div class="job-req">
+                <h2 class="details-name" size="12">Persyaratan</h2>
+                <div class="detail">
+                    <app-text-shell animation="gradient" *ngIf="jobsDetail.isShell"></app-text-shell>
+                </div>
+    
+                <div
+                        class="detail"
+                        *ngIf="!jobsDetail.isShell"
+                        [innerHTML]="jobsDetail?.data.long_description"
+                ></div>
+            </div>
+        </div>
+    
+    </ion-card>
+    </ion-content>
 
 <ion-footer class="apply-btn-container" *ngIf="auth.token">
     <ion-button

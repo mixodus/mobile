@@ -11,6 +11,8 @@ import { Network } from '@ionic-native/network/ngx';
 // import { NetworkServiceProviderService } from './network-service-provider.service';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { HomeService} from './home/home.service';
+import { Market } from '@ionic-native/market/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,11 @@ import { HomeService} from './home/home.service';
 })
 export class AppComponent implements OnInit {
   sessionUser = {fullname : 'Hendra Ramdhan', job_title: 'Software Developer'};
+  AppName:string;
+  PackageName:string;
+  VersionCode:string|number;
+  VersionNumber:string;
+  AppNewestVer:string|number;
 
   appPages = [
     {
@@ -122,6 +129,8 @@ export class AppComponent implements OnInit {
     private toast: ToastController,
     private oneSignal: OneSignal,
     private homeService: HomeService,
+    private market: Market,
+    private appVersion: AppVersion,
   ) {
     this.initializeApp();
     this.setLanguage();
@@ -133,6 +142,12 @@ export class AppComponent implements OnInit {
     } catch (err) {
       console.log('This is normal in a browser', err);
     }
+    this.homeService.getAppNewestVersion().pipe().subscribe( (data:any) =>{
+      this.AppNewestVer = data.data;
+    });
+    // this.market.open('com.onetalents.mobile');
+    this.checkAppVersion();
+
     //this.oneSignalInit();
     // this.auth.authState.subscribe(state => {
     //   if (state) {
@@ -142,6 +157,62 @@ export class AppComponent implements OnInit {
     //   }
     // });
   }
+
+  checkAppVersion(){
+    this.platform.ready().then(() => {
+      this.appVersion.getAppName().then(value => {
+        this.AppName = value;
+        console.log('AppName:' + this.AppName)
+      }).catch(err => {
+        alert(err);
+      });
+      this.appVersion.getPackageName().then(value => {
+        this.PackageName = value;
+        console.log('PackageName:' + this.PackageName)
+      }).catch(err => {
+        alert(err);
+      });
+      this.appVersion.getVersionCode().then(value => {
+        this.VersionCode = value;
+        console.log('VersionCode:' + this.VersionCode);
+        //Check App version or not update to market
+        if(this.VersionCode != this.AppNewestVer){
+          this.updateAlert();
+        }
+      }).catch(err => {
+        alert(err);
+      });
+      this.appVersion.getVersionNumber().then(value => {
+        this.VersionNumber = value;
+        console.log('VersionNumber:' + this.VersionNumber)
+      }).catch(err => {
+        alert(err);
+      });
+    })
+  }
+
+  async updateAlert(){
+    const alert = await this.alertController.create({
+      header: 'New Update!',
+      message: 'Please update to use new features!',
+      buttons: [
+        {
+          text: 'OK',
+          handler: (blah) => {
+            this.market.open('com.onetalents.mobile');
+            navigator['app'].exitApp();
+            // this.openAppMarket();
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  // openAppMarket(){
+  //   this.market.open('com.onetalents.mobile');
+  //   navigator['app'].exitApp();
+  // }
   
   oneSignalInit(){
     this.platform.ready().then(()=>{

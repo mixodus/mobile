@@ -91,8 +91,13 @@ ion-toolbar {
 
     .description-title {
       background-color: var(--idstar-primary-shade);
-      padding: 60px 15px 15px;
+      padding-top: 60px;
+      padding-bottom: 15px;
       margin-bottom: 10px;
+      margin-left: 5%;
+      margin-right: 5%;
+      border-bottom: solid;
+      border-width: 2px;
 
       .details-location {
         color: var(--idstar-grey);
@@ -106,26 +111,18 @@ ion-toolbar {
 
       .job-detail-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         width: 100%;
       }
 
       .location-container, .job-type-detail-container {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         flex-direction: row;
         align-items: center;
-        padding-top: 20px;
+        padding-top: 10px;
         width: 50%;
-      }
-
-      .location-container {
-        padding-left: 10%;
-      }
-
-      .job-type-detail-container {
-        padding-right: 10%;
       }
 
       .icon-location, .icon-building {
@@ -135,8 +132,8 @@ ion-toolbar {
 
       .job-location, .job-company {
         color: var(--idstar-dark-grey);;
-        font-weight: 300;
-        font-size: 11px;
+        // font-weight: 300;
+        font-size: 12px;
         text-align: left;
       }
     }
@@ -150,30 +147,33 @@ ion-toolbar {
 
     .detail {
       font-size: 10px;
+      text-align: justify;
       color: var(--idstar-dark-grey);
     }
 
     .job-desc {
-      padding: 20px 30px 30px 30px;
-      margin-bottom: 10px;
+      padding: 10px 20px 10px 20px;
     }
 
     .job-req {
-      padding: 20px 30px 30px 30px;
-      margin-bottom: 10px;
+      padding: 10px 20px 10px 20px;
     }
   }
 }
-
+ion-card{
+  position: relative;
+  top: -3%;
+}
 .upper {
   position: relative;
-  padding-top: 25%;
-  background-image: url('assets/new-assets/Image 14.png');
+  padding-top: 40%;
+  background-image: url('assets/header-image.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
+  z-index: 1;
 
   .image {
     height: 80px;
@@ -190,7 +190,7 @@ ion-toolbar {
 
 .job-title {
   font-size: 22px;
-  text-align: center;
+  text-align: initial;
   font-weight: 700;
   --color: var(--idstar-dark-grey);
 }

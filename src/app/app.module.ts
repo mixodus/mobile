@@ -37,6 +37,8 @@ import localeId from '@angular/common/locales/id';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import {HomeService} from './home/home.service';
 
+import { Market } from '@ionic-native/market/ngx';
+
 
 registerLocaleData(localeId, 'id');
 
@@ -85,6 +87,7 @@ export function createTranslateLoader(http: HttpClient) {
     InAppBrowser,
     OneSignal,
     HomeService,
+    Market,
     { provide: LOCALE_ID, useValue: 'id-ID' }
     // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true }
   ],

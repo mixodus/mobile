@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/auth/authentication.service';
 import { HomeModel } from './home.model';
 import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
+import { ChallengesModel } from '../challenges/challenges.model';
+import { VoteResultModel } from './home.model';
 
 @Injectable()
 export class HomeService {
@@ -30,6 +32,83 @@ export class HomeService {
       this.globalService.apiUrl +
       'api/home';
     return this.http.get<HomeModel>(homeEndpoint, options);
+  }
+
+  public getChallangeSource(){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const challangeEndpoint =
+      this.globalService.apiUrl +
+      'api/challenge';
+      console.log(challangeEndpoint);
+    return this.http.get<ChallengesModel>(challangeEndpoint, options);
+  }
+
+  public getCandidate(id){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const candidateEndpoint =
+      this.globalService.apiUrl +
+      'api/votes/candidates?topic_id=' + id;
+      console.log(candidateEndpoint);
+    return this.http.get<HomeModel>(candidateEndpoint, options);
+  }
+
+  public getVoteResult(id){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const votingEndpoint =
+      this.globalService.apiUrl +
+      'api/votes?vote_topic_id=' + id;
+      console.log(votingEndpoint);
+    return this.http.get<VoteResultModel>(votingEndpoint, options);
+  }
+
+  public postVoteCandidate(postData: any){
+    if (this.auth.token) {
+      this.token = String(this.auth.token);
+    }
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.globalService.getGlobalApiKey(),
+      'X-Token': this.token
+    });
+
+    const options = { headers: headers };
+
+    const voteCandidateEndpoint =
+      this.globalService.apiUrl +
+      'api/votes';
+      console.log(voteCandidateEndpoint);
+      console.log(postData);
+    return this.http.post(voteCandidateEndpoint, postData ,options);
   }
 
   public postDeviceID(formData: any) {
@@ -68,5 +147,10 @@ export class HomeService {
     }
     count++;
     return this.profileDataStore;
+  }
+
+  public getAppNewestVersion(){
+    const homeEndpoint = this.globalService.apiUrl + 'api/app-version'
+    return this.http.get(homeEndpoint);
   }
 }

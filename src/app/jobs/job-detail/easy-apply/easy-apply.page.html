@@ -10,26 +10,25 @@
   <app-restricted-interface></app-restricted-interface>
 </div>
 
-<div class="upper" *ngIf="auth.token">
-  <div class="image">
-    <app-aspect-ratio [ratio]="{w:1, h:1}">
-      <app-image-shell
-              *ngIf="job?.company_logo_url"
-              class="add-border details-image"
-              [src]="job?.company_logo_url"
-      >
-      </app-image-shell>
-      <app-image-shell
-              *ngIf="!job?.company_logo_url"
-              class="add-border details-image"
-              [src]="companyImg"
-      >
-      </app-image-shell>
-    </app-aspect-ratio>
-  </div>
-</div>
-
 <ion-content class="details-content" *ngIf="auth.token">
+  <div class="upper" *ngIf="auth.token">
+    <div class="image">
+      <app-aspect-ratio [ratio]="{w:1, h:1}">
+        <app-image-shell
+                *ngIf="job?.company_logo_url"
+                class="add-border details-image"
+                [src]="job?.company_logo_url"
+        >
+        </app-image-shell>
+        <app-image-shell
+                *ngIf="!job?.company_logo_url"
+                class="add-border details-image"
+                [src]="companyImg"
+        >
+        </app-image-shell>
+      </app-aspect-ratio>
+    </div>
+  </div>
   <div class="lower">
 <!--    <div class="description-title">-->
 <!--      <ion-row>-->

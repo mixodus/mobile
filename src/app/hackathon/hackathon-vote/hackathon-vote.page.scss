@@ -1,0 +1,131 @@
+ion-col > div {
+    background-color: #f7f7f7;
+    border: solid 1px #ddd;
+  }
+  .button-fill {
+    width: 100%;
+    --background: rgb(117, 194, 68);
+    --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--idstar-white);
+    font-family: var(--nunito-family);
+    --box-shadow: 0 0 32px -7px #75C244;
+  }
+  .button-result{
+    text-align: center;
+    width: 100%;
+    .button{
+      --background: rgb(117, 194, 68);
+      font-size: 16px;
+      color: var(--idstar-white);
+    }
+  }
+  .hackathon-header {
+    color: var(--idstar-white);
+  
+    .back {
+      font-size: 22px;
+      color: var(--idstar-dark-grey);
+    }
+  
+    .title {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  .hackathon-content {
+    --background: var(--idstar-white);
+
+  
+    .spinner-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+  
+      .spinner {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  //Hackathon Card Icon
+    .hackathon-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .hackathon-card-icon {
+        border-radius: 50%;
+        width: 106px;
+        height: 106px;
+        object-fit: cover;
+      }
+    }
+    //Color Card
+    .hackathon-card-colors{
+      border-top: 15px solid #FB768B;
+      border-radius: 13px;
+    }
+  .hackathon-content-column {
+    padding: 40px;
+
+    .hackathon-image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .hackathon-image {
+        max-width: 165px;
+        margin-bottom: 6px;
+      }
+    }
+    .hackathon-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--idstar-dark-grey);
+      margin-bottom: 37px;
+    }
+
+    .toggle-container {
+      padding: 0 10%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: 18px;
+
+      .toggle-content-fill {
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        background-color: var(--idstar-light-green);
+      }
+
+      .toggle-content-outline {
+        border: 2px solid var(--idstar-dark-grey);
+        padding: 6px 15px;
+        border-radius: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--idstar-dark-grey);
+      }
+    }
+  }
+  .card-text{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--idstar-dark-grey);
+      text-align: center;
+  }

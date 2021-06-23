@@ -76,6 +76,7 @@ export class JobsPage implements OnInit {
           .subscribe(
             (response) => {
               this.jobs = this.formattingJobsResponse(response);
+              console.log(this.jobs);
             },
             (error) => {
             }
@@ -84,7 +85,6 @@ export class JobsPage implements OnInit {
       (error) => {
       }
     );
-
     this.route.data.subscribe(
       (resolvedRouteData) => {
         const dataJobApply = resolvedRouteData['dataJobApply'];

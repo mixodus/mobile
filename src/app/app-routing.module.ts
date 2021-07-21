@@ -392,6 +392,11 @@ const routes: Routes = [
     path: 'vote-result/:topic_id',
     loadChildren: () => import('./hackathon/vote-result/vote-result.module').then( m => m.VoteResultPageModule)
   },
+  {
+    path: 'app/connection',
+    loadChildren: () => import('./connection/connection.module').then( m => m.ConnectionPageModule)
+  },
+
 
 
 

@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik&display=swap");
+// Custom variables
+// Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
+:host {
+  --page-margin: var(--app-narrow-margin);
+  --page-border-radius: var(--app-fair-radius);
+  --page-segment-background: var(--app-background);
+  --page-segment-indicator-height: 2px;
+}
+
+.header {
+    color: var(--idstar-dark-grey);
+  
+    .back {
+      font-size: 22px;
+      color: var(--idstar-dark-grey);
+    }
+  
+    .title {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: bold;
+    }
+}
+
+ion-segment-button {
+    background-color: var(--idstar-white);
+    --padding-end: var(--page-margin);
+    --padding-start: var(--page-margin);
+    --background: var(--idstar-primary-shade);
+    --color-checked: var(--idstar-primary);
+    --color: var(--idstar-grey);
+    --indicator-color-checked: var(--idstar-primary);
+
+    text-transform: capitalize;
+    min-height: calc((var(--page-margin) * 3) - var(--page-segment-indicator-height));
+
+    ion-label {
+      margin-top: calc(var(--page-margin) / 2);
+      margin-bottom: calc(var(--page-margin) / 4);
+    }
+}
+
+.content {
+    --background: var(--idstar-light-grey);
+    // overflow: scroll;
+    // background-attachment: scroll;
+}
+.friend-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .icon-container{
+        width: 100px;
+        .icon{
+            object-fit: cover;
+            min-width: 75px;
+            min-height: 75px;
+            border-radius: 50%;
+        }
+    }
+    .container-{
+        margin-left: 5%;
+        width: 100%;
+        .name{
+            font-size: 3.5vw;
+            font-weight: bold;
+            color: black;
+        }
+        .job-position{
+            font-size: 3vw;
+            color: black;
+        }
+        .container-button{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .button{
+                width: 100%;
+                font-size: 3vw;
+            }
+        }
+    }
+}
+
+.show-more{
+    text-align: center;
+    font-size: 3vw;
+    font-weight: bold;
+    padding-top: 2%;
+}
+

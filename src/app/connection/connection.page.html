@@ -1,0 +1,89 @@
+<ion-app>
+  <div>
+    <ion-header class="header">
+        <ion-toolbar>
+          <ion-buttons slot="start" (click)="onBackClick()">
+            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+          </ion-buttons>
+          <ion-title class = "title">Connection</ion-title>
+        </ion-toolbar>
+        <ion-segment>
+            <ion-segment-button value="-" (click)="handleToggleJob(0)">
+              <ion-label>tab</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="-" (click)="handleToggleJob(1)">
+              <ion-label>tab</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-header>
+    
+    <ion-content class="content" fullscreen="true">
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
+        <section> <!--[hidden]="toggleState === 0" class="segmentJobs" *ngIf="true"-->
+          <!-- <div class="header-container"></div> -->
+          <!-- <div *ngIf="noSearch">
+              <ion-card *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0" class="ion-text-center">
+                  <ion-card-content class="empty-job">
+                      Pekerjaan yang anda lamar akan ditampilkan di sini.
+                  </ion-card-content>
+              </ion-card>
+          </div> -->
+
+          <ion-card class="friend-bar" *ngFor="let list of connection"> 
+            <!-- *ngFor="let job of jobApplicationList.data"
+            (click)="getJobDetailDataSourceId(job.job_id)" -->
+              <ion-card-content class="user-applied-jobs-content"> <!--*ngIf="!jobApplicationList.isShell"-->
+                  <ion-grid class="ion-no-padding applied-jobs-grid">
+                      <ion-row class="applied-jobs-row">
+                          <ion-col class="ion-no-padding job-details">
+                              <div class="friend-container">
+                                  <div class="icon-container">
+                                      <img class="icon"
+                                           [src]="(list.profile_picture_url)">
+                                  </div>
+                                  <div class="container-">
+                                      <div class="name">{{list.fullname}}</div>
+                                      <div class="job-position">{{list.job_title}}</div>
+                                      <div class="container-button">
+                                        <ion-button class="button">button</ion-button>
+                                        <ion-button class="button">button</ion-button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ion-col>
+                          <!-- <div class="status">
+                              <div *ngIf="job.application_status == 'Rejected'">
+                                  <div class="job-status--rejected">
+                                      {{job.application_status}}
+                                  </div>
+                              </div>
+                              <div *ngIf="job.application_status == 'Applied'">
+                                  <div class="job-status--applied">
+                                      {{job.application_status}}
+                                  </div>
+                              </div>
+                          </div> -->
+                      </ion-row>
+                  </ion-grid>
+              </ion-card-content>
+          </ion-card>
+
+          <ion-infinite-scroll threshold="100px" (ionInfinite)="loadConnectionData($event)">
+            <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+
+          <!-- <div class="show-more">
+            <a (click)="getConnection()">Lihat Semua ()</a>
+          </div> -->
+      </section>
+      
+    </ion-content>
+  </div>
+</ion-app>
+

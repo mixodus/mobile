@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
       this.AppNewestVer = data.data;
     });
     // this.market.open('com.onetalents.mobile');
-    this.checkAppVersion();
+    // this.checkAppVersion();
 
     //this.oneSignalInit();
     // this.auth.authState.subscribe(state => {

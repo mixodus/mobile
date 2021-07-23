@@ -17,6 +17,7 @@ export class ConnectionPage implements OnInit {
   public token = '';
   public page = 1;
   public last_page = 0;
+  toggleState = 0;
   constructor(
     private navCtrl:NavController,
     private http: HttpClient,
@@ -27,6 +28,10 @@ export class ConnectionPage implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  handleToggle(index: number) {
+    this.toggleState = index;
   }
 
   onBackClick() {

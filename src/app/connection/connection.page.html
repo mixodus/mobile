@@ -8,11 +8,11 @@
           <ion-title class = "title">Connection</ion-title>
         </ion-toolbar>
         <ion-segment>
-            <ion-segment-button value="-" (click)="handleToggleJob(0)">
-              <ion-label>tab</ion-label>
+            <ion-segment-button value="-" (click)="handleToggle(0)">
+              <ion-label>Discover</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="-" (click)="handleToggleJob(1)">
-              <ion-label>tab</ion-label>
+            <ion-segment-button value="-" (click)="handleToggle(1)">
+              <ion-label>Request</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-header>
@@ -22,7 +22,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-        <section> <!--[hidden]="toggleState === 0" class="segmentJobs" *ngIf="true"-->
+        <section [hidden]="toggleState === 1" >  <!--[hidden]="toggleState === 0" class="segmentJobs" *ngIf="true"-->
           <!-- <div class="header-container"></div> -->
           <!-- <div *ngIf="noSearch">
               <ion-card *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0" class="ion-text-center">
@@ -48,8 +48,8 @@
                                       <div class="name">{{list.fullname}}</div>
                                       <div class="job-position">{{list.job_title}}</div>
                                       <div class="container-button">
-                                        <ion-button class="button">button</ion-button>
-                                        <ion-button class="button">button</ion-button>
+                                        <ion-button class="button">Connect</ion-button>
+                                        <ion-button class="buttonRemove">Remove</ion-button>
                                       </div>
                                   </div>
                               </div>

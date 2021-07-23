@@ -78,9 +78,20 @@ ion-segment-button {
             display: flex;
             flex-direction: row;
             justify-content: center;
+            
             .button{
                 width: 100%;
                 font-size: 3vw;
+                color : white;
+                --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+            
+            }
+            .buttonRemove{
+                width: 100%;
+                font-size: 3vw;
+                color : white;
+                --background : rgba(208, 208, 208, 1);
+            
             }
         }
     }

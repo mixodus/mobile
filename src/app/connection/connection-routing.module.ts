@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: ConnectionPage
+  },
+  {
+    path: 'connection-details',
+    loadChildren: () => import('./connection-details/connection-details.module').then( m => m.ConnectionDetailsPageModule)
+  },
+  {
+    path: 'my-connection',
+    loadChildren: () => import('./discover-connection/discover-connection.module').then( m => m.DiscoverConnectionModule)
   }
 ];
 

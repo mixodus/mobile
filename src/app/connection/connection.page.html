@@ -1,89 +1,161 @@
 <ion-app>
-  <div>
-    <ion-header class="header">
-        <ion-toolbar>
-          <ion-buttons slot="start" (click)="onBackClick()">
-            <ion-icon class="back" name="ios-arrow-back"></ion-icon>
-          </ion-buttons>
-          <ion-title class = "title">Connection</ion-title>
-        </ion-toolbar>
-        <ion-segment>
-            <ion-segment-button value="-" (click)="handleToggle(0)">
-              <ion-label>Discover</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="-" (click)="handleToggle(1)">
-              <ion-label>Request</ion-label>
-            </ion-segment-button>
-        </ion-segment>
-    </ion-header>
-    
-    <ion-content class="content" fullscreen="true">
-      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+  <div class="main-container ion-page">
+      <ion-header class="jobs-header">
+          <ion-toolbar class="header-toolbar">
+              <ion-buttons slot="start" (click)="onBackClick()">
+                  <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+              </ion-buttons>
+              <ion-title class="title">
+                  Connection
+              </ion-title>
+          </ion-toolbar>
+          <ion-segment>
+              <ion-segment-button value="Discover" (click)="handleToggle(0)">
+                <ion-label>Friends</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="Request" (click)="handleToggle(1)">
+                <ion-label>Request</ion-label>
+              </ion-segment-button>
+          </ion-segment>
+      </ion-header>
 
-        <section [hidden]="toggleState === 1" >  <!--[hidden]="toggleState === 0" class="segmentJobs" *ngIf="true"-->
-          <!-- <div class="header-container"></div> -->
-          <!-- <div *ngIf="noSearch">
-              <ion-card *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0" class="ion-text-center">
-                  <ion-card-content class="empty-job">
-                      Pekerjaan yang anda lamar akan ditampilkan di sini.
-                  </ion-card-content>
-              </ion-card>
-          </div> -->
-
-          <ion-card class="friend-bar" *ngFor="let list of connection"> 
-            <!-- *ngFor="let job of jobApplicationList.data"
-            (click)="getJobDetailDataSourceId(job.job_id)" -->
-              <ion-card-content class="user-applied-jobs-content"> <!--*ngIf="!jobApplicationList.isShell"-->
-                  <ion-grid class="ion-no-padding applied-jobs-grid">
-                      <ion-row class="applied-jobs-row">
-                          <ion-col class="ion-no-padding job-details">
-                              <div class="friend-container">
-                                  <div class="icon-container">
-                                      <img class="icon"
-                                           [src]="(list.profile_picture_url)">
-                                  </div>
-                                  <div class="container-">
-                                      <div class="name">{{list.fullname}}</div>
-                                      <div class="job-position">{{list.job_title}}</div>
-                                      <div class="container-button">
-                                        <ion-button class="button">Connect</ion-button>
-                                        <ion-button class="buttonRemove">Remove</ion-button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </ion-col>
-                          <!-- <div class="status">
-                              <div *ngIf="job.application_status == 'Rejected'">
-                                  <div class="job-status--rejected">
-                                      {{job.application_status}}
-                                  </div>
-                              </div>
-                              <div *ngIf="job.application_status == 'Applied'">
-                                  <div class="job-status--applied">
-                                      {{job.application_status}}
-                                  </div>
-                              </div>
-                          </div> -->
+      <ion-content class="content" fullscreen="true">
+          <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+              <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <div>
+              
+              <section *ngIf="toggleState === 0" class="friendsSegment">
+                  <div class="header-container">
+                    <ion-button class="discover" [routerLink]="['/', 'app', 'connection', 'myconnection']">
+                      <ion-label>Discover</ion-label>
+                      <ion-icon class="forward" name="ios-arrow-forward"></ion-icon>
+                    </ion-button> 
+                    <!-- <ion-grid class="grid">
+                      <ion-row>
+                        <ion-col mode="md"  size= "12" size-xs= "6" size-sm ="4"size-md="3"*ngFor = "let list of connected" >
+                          <ion-card>
+                            <img src="../../assets/home-header-color.svg" class="card-color">
+                            <ion-card-header mode="md" >
+                              <ion-card-subtitle class= "card-header">
+                                <img [src]="(list.profile_picture_url)" class="card" *ngIf="list.profile_picture_url">
+                                <img src="./assets/icons/user-icon.svg" class="card-icon" *ngIf="!list.profile_picture_url">
+                              </ion-card-subtitle>
+                              <ion-card-title  class= "card-text">{{list.fullname}}</ion-card-title>
+                              <ion-card-subtitle class= "card-text-subtitle">{{list.job_title}}</ion-card-subtitle>
+                            </ion-card-header>
+                            <ion-card-content mode="md">
+                              <ion-button mode="md"  class="button-fill" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]"> Details </ion-button>
+                            </ion-card-content>
+                          </ion-card>
+                        </ion-col>
                       </ion-row>
+                    </ion-grid>
+                  </div>
+                  <div class="know">
+                    <label>People you might know</label>
+                  </div>
+                  <div>
+                      <ion-card class="friend-bar" *ngFor="let list of connection; let i = index;"> 
+                          <ion-card-content class="user-applied-jobs-content">
+                              <ion-grid class="ion-no-padding applied-jobs-grid">
+                                  <ion-row class="applied-jobs-row">
+                                      <ion-col class="ion-no-padding job-details">
+                                          <div class="friend-container">
+                                              <div class="icon-container">
+                                                  <img *ngIf="list.profile_picture_url" class="icon"
+                                                      [src]="(list.profile_picture_url)">
+                                                  <img *ngIf="!list.profile_picture_url" class="icon-"
+                                                  src="./assets/sample-images/user/default-profile.svg">
+                                              </div>
+                                              <div class="container-">
+                                                <div>
+                                                  <div class="name">{{list.fullname}}</div>
+                                                  <div class="job-position">{{list.job_title}}</div>
+                                                </div>
+                                                  <div class="container-button">
+                                                    <ion-button *ngIf="!list.requested" (click)="requestConnection(list.user_id, i)" class="connect">Connect</ion-button>
+                                                    <ion-button *ngIf="list.requested" (click)="cancelRequestConnection(list.user_id, i)" class="requested">Requested</ion-button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </ion-col>
+                                  </ion-row>
+                              </ion-grid>
+                          </ion-card-content>
+                      </ion-card>
+                      <ion-infinite-scroll threshold="0.1%" (ionInfinite)="loadConnectionDiscover($event)">
+                        <ion-infinite-scroll-content
+                          loadingSpinner="bubbles"
+                          loadingText="Loading more data...">
+                        </ion-infinite-scroll-content>
+                      </ion-infinite-scroll> -->
+                  </div>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col mode="md"  size= "12" size-xs= "6" size-sm ="4"size-md="3"*ngFor = "let list of connected" >
+                        <ion-card class="connectedCard">
+                          <img src="../../assets/home-header-color.svg" class="card-color">
+                          <ion-card-header mode="md" >
+                            <ion-card-subtitle class= "card-header">
+                              <img [src]="(list.profile_picture_url)" class="card" *ngIf="list.profile_picture_url">
+                              <img src="./assets/icons/user-icon.svg" class="card-icon" *ngIf="!list.profile_picture_url">
+                            </ion-card-subtitle>
+                            <ion-card-title  class= "card-text">{{list.fullname}}</ion-card-title>
+                            <ion-card-subtitle class= "card-text-subtitle">{{list.job_title}}</ion-card-subtitle>
+                          </ion-card-header>
+                          <ion-card-content mode="md">
+                            <ion-button mode="md"  class="button-fill" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]"> Details </ion-button>
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+                    </ion-row>
                   </ion-grid>
-              </ion-card-content>
-          </ion-card>
+                  <ion-infinite-scroll threshold="0.1%" (ionInfinite)=" loadConnectionConnected($event)">
+                    <ion-infinite-scroll-content
+                      loadingSpinner="bubbles"
+                      loadingText="Loading more data...">
+                    </ion-infinite-scroll-content>
+                  </ion-infinite-scroll>
+              </section>
 
-          <ion-infinite-scroll threshold="100px" (ionInfinite)="loadConnectionData($event)">
-            <ion-infinite-scroll-content
-              loadingSpinner="bubbles"
-              loadingText="Loading more data...">
-            </ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-
-          <!-- <div class="show-more">
-            <a (click)="getConnection()">Lihat Semua ()</a>
-          </div> -->
-      </section>
+              <section *ngIf="toggleState === 1" > 
+                <ion-card *ngIf="!requests || requests.length === 0" class="request">
+                  <ion-card-content class="empty-request">
+                      Belum ada permintaan pertemanan.
+                  </ion-card-content>
+                </ion-card>
+                <ion-card class="friend-bar" *ngFor="let list of requests; let i = index"> 
+                    <ion-card-content class="user-applied-jobs-content" *ngIf="!list.is_friend"> 
+                        <ion-grid class="ion-no-padding applied-jobs-grid">
+                            <ion-row class="applied-jobs-row">
+                                <ion-col class="ion-no-padding job-details">
+                                    <div class="friend-container">
+                                        <div class="icon-container">
+                                            <img class="icon"
+                                                [src]="(list.profile_picture_url)">
+                                        </div>
+                                        <div class="container-request">
+                                            <div>
+                                              <div class="name">{{list.fullname}}</div>
+                                              <div class="job-position">{{list.job_title}}</div>
+                                            </div>
+                                            <div class="container-button">
+                                              <ion-button class="accept" (click)="acceptRequestConnection(list.user_id, i)">Accept</ion-button>
+                                              <ion-button class="decline" (click)="declineRequestConnection(list.user_id, i)">Decline</ion-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </section>
       
-    </ion-content>
+          </div>
+      </ion-content>
   </div>
 </ion-app>
+
 

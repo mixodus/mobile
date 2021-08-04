@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from '../services/auth/authentication.service';
-import { GlobalService } from '../services/global.service';
-import { HomeService } from '../home/home.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { NavController, ToastController, Platform, IonRefresher, LoadingController } from '@ionic/angular';
+import { ConnectionService } from './connection.service';
+import { NavController} from '@ionic/angular';
+
 
 @Component({
   selector: 'app-connection',
@@ -13,53 +9,64 @@ import { NavController, ToastController, Platform, IonRefresher, LoadingControll
   styleUrls: ['./connection.page.scss'],
 })
 export class ConnectionPage implements OnInit {
-  connection = [];
-  public token = '';
-  public page = 1;
-  public last_page = 0;
+  connected= [];
+  page = 1;
+  last_page = 0;
   toggleState = 0;
   constructor(
     private navCtrl:NavController,
-    private http: HttpClient,
-    private globalService: GlobalService,
-    private auth: AuthenticationService,
-    private homeService: HomeService,
-  ) { this.getConnection() }
+    private connectionService:ConnectionService,
+
+  ) { this.getConnected() }
 
   ngOnInit() {
-    
   }
 
   handleToggle(index: number) {
     this.toggleState = index;
   }
 
-  onBackClick() {
-    this.navCtrl.navigateForward(['app/home']);
-  }
-
-  getConnection(event?){
-    this.homeService.getConnection(this.page).subscribe((data: any) => {
-      this.connection = this.connection.concat(data['data']);
-      if(this.connection.length % 5 != 0){
-        this.last_page = Math.round(this.connection.length / 5) + 1;
+  doRefresh(event?:any){
+    this.page = 1;
+    this.connectionService.getConnected(this.page).subscribe((data: any) => {
+      this.connected = [];
+      this.connected = this.connected.concat(data['data']);
+      if(this.connected.length % 10 != 0){
+        this.last_page = Math.round(this.connected.length / 10) + 1;
         console.log(this.last_page);
       }
       if(event){
         event.target.complete();
       }
-      console.log(this.connection);
+      console.log(this.connected);
     });
   }
-
-  loadConnectionData(event){
-    this.page += 1;
-    if(this.page-1 === this.last_page){
-      // console.log(this.page, this.last_page);
-      event.target.disabled = true;
-    }else{
-      this.getConnection(event);
-    }
+  getConnected(event?){
+    this.connectionService.getConnected(this.page).subscribe((data: any) => {
+      this.connected = this.connected.concat(data['data']);
+      if(this.connected.length % 10 != 0){
+        this.last_page = Math.round(this.connected.length / 10) + 1;
+        console.log(this.last_page);
+      }
+      if(event){
+        event.target.complete();
+      }
+      console.log(this.connected);
+    });
   }
+  loadConnectionConnected(event){
+    this.page += 1;
+    // if(this.page-1 === this.last_page){
+    //   // console.log(this.page, this.last_page);
+    //   event.target.disabled = true;
+    // }else{
+    this.getConnected(event);
+    // }
+  }
+  
+  onBackClick() {
+    this.navCtrl.navigateForward(['app/connection']);
+  }
+
 
 }

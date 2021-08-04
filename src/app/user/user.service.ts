@@ -37,6 +37,24 @@ export class UserService {
       return null;
     }
   }
+  getConnectedDataSource(user_id): Observable<UserProfileModel> {
+    if (this.auth.token) {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': this.globalService.getGlobalApiKey(),
+        'X-Token': `${this.auth.token}`
+      });
+      const options = { headers: headers };
+
+      const profileEndpoint =
+        this.globalService.apiUrl +
+        'api/connection/details?user_id='+user_id;;
+
+      return this.http.get<UserProfileModel>(profileEndpoint, options);
+    } else {
+      return null;
+    }
+  }
 
   public getProfileStore(dataSource: Observable<UserProfileModel>, refresh: boolean = false): DataStore<UserProfileModel> {
     // Use cache if available

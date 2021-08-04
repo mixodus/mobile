@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { ConnectionModel, HomeModel } from './home.model';
+import { ConnectionModel, HomeModel, RequestsModel } from './home.model';
 import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
 import { ChallengesModel } from '../challenges/challenges.model';
@@ -152,24 +152,5 @@ export class HomeService {
   public getAppNewestVersion(){
     const homeEndpoint = this.globalService.apiUrl + 'api/app-version'
     return this.http.get(homeEndpoint);
-  }
-
-  public getConnection(page){
-    if (this.auth.token) {
-      this.token = String(this.auth.token);
-    }
-
-    const headers = new HttpHeaders({
-      'X-Api-Key': this.globalService.getGlobalApiKey(),
-      'X-Token': this.token
-    });
-
-    const options = { headers: headers };
-
-    const connectionEndpoint =
-      this.globalService.apiUrl +
-      'api/connection?page='+page;
-      console.log(connectionEndpoint);
-    return this.http.get<ConnectionModel>(connectionEndpoint, options);
   }
 }

@@ -396,11 +396,14 @@ const routes: Routes = [
     path: 'app/connection',
     loadChildren: () => import('./connection/connection.module').then( m => m.ConnectionPageModule)
   },
-
-
-
-
-
+  {
+    path: 'app/connection/myconnection/details/:user_id',
+    loadChildren: () => import('./connection/connection-details/connection-details.module').then( m => m.ConnectionDetailsPageModule)
+  },
+  {
+    path: 'app/connection/myconnection',
+    loadChildren: () => import('./connection/discover-connection/discover-connection.module').then(m => m.DiscoverConnectionModule)
+  },
 
 
 ];

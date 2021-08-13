@@ -194,9 +194,9 @@ export class HomePage implements OnInit {
       this.appComponent.oneSignalInit();
     }
     if (this.auth.isInitialLogin) {
-      this.presentPopupBanner().then(() => {
-        this.auth.changeIsInitialLogin(false);
-      });
+      // this.presentPopupBanner().then(() => {
+      //   this.auth.changeIsInitialLogin(false);
+      // });
     }
   }
 

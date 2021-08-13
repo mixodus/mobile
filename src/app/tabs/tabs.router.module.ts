@@ -128,7 +128,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../connection/connection.module').then((m) => m.ConnectionPageModule),
+              import('../connection/connection/connection.module').then((m) => m.ConnectionPageModule),
           },
         ],
       },

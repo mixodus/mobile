@@ -162,14 +162,11 @@
 
                 <section [hidden]="toggleState === 0" class="segmentJobs" *ngIf="jobApplicationList.status !== 'undefined'">
                     <div class="header-container"></div>
-                    <div *ngIf="noSearch">
                         <ion-card *ngIf="!jobApplicationList.data || jobApplicationList.data.length === 0" class="ion-text-center">
                             <ion-card-content class="empty-job">
                                 Pekerjaan yang anda lamar akan ditampilkan di sini.
                             </ion-card-content>
                         </ion-card>
-                    </div>
-
                     <ion-card class="user-applied-jobs-card" *ngFor="let job of jobApplicationList.data"
                               (click)="getJobDetailDataSourceId(job.job_id)">
                         <ion-card-content class="user-applied-jobs-content" *ngIf="!jobApplicationList.isShell">

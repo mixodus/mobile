@@ -16,22 +16,7 @@ export class JobsApplicationModel extends ShellModel {
     company_logo_url: string;
     country: string;
     province: string;
-  }> = [
-    {
-      application_id: '',
-      job_id: '',
-      job_title: '',
-      user_id: '',
-      application_status: '',
-      application_remarks: '',
-      date_of_closing: '',
-      company_name: '',
-      created_at: '',
-      company_logo_url: '',
-      province: '',
-      country: '',
-    },
-  ];
+  }>;
 
   constructor() {
     super();

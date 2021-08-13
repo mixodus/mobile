@@ -50,7 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SafeHtmlPipe],
+  declarations: [AppComponent, SafeHtmlPipe,],
   entryComponents: [],
   imports: [
     BrowserModule,

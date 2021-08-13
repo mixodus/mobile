@@ -9,6 +9,28 @@
     margin-bottom: 10px;
   }
 }
+
+.back{
+  font-size: 22px;
+  color: var(--idstar-dark-grey);
+}
+.container-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .connect{
+    width: 100%;
+    color : white;
+    --background: linear-gradient(90deg, rgba(117, 194, 68, 1) 0%, rgba(100, 229, 18, 1) 50%);
+    --box-shadow: none;
+  }
+  .requested {
+    width: 100%;
+    color : white;
+    --background: grey;
+    --box-shadow: none;
+  }
+}
 .content{
   --background: var(--idstar-light-grey);
 }
@@ -25,13 +47,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: 20%;
     padding: 20px 36px;
   
     .profile-image-container {
       .profile-image {
         height: auto;
-        width: 150px;
+        width: 120px;
         border-radius: 50%;
         margin-bottom: 5%;
       }

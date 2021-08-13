@@ -5,12 +5,13 @@ import { ConnectionService } from '../connection.service';
 @Component({
   selector: 'app-discover-connection',
   templateUrl: './discover-connection.page.html',
-  styleUrls: ['../connection.page.scss'],
+  styleUrls: ['../connection/connection.page.scss'],
 })
 export class DiscoverConnectionPage implements OnInit {
-  connected = [];
   connection = [];
-  requests = [];
+  searched = [];
+  noSearch= true;
+  wait= false;
   public token = '';
   public page = 1;
   public last_page = 0;
@@ -18,49 +19,68 @@ export class DiscoverConnectionPage implements OnInit {
   constructor(
     private navCtrl:NavController,
     private connectionService: ConnectionService,
-  ) { this.getConnected(), this.getConnectionDiscover(); this.getRequestList()}
+  ) {this.getConnectionDiscover()}
 
   ngOnInit() {
 
   }
 
   onBackClick() {
-    this.navCtrl.navigateForward(['app/connection']);
+    this.navCtrl.navigateBack(['app/connection']);
   }
 
   ionViewWillEnter(){
-    
+    this.doRefresh();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+  async searchWait(){
+    await this.delay(100);
+    if(this.searched.length > 0){
+      this.wait = false;
+    }else{
+      this.wait = false;
+    }
+    await this.delay(3000);
+    if(this.searched.length == 0){
+      this.wait = true;
+    }
+  }
+
+  searchList(ev: any): void {
+    const searchValue: string = ev.detail.value;
+
+    if (searchValue.length >= 3) {
+      this.searched = [];
+      this.searchConnection(searchValue);
+      this.noSearch = false;
+      this.searchWait();
+    } else if (searchValue.length <= 0) {
+      this.searched = [];
+      this.noSearch = true;
+      this.wait = false;
+    }
+  }
+
+  searchConnection(like: any){
+    this.connectionService.discoverSearch(like).subscribe((data: any) => {
+      this.searched = this.searched.concat(data['data']);
+    });
   }
 
   doRefresh(event?:any){
     this.page = 1;
-    this.connectionService.getRequestList().subscribe((data:any) => {
-      this.requests = data['data'];
-      console.log(this.requests);
-    });
     this.connectionService.getConnection(this.page).subscribe((data: any) => {
       this.connection = [];
       this.connection = this.connection.concat(data['data']);
       if(this.connection.length % 10 != 0){
         this.last_page = Math.round(this.connection.length / 10) + 1;
-        console.log(this.last_page);
       }
       if(event){
         event.target.complete();
       }
-      console.log(this.connection);
-    });
-    this.connectionService.getConnected(this.page).subscribe((data: any) => {
-      this.connected = [];
-      this.connected = this.connected.concat(data['data']);
-      if(this.connected.length % 10 != 0){
-        this.last_page = Math.round(this.connected.length / 10) + 1;
-        console.log(this.last_page);
-      }
-      if(event){
-        event.target.complete();
-      }
-      console.log(this.connected);
     });
   }
 
@@ -69,40 +89,21 @@ export class DiscoverConnectionPage implements OnInit {
       this.connection = this.connection.concat(data['data']);
       if(this.connection.length % 10 != 0){
         this.last_page = Math.round(this.connection.length / 10) + 1;
-        console.log(this.last_page);
       }
       if(event){
         event.target.complete();
       }
-      console.log(this.connection);
-    });
-  }
-  getConnected(){
-    this.connectionService.getConnected(this.page).subscribe((data: any) => {
-      this.connected = this.connected.concat(data['data']);
-      if(this.connected.length % 10 != 0){
-        this.last_page = Math.round(this.connected.length / 10) + 1;
-        console.log(this.last_page);
-      }
-      console.log(this.connected);
     });
   }
 
   loadConnectionDiscover(event){
     this.page += 1;
-    // if(this.page-1 === this.last_page){
-    //   // console.log(this.page, this.last_page);
-    //   event.target.disabled = true;
-    // }else{
+    if(this.page-1 === this.last_page){
+      // console.log(this.page, this.last_page);
+      event.target.disabled = true;
+    }else{
     this.getConnectionDiscover(event);
-    // }
-  }
-
-  getRequestList(){
-    this.connectionService.getRequestList().subscribe((data:any) => {
-      this.requests = this.requests.concat(data['data']);
-      console.log(this.requests);
-    });
+    }
   }
 
   requestConnection(target_id, index){
@@ -118,7 +119,12 @@ export class DiscoverConnectionPage implements OnInit {
         }
       }
     });
-    this.connection[index].requested = true;
+    if(this.noSearch){
+      this.connection[index].requested = true;
+    }else{
+      this.searched[index].requested = true;
+    }
+    
   }
   cancelRequestConnection(target_id, index){
     let postData = {to:target_id}
@@ -133,37 +139,11 @@ export class DiscoverConnectionPage implements OnInit {
         }
       }
     });
-    this.connection[index].requested = false;
-  }
-  acceptRequestConnection(source_id, index){
-    let postData = {from:source_id}
-    this.connectionService.postAcceptConnection(postData).pipe().subscribe(() => {
-      (err) => {
-        let message = '';
-        if (err.error.message === undefined) {
-          message = 'Network Problem, Please Try Again.';
-        } else {
-          message = err.error.message;
-          console.log(message);
-        }
-      }
-    });
-    this.requests.splice(index, 1);
-  }
-  declineRequestConnection(source_id, index){
-    let postData = {who:source_id}
-    this.connectionService.postRejectConnection(postData).pipe().subscribe(() => {
-      (err) => {
-        let message = '';
-        if (err.error.message === undefined) {
-          message = 'Network Problem, Please Try Again.';
-        } else {
-          message = err.error.message;
-          console.log(message);
-        }
-      }
-    });
-    this.requests.splice(index, 1);
+    if(this.noSearch){
+      this.connection[index].requested = false;
+    }else{
+      this.searched[index].requested = false;
+    }
   }
 
 }

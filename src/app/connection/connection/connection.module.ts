@@ -8,12 +8,15 @@ import { ConnectionPageRoutingModule } from './connection-routing.module';
 
 import { ConnectionPage } from './connection.page';
 
+import { ComponentsModule } from '../../components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConnectionPageRoutingModule
+    ConnectionPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [ConnectionPage]
 })

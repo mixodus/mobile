@@ -1,11 +1,8 @@
 <ion-header>
   <ion-toolbar>
         <div *ngIf="profile">
-            <ion-buttons slot="start" (click)="onBackClick()" *ngIf="profile.is_friend">
+            <ion-buttons slot="start" (click)="onBackClick()">
                 <ion-icon class="back" name="ios-arrow-back"></ion-icon>
-            </ion-buttons>
-            <ion-buttons slot="start" (click)="onBackClickDiscover()" *ngIf="!profile.is_friend">
-              <ion-icon class="back" name="ios-arrow-back"></ion-icon>
             </ion-buttons>
         </div>
     <ion-title class="title">Teman</ion-title>
@@ -52,8 +49,8 @@
                 </div>
             </div>
             <div class="container-button" *ngIf="!profile.is_friend">
-                <ion-button *ngIf="!profile.requested" (click)="requestConnection(profile.user_id)" class="connect">Connect</ion-button>
-                <ion-button *ngIf="profile.requested" (click)="cancelRequestConnection(profile.user_id)" class="requested">Requested</ion-button>
+                <ion-button *ngIf="!profile.is_friend" (click)="acceptRequestConnection(profile.user_id)" class="connect">Accept</ion-button>
+                <ion-button *ngIf="!profile.is_friend" (click)="decline(profile.user_id)" class="requested">Decline</ion-button>
             </div>
         </ion-card-content>
     </ion-card>

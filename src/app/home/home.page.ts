@@ -136,7 +136,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.presentPopupBanner();
+    // this.presentPopupBanner();
     if (this.auth.token) {
       this.checkSession();
     }

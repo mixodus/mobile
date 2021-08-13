@@ -4,7 +4,7 @@
           <ion-icon class="back" name="ios-arrow-back"></ion-icon>
       </ion-buttons>
       <ion-title class="title">
-          Discover Connection
+        Temukan Teman Kamu!
       </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,66 +14,101 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <section class="friendsSegment">
-    <div class="header-container"></div>
-    <ion-card class="friend-bar" *ngFor="let list of connection; let i = index;"> 
-      <ion-card-content class="user-applied-jobs-content">
-          <ion-grid class="ion-no-padding applied-jobs-grid">
-              <ion-row class="applied-jobs-row">
-                  <ion-col class="ion-no-padding job-details">
-                      <div class="friend-container">
-                          <div class="icon-container">
-                              <img *ngIf="list.profile_picture_url" class="icon"
-                                  [src]="(list.profile_picture_url)">
-                              <img *ngIf="!list.profile_picture_url" class="icon-"
-                              src="./assets/sample-images/user/default-profile.svg">
-                          </div>
-                          <div class="container-">
-                            <div>
-                              <div class="name">{{list.fullname}}</div>
-                              <div class="job-position">{{list.job_title}}</div>
-                            </div>
-                              <div class="container-button">
-                                <ion-button *ngIf="!list.requested" (click)="requestConnection(list.user_id, i)" class="connect">Connect</ion-button>
-                                <ion-button *ngIf="list.requested" (click)="cancelRequestConnection(list.user_id, i)" class="requested">Requested</ion-button>
+    <div class="header-container">
+      <div class="search">
+        <ion-searchbar #sb showCancelButton="focus"
+                       placeholder="Cari Teman"
+                       search-icon="search" animated mode="md" [debounce]="500" inputmode="search"
+                       (ionChange)="searchList($event)"
+                       [value]="selectedItem" autocomplete>
+
+        </ion-searchbar>
+      </div>
+    </div>
+    <div *ngIf="!searched" class="spinner-container">
+      <ion-spinner class="spinner">Loading</ion-spinner>
+      <div>Loading</div>
+    </div>
+    <div *ngIf="!noSearch && searched">
+      <div *ngIf="searched && searched.length === 0" class="ion-text-center">
+        <div *ngIf="wait" class="notfound">
+          <div>
+              Tidak dapat menemukan nama teman <br> yang cocok dengan kata kunci.
+          </div>
+        </div>
+        <div *ngIf="!wait" class="spinning">
+          <ion-spinner class="spinner">Memuat</ion-spinner>
+          <div>Memuat</div>
+        </div>
+      </div>
+      <div *ngIf="searched">
+        <ion-card class="friend-bar" *ngFor="let list of searched; let i = index;"> 
+          <ion-card-content class="user-applied-jobs-content">
+              <ion-grid class="ion-no-padding applied-jobs-grid">
+                  <ion-row class="applied-jobs-row">
+                      <ion-col class="ion-no-padding job-details">
+                          <div class="friend-container">
+                              <div class="icon-container" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                  <img *ngIf="list.profile_picture_url" class="icon"
+                                      [src]="(list.profile_picture_url)">
+                                  <img *ngIf="!list.profile_picture_url" class="icon-"
+                                  src="./assets/sample-images/user/default-profile.svg">
+                              </div>
+                              <div class="container-">
+                                <div [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                  <div class="name">{{list.fullname}}</div>
+                                  <div class="job-position">{{list.job_title}}</div>
+                                </div>
+                                  <div class="container-button">
+                                    <ion-button *ngIf="!list.requested" (click)="requestConnection(list.user_id, i)" class="connect">Connect</ion-button>
+                                    <ion-button *ngIf="list.requested" (click)="cancelRequestConnection(list.user_id, i)" class="requested">Requested</ion-button>
+                                    <ion-button *ngIf="list.requested && list.connected" class="requested">Connected</ion-button>
+                                  </div>
                               </div>
                           </div>
-                      </div>
-                  </ion-col>
-              </ion-row>
-          </ion-grid>
-      </ion-card-content>
-  </ion-card>
-  <ion-infinite-scroll threshold="0.1%" (ionInfinite)="loadConnectionDiscover($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-    <!-- <ion-grid>
-      <ion-row>
-        <ion-col mode="md"  size= "12" size-xs= "6" size-sm ="4"size-md="3"*ngFor = "let list of connected" >
-          <ion-card>
-            <img src="../../assets/home-header-color.svg" class="card-color">
-            <ion-card-header mode="md" >
-              <ion-card-subtitle class= "card-header">
-                <img [src]="(list.profile_picture_url)" class="card" *ngIf="list.profile_picture_url">
-                <img src="./assets/icons/user-icon.svg" class="card-icon" *ngIf="!list.profile_picture_url">
-              </ion-card-subtitle>
-              <ion-card-title  class= "card-text">{{list.fullname}}</ion-card-title>
-              <ion-card-subtitle class= "card-text-subtitle">{{list.job_title}}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content mode="md">
-              <ion-button mode="md"  class="button-fill" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]"> Details </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-infinite-scroll threshold="0.1%" (ionInfinite)=" loadConnectionConnected($event)">
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-card-content>
+      </ion-card>
+      </div>
+    </div>
+    <div *ngIf="noSearch">
+      <ion-card class="friend-bar" *ngFor="let list of connection; let i = index;"> 
+        <ion-card-content class="user-applied-jobs-content">
+            <ion-grid class="ion-no-padding applied-jobs-grid">
+                <ion-row class="applied-jobs-row">
+                    <ion-col class="ion-no-padding job-details">
+                        <div class="friend-container">
+                            <div class="icon-container" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                <img *ngIf="list.profile_picture_url" class="icon"
+                                    [src]="(list.profile_picture_url)">
+                                <img *ngIf="!list.profile_picture_url" class="icon-"
+                                src="./assets/sample-images/user/default-profile.svg">
+                            </div>
+                            <div class="container-">
+                              <div [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                <div class="name">{{list.fullname}}</div>
+                                <div class="job-position">{{list.job_title}}</div>
+                              </div>
+                                <div class="container-button">
+                                  <ion-button *ngIf="!list.requested" (click)="requestConnection(list.user_id, i)" class="connect">Connect</ion-button>
+                                  <ion-button *ngIf="list.requested" (click)="cancelRequestConnection(list.user_id, i)" class="requested">Requested</ion-button>
+                                  <ion-button *ngIf="list.requested && list.connected" class="requested">Connected</ion-button>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+    <ion-infinite-scroll threshold="0.1%" (ionInfinite)="loadConnectionDiscover($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Loading more data...">
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
+    </ion-infinite-scroll>
+    </div>
   </section>
 </ion-content>

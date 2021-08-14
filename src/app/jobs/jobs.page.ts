@@ -91,7 +91,7 @@ export class JobsPage implements OnInit {
         dataJobApply.state.subscribe(
           (state) => {
             this.jobApplicationList = state;
-            // console.log('jobApplicationList: ', this.jobApplicationList);
+            console.log('jobApplicationList: ', this.jobApplicationList);
           },
           (error) => {
           }

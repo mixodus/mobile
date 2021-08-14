@@ -158,6 +158,22 @@ export class VoteResultModel extends ShellModel{
   data: VoteResult;
 }
 
+export class ConnectionModel extends ShellModel{
+  user_id: string;
+  fullname: string;
+  job_title: string;
+  profile_picture_url: string;
+  is_friend: boolean;
+  requested: boolean;
+}
+
+export class RequestsModel extends ShellModel{
+  user_id: string;
+  fullname: string;
+  job_title: string;
+  profile_picture_url: string;
+}
+
 export class HomeModel extends ShellModel {
   status: boolean;
   message: string;

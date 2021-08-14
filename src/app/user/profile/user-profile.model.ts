@@ -170,6 +170,8 @@ export class UserProfileModel extends ShellModel {
     }
   ];
 
+  is_friend: boolean;
+  requested: boolean;
   constructor() {
     super();
   }

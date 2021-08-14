@@ -38,6 +38,9 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import {HomeService} from './home/home.service';
 
 import { Market } from '@ionic-native/market/ngx';
+import { ConnectionService } from './connection/connection.service';
+import { UserService } from './user/user.service';
+import { LevelService } from './level/level.service';
 
 
 registerLocaleData(localeId, 'id');
@@ -47,7 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SafeHtmlPipe],
+  declarations: [AppComponent, SafeHtmlPipe,],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -87,6 +90,9 @@ export function createTranslateLoader(http: HttpClient) {
     InAppBrowser,
     OneSignal,
     HomeService,
+    ConnectionService,
+    UserService,
+    LevelService,
     Market,
     { provide: LOCALE_ID, useValue: 'id-ID' }
     // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { HomeModel } from './home.model';
+import { ConnectionModel, HomeModel, RequestsModel } from './home.model';
 import { DataStore } from '../shell/data-store';
 import { GlobalService } from '../services/global.service';
 import { ChallengesModel } from '../challenges/challenges.model';

@@ -392,11 +392,22 @@ const routes: Routes = [
     path: 'vote-result/:topic_id',
     loadChildren: () => import('./hackathon/vote-result/vote-result.module').then( m => m.VoteResultPageModule)
   },
-
-
-
-
-
+  {
+    path: 'app/connection',
+    loadChildren: () => import('./connection/connection/connection.module').then( m => m.ConnectionPageModule)
+  },
+  {
+    path: 'app/connection/myconnection/details/:user_id',
+    loadChildren: () => import('./connection/connection-details/connection-details.module').then( m => m.ConnectionDetailsPageModule)
+  },
+  {
+    path: 'app/connection/discover',
+    loadChildren: () => import('./connection/discover-connection/discover-connection.module').then(m => m.DiscoverConnectionModule)
+  },
+  {
+    path: 'app/connection/request/details/:user_id',
+    loadChildren: () => import('./connection/incoming-connection-detail/incoming-connection-detail.module').then( m => m.IncomingConnectionDetailPageModule)
+  },
 
 ];
 

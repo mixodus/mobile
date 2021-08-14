@@ -1,0 +1,215 @@
+<ion-app>
+  <div class="main-container ion-page">
+      <ion-header class="jobs-header">
+          <ion-toolbar class="header-toolbar">
+              <ion-buttons slot="start" (click)="onBackClick()">
+                  <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+              </ion-buttons>
+              <ion-title class="title">
+                  Pertemanan
+              </ion-title>
+          </ion-toolbar>
+          <ion-segment *ngIf="auth.token">
+              <ion-segment-button value="Teman" (click)="handleToggle(0)">
+                <ion-label>Teman</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="Permintaan" (click)="handleToggle(1)">
+                <ion-label>Permintaan</ion-label>
+              </ion-segment-button>
+          </ion-segment>
+      </ion-header>
+
+      <ion-content class="content" fullscreen="true">
+
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
+        <div *ngIf="!auth.token">
+          <app-restricted-interface></app-restricted-interface>
+        </div>
+
+        <div *ngIf="auth.token">
+          <div>
+              
+              <section *ngIf="toggleState === 0" class="friendsSegment">
+                  <div class="header-container">
+                    <div class="search">
+                      <ion-searchbar #sb showCancelButton="focus"
+                                     placeholder="Cari Teman"
+                                     search-icon="search" animated mode="md" [debounce]="500" inputmode="search"
+                                     (ionChange)="searchList($event)"
+                                     [value]="selectedItem" autocomplete>
+              
+                      </ion-searchbar>
+                    </div>
+                    <div *ngIf="noSearch">
+                      <div class="discover" [routerLink]="['/', 'app', 'connection', 'discover']">
+                        <div class="text">
+                          <ion-label>Temukan Teman Kamu!</ion-label>
+                        </div>
+                        <div>
+                          <ion-icon class="forward" name="ios-arrow-forward"></ion-icon>
+                        </div>                
+                      </div> 
+                      <div class="notfound" *ngIf="connected.length == 0">
+                        Kamu belum memilki pertemanan.<br> Ayo temukan teman mu!
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!noSearch && searched">
+                    <div *ngIf="searched && searched.length === 0" >
+                      <div *ngIf="wait" class="notfound">
+                        <div>
+                            Tidak dapat menemukan nama teman <br> yang cocok dengan kata kunci.
+                        </div>
+                      </div>
+                      <div *ngIf="!wait" class="spinning">
+                        <ion-spinner class="spinner">Memuat</ion-spinner>
+                        <div>Memuat</div>
+                      </div>
+                    </div>
+                    <div *ngIf="searched">
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col mode="md" *ngFor = "let list of searched" [size]="size" class="col">
+                            <ion-card class="connectedCard">
+                              <img src="../../assets/home-header-color.svg" class="card-color">
+                              <ion-card-header mode="md" >
+                                <ion-card-subtitle class= "card-header">
+                                  <img [src]="(list.profile_picture_url)" class="card" *ngIf="list.profile_picture_url">
+                                  <img src="./assets/icons/user-icon.svg" class="card-icon" *ngIf="!list.profile_picture_url">
+                                </ion-card-subtitle>
+                              </ion-card-header>
+                              <ion-card-content class="card-content" mode="md">
+                                <div class="cardContentDiv">
+                                  <div class="text">
+                                    <ion-card-title  class= "card-text">{{list.fullname}}</ion-card-title>
+                                    <ion-card-subtitle class= "card-text-subtitle">{{list.job_title}}</ion-card-subtitle>
+                                  </div>
+                                  <div>
+                                    <ion-button mode="md"  class="button-fill" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]"> Lihat </ion-button>
+                                  </div>
+                                </div>
+                              </ion-card-content>
+                            </ion-card>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </div>
+                  </div>
+                  <div *ngIf="noSearch">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col *ngFor = "let list of connected" [size]="size">
+                          <ion-card class="connectedCard">
+                            <img src="../../assets/home-header-color.svg" class="card-color">
+                            <ion-card-header mode="md" >
+                              <ion-card-subtitle class= "card-header">
+                                <img [src]="(list.profile_picture_url)" class="card" *ngIf="list.profile_picture_url">
+                                <img src="./assets/icons/user-icon.svg" class="card-icon" *ngIf="!list.profile_picture_url">
+                              </ion-card-subtitle>
+                            </ion-card-header>
+                            <ion-card-content class="card-content" mode="md">
+                              <div class="cardContentDiv">
+                                <div class="text">
+                                  <ion-card-title  class= "card-text">{{list.fullname}}</ion-card-title>
+                                  <ion-card-subtitle class= "card-text-subtitle">{{list.job_title}}</ion-card-subtitle>
+                                </div>
+                                <div>
+                                  <ion-button mode="md"  class="button-fill" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]"> Lihat </ion-button>
+                                </div>
+                              </div>
+                            </ion-card-content>
+                          </ion-card>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <ion-infinite-scroll threshold="0.1%" (ionInfinite)=" loadConnectionConnected($event)">
+                      <ion-infinite-scroll-content
+                        loadingSpinner="bubbles"
+                        loadingText="Loading more data...">
+                      </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                  </div>
+              </section>
+
+              <section *ngIf="toggleState === 1" > 
+                <div class="requestLabel">
+                  <ion-label>
+                    Permintaan Pertemanan Masuk
+                  </ion-label>
+                </div>
+                <div *ngIf="!requests || requests.length === 0" class="request"> 
+                  <div class="empty-request">
+                      Belum ada permintaan pertemanan yang masuk.
+                  </div>
+                </div>
+                <ion-card class="friend-bar" *ngFor="let list of requests; let i = index"> 
+                    <ion-card-content class="user-applied-jobs-content" *ngIf="!list.is_friend"> 
+                                    <div class="friend-container">
+                                        <div class="icon-container">
+                                            <img class="icon" [src]="(list.profile_picture_url)" *ngIf="list.profile_picture_url">
+                                            <img src="./assets/sample-images/user/default-profile.svg" class="card-icon" *ngIf="!list.profile_picture_url">
+                                        </div>
+                                        <div class="container-request">
+                                          <div [routerLink]="['/', 'app', 'connection', 'request', 'details', list.user_id]">
+                                            <div class="name">{{list.fullname}}</div>
+                                            <div class="job-position">{{list.job_title}}</div>
+                                          </div>
+                                            <div class="container-button">
+                                              <ion-button class="accept" (click)="acceptRequestConnection(list.user_id, i)">Accept</ion-button>
+                                              <ion-button class="decline" (click)="declineRequestConnection(list.user_id, i)">Decline</ion-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </ion-card-content>
+                </ion-card>
+                <div class="requestLabel">
+                  <ion-label>
+                    Permintaan Pertemanan Keluar
+                  </ion-label>
+                </div>
+                <div *ngIf="!requested || requested.length === 0" class="request"> 
+                  <div class="empty-request">
+                      Belum ada permintaan pertemanan yang keluar.
+                  </div>
+                </div>
+                <ion-card class="friend-bar" *ngFor="let list of requested; let i = index;"> 
+                  <ion-card-content class="user-applied-jobs-content">
+                      <ion-grid class="ion-no-padding applied-jobs-grid">
+                          <ion-row class="applied-jobs-row">
+                              <ion-col class="ion-no-padding job-details">
+                                  <div class="friend-container">
+                                      <div class="icon-container" [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                          <img *ngIf="list.profile_picture_url" class="icon"
+                                              [src]="(list.profile_picture_url)">
+                                          <img *ngIf="!list.profile_picture_url" class="icon-"
+                                          src="./assets/sample-images/user/default-profile.svg">
+                                      </div>
+                                      <div class="container-">
+                                        <div [routerLink]="['/', 'app', 'connection', 'myconnection', 'details', list.user_id]">
+                                          <div class="name">{{list.fullname}}</div>
+                                          <div class="job-position">{{list.job_title}}</div>
+                                        </div>
+                                          <div class="container-button">
+                                            <ion-button *ngIf="!list.requested" (click)="requestConnection(list.user_id, i)" class="connect">Connect</ion-button>
+                                            <ion-button *ngIf="list.requested" (click)="cancelRequestConnection(list.user_id, i)" class="requested">Requested</ion-button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </ion-card-content>
+              </ion-card>
+            </section>
+      
+          </div>
+        </div>
+          
+      </ion-content>
+  </div>
+</ion-app>
+
+

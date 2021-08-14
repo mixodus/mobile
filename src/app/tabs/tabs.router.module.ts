@@ -123,6 +123,16 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'connection',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../connection/connection/connection.module').then((m) => m.ConnectionPageModule),
+          },
+        ],
+      },
+      {
         path: 'referral',
         children: [
           {
